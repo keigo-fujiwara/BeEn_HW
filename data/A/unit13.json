@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — Git の基礎",
+  "questions": [
+    {
+      "question": "ローカルリポジトリの現在の状態を確認する代表的なコマンドはどれですか？",
+      "options": ["git log", "git status", "git clone", "git branch"],
+      "answer": 1,
+      "commentary": "git status で変更の有無やブランチなどを確認できます。"
+    },
+    {
+      "question": "変更をコミットする前にステージングするコマンドとして一般的なものはどれですか？",
+      "options": ["git add", "git push", "git merge", "git pull"],
+      "answer": 0,
+      "commentary": "git add でインデックス（ステージング）に追加してから commit します。"
+    },
+    {
+      "question": "リモートから履歴を取り込みつつマージする操作としてよく使うのはどれですか？",
+      "options": ["git fetch", "git pull", "git init", "git reset"],
+      "answer": 1,
+      "commentary": "git pull は fetch + merge（設定により rebase）でリモートの更新を取り込みます。"
+    }
+  ]
+}

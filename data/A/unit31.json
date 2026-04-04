@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django でチャットアプリを作ろう — フレンド一覧表示機能の作成",
+  "questions": [
+    {
+      "question": "ログインユーザーと「フレンド関係」を表すモデル設計として、よく使うのはどれですか？",
+      "options": ["中間テーブルや ForeignKey でユーザー同士を関連づける", "1つのテキストフィールドだけ", "画像ファイル名だけ", "セッションのみ"],
+      "answer": 0,
+      "commentary": "多対多や自己参照で友達関係を表現します。"
+    },
+    {
+      "question": "フレンド一覧をテンプレートで表示するとき、クエリで取得したリストを渡すキー例として自然なのはどれですか？",
+      "options": ["friends や friend_list", "only_int", "rows", "sql_text"],
+      "answer": 0,
+      "commentary": "ビューからコンテキストに QuerySet やリストを渡します。"
+    },
+    {
+      "question": "自分自身をフレンド一覧に出さないなど、クエリで除外する条件として考えられるのはどれですか？",
+      "options": [".exclude(user=...)", "必ず全件表示", "delete() だけ", "filter() は使わない"],
+      "answer": 0,
+      "commentary": "exclude や条件付き filter で制御します。"
+    }
+  ]
+}

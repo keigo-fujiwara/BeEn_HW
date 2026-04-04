@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Python の基礎 — モジュール",
+  "questions": [
+    {
+      "question": "標準ライブラリのモジュールを読み込むのに使う文はどれですか？",
+      "options": ["include math", "import math", "using math", "require math"],
+      "answer": 1,
+      "commentary": "import モジュール名 でインポートします。"
+    },
+    {
+      "question": "モジュールから特定の名前だけを取り込む文として正しいものはどれですか？",
+      "options": ["from math import pi", "import pi from math", "take pi from math", "using math.pi"],
+      "answer": 0,
+      "commentary": "from モジュール import 名前 の順です。"
+    },
+    {
+      "question": "パッケージ内のサブモジュールを import する場合の例として適切なものはどれですか？",
+      "options": ["import os.path", "import os/path", "include os.path", "from path import os"],
+      "answer": 0,
+      "commentary": "ドットでパッケージ階層を表します（例: import os.path）。"
+    }
+  ]
+}

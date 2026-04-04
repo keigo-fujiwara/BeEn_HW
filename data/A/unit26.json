@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で掲示板アプリ作成 — 投稿削除機能作成",
+  "questions": [
+    {
+      "question": "投稿を削除するビューで、GET ではなく POST を推奨する主な理由はどれですか？",
+      "options": ["GET はキャッシュされやすく、誤操作・CSRF で削除が起きやすいため", "GET の方が速いから", "POST は使えないから", "ブラウザの制限で GET しかないから"],
+      "answer": 0,
+      "commentary": "副作用のある削除は POST（や DELETE）で行うのが安全です。"
+    },
+    {
+      "question": "モデルインスタンスを削除する ORM のメソッドはどれですか？",
+      "options": ["instance.delete()", "instance.remove()", "Model.drop()", "delete(instance) だけ"],
+      "answer": 0,
+      "commentary": "QuerySet.delete() や モデルインスタンスの delete() です。"
+    },
+    {
+      "question": "削除前に「本当に削除しますか？」と確認する UI を出すのは主にどこで行うことが多いですか？",
+      "options": ["テンプレート（フォーム）や JavaScript の確認", "settings.py", "migrate", "admin のみ"],
+      "answer": 0,
+      "commentary": "ユーザー確認は画面側で行い、サーバー側でも権限・対象の検証をします。"
+    }
+  ]
+}

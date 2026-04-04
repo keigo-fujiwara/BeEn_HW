@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django でチャットアプリを作ろう — 初期設定",
+  "questions": [
+    {
+      "question": "Django プロジェクトに新しいアプリを追加したあと、最初に確認する設定ファイルとして主なのはどれですか？",
+      "options": ["settings.py の INSTALLED_APPS", "index.html のみ", "package.json のみ", "Dockerfile のみ"],
+      "answer": 0,
+      "commentary": "アプリを INSTALLED_APPS に登録し、必要なら urls も繋ぎます。"
+    },
+    {
+      "question": "チャットでリアルタイム性を高めるために、Django 単体の HTTP だけでなく検討されやすいのはどれですか？",
+      "options": ["Django Channels などの構成", "FTP", "SMTP のみ", "CSV 転送のみ"],
+      "answer": 0,
+      "commentary": "要件に応じて Channels + ASGI 等を選びます（教材の方針に合わせてください）。"
+    },
+    {
+      "question": "依存パッケージをプロジェクトごとに分けるために推奨されやすいのはどれですか？",
+      "options": ["仮想環境（venv 等）", "グローバルに pip install のみ", "OS の再インストール", "ブラウザの拡張機能"],
+      "answer": 0,
+      "commentary": "venv で requirements を管理するのが一般的です。"
+    }
+  ]
+}

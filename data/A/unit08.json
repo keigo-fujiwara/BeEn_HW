@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Python の基礎 — 関数の定義",
+  "questions": [
+    {
+      "question": "関数を定義するキーワードはどれですか？",
+      "options": ["function", "def", "fn", "define"],
+      "answer": 1,
+      "commentary": "def 関数名(引数): の形で定義します。"
+    },
+    {
+      "question": "関数から値を返すのに使うキーワードはどれですか？",
+      "options": ["return", "yield", "output", "give"],
+      "answer": 0,
+      "commentary": "return で呼び出し元に値を返します（ジェネレータでは yield も使います）。"
+    },
+    {
+      "question": "デフォルト引数を持つ関数定義として適切な例はどれですか？",
+      "options": ["def f(a, b=1):", "def f(a, b := 1):", "def f(a, b == 1):", "def f(a, b default 1):"],
+      "answer": 0,
+      "commentary": "def f(a, b=1): のように = でデフォルト値を指定します。"
+    }
+  ]
+}

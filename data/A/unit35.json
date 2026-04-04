@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django でチャットアプリを作ろう — ユーザーアイコンの設定",
+  "questions": [
+    {
+      "question": "ユーザーごとにアイコン画像を保存するために、モデルに追加しやすいフィールドはどれですか？",
+      "options": ["ImageField（Pillow が必要）", "TextField のみ", "IntegerField のみ", "URLField で HTML を貼る"],
+      "answer": 0,
+      "commentary": "プロフィールモデルの ImageField や User を拡張したフィールドに保存します。"
+    },
+    {
+      "question": "アップロードされた画像を保存する場所を settings で指定する設定として一般的なのはどれですか？",
+      "options": ["MEDIA_ROOT", "STATIC_ROOT のみ", "DEBUG", "SECRET_KEY"],
+      "answer": 0,
+      "commentary": "MEDIA_ROOT と MEDIA_URL を設定し、開発時は URL を配信します。"
+    },
+    {
+      "question": "テンプレートでアイコン画像を表示するとき、ファイルが無い場合のデフォルト画像を出すのに使うのはどれですか？",
+      "options": ["{% if user.profile.avatar %} ... {% else %} ... {% endif %} など", "必ずエラーにする", "script タグのみ", "CSS のみ"],
+      "answer": 0,
+      "commentary": "条件分岐でプレースホルダ画像を表示します。"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django でチャットアプリを作ろう — チャット機能の作成",
+  "questions": [
+    {
+      "question": "ブラウザからサーバーへメッセージを非同期送信する際、POST するデータに含めるべきものとして重要なのはどれですか？",
+      "options": ["CSRF トークンをフォームやヘッダに含める", "パスワードを平文で毎回送る", "セッションID を URL に載せる", "不要"],
+      "answer": 0,
+      "commentary": "CSRF 対策と認証・権限チェックを行います。"
+    },
+    {
+      "question": "WebSocket で双方向通信する場合、Django 側でよく扱うレイヤーとして挙られるのはどれですか？",
+      "options": ["Consumers（Channels）", "middleware のみ", "migrate", "collectstatic のみ"],
+      "answer": 0,
+      "commentary": "Channels を使う構成では Consumer が WebSocket を処理します。"
+    },
+    {
+      "question": "送信したメッセージを他のクライアントにも届けるために、よく使うパターンはどれですか？",
+      "options": ["グループ送信やブロードキャスト（仕組みは実装による）", "1クライアントのみ更新", "メールのみ", "FTP"],
+      "answer": 0,
+      "commentary": "チャネルレイヤーの group_send 等でルーム配信します（教材に合わせる）。"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django でチャットアプリを作ろう — 会員登録機能の作成",
+  "questions": [
+    {
+      "question": "Django でユーザー登録フォームを作るとき、パスワードをそのまま保存してはいけない理由として正しいのはどれですか？",
+      "options": ["平文保存は漏えい時に危険なため、ハッシュ化して保存する", "Django はパスワードを保存できない", "パスワードは URL に書くため", "不要"],
+      "answer": 0,
+      "commentary": "User 作成時は set_password や create_user でハッシュ化されます。"
+    },
+    {
+      "question": "ユーザー登録後にログイン画面へ誘導するとき、リダイレクトを返すレスポンスとしてよく使うのはどれですか？",
+      "options": ["redirect()", "HttpResponseOnly()", "render() のみ", "jsonify()"],
+      "answer": 0,
+      "commentary": "redirect('login') などで遷移させます。"
+    },
+    {
+      "question": "フォームでメールアドレスやユーザー名の重複を防ぐバリデーションを書く場所として適切なのはどれですか？",
+      "options": ["Form の clean メソッドや Model の制約", "settings.py", "wsgi.py", "CSS ファイル"],
+      "answer": 0,
+      "commentary": "フォーム・モデルで一意性や形式を検証します。"
+    }
+  ]
+}

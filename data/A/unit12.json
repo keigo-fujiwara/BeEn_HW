@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Python の基礎 — クラス・モジュール - 演習と解説",
+  "questions": [
+    {
+      "question": "クラスにメソッドを定義するとき、インスタンスを表す第1引数として慣習的に使う名前はどれですか？",
+      "options": ["this", "self", "cls", "instance"],
+      "answer": 1,
+      "commentary": "通常のインスタンスメソッドでは self を使います。"
+    },
+    {
+      "question": "自作モジュール mylib.py を同じディレクトリから読み込む文として正しいのはどれですか？",
+      "options": ["import mylib", "include mylib", "require mylib", "using mylib"],
+      "answer": 0,
+      "commentary": "import mylib で mylib モジュールをインポートします（パスが通っている必要があります）。"
+    },
+    {
+      "question": "パッケージとしてディレクトリを構成するとき、Python 3.3+ で名前空間パッケージの印にもなるファイルはどれですか？",
+      "options": ["setup.py のみ", "__init__.py（空でも可・用途による）", "main.py 必須", "package.json"],
+      "answer": 1,
+      "commentary": "従来は __init__.py でパッケージ化することが多いです（環境・構成によります）。"
+    }
+  ]
+}

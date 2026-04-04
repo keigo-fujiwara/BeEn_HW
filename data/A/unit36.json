@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django でチャットアプリを作ろう — 見た目を整える",
+  "questions": [
+    {
+      "question": "チャット画面でメッセージを吹き出し風に並べるのに使いやすいレイアウトはどれですか？",
+      "options": ["flexbox で左右に寄せる", "table のみ", "iframe のみ", "固定幅のみ"],
+      "answer": 0,
+      "commentary": "自分と相手で配置や色を変えると分かりやすいです。"
+    },
+    {
+      "question": "モバイルでも入力しやすいようにする工夫として適切なのはどれですか？",
+      "options": ["viewport の設定と、タップ領域・フォントサイズの調整", "viewport は不要", "PC 固定幅のみ", "フォームを使わない"],
+      "answer": 0,
+      "commentary": "レスポンシブ対応とアクセシビリティを意識します。"
+    },
+    {
+      "question": "CSS を静的ファイルとして管理する場合、テンプレートで読み込む手順として正しいのはどれですか？",
+      "options": ["{% load static %} と {% static 'path' %}", "{% css 'all' %}", "style タグ禁止", "インラインのみ"],
+      "answer": 0,
+      "commentary": "static タグで CSS の URL を生成します。"
+    }
+  ]
+}

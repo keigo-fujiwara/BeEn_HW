@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — ビュー",
+  "questions": [
+    {
+      "question": "HTTP リクエストを受け取りレスポンスを返す Python の関数／クラスを総称して何と呼ぶことが多いですか？",
+      "options": ["モデル", "ビュー", "ミドルウェア", "テンプレート"],
+      "answer": 1,
+      "commentary": "ビューがリクエスト処理の中心です（関数ベース・クラスベースがあります）。"
+    },
+    {
+      "question": "URL とビューを対応づける設定を書くファイルとして代表的なのはどれですか？",
+      "options": ["views.py のみ", "urls.py", "models.py", "admin.py"],
+      "answer": 1,
+      "commentary": "urlpatterns に path() 等でビューを紐づけます。"
+    },
+    {
+      "question": "関数ビューが受け取る第1引数として慣例的に使う名前はどれですか？",
+      "options": ["req", "request", "http", "ctx"],
+      "answer": 1,
+      "commentary": "request が HttpRequest オブジェクトです。"
+    }
+  ]
+}

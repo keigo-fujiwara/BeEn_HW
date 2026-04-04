@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で掲示板アプリ作成 — 環境構築",
+  "questions": [
+    {
+      "question": "Django プロジェクトにアプリを追加したあと、settings.py で必ず行う設定はどれですか？",
+      "options": ["DEBUG を False にするだけ", "INSTALLED_APPS にアプリを登録する", "urls.py を削除する", "manage.py をリネームする"],
+      "answer": 1,
+      "commentary": "作成したアプリを INSTALLED_APPS に追加して認識させます。"
+    },
+    {
+      "question": "仮想環境を使う主な理由として適切なのはどれですか？",
+      "options": ["PC のメモリを増やす", "プロジェクトごとにパッケージのバージョンを分離する", "ブラウザを速くする", "Git を不要にする"],
+      "answer": 1,
+      "commentary": "venv 等で依存関係をプロジェクト単位で管理しやすくなります。"
+    },
+    {
+      "question": "開発用サーバーを起動するコマンドはどれですか？",
+      "options": ["python manage.py runserver", "django start", "python server.py", "npm run dev"],
+      "answer": 0,
+      "commentary": "プロジェクト直下で manage.py runserver を実行します。"
+    }
+  ]
+}

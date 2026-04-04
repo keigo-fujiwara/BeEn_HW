@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で掲示板アプリ作成 — 詳細画面作成",
+  "questions": [
+    {
+      "question": "1件の投稿を主キーで取得するビューで、存在しない ID にアクセスされたとき返す例外として適切なのはどれですか？",
+      "options": ["Http404", "ValueError", "KeyError", "PermissionDenied だけ"],
+      "answer": 0,
+      "commentary": "get_object_or_404 や get() + Http404 などで 404 を返します。"
+    },
+    {
+      "question": "URL から投稿 ID を受け取る path の例として適切なのはどれですか？",
+      "options": ["path('posts/<int:pk>/', ...)", "path('posts/<str:name>/', ...) のみ", "path('posts/only/')", "query だけで受け取る"],
+      "answer": 0,
+      "commentary": "整数 ID なら <int:pk> が一般的です。"
+    },
+    {
+      "question": "詳細テンプレートで「投稿オブジェクト」を表示するとき、ビューから渡すキー名として例として自然なのはどれですか？",
+      "options": ["post や object", "だけ True", "rows", "sql"],
+      "answer": 0,
+      "commentary": "context に { 'post': post } や DetailView の object など。"
+    }
+  ]
+}

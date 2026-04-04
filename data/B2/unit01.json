@@ -1,0 +1,23 @@
+{
+  "unit_title": "B2コース — Web基礎（サンプル）",
+  "questions": [
+    {
+      "question": "HTMLでページの見出しを表す要素として最も適切なものはどれですか？",
+      "options": ["<header>", "<h1>", "<title>", "<section>"],
+      "answer": 1,
+      "commentary": "見出しの主役は h1〜h6 です。title は文書タイトル、header は領域のヘッダーです。"
+    },
+    {
+      "question": "CSSで要素の文字色を指定するプロパティはどれですか？",
+      "options": ["font-size", "color", "background", "margin"],
+      "answer": 1,
+      "commentary": "color は前景色（文字色）です。背景色は background-color などを使います。"
+    },
+    {
+      "question": "JavaScriptで変数を宣言するキーワードとして、再代入が可能なものはどれですか？",
+      "options": ["const", "let", "def", "static"],
+      "answer": 1,
+      "commentary": "let はブロックスコープで再代入可能です。const は再代入不可です。"
+    }
+  ]
+}

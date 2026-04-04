@@ -1,0 +1,525 @@
+{
+  "unit_title": "HTML の基礎",
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "HTMLの「マークアップ」という言葉の本来の意味は何ですか？",
+      "options": [
+        "文字をきれいに飾ること",
+        "文書の各部分が持っている役割（構造）を示すこと",
+        "プログラムを高速で実行すること",
+        "インターネットに接続すること"
+      ],
+      "answer": 1,
+      "commentary": "マークアップとは、見出しや段落など、文書の各部分に意味づけをしてコンピュータに構造を伝えることを指します。"
+    },
+    {
+      "id": 2,
+      "type": "文法チェック",
+      "question": "HTMLファイルの先頭に必ず記述する、HTMLだと認識させるための「おまじない」は何ですか？",
+      "options": [
+        "<html>",
+        "<head>",
+        "<!DOCTYPE html>",
+        "<body>"
+      ],
+      "answer": 2,
+      "commentary": "<!DOCTYPE html>は文書型宣言（DOCTYPE宣言）と呼ばれ、ファイルの先頭に必ず記述します。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "Webページのタイトルや文字コードなど、画面には表示されない情報を入れるタグを選んでください。<pre><code>&lt;html&gt;\n  &lt;___&gt;\n    &lt;title&gt;マイページ&lt;/title&gt;\n  &lt;/___&gt;\n  &lt;body&gt;コンテンツ&lt;/body&gt;\n&lt;/html&gt;</code></pre>",
+      "options": [
+        "header",
+        "head",
+        "meta",
+        "footer"
+      ],
+      "answer": 1,
+      "commentary": "<head>要素は、検索結果用のキーワードやタイトルなどの「文書情報」を入れる場所です。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "画像を表示するためのタグと、画像ファイルを指定する属性の組み合わせとして正しいものを選んでください。<pre><code>&lt;___ ___=\"sample.png\"&gt;</code></pre>",
+      "options": [
+        "image / href",
+        "img / src",
+        "img / href",
+        "pic / src"
+      ],
+      "answer": 1,
+      "commentary": "画像を表示するには<img>タグを使い、src（source）属性でファイル名を指定します。終了タグが不要なのも特徴です。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、ブラウザでの表示はどうなりますか？<pre><code>&lt;ul&gt;\n  &lt;li&gt;リンゴ&lt;/li&gt;\n  &lt;li&gt;バナナ&lt;/li&gt;\n&lt;/ul&gt;</code></pre>",
+      "options": [
+        "1. リンゴ 2. バナナ と番号がつく",
+        "「リンゴバナナ」と横に並んで表示される",
+        "● リンゴ ● バナナ と箇条書きで表示される",
+        "何も表示されない"
+      ],
+      "answer": 2,
+      "commentary": "<ul>は「unordered list」の略で、順序のない箇条書きリストを作成します。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "HTMLタグの中で、リンク先のURLを指定するために使われる属性は何ですか？",
+      "options": [
+        "src",
+        "alt",
+        "href",
+        "id"
+      ],
+      "answer": 2,
+      "commentary": "<a>要素（アンカー）でリンク先を指定するときは、href属性を使用します。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "表の「行」を作るためのタグはどれですか？<pre><code>&lt;table&gt;\n  &lt;___&gt;\n    &lt;th&gt;名前&lt;/th&gt;\n    &lt;td&gt;太郎&lt;/td&gt;\n  &lt;/___&gt;\n&lt;/table&gt;</code></pre>",
+      "options": [
+        "tr",
+        "td",
+        "th",
+        "row"
+      ],
+      "answer": 0,
+      "commentary": "<tr>は「table row」の略で、表の横一行を作成するために使います。"
+    },
+    {
+      "id": 8,
+      "type": "実行結果予測",
+      "question": "<h1>から<h6>までのタグを使ったとき、一番大きく表示されるのはどれですか？",
+      "options": [
+        "<h1>",
+        "<h3>",
+        "<h6>",
+        "どれも同じ大きさ"
+      ],
+      "answer": 0,
+      "commentary": "見出しタグ（hタグ）は、数字が小さいほど重要な見出しとして大きく表示されます。"
+    },
+    {
+      "id": 9,
+      "type": "文法チェック",
+      "question": "画像が表示できなかったときに、代わりに表示される説明文を入れる属性は何ですか？",
+      "options": [
+        "src",
+        "title",
+        "alt",
+        "class"
+      ],
+      "answer": 2,
+      "commentary": "alt属性（alternative text）は、画像の内容を説明するために使用します。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "<div>と<span>の違いについて正しい説明を選んでください。",
+      "options": [
+        "divは横に並び、spanは縦に並ぶ",
+        "divは前後に改行が入り、spanは改行が入らない",
+        "divは文字にしか使えず、spanは画像に使う",
+        "どちらも全く同じ効果である"
+      ],
+      "answer": 1,
+      "commentary": "divはブロックレベル要素で改行が入りますが、spanはインライン要素で改行されずに横に並びます。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "同じページ内で名前を重複させてはいけない、要素を1つだけに特定するための属性は何ですか？<pre><code>&lt;p ___=\"tokyo\"&gt;東京&lt;/p&gt;</code></pre>",
+      "options": [
+        "class",
+        "id",
+        "name",
+        "link"
+      ],
+      "answer": 1,
+      "commentary": "id属性は、そのページ内で1つしかない特定の要素に名前をつけるために使います。"
+    },
+    {
+      "id": 12,
+      "type": "文法チェック",
+      "question": "HTMLタグで、開始タグと終了タグの組み合わせとして間違っているものはどれですか？",
+      "options": [
+        "<div>...</div>",
+        "<p>...</p>",
+        "<img>...</img>",
+        "<a>...</a>"
+      ],
+      "answer": 2,
+      "commentary": "<img>タグは「空要素」と呼ばれ、終了タグ（</img>）を必要としません。"
+    },
+    {
+      "id": 13,
+      "type": "用語理解",
+      "question": "<ul>タグの中に必ず入れなければならない、項目を表すタグは何ですか？",
+      "options": [
+        "<ol>",
+        "<li>",
+        "<p>",
+        "<tr>"
+      ],
+      "answer": 1,
+      "commentary": "リストを作る時は、<ul>（または<ol>）の中に<li>（list item）を入れて項目を作ります。"
+    },
+    {
+      "id": 14,
+      "type": "実行結果予測",
+      "question": "ブラウザの「タブ」に表示される文字を変えたい場合、どのタグを編集すればよいですか？",
+      "options": [
+        "<header>",
+        "<h1>",
+        "<title>",
+        "<body>"
+      ],
+      "answer": 2,
+      "commentary": "<title>タグで囲ったテキストが、ブラウザのタブやタイトルバーに表示されます。"
+    },
+    {
+      "id": 15,
+      "type": "コード穴埋め",
+      "question": "複数の要素をまとめて「グループ化」し、分類するために使う属性は何ですか？<pre><code>&lt;p ___=\"fruit\"&gt;リンゴ&lt;/p&gt;\n&lt;p ___=\"fruit\"&gt;バナナ&lt;/p&gt;</code></pre>",
+      "options": [
+        "id",
+        "class",
+        "href",
+        "src"
+      ],
+      "answer": 1,
+      "commentary": "class属性は、同じグループの要素に同じ名前をつけて分類するのに適しています。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "HTMLの構造で、ある要素の中に別の要素が入っているとき、外側の要素を何と呼びますか？",
+      "options": [
+        "子要素",
+        "兄弟要素",
+        "親要素",
+        "孫要素"
+      ],
+      "answer": 2,
+      "commentary": "外側の要素を「親要素」、その中に入っている要素を「子要素」と呼びます。"
+    },
+    {
+      "id": 17,
+      "type": "文法チェック",
+      "question": "HTMLで改行を入れたいときに使う、終了タグのないタグはどれですか？",
+      "options": [
+        "<p>",
+        "<br>",
+        "<hr>",
+        "<div>"
+      ],
+      "answer": 1,
+      "commentary": "<br>タグは、文章の中で改行を入れたい場所に使用します。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "表の中で「見出し」となるセルを作るタグはどれですか？<pre><code>&lt;tr&gt;\n  &lt;___&gt;国名&lt;/___&gt;\n  &lt;td&gt;日本&lt;/td&gt;\n&lt;/tr&gt;</code></pre>",
+      "options": [
+        "td",
+        "tr",
+        "th",
+        "table"
+      ],
+      "answer": 2,
+      "commentary": "<th>は「table header」の略で、表の見出しセルを作るために使います。"
+    },
+    {
+      "id": 19,
+      "type": "文法チェック",
+      "question": "HTML内で、コンピュータに無視される「メモ」を残すための書き方として正しいものはどれですか？",
+      "options": [
+        "// メモ",
+        "# メモ",
+        "<!-- メモ -->",
+        "/* メモ */"
+      ],
+      "answer": 2,
+      "commentary": "`<!-- -->` で囲まれた部分はHTMLのコメントとなり、ブラウザの画面には表示されません（// や /* */ はHTMLの仕様としては使えません）。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "Webページの下部にある、コピーライトや会社情報を載せるエリアを指すタグは何ですか？",
+      "options": [
+        "<header>",
+        "<nav>",
+        "<footer>",
+        "<aside>"
+      ],
+      "answer": 2,
+      "commentary": "<footer>はページの下部（フッター）を表すために使われる意味づけのタグです。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "HTMLファイルの文字化けを防ぐために<head>内に書く設定は何ですか？<pre><code>&lt;meta ___=\"UTF-8\"&gt;</code></pre>",
+      "options": [
+        "content",
+        "charset",
+        "name",
+        "type"
+      ],
+      "answer": 1,
+      "commentary": "charset属性（文字エンコーディング）で「UTF-8」を指定することで、日本語などの文字化けを防ぎます。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "「1. 2. 3...」と自動で数字がつくリストを作りたい場合、どのタグを使いますか？",
+      "options": [
+        "<ul>",
+        "<li>",
+        "<ol>",
+        "<table>"
+      ],
+      "answer": 2,
+      "commentary": "<ol>は「ordered list」の略で、順番に意味があるリスト（番号付き）を作ります。"
+    },
+    {
+      "id": 23,
+      "type": "実行結果予測",
+      "question": "VSCodeで編集した内容がChromeに反映されないとき、最も多い原因は何ですか？",
+      "options": [
+        "インターネットが切れている",
+        "ファイルを保存（Ctrl+S / ⌘S）していない",
+        "マウスの故障",
+        "ブラウザが最新ではない"
+      ],
+      "answer": 1,
+      "commentary": "VSCodeで書いた後は必ず「保存」をしないと、ブラウザには古い内容が表示されたままになります。"
+    },
+    {
+      "id": 24,
+      "type": "文法チェック",
+      "question": "開始タグと終了タグの書き方として、正しいものはどれですか？",
+      "options": [
+        "<h1> ... <h/1>",
+        "<h1> ... </1>",
+        "<h1> ... </h1>",
+        "<h1> ... <h1>"
+      ],
+      "answer": 2,
+      "commentary": "終了タグは、タグ名の前にスラッシュ（/）を入れます。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "HTMLタグにおいて、「href」や「src」のように、タグに追加情報を与えるパーツのことを何と言いますか？",
+      "options": [
+        "属性",
+        "要素",
+        "コメント",
+        "コンテナ"
+      ],
+      "answer": 0,
+      "commentary": "タグ（要素）の中に書く詳細な設定情報のことを「属性」と言います。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "ページ上の見出しや画像など、表示したいすべての内容を包むタグは何ですか？<pre><code>&lt;html&gt;\n  &lt;head&gt;...&lt;/head&gt;\n  &lt;___&gt;\n    ここにコンテンツを書く\n  &lt;/___&gt;\n&lt;/html&gt;</code></pre>",
+      "options": [
+        "main",
+        "body",
+        "div",
+        "section"
+      ],
+      "answer": 1,
+      "commentary": "<body>タグの中に書いたものが、実際にブラウザの画面に表示されるコンテンツになります。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "「id」属性の名前の付け方として、正しい決まりはどれですか？",
+      "options": [
+        "同じページ内で何度も使ってよい",
+        "同じページ内で重複してはいけない",
+        "数字から始めなければならない",
+        "必ず大文字にしなければならない"
+      ],
+      "answer": 1,
+      "commentary": "id属性は「一意（ユニーク）」である必要があり、1つのページで同じid名を複数回使うことはできません。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "表（テーブル）の中で、データが入る標準的なマス目を作るタグは何ですか？",
+      "options": [
+        "<th>",
+        "<td>",
+        "<tr>",
+        "<table-data>"
+      ],
+      "answer": 1,
+      "commentary": "<td>は「table data」の略で、表の一般的なセル（マス目）を作ります。"
+    },
+    {
+      "id": 29,
+      "type": "用語理解",
+      "question": "<img>タグにおける「src」は何の略ですか？",
+      "options": [
+        "screen",
+        "source",
+        "search",
+        "script"
+      ],
+      "answer": 1,
+      "commentary": "srcは「source（ソース）」の略で、情報の出所（ファイル名など）を指します。"
+    },
+    {
+      "id": 30,
+      "type": "実行結果予測",
+      "question": "次のコードで、リンクをクリックしたときの動きはどうなりますか？<pre><code>&lt;a href=\"#contact\"&gt;お問い合わせへ&lt;/a&gt;</code></pre>",
+      "options": [
+        "Googleのサイトに飛ぶ",
+        "同じページ内の id=\"contact\" がついた場所へジャンプする",
+        "メールソフトが起動する",
+        "何も起きない"
+      ],
+      "answer": 1,
+      "commentary": "href属性に「#」から始まる名前を指定すると、ページ内リンク（同じページ内の特定のidへの移動）になります。"
+    },
+    {
+      "id": 31,
+      "type": "文法チェック",
+      "question": "HTMLタグにおいて、<div>などのように中身を包む役割を持つ要素を何と呼びますか？",
+      "options": [
+        "アンカー",
+        "コンテナ",
+        "メタデータ",
+        "属性"
+      ],
+      "answer": 1,
+      "commentary": "中身を入れておく「容器」のような役割をする要素をコンテナと呼びます。"
+    },
+    {
+      "id": 32,
+      "type": "コード穴埋め",
+      "question": "段落（文章のまとまり）を表すタグはどれですか？<pre><code>&lt;___&gt;これは一つの段落です。&lt;/___&gt;</code></pre>",
+      "options": [
+        "p",
+        "s",
+        "text",
+        "span"
+      ],
+      "answer": 0,
+      "commentary": "<p>は「paragraph」の略で、段落を表すために最もよく使われるタグです。"
+    },
+    {
+      "id": 33,
+      "type": "用語理解",
+      "question": "<a>タグの「a」は何の略ですか？",
+      "options": [
+        "address",
+        "anchor",
+        "active",
+        "area"
+      ],
+      "answer": 1,
+      "commentary": "aは「anchor（アンカー：船のいかり）」の略で、別の場所に繋ぎ止めるイメージからきています。"
+    },
+    {
+      "id": 34,
+      "type": "文法チェック",
+      "question": "HTMLタグの属性を書くとき、値（名前など）を囲む正しい記号はどれですか？",
+      "options": [
+        "かっこ ( )",
+        "ダブルクォーテーション \" \"",
+        "カギかっこ 「 」",
+        "中かっこ { }"
+      ],
+      "answer": 1,
+      "commentary": "属性の値は、基本的にダブルクォーテーション（\"）で囲みます。HTML ではシングルクォート（'）でも指定できます。"
+    },
+    {
+      "id": 35,
+      "type": "実行結果予測",
+      "question": "VSCodeでファイル名の右側に「白くて丸い点（●）」がついている状態は何を意味していますか？",
+      "options": [
+        "エラーが起きている",
+        "ファイルが保存されていない（編集中）",
+        "保存が完了した",
+        "ファイルが削除された"
+      ],
+      "answer": 1,
+      "commentary": "VSCodeの白い丸は「未保存」のサインです。Ctrl+S（⌘S）で保存すると×印や別のアイコンに変わります。"
+    },
+    {
+      "id": 36,
+      "type": "コード穴埋め",
+      "question": "Webページの一番外側を囲むタグは何ですか？<pre><code>&lt;!DOCTYPE html&gt;\n&lt;___&gt;\n  ...\n&lt;/___&gt;</code></pre>",
+      "options": [
+        "html",
+        "body",
+        "head",
+        "div"
+      ],
+      "answer": 0,
+      "commentary": "DOCTYPE宣言のすぐ後に<html>を書き、その中にすべてのコードを記述します。"
+    },
+    {
+      "id": 37,
+      "type": "用語理解",
+      "question": "同じ親を持つ子要素同士のことを何と呼びますか？",
+      "options": [
+        "いとこ要素",
+        "兄弟要素",
+        "隣人要素",
+        "ペア要素"
+      ],
+      "answer": 1,
+      "commentary": "HTMLの階層構造において、同じレベルに並んでいる要素を兄弟要素と呼びます。"
+    },
+    {
+      "id": 38,
+      "type": "文法チェック",
+      "question": "次のタグのうち、終了タグが必要なものはどれですか？",
+      "options": [
+        "<img>",
+        "<br>",
+        "<meta>",
+        "<table>"
+      ],
+      "answer": 3,
+      "commentary": "<table>タグは表の中身を囲む必要があるため、必ず</table>という終了タグが必要です。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "HTMLタグの「h1」の「h」は何の略ですか？",
+      "options": [
+        "height",
+        "heading",
+        "header",
+        "href"
+      ],
+      "answer": 1,
+      "commentary": "h1〜h6 の h は「heading（見出し）」の略で、見出しのレベルを表します。ページ上部を表す header 要素の「header」や、height（高さ）・href（リンク先）とは別の用語です。"
+    },
+    {
+      "id": 40,
+      "type": "実行結果予測",
+      "question": "<span>タグで囲った文字の前後には何が起きますか？",
+      "options": [
+        "自動的に改行される",
+        "改行されず、そのまま横に並ぶ",
+        "文字が太くなる",
+        "リストになる"
+      ],
+      "answer": 1,
+      "commentary": "<span>はインライン要素なので、前後に改行を入れずに特定の範囲だけに意味やスタイルを持たせることができます。"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Python の基礎 — Python の基礎文法 - 演習と解説",
+  "questions": [
+    {
+      "question": "演習でコードを試すとき、対話モードを起動するコマンドとして適切なのはどれですか？",
+      "options": ["python -i", "python --shell", "python run", "django shell"],
+      "answer": 0,
+      "commentary": "python -i は終了後に対話モードに入るオプション。通常は python または python3 で REPL を開きます。"
+    },
+    {
+      "question": "式の結果をその場で確認するのに便利な REPL の特徴として正しいのはどれですか？",
+      "options": ["必ず .py ファイルが必要", "式を入力すると評価結果が表示されることが多い", "HTML しか実行できない", "コンパイルのみで実行できない"],
+      "answer": 1,
+      "commentary": "対話モードでは式の評価結果がそのまま表示されやすいです。"
+    },
+    {
+      "question": "演習の解答をファイルにまとめるとき、拡張子として一般的なのはどれですか？",
+      "options": [".txt", ".py", ".md", ".css"],
+      "answer": 1,
+      "commentary": "Python のソースコードは .py が標準です。"
+    }
+  ]
+}

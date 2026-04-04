@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で掲示板アプリ作成 — 投稿機能作成",
+  "questions": [
+    {
+      "question": "ユーザーが本文を入力して新規投稿するフォームを作るとき、Model に対応したフォームクラスとして代表的なのはどれですか？",
+      "options": ["forms.ModelForm", "forms.JSONForm", "models.Form", "HttpForm"],
+      "answer": 0,
+      "commentary": "ModelForm でモデルと連携したフォームを定義できます。"
+    },
+    {
+      "question": "POST でフォームを送信するとき、テンプレートに含めるべきものはどれですか？",
+      "options": ["{% csrf_token %}", "{% post_token %}", "{{ csrf }} だけ", "不要"],
+      "answer": 0,
+      "commentary": "CSRF トークンをフォームに含めます。"
+    },
+    {
+      "question": "フォームのバリデーションが通ったあと DB に保存する典型的なメソッドはどれですか？",
+      "options": ["form.save()", "form.store()", "model.push()", "db.commit()"],
+      "answer": 0,
+      "commentary": "ModelForm なら save() でモデルインスタンスを保存できます。"
+    }
+  ]
+}

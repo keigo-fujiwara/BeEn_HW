@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で掲示板アプリ作成 — 一覧画面作成",
+  "questions": [
+    {
+      "question": "掲示板のスレッド一覧を表示するビューで、複数件をテンプレートに渡すとき、よく使うのはどれですか？",
+      "options": ["QuerySet をそのままコンテキストに含める", "1件だけ get() する", "HTML に直接 SQL を書く", "リストを JSON にせず渡せない"],
+      "answer": 0,
+      "commentary": "一覧は objects.all() などの QuerySet をループ表示します。"
+    },
+    {
+      "question": "テンプレートで投稿一覧を表示するとき、よく使うタグの組み合わせはどれですか？",
+      "options": ["{% for post in posts %} ... {% endfor %}", "{% list posts %}", "{{ posts.loop }}", "{% each posts %}"],
+      "answer": 0,
+      "commentary": "for タグでリストや QuerySet を反復します。"
+    },
+    {
+      "question": "一覧から詳細へリンクするため、テンプレートでよく使うのはどれですか？",
+      "options": ["<a href=\"{% url 'name' pk %}\">", "<a href=\"{{ id }}\"> だけ", "window.open のみ", "form の GET のみ"],
+      "answer": 0,
+      "commentary": "url タグで名前付き URL にパラメータを渡します。"
+    }
+  ]
+}

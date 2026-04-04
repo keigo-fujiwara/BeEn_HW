@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django でチャットアプリを作ろう — ログインページの作成",
+  "questions": [
+    {
+      "question": "Django の認証でログイン処理を行う関数として、ビューからよく import するのはどれですか？",
+      "options": ["django.contrib.auth.login", "django.login", "auth.signin", "django.contrib.auth.logout のみ"],
+      "answer": 0,
+      "commentary": "login(request, user) でセッションにログイン状態を記録します。"
+    },
+    {
+      "question": "ログイン必須のビューを関数ベースで制限するデコレータはどれですか？",
+      "options": ["@login_required", "@auth_only", "@must_login", "@user.login"],
+      "answer": 0,
+      "commentary": "login_required を付けます。"
+    },
+    {
+      "question": "ログイン後のリダイレクト先を settings で指定する設定名として一般的なのはどれですか？",
+      "options": ["LOGIN_REDIRECT_URL", "AFTER_LOGIN", "HOME_URL", "AUTH_REDIRECT"],
+      "answer": 0,
+      "commentary": "LOGIN_REDIRECT_URL や next パラメータで制御します。"
+    }
+  ]
+}

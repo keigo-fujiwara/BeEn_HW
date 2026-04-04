@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — 導入と Django 開発環境の整備",
+  "questions": [
+    {
+      "question": "Django プロジェクトを新規作成するコマンドとして正しいものはどれですか？",
+      "options": ["django-admin startproject mysite", "python -m django new mysite", "django new project mysite", "pip install django-project"],
+      "answer": 0,
+      "commentary": "django-admin startproject プロジェクト名 が公式チュートリアルの流れです。"
+    },
+    {
+      "question": "開発用サーバーを起動するコマンドはどれですか？",
+      "options": ["python manage.py runserver", "django serve", "python app.py start", "manage.py dev"],
+      "answer": 0,
+      "commentary": "プロジェクト直下で manage.py runserver を実行します。"
+    },
+    {
+      "question": "アプリケーションをプロジェクトに追加する際、INSTALLED_APPS に登録するファイルは主にどれですか？",
+      "options": ["urls.py", "settings.py", "wsgi.py", "manage.py"],
+      "answer": 1,
+      "commentary": "settings.py の INSTALLED_APPS にアプリ名を追加します。"
+    }
+  ]
+}

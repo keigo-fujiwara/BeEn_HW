@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Python の基礎 — クラス",
+  "questions": [
+    {
+      "question": "クラスを定義するキーワードはどれですか？",
+      "options": ["struct", "class", "object", "type"],
+      "answer": 1,
+      "commentary": "class クラス名: でクラスを定義します。"
+    },
+    {
+      "question": "インスタンスメソッドの第1引数として慣習的に使う名前はどれですか？",
+      "options": ["this", "self", "me", "cls"],
+      "answer": 1,
+      "commentary": "通常インスタンスメソッドでは self を使います（@classmethod では cls）。"
+    },
+    {
+      "question": "オブジェクトの初期化処理を書く特別なメソッド名はどれですか？",
+      "options": ["__init__", "__new__", "__main__", "__start__"],
+      "answer": 0,
+      "commentary": "__init__ がコンストラクタ相当の初期化に使われます。"
+    }
+  ]
+}

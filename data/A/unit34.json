@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django でチャットアプリを作ろう — 設定ページの作成",
+  "questions": [
+    {
+      "question": "ユーザーが自分の表示名やメールを変更するフォームを作るとき、更新対象のインスタンスをフォームに渡すのはどれですか？",
+      "options": ["instance=request.user など", "instance は不要", "常に新規作成のみ", "settings.py を編集する"],
+      "answer": 0,
+      "commentary": "ModelForm に instance を渡して更新します。"
+    },
+    {
+      "question": "設定変更後に成功メッセージを出すとき、よく使うのはどれですか？",
+      "options": ["messages.success(request, '...')", "print() のみ", "alert() のみサーバー", "ログファイルのみ"],
+      "answer": 0,
+      "commentary": "django.contrib.messages のフレームワークを使います。"
+    },
+    {
+      "question": "パスワード変更は専用ビュー・フォームを使う理由として適切なのはどれですか？",
+      "options": ["現在パスワード確認やポリシーを守るため", "Django はパスワード変更不可", "HTML だけで完結するから", "不要"],
+      "answer": 0,
+      "commentary": "PasswordChangeForm などを使います。"
+    }
+  ]
+}

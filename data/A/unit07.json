@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Python の基礎 — 条件分岐と反復",
+  "questions": [
+    {
+      "question": "条件分岐で「どちらでもない場合」を扱うときに使うキーワードはどれですか？",
+      "options": ["elseif", "elif", "else if", "otherwise"],
+      "answer": 1,
+      "commentary": "Pythonでは elif が正しい綴りです（else if ではありません）。"
+    },
+    {
+      "question": "一定回数ループするのに適した構文はどれですか？",
+      "options": ["for i in range(n):", "loop n times:", "repeat(n):", "for each n:"],
+      "answer": 0,
+      "commentary": "range と組み合わせた for が定番です。"
+    },
+    {
+      "question": "条件が真の間だけ繰り返すループを書くキーワードはどれですか？",
+      "options": ["until", "while", "during", "when"],
+      "answer": 1,
+      "commentary": "while 条件: で、条件が真の間ループします。"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — モデル・管理者サイト",
+  "questions": [
+    {
+      "question": "モデルクラスの定義の基底クラスとして使うのはどれですか？",
+      "options": ["django.Model", "models.Model", "db.Model", "Model.Base"],
+      "answer": 1,
+      "commentary": "from django.db import models のうえで models.Model を継承します。"
+    },
+    {
+      "question": "管理サイトでモデルを操作できるようにするために models.py に登録するクラスはどれですか？",
+      "options": ["ModelAdmin を継承したクラスを admin.site に登録", "settings.py に MODELS を書く", "views.py に AdminView を書く", "自動で登録されるので不要"],
+      "answer": 0,
+      "commentary": "admin.py で admin.site.register(Model, ModelAdmin) 等で登録します。"
+    },
+    {
+      "question": "マイグレーションをデータベースに適用するコマンドはどれですか？",
+      "options": ["python manage.py migrate", "python manage.py syncdb", "django migrate", "python db apply"],
+      "answer": 0,
+      "commentary": "makemigrations でファイル作成、migrate で適用です。"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で掲示板アプリ作成 — 見た目を改善する",
+  "questions": [
+    {
+      "question": "Django で CSS をテンプレートに読み込むとき、静的ファイルのパスを生成するタグとして正しい組み合わせはどれですか？",
+      "options": ["{% load static %} と {% static 'app/style.css' %}", "{% css 'style.css' %}", "{{ static_path }}", "<link href=\"/always/fixed/\">"],
+      "answer": 0,
+      "commentary": "load static のあと static タグで URL を生成します。"
+    },
+    {
+      "question": "一覧やフォームの余白・幅を整えるのに、モダンなレイアウトでよく使う指定はどれですか？",
+      "options": ["display: flex や grid、margin/padding", "table レイアウトのみ", "font-size だけ", "position: fixed だけ"],
+      "answer": 0,
+      "commentary": "flex / grid と余白で読みやすいレイアウトにします。"
+    },
+    {
+      "question": "スマホでも見やすくするための基本的な考え方として適切なのはどれですか？",
+      "options": ["viewport の設定と、狭い幅でも崩れないスタイル", "PC 専用の固定幅だけ使う", "画像を使わない", "メディアクエリは不要"],
+      "answer": 0,
+      "commentary": "レスポンシブ対応（viewport、ブレークポイント等）が一般的です。"
+    }
+  ]
+}

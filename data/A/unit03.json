@@ -1,0 +1,525 @@
+{
+  "unit_title": "CSS の基礎",
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "CSSは何の略称ですか？",
+      "options": [
+        "Computer Style Sheets",
+        "Cascading Style Sheets",
+        "Creative Style System",
+        "Color Style Sheets"
+      ],
+      "answer": 1,
+      "commentary": "CSSは「Cascading Style Sheets（カスケーディング・スタイル・シート）」の略です。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "HTMLファイルから「style.css」という名前のCSSファイルを読み込む正しい書き方を選んでください。<pre><code>&lt;link rel=\"___\" href=\"style.css\"&gt;</code></pre>",
+      "options": [
+        "css",
+        "style",
+        "stylesheet",
+        "text/css"
+      ],
+      "answer": 2,
+      "commentary": "<link>タグのrel属性には、関係性を示す「stylesheet」を指定します。"
+    },
+    {
+      "id": 3,
+      "type": "用語理解",
+      "question": "CSSの書き方において、どの要素にスタイルを適用するかを指定する「h1」や「.index」などの部分を何と呼びますか？",
+      "options": [
+        "プロパティ",
+        "セレクタ",
+        "値",
+        "タグ"
+      ],
+      "answer": 1,
+      "commentary": "スタイルを適用する対象を「セレクタ」、変えたい項目を「プロパティ」、具体的な内容を「値」と呼びます。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "特定の「class=\"title\"」がついた要素だけにスタイルを適用したい場合、セレクタはどう書きますか？<pre><code>___ { color: red; }</code></pre>",
+      "options": [
+        "title",
+        "#title",
+        ".title",
+        "*title"
+      ],
+      "answer": 2,
+      "commentary": "クラスセレクタは名前の前に「.（ドット）」を付けます。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "特定の「id=\"main\"」がついた要素だけにスタイルを適用したい場合、セレクタはどう書きますか？<pre><code>___ { background-color: blue; }</code></pre>",
+      "options": [
+        ".main",
+        "#main",
+        "main",
+        "*main"
+      ],
+      "answer": 1,
+      "commentary": "IDセレクタは名前の前に「#（シャープ）」を付けます。"
+    },
+    {
+      "id": 6,
+      "type": "実行結果予測",
+      "question": "次のCSSを適用したとき、文字の色はどうなりますか？<pre><code>p { color: #ff0000; }</code></pre>",
+      "options": [
+        "青色",
+        "緑色",
+        "赤色",
+        "黒色"
+      ],
+      "answer": 2,
+      "commentary": "#ff0000はRGBのRed（赤）が最大値であることを表すため、赤色になります。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "CSSの単位で「px」は何と読みますか？",
+      "options": [
+        "パーセント",
+        "パイカ",
+        "ピクセル",
+        "ポイント"
+      ],
+      "answer": 2,
+      "commentary": "pxはピクセル（画素）単位のことで、Webデザインで最もよく使われる絶対的な長さの単位です。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "「em」や「rem」などの単位は何を基準にした長さですか？",
+      "options": [
+        "画面の幅",
+        "フォントの大きさ",
+        "センチメートル",
+        "色の濃さ"
+      ],
+      "answer": 1,
+      "commentary": "em・rem は主にフォントサイズを基準にした相対単位です（em は親要素、rem はルート要素のフォントサイズを基準とします）。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "要素の背景色を変えるためのプロパティは何ですか？<pre><code>div { ___: yellow; }</code></pre>",
+      "options": [
+        "color",
+        "background-color",
+        "border-color",
+        "font-color"
+      ],
+      "answer": 1,
+      "commentary": "文字色はcolor、背景色はbackground-colorプロパティを使います。"
+    },
+    {
+      "id": 10,
+      "type": "文法チェック",
+      "question": "CSSで、プロパティと値の区切り記号として正しいものはどれですか？",
+      "options": [
+        "イコール（ = ）",
+        "コロン（ : ）",
+        "セミコロン（ ; ）",
+        "カンマ（ , ）"
+      ],
+      "answer": 1,
+      "commentary": "「プロパティ: 値;」のように、区切りにはコロンを使い、行の終わりにはセミコロンを書きます。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "文字を太字にしたいときに使うプロパティは何ですか？<pre><code>span { ___: bold; }</code></pre>",
+      "options": [
+        "font-style",
+        "font-weight",
+        "font-size",
+        "font-family"
+      ],
+      "answer": 1,
+      "commentary": "font-weightは文字の太さを指定するプロパティです。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "要素の枠線（境界線）の内側にある余白を何と呼びますか？",
+      "options": [
+        "margin",
+        "padding",
+        "border",
+        "width"
+      ],
+      "answer": 1,
+      "commentary": "枠線の内側の余白がpadding、外側の余白がmarginです。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "要素を画面の中央に配置したいときによく使われるmarginの指定方法はどれですか？<pre><code>table { margin: 0 ___; }</code></pre>",
+      "options": [
+        "center",
+        "middle",
+        "auto",
+        "none"
+      ],
+      "answer": 2,
+      "commentary": "左右のmarginをautoに設定すると、ブラウザが自動で計算して中央に配置してくれます。"
+    },
+    {
+      "id": 14,
+      "type": "実行結果予測",
+      "question": "次の指定をした場合、枠線はどう表示されますか？<pre><code>div { border: 2px dashed #000; }</code></pre>",
+      "options": [
+        "2pxの太さの黒い実線",
+        "2pxの太さの黒い破線（点線）",
+        "2pxの太さの白い実線",
+        "枠線は表示されない"
+      ],
+      "answer": 1,
+      "commentary": "dashedは破線を意味します。実線にしたい場合はsolidを使います。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "要素の幅（width）に、paddingやborderを含めて計算するように設定するプロパティの値は何ですか？",
+      "options": [
+        "content-box",
+        "border-box",
+        "padding-box",
+        "auto-box"
+      ],
+      "answer": 1,
+      "commentary": "box-sizing: border-box; を使うと、指定した幅の中に余白や線が含まれるため、サイズ管理が楽になります。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "要素を完全に非表示にし、場所も取らないようにする指定はどれですか？<pre><code>.hidden { display: ___; }</code></pre>",
+      "options": [
+        "none",
+        "hidden",
+        "block",
+        "inline"
+      ],
+      "answer": 0,
+      "commentary": "display: none; を指定すると、その要素は画面から消え、レイアウト上も存在しないものとして扱われます。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "要素の重ね順を指定するプロパティは何ですか？（数字が大きいほど手前に表示されます）",
+      "options": [
+        "layer",
+        "order",
+        "z-index",
+        "position"
+      ],
+      "answer": 2,
+      "commentary": "z-indexは、要素が重なったときにどちらを上にするかを決める数値です。"
+    },
+    {
+      "id": 18,
+      "type": "実行結果予測",
+      "question": "text-align: center; を指定したとき、何が中央に配置されますか？",
+      "options": [
+        "要素そのもの",
+        "要素の中にあるテキストやインライン要素",
+        "背景画像",
+        "枠線"
+      ],
+      "answer": 1,
+      "commentary": "text-alignは、ブロック要素の中にある文字（テキスト）などの配置を決めるプロパティです。"
+    },
+    {
+      "id": 19,
+      "type": "コード穴埋め",
+      "question": "要素をスクロールしても画面の同じ場所に固定（追従）させたいときに使うpositionの値は何ですか？<pre><code>header { position: ___; top: 0; }</code></pre>",
+      "options": [
+        "relative",
+        "absolute",
+        "fixed",
+        "static"
+      ],
+      "answer": 2,
+      "commentary": "fixed（固定）を指定すると、ビューポート（画面）に対して位置が固定されます。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "次のコードで、idが「japan」の要素の色は何色になりますか？<pre><code>#japan { color: red; }\n.home-country { color: blue; }</code></pre>",
+      "options": [
+        "赤色",
+        "青色",
+        "紫色",
+        "黒色"
+      ],
+      "answer": 0,
+      "commentary": "CSSでは、クラスセレクタよりもIDセレクタの方が優先順位が高いため、赤色になります。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "行の間隔（行の高さ）を調整するプロパティは何ですか？<pre><code>p { ___: 1.5; }</code></pre>",
+      "options": [
+        "text-space",
+        "line-height",
+        "font-height",
+        "letter-spacing"
+      ],
+      "answer": 1,
+      "commentary": "line-heightプロパティを使うことで、読みやすい行間に調整できます。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "マージンを「上10px、右5px、下20px、左0」と時計回りに指定する正しい書き方はどれですか？",
+      "options": [
+        "margin: 10px 5px 20px 0;",
+        "margin: 0 20px 5px 10px;",
+        "margin: 10px 20px 5px 0;",
+        "margin: 10px 0 20px 5px;"
+      ],
+      "answer": 0,
+      "commentary": "値を4つ並べた場合、上・右・下・左の時計回りの順序で適用されます。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "要素を「筆記体（斜体）」にしたいときに使うプロパティは何ですか？<pre><code>p { ___: italic; }</code></pre>",
+      "options": [
+        "font-weight",
+        "font-family",
+        "font-style",
+        "text-decoration"
+      ],
+      "answer": 2,
+      "commentary": "font-style プロパティに italic（イタリック体）や oblique（斜体）を指定します。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "すべての要素を一度に選択するためのセレクタ（*）を何と呼びますか？",
+      "options": [
+        "全称セレクタ",
+        "要素セレクタ",
+        "万能セレクタ",
+        "グローバルセレクタ"
+      ],
+      "answer": 0,
+      "commentary": "「*」は全称セレクタ（ユニバーサルセレクタ）と呼ばれ、HTML内のすべての要素に同じスタイルを適用します。"
+    },
+    {
+      "id": 25,
+      "type": "文法チェック",
+      "question": "色の指定方法として「間違い」はどれですか？",
+      "options": [
+        "color: red;",
+        "color: #ff0099;",
+        "color: rgb(255, 0, 153);",
+        "color: rgb(100, 200);"
+      ],
+      "answer": 3,
+      "commentary": "rgb()関数は、赤・緑・青の「3つ」の数値を指定する必要があります。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "透明な色を指定するためのキーワードは何ですか？<pre><code>div { background-color: ___; }</code></pre>",
+      "options": [
+        "none",
+        "clear",
+        "transparent",
+        "opacity"
+      ],
+      "answer": 2,
+      "commentary": "transparentキーワードを使うと、完全に透明な色を指定できます。"
+    },
+    {
+      "id": 27,
+      "type": "実行結果予測",
+      "question": "widthを100px、paddingを20pxに設定し、box-sizingがデフォルト（content-box）の場合、要素全体の幅はどうなりますか？",
+      "options": [
+        "100px",
+        "120px",
+        "140px",
+        "80px"
+      ],
+      "answer": 2,
+      "commentary": "content-boxの場合、幅 = 100px + 左パディング 20px + 右パディング 20px = 140px となります。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "ブロックレベル要素を「横並び」にしたいときに便利なdisplayの値はどれですか？",
+      "options": [
+        "block",
+        "inline",
+        "inline-block",
+        "static"
+      ],
+      "answer": 2,
+      "commentary": "inline-blockを使うと、ブロック要素のようにサイズを指定しつつ、横に並べることができます。"
+    },
+    {
+      "id": 29,
+      "type": "コード穴埋め",
+      "question": "フォントの種類（書体）を指定するプロパティは何ですか？<pre><code>body { ___: \"Arial\", sans-serif; }</code></pre>",
+      "options": [
+        "font-type",
+        "font-family",
+        "font-name",
+        "font-style"
+      ],
+      "answer": 1,
+      "commentary": "font-familyプロパティにフォント名を指定します。複数書くと優先順位になります。"
+    },
+    {
+      "id": 30,
+      "type": "文法チェック",
+      "question": "CSSでコメント（メモ）を書くときの記号はどれですか？",
+      "options": [
+        "<!-- メモ -->",
+        "// メモ",
+        "/* メモ */",
+        "# メモ"
+      ],
+      "answer": 2,
+      "commentary": "CSS のコメントは /* と */ で囲みます。HTML の <!-- --> や、JavaScript 風の // とは書き方が異なるので注意しましょう。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "position: absolute; を指定したとき、基準となるのはどのような要素ですか？",
+      "options": [
+        "直近の「static以外」の親要素",
+        "必ず<body>要素",
+        "画面の四隅",
+        "直前の兄弟要素"
+      ],
+      "answer": 0,
+      "commentary": "absolute（絶対配置）は、positionがstatic以外に設定されている最も近い親要素を基準にします。"
+    },
+    {
+      "id": 32,
+      "type": "実行結果予測",
+      "question": "z-index: 10; の要素と z-index: 5; の要素が重なったとき、どちらが手前に見えますか？",
+      "options": [
+        "10の方",
+        "5の方",
+        "どちらも透明になる",
+        "下に書いた方が優先される"
+      ],
+      "answer": 0,
+      "commentary": "z-indexの数値が大きいほど、重なりの順序が上（手前）になります。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "要素の「最小限の幅（コンテンツが収まるサイズ）」にするためのwidthの値はどれですか？<pre><code>div { width: ___; }</code></pre>",
+      "options": [
+        "auto",
+        "max-content",
+        "min-content",
+        "fit-content"
+      ],
+      "answer": 2,
+      "commentary": "min-contentは、中身の最も長い単語などに合わせて最小幅になります。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "ビューポート（ブラウザの表示領域）の幅を基準にする単位は何ですか？",
+      "options": [
+        "vh",
+        "vw",
+        "px",
+        "rem"
+      ],
+      "answer": 1,
+      "commentary": "vwは「viewport width」の略で、画面幅の1%を1vwとして計算します。"
+    },
+    {
+      "id": 35,
+      "type": "実行結果予測",
+      "question": "border-width: thin; と指定したとき、枠線はどうなりますか？",
+      "options": [
+        "太くなる",
+        "細くなる",
+        "二重線になる",
+        "消える"
+      ],
+      "answer": 1,
+      "commentary": "thin（細い線）、medium（普通）、thick（太い線）などのキーワードで、ブラウザが定める相対的な太さを指定できます。"
+    },
+    {
+      "id": 36,
+      "type": "コード穴埋め",
+      "question": "要素の枠線を「上だけ」消したい場合、どのプロパティを使いますか？<pre><code>div { ___: none; }</code></pre>",
+      "options": [
+        "border-top-style",
+        "border-bottom-style",
+        "border-left-style",
+        "border-right-style"
+      ],
+      "answer": 0,
+      "commentary": "border-top（またはborder-top-styleなど）を使うと、上の辺だけを個別に設定できます。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "CSSで「h1とpの両方」に同じスタイルを適用したいとき、セレクタの正しい書き方はどれですか？",
+      "options": [
+        "h1 p",
+        "h1 + p",
+        "h1, p",
+        "h1 & p"
+      ],
+      "answer": 2,
+      "commentary": "複数のセレクタをカンマ（,）で区切ると、それらすべてに同じスタイルを適用できます。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "CSSの「値」として「url()」を使うのは、どのような場合ですか？",
+      "options": [
+        "リンクを作るとき",
+        "画像やフォントなどのファイルを指定するとき",
+        "文字の色を決めるとき",
+        "画面のサイズを測るとき"
+      ],
+      "answer": 1,
+      "commentary": "url()は、背景画像などの外部リソースを読み込むためのパス（場所）を指定する際に使います。"
+    },
+    {
+      "id": 39,
+      "type": "実行結果予測",
+      "question": "color: currentcolor; と指定したとき、何の色が適用されますか？",
+      "options": [
+        "常に黒色",
+        "その要素の現在のcolorプロパティの値",
+        "背景と同じ色",
+        "親要素の背景色"
+      ],
+      "answer": 1,
+      "commentary": "currentcolor は、その要素の color プロパティの計算値（多くの場合、親から継承した文字色）を参照するキーワードです。"
+    },
+    {
+      "id": 40,
+      "type": "コード穴埋め",
+      "question": "要素の横幅を親要素と同じ（100%）にしたいときの指定はどれですか？<pre><code>div { width: ___; }</code></pre>",
+      "options": [
+        "full",
+        "100%",
+        "auto",
+        "max"
+      ],
+      "answer": 1,
+      "commentary": "パーセント指定を使うと、親要素のサイズを基準にした大きさに設定できます。"
+    }
+  ]
+}

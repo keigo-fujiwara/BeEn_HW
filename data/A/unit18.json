@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — データベースの操作",
+  "questions": [
+    {
+      "question": "Django ORM で全件取得するメソッドとして一般的なのはどれですか？",
+      "options": ["Model.objects.all()", "Model.all()", "Model.query()", "Model.fetch()"],
+      "answer": 0,
+      "commentary": "objects マネージャ経由でクエリを組み立てます。"
+    },
+    {
+      "question": "主キーで1件取得するメソッドはどれですか？",
+      "options": ["get(id=1)", "find(pk=1)", "one(id=1)", "fetch(pk=1)"],
+      "answer": 0,
+      "commentary": "Model.objects.get(pk=1) や get(id=1) など。"
+    },
+    {
+      "question": "シェルで Django の環境を読み込んで対話的に試すコマンドはどれですか？",
+      "options": ["python manage.py shell", "django shell", "python -i manage.py", "python django repl"],
+      "answer": 0,
+      "commentary": "manage.py shell が公式の方法です。"
+    }
+  ]
+}

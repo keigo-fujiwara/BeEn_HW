@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django でチャットアプリを作ろう — トーク画面の表示",
+  "questions": [
+    {
+      "question": "特定の相手とのトーク画面 URL を設計するとき、相手ユーザーを識別子として URL に含める例として適切なのはどれですか？",
+      "options": ["path('talk/<int:user_id>/', ...)", "path('talk/') のみ", "クエリにパスワードを載せる", "固定 HTML のみ"],
+      "answer": 0,
+      "commentary": "ユーザー ID やユーザー名（スラッグ）でルーティングします。"
+    },
+    {
+      "question": "過去メッセージを表示するために、ビューでよく行うのはどれですか？",
+      "options": ["ルームや相手に紐づく Message をフィルタしてテンプレートへ", "テンプレートのみで DB に直接書く", "CSV を手で貼る", "キャッシュだけ見る"],
+      "answer": 0,
+      "commentary": "会話に紐づくメッセージを時系列で取得します。"
+    },
+    {
+      "question": "テンプレートでメッセージを時系列で並べるとき、クエリ側で order_by する例に近いのはどれですか？",
+      "options": ["order_by('created_at')", "order_by('-created_at')", "order_by('pk') のみ", "sort は使わない"],
+      "answer": 1,
+      "commentary": "新しいものを下にするなら昇順、上にするなら降順など要件に合わせます。"
+    }
+  ]
+}

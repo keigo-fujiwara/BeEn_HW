@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — フォーム",
+  "questions": [
+    {
+      "question": "HTML フォームを Python で扱うためのクラスとして Django が提供するのはどれですか？",
+      "options": ["HttpForm", "forms.Form / forms.ModelForm", "DjangoForm", "HTMLForm"],
+      "answer": 1,
+      "commentary": "django.forms の Form と ModelForm が代表的です。"
+    },
+    {
+      "question": "CSRF 対策でテンプレートに必ず含めるタグとして推奨されるのはどれですか？",
+      "options": ["{% csrf_token %}", "{{ csrf }}", "{% security_token %}", "{{ csrf_field }}"],
+      "answer": 0,
+      "commentary": "POST フォーム内に {% csrf_token %} を置きます。"
+    },
+    {
+      "question": "フォームのバリデーションでフィールドごとのチェックメソッドの命名規則として正しいものはどれですか？",
+      "options": ["validate_<フィールド名>", "clean_<フィールド名>", "check_<フィールド名>", "verify_<フィールド名>"],
+      "answer": 1,
+      "commentary": "clean_<フィールド名> でそのフィールド用のクリーニングを定義できます。"
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — 質問一覧画面と投票画面の見た目の改善",
+  "questions": [
+    {
+      "question": "静的ファイル（CSS）をテンプレートで読み込むタグとして一般的なのはどれですか？",
+      "options": ["{% load static %} と {% static 'path' %}", "{% css 'file.css' %}", "{{ static_url }}", "{% include_css %}"],
+      "answer": 0,
+      "commentary": "{% load static %} のあと {% static 'polls/style.css' %} などで URL を生成します。"
+    },
+    {
+      "question": "テンプレートでループするタグとして正しいものはどれですか？",
+      "options": ["{% for item in list %} ... {% endfor %}", "{% loop list as item %}", "{{ for item in list }}", "{% iterate list %}"],
+      "answer": 0,
+      "commentary": "{% for %} ... {% endfor %} が Django テンプレート言語のループです。"
+    },
+    {
+      "question": "開発時に静的ファイルを集約するコマンドとして本番前によく使うのはどれですか？",
+      "options": ["python manage.py collectstatic", "django static build", "python manage.py gatherstatic", "npm run static"],
+      "answer": 0,
+      "commentary": "collectstatic で STATIC_ROOT へ集めます（開発サーバーの自動配信とは別用途）。"
+    }
+  ]
+}

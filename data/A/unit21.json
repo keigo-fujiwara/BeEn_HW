@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — 結果確認画面の作成",
+  "questions": [
+    {
+      "question": "投票結果の棒グラフなどで「選択肢ごとの票数」をテンプレートに渡すとき、ビュー側でよく行うのはどれですか？",
+      "options": ["QuerySet をそのまま渡すだけ", "annotate や集計してコンテキストに含める", "テンプレートのみで DB に直接アクセスする", "JavaScript だけで必ず描画する"],
+      "answer": 1,
+      "commentary": "ビューでクエリを集計・整形し、テンプレートは表示に専念させます。"
+    },
+    {
+      "question": "URL に質問 ID を含めて結果ページへルーティングする場合、path のキャプチャとして適切なのはどれですか？",
+      "options": ["<str:question_id>/", "<int:question_id>/", "<slug:question_id>/", "<uuid:question_id>/"],
+      "answer": 1,
+      "commentary": "整数 ID なら <int:question_id>/ が一般的です。"
+    },
+    {
+      "question": "テンプレートで「票数が0のとき」の表示を分岐するタグとして正しいものはどれですか？",
+      "options": ["{% if count == 0 %} ... {% endif %}", "{% when count is 0 %}", "{{ if count === 0 }}", "{% check count zero %}"],
+      "answer": 0,
+      "commentary": "{% if %} で条件分岐します（=== は使いません）。"
+    }
+  ]
+}

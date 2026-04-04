@@ -1,0 +1,23 @@
+{
+  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — テンプレート",
+  "questions": [
+    {
+      "question": "Django テンプレートで変数を表示するタグとして正しいものはどれですか？",
+      "options": ["{% variable %}", "{{ variable }}", "${variable}", "<%= variable %>"],
+      "answer": 1,
+      "commentary": "{{ }} が変数の出力、{% %} がタグです。"
+    },
+    {
+      "question": "テンプレートにコンテキストを渡してレンダリングする関数としてよく使うのはどれですか？",
+      "options": ["render()", "response()", "template()", "display()"],
+      "answer": 0,
+      "commentary": "from django.shortcuts import render して render(request, 'template.html', context) など。"
+    },
+    {
+      "question": "テンプレートの継承で子テンプレートが親を指定するタグはどれですか？",
+      "options": ["{% include %}", "{% extends %}", "{% block %}", "{% import %}"],
+      "answer": 1,
+      "commentary": "{% extends \"base.html\" %} で親テンプレートを継承します。"
+    }
+  ]
+}

@@ -1,0 +1,130 @@
+{
+  "version": 2,
+  "courses": [
+    {
+      "id": "A",
+      "name": "Django Webアプリ開発コース",
+      "fields": [
+        {
+          "id": "A-html-css",
+          "name": "HTML・CSS の基礎",
+          "units": [
+            { "id": "A-u1", "title": "導入と開発環境の整備", "jsonPath": "data/A/unit01.json" },
+            { "id": "A-u2", "title": "HTMLの基礎", "jsonPath": "data/A/unit02.json" },
+            { "id": "A-u3", "title": "CSSの基礎", "jsonPath": "data/A/unit03.json" },
+            {
+              "id": "A-u4",
+              "title": "HTML・CSS 演習 - オリジナルページを作成しよう",
+              "jsonPath": "data/A/unit04.json"
+            }
+          ]
+        },
+        {
+          "id": "A-python",
+          "name": "Python の基礎",
+          "units": [
+            {
+              "id": "A-u5",
+              "title": "Python 開発環境の整備と基礎文法",
+              "jsonPath": "data/A/unit05.json"
+            },
+            {
+              "id": "A-u6",
+              "title": "Python の基礎文法 - 演習と解説",
+              "jsonPath": "data/A/unit06.json"
+            },
+            { "id": "A-u7", "title": "条件分岐と反復", "jsonPath": "data/A/unit07.json" },
+            { "id": "A-u8", "title": "関数の定義", "jsonPath": "data/A/unit08.json" },
+            {
+              "id": "A-u9",
+              "title": "条件分岐と反復・関数の定義 - 演習と解説",
+              "jsonPath": "data/A/unit09.json"
+            },
+            { "id": "A-u10", "title": "クラス", "jsonPath": "data/A/unit10.json" },
+            { "id": "A-u11", "title": "モジュール", "jsonPath": "data/A/unit11.json" },
+            {
+              "id": "A-u12",
+              "title": "クラス・モジュール - 演習と解説",
+              "jsonPath": "data/A/unit12.json"
+            }
+          ]
+        },
+        {
+          "id": "A-django-polls",
+          "name": "Django で投票アプリ作成",
+          "units": [
+            { "id": "A-u13", "title": "Git の基礎", "jsonPath": "data/A/unit13.json" },
+            { "id": "A-u14", "title": "導入と Django 開発環境の整備", "jsonPath": "data/A/unit14.json" },
+            { "id": "A-u15", "title": "ビュー", "jsonPath": "data/A/unit15.json" },
+            { "id": "A-u16", "title": "テンプレート", "jsonPath": "data/A/unit16.json" },
+            { "id": "A-u17", "title": "モデル・管理者サイト", "jsonPath": "data/A/unit17.json" },
+            { "id": "A-u18", "title": "データベースの操作", "jsonPath": "data/A/unit18.json" },
+            { "id": "A-u19", "title": "フォーム", "jsonPath": "data/A/unit19.json" },
+            { "id": "A-u20", "title": "質問一覧画面と投票画面の見た目の改善", "jsonPath": "data/A/unit20.json" },
+            { "id": "A-u21", "title": "結果確認画面の作成", "jsonPath": "data/A/unit21.json" }
+          ]
+        },
+        {
+          "id": "A-django-board",
+          "name": "Django で掲示板アプリ作成",
+          "units": [
+            { "id": "A-u22", "title": "環境構築", "jsonPath": "data/A/unit22.json" },
+            { "id": "A-u23", "title": "一覧画面作成", "jsonPath": "data/A/unit23.json" },
+            { "id": "A-u24", "title": "詳細画面作成", "jsonPath": "data/A/unit24.json" },
+            { "id": "A-u25", "title": "投稿機能作成", "jsonPath": "data/A/unit25.json" },
+            { "id": "A-u26", "title": "投稿削除機能作成", "jsonPath": "data/A/unit26.json" },
+            { "id": "A-u27", "title": "見た目を改善する", "jsonPath": "data/A/unit27.json" }
+          ]
+        },
+        {
+          "id": "A-django-chat",
+          "name": "Django でチャットアプリを作ろう",
+          "units": [
+            { "id": "A-u28", "title": "初期設定", "jsonPath": "data/A/unit28.json" },
+            { "id": "A-u29", "title": "会員登録機能の作成", "jsonPath": "data/A/unit29.json" },
+            { "id": "A-u30", "title": "ログインページの作成", "jsonPath": "data/A/unit30.json" },
+            { "id": "A-u31", "title": "フレンド一覧表示機能の作成", "jsonPath": "data/A/unit31.json" },
+            { "id": "A-u32", "title": "トーク画面の表示", "jsonPath": "data/A/unit32.json" },
+            { "id": "A-u33", "title": "チャット機能の作成", "jsonPath": "data/A/unit33.json" },
+            { "id": "A-u34", "title": "設定ページの作成", "jsonPath": "data/A/unit34.json" },
+            { "id": "A-u35", "title": "ユーザーアイコンの設定", "jsonPath": "data/A/unit35.json" },
+            { "id": "A-u36", "title": "見た目を整える", "jsonPath": "data/A/unit36.json" }
+          ]
+        }
+      ]
+    },
+    {
+      "id": "B1",
+      "name": "B1コース",
+      "fields": [
+        {
+          "id": "B1-sample",
+          "name": "サンプル",
+          "units": [{ "id": "B1-u1", "title": "Web基礎（サンプル）", "jsonPath": "data/B1/unit01.json" }]
+        }
+      ]
+    },
+    {
+      "id": "B2",
+      "name": "B2コース",
+      "fields": [
+        {
+          "id": "B2-sample",
+          "name": "サンプル",
+          "units": [{ "id": "B2-u1", "title": "Web基礎（サンプル）", "jsonPath": "data/B2/unit01.json" }]
+        }
+      ]
+    },
+    {
+      "id": "C",
+      "name": "Cコース",
+      "fields": [
+        {
+          "id": "C-sample",
+          "name": "サンプル",
+          "units": [{ "id": "C-u1", "title": "Web基礎（サンプル）", "jsonPath": "data/C/unit01.json" }]
+        }
+      ]
+    }
+  ]
+}
