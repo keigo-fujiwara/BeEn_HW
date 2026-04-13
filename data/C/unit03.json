@@ -1,4 +1,360 @@
 {
   "unit_title": "ビュー",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "Django REST framework のビューの主な役割は何ですか？",
+      "options": [
+        "データベースのテーブルを作成する",
+        "クライアントからのリクエストを受け取り、適切なレスポンスを返す",
+        "HTML テンプレートをブラウザに描画する",
+        "外部パッケージをインストールする"
+      ],
+      "answer": 1,
+      "commentary": "ビューは API の中心的な役割を担い、リクエストの処理とレスポンス（主に JSON 形式）の返却を行います。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "関数ベースビューで、REST API エンドポイントであることを示すために使用するデコレータは何ですか？<pre><code>@___(['GET'])\ndef category_list(request):\n    ...</code></pre>",
+      "options": ["view_config", "rest_view", "api_view", "json_view"],
+      "answer": 2,
+      "commentary": "@api_view デコレータを使用することで、通常の Django ビューを RESTful なビューとして定義できます。"
+    },
+    {
+      "id": 3,
+      "type": "文法チェック",
+      "question": "シリアライザで「複数のオブジェクト」を変換する場合、必ず指定しなければならない引数はどれですか？",
+      "options": ["all=True", "many=True", "multiple=True", "list=True"],
+      "answer": 1,
+      "commentary": "クエリセット（複数のデータ）をシリアライズする際は、many=True を引数に渡す必要があります。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "コマンドラインから HTTP リクエストを送信し、API の動作確認を行うために広く使われるツールは何ですか？",
+      "options": ["ping", "cURL", "ssh", "git"],
+      "answer": 1,
+      "commentary": "cURL（カール）は、ターミナルから GET や POST などのリクエストを送り、サーバーの応答を確認するのに非常に便利なツールです。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "HTTP ステータスコード「201」が返ってきた場合、どのような意味になりますか？",
+      "options": [
+        "リクエストは成功したが、データは返されていない",
+        "新しいリソースがサーバー上に正常に作成された",
+        "ページが見つからない",
+        "入力データにエラーがある"
+      ],
+      "answer": 1,
+      "commentary": "201 Created は、POST リクエストなどによってデータの作成が成功した際に返されるステータスコードです。"
+    },
+    {
+      "id": 6,
+      "type": "実行結果予測",
+      "question": "HTTP ステータスコード「400」が返ってきた場合、どのような状況が考えられますか？",
+      "options": [
+        "正常にデータが取得できた",
+        "リクエストに誤り（バリデーションエラーなど）があり、サーバーが処理できなかった",
+        "サーバーが故障している",
+        "データが正常に削除された"
+      ],
+      "answer": 1,
+      "commentary": "400 Bad Request は、必須項目が足りない場合やデータ形式が不正な場合によく返されます。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "cURL コマンドで POST リクエストを送信する際、リクエストメソッドを指定するオプションは何ですか？<pre><code>curl ___ POST http://localhost:8000/api/categories/</code></pre>",
+      "options": ["-M", "-X", "-D", "-P"],
+      "answer": 1,
+      "commentary": "-X オプション（または --request）を使って HTTP メソッドを指定します。"
+    },
+    {
+      "id": 8,
+      "type": "文法チェック",
+      "question": "クラスベースビューにおいて、GET、POST、PUT、DELETE などの処理を個別に定義するために継承する基本クラスは何ですか？",
+      "options": ["BaseView", "RESTView", "APIView", "ModelView"],
+      "answer": 2,
+      "commentary": "rest_framework.views.APIView を継承することで、柔軟なクラスベースビューを作成できます。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "クラスベースビューを URL に紐づける際、urls.py で呼び出す必要があるメソッドは何ですか？<pre><code>path('categories/', views.CategoryListAPIView.___(), name='list')</code></pre>",
+      "options": ["run()", "execute()", "as_view", "connect()"],
+      "answer": 2,
+      "commentary": "Django の仕様により、クラスベースビューをパスに登録する際は .as_view() を呼び出す必要があります。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "CRUD 操作（作成・読込・更新・削除）を 1 つのクラスに集約して簡潔に実装できる仕組みを何と呼びますか？",
+      "options": ["ViewSet", "Mixins", "Router", "GenericView"],
+      "answer": 0,
+      "commentary": "ViewSet を使うと、個別の GET や POST メソッドを意識せずに効率的に API を構築できます。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "ViewSet を使用する際、API エンドポイントの URL 設定を自動化するために使われる機能は何ですか？",
+      "options": ["Generator", "Router（ルーター）", "Mapper", "Linker"],
+      "answer": 1,
+      "commentary": "DefaultRouter などを使用することで、ViewSet に基づいた URL パターンが自動生成されます。"
+    },
+    {
+      "id": 12,
+      "type": "コード穴埋め",
+      "question": "ModelViewSet を継承する際、操作対象となるデータベースのデータを指定する変数名は何ですか？<pre><code>class CategoryViewSet(viewsets.ModelViewSet):\n    ___ = Category.objects.all()\n    serializer_class = CategorySerializer</code></pre>",
+      "options": ["models", "data", "queryset", "objects"],
+      "answer": 2,
+      "commentary": "queryset 変数に対象となるモデルのクエリセットを代入します。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "cURL コマンドで JSON データを送信する際、データの形式（Content-Type）を指定するためのオプションは何ですか？",
+      "options": ["-T", "-H", "-F", "-C"],
+      "answer": 1,
+      "commentary": "-H オプション（Header）を使用して \"Content-Type: application/json\" を指定します。"
+    },
+    {
+      "id": 14,
+      "type": "実行結果予測",
+      "question": "DefaultRouter で <code>router.register('categories', views.CategoryViewSet)</code> と設定した場合、特定の ID（1番）のデータを削除するための標準的なエンドポイントはどうなりますか？",
+      "options": ["/categories/delete/1/", "/categories/1/", "/categories/remove/", "/categories/1/delete/"],
+      "answer": 1,
+      "commentary": "RESTful な設計では、/categories/1/ に対して DELETE メソッドを送ることで削除を行います。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "必要な機能（一覧取得だけ、作成だけなど）を選択的に継承して、最小限の API を定義するために使われるクラスを何と呼びますか？",
+      "options": ["Parts", "Components", "mixins", "Plugins"],
+      "answer": 2,
+      "commentary": "ListModelMixin や CreateModelMixin などの mixins クラスを組み合わせることで、不要な機能を省いた API が作れます。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "シリアライザの検証が成功したかどうかを確認するメソッドは何ですか？<pre><code>if serializer.___():\n    serializer.save()</code></pre>",
+      "options": ["check", "is_ok", "is_valid", "validate"],
+      "answer": 2,
+      "commentary": "is_valid() メソッドでデータの整合性をチェックします。"
+    },
+    {
+      "id": 17,
+      "type": "文法チェック",
+      "question": "cURL で送信する「データの中身」を指定するために使われるオプションはどれですか？",
+      "options": ["-v", "-o", "-d", "-s"],
+      "answer": 2,
+      "commentary": "-d オプション（Data）の後に '{\"name\": \"和食\"}' のように記述します。"
+    },
+    {
+      "id": 18,
+      "type": "用語理解",
+      "question": "ViewSet で「一覧表示」を行うための mixin クラスの名前は何ですか？",
+      "options": ["AllModelMixin", "ListModelMixin", "ViewModelMixin", "ShowModelMixin"],
+      "answer": 1,
+      "commentary": "ListModelMixin を継承すると、GET メソッドによる一覧取得機能が実装されます。"
+    },
+    {
+      "id": 19,
+      "type": "コード穴埋め",
+      "question": "プロジェクトの urls.py で、アプリ（api）の URL パターンを取り込むために使う関数は何ですか？<pre><code>urlpatterns = [\n    path(\"api/\", ___(\"api.urls\")),\n]</code></pre>",
+      "options": ["path", "add", "include", "import"],
+      "answer": 2,
+      "commentary": "include 関数を使うことで、他の URL 設定ファイルを読み込むことができます。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "シリアライザの検証に失敗した際、エラーメッセージが含まれているプロパティは何ですか？",
+      "options": ["serializer.data", "serializer.fail", "serializer.errors", "serializer.message"],
+      "answer": 2,
+      "commentary": "serializer.errors には、どのフィールドがどのような理由でエラーになったかが格納されます。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "API エンドポイントにおける「GET」メソッドの主な用途は何ですか？",
+      "options": ["データの新規作成", "データの取得", "データの完全更新", "データの削除"],
+      "answer": 1,
+      "commentary": "GET はリソースの参照や取得に使用されるメソッドです。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "API エンドポイントにおける「PATCH」メソッドは、どのような更新に使われますか？",
+      "options": ["リソースを完全に上書きする", "リソースを部分的に更新する", "リソースを新規に作成する", "リソースの名前を変えるだけ"],
+      "answer": 1,
+      "commentary": "全体を入れ替える PUT と違い、PATCH は一部の項目だけを変更する際に適しています。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "urls.py の path 設定で、URL に名前を付けて管理しやすくする引数はどれですか？",
+      "options": ["id=", "alias=", "name=", "title="],
+      "answer": 2,
+      "commentary": "name='category-list' のように名前を付けることで、コード内で URL を逆引きできるようになります。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "Django が標準で提供している、ブラウザから API のテストができる画面を何と呼びますか？",
+      "options": ["Web API Tester", "Browsable API", "API Manager", "REST Controller"],
+      "answer": 1,
+      "commentary": "Browsable API 機能により、開発者は特別なツールなしでもブラウザから API の動作を確認できます。"
+    },
+    {
+      "id": 25,
+      "type": "コード穴埋め",
+      "question": "ViewSet 内で、使用するシリアライザクラスを指定する変数名は何ですか？<pre><code>class CategoryViewSet(viewsets.ModelViewSet):\n    queryset = ...\n    ___ = CategorySerializer</code></pre>",
+      "options": ["serializer", "use_serializer", "serializer_class", "convert_class"],
+      "answer": 2,
+      "commentary": "serializer_class プロパティに作成したシリアライザを指定します。"
+    },
+    {
+      "id": 26,
+      "type": "実行結果予測",
+      "question": "<code>Category.objects.all()</code> を実行した際、データベースからどのようなデータが取得されますか？",
+      "options": ["最初の 1 件", "最後の 1 件", "対象モデルのすべてのレコード", "重複を除いたデータ"],
+      "answer": 2,
+      "commentary": ".all() はテーブル内の全データを取得するための Django ORM のメソッドです。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "HTTP メソッドの「PUT」と「PATCH」の違いとして正しいものはどれですか？",
+      "options": [
+        "PUT は作成、PATCH は削除",
+        "PUT は全体更新、PATCH は一部更新",
+        "PUT は同期、PATCH は非同期",
+        "違いはない"
+      ],
+      "answer": 1,
+      "commentary": "RESTful な慣習では、完全な置き換えは PUT、部分的な変更は PATCH を使い分けます。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "関数ベースビューにおいて、現在のリクエストが GET か POST かを判別するために使うプロパティは何ですか？",
+      "options": ["request.type", "request.method", "request.action", "request.kind"],
+      "answer": 1,
+      "commentary": "request.method の値をチェックすることで、処理を条件分岐させます。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "DefaultRouter を使用した場合、<code>/categories/</code> という URL に対して POST を送ると何が起きますか？",
+      "options": ["すべてのデータが消える", "新しいカテゴリが作成される", "エラーページに飛ぶ", "何も起きない"],
+      "answer": 1,
+      "commentary": "ルーターにより、一覧のパスへの POST リクエストは「新規作成（create）」にマッピングされます。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "リソースを削除するために使われる HTTP メソッドは何ですか？",
+      "options": ["DROP", "REMOVE", "DELETE", "CLEAR"],
+      "answer": 2,
+      "commentary": "データの消去には DELETE メソッドを使用します。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "レスポンスを返す際に、シリアライズされたデータを指定する正しい記述はどれですか？<pre><code>return Response(serializer.___)</code></pre>",
+      "options": ["json", "output", "data", "result"],
+      "answer": 2,
+      "commentary": "serializer.data プロパティに、変換済みの辞書型データが格納されています。"
+    },
+    {
+      "id": 32,
+      "type": "実行結果予測",
+      "question": "<code>serializer.save()</code> を呼び出した際、内部的にデータベースの変更が保存されるのはなぜですか？",
+      "options": [
+        "Django が自動ですべて保存するから",
+        "シリアライザの save() メソッドがモデルの保存処理を行うから",
+        "ブラウザが保存を指示するから",
+        "保存されないのが正解"
+      ],
+      "answer": 1,
+      "commentary": "save() メソッドはバリデーション済みデータを元にモデルの作成または更新を実行します。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "cURL でデータを送信する際、キーと値が正しい JSON 形式になっているものはどれですか？",
+      "options": [
+        "name:和食",
+        "{name='和食'}",
+        "'{\"name\": \"和食\"}'",
+        "[name, 和食]"
+      ],
+      "answer": 2,
+      "commentary": "JSON ではキーと文字列値をダブルクォーテーションで囲む必要があります。ターミナルでは全体をシングルクォーテーションで囲みます。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "mixins クラスの中で、データの削除を担当するクラスは何ですか？",
+      "options": ["ClearModelMixin", "RemoveModelMixin", "DestroyModelMixin", "DeleteModelMixin"],
+      "answer": 2,
+      "commentary": "DestroyModelMixin がデータの削除（DELETE リクエスト）に対応する機能を持ちます。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "特定の ID に基づいて 1 件のデータを取得する際、URL パターンでよく使われる記述は何ですか？<pre><code>path('categories/&lt;int:___&gt;/', ...)</code></pre>",
+      "options": ["id", "pk", "num", "key"],
+      "answer": 1,
+      "commentary": "Primary Key（主キー）の略である pk が一般的に使用されます。"
+    },
+    {
+      "id": 36,
+      "type": "実行結果予測",
+      "question": "ステータスコード「204」が返ってきた場合、どのような操作が成功したことを示しますか？",
+      "options": ["新規作成", "一覧取得", "削除（中身なし）", "エラー"],
+      "answer": 2,
+      "commentary": "204 No Content は、削除などが成功し、返す内容が何もない場合によく使われます。"
+    },
+    {
+      "id": 37,
+      "type": "用語理解",
+      "question": "RESTful API の設計原則における「ステートレス」とはどういう意味ですか？",
+      "options": [
+        "常に最新のデータを返すこと",
+        "サーバーがクライアントの過去の状態を記憶せず、1つのリクエストで完結すること",
+        "インターネットが切れても動くこと",
+        "データベースを 1 つしか使わないこと"
+      ],
+      "answer": 1,
+      "commentary": "各リクエストが必要な情報をすべて含んでいる必要があるという REST の重要な原則です。"
+    },
+    {
+      "id": 38,
+      "type": "コード穴埋め",
+      "question": "cURL でリクエストの詳細（通信ヘッダーなど）を表示してデバッグする際に使われるオプションは何ですか？",
+      "options": ["-d", "-H", "-v", "-X"],
+      "answer": 2,
+      "commentary": "-v オプション（Verbose）を使用すると、通信のやり取りが詳細に表示されます。"
+    },
+    {
+      "id": 39,
+      "type": "実行結果予測",
+      "question": "APIView を使用したビューで <code>delete()</code> メソッドを定義した場合、どの HTTP メソッドに応答しますか？",
+      "options": ["GET", "POST", "PUT", "DELETE"],
+      "answer": 3,
+      "commentary": "クラスベースビューではメソッド名と HTTP メソッドが直接対応します。"
+    },
+    {
+      "id": 13,
+      "type": "用語理解",
+      "question": "Django REST framework で「モデルに基づいて CRUD を一番手軽に実装したい」場合に最適なクラスはどれですか？",
+      "options": ["APIView", "ModelViewSet", "GenericAPIView", "viewsets.ViewSet"],
+      "answer": 1,
+      "commentary": "ModelViewSet は基本的な操作がすべて含まれているため、最も早く開発を進められます。"
+    }
+  ]
 }

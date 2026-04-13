@@ -1,4 +1,405 @@
 {
   "unit_title": "アプリの初期設定",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "異なるソフトウェア同士がやり取りをするための「仲介役」を何と呼びますか？",
+      "options": ["URL", "API", "JSON", "SDK"],
+      "answer": 1,
+      "commentary": "API（Application Programming Interface）は、ソフトウェア同士が通信してデータや機能を共有するための窓口です。"
+    },
+    {
+      "id": 2,
+      "type": "用語理解",
+      "question": "Django REST frameworkを使用して開発するアプリと、通常のDjangoアプリの大きな違いは何ですか？",
+      "options": [
+        "返却するデータがHTMLではなくJSONやXMLである",
+        "使用するプログラミング言語が異なる",
+        "データベースが使用できない",
+        "Webブラウザで動作しない"
+      ],
+      "answer": 0,
+      "commentary": "Django REST frameworkはAPI開発に特化しており、フロントエンドにデータ（JSONなど）を渡すのが主な役割です。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "Django REST frameworkをプロジェクトで有効にするために、settings.pyのINSTALLED_APPSに追加する文字列は何ですか？<pre><code>INSTALLED_APPS = [\n    # ...\n    \"___\",\n    \"api\",\n]</code></pre>",
+      "options": ["rest_api", "django_rest", "rest_framework", "drf"],
+      "answer": 2,
+      "commentary": "settings.pyに 'rest_framework' を追加することで、DRFの機能が利用可能になります。"
+    },
+    {
+      "id": 4,
+      "type": "文法チェック",
+      "question": "Djangoのモデル定義において、1つのカテゴリーに複数のレシピが属する「1対多」の関係を表現するために使うフィールドは何ですか？",
+      "options": ["OneToOneField", "ManyToManyField", "ForeignKey", "CategoryField"],
+      "answer": 2,
+      "commentary": "ForeignKey（外部キー）を使用することで、リレーショナルデータベースにおける「1対多」の関係を定義できます。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "Djangoのモデルを定義した後、データベースに反映させるために実行する「2つ」のコマンド順序として正しいものはどれですか？",
+      "options": [
+        "migrate → makemigrations",
+        "makemigrations → migrate",
+        "runserver → migrate",
+        "startapp → makemigrations"
+      ],
+      "answer": 1,
+      "commentary": "まず makemigrations で設計図（変更内容）を作成し、migrate で実際のDBに適用します。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "JSONファイルなどにあらかじめ定義されたデータを、コマンド一発でデータベースに一括登録するDjangoの仕組みを何と呼びますか？",
+      "options": ["Migration", "Fixture", "Admin", "Template"],
+      "answer": 1,
+      "commentary": "Fixture（フィクスチャ）を使うと、初期データやテスト用データを効率的にデータベースへ流し込むことができます。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "作成したJSONデータ（sample_data.json）をデータベースに登録するためのコマンドを完成させてください。<pre><code>python manage.py ___ sample_data.json</code></pre>",
+      "options": ["savedata", "importdata", "loaddata", "pushdata"],
+      "answer": 2,
+      "commentary": "loaddataコマンドを使用して、Fixtureファイルをデータベースに読み込みます。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "Flutterプロジェクトを新規作成するためのコマンドはどれですか？",
+      "options": ["flutter start", "flutter create", "flutter init", "flutter build"],
+      "answer": 1,
+      "commentary": "flutter create コマンドで、Flutterアプリの雛形となるディレクトリ構造が生成されます。"
+    },
+    {
+      "id": 9,
+      "type": "文法チェック",
+      "question": "Flutterでアプリ全体のテーマ（背景色やアプリバーのスタイルなど）を一括で設定するために使用するクラスは何ですか？",
+      "options": ["ThemeData", "AppStyle", "DesignConfig", "WidgetTheme"],
+      "answer": 0,
+      "commentary": "MaterialAppのthemeプロパティにThemeDataを渡すことで、アプリ全体のデザインを管理できます。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "FlutterのScaffoldで、画面全体の背景色を指定するプロパティ名は何ですか？<pre><code>ThemeData(\n    ___: Colors.grey[100],\n)</code></pre>",
+      "options": ["backgroundColor", "bodyColor", "scaffoldBackgroundColor", "mainColor"],
+      "answer": 2,
+      "commentary": "scaffoldBackgroundColorを使用すると、アプリ内のScaffoldウィジェットの背景色をデフォルト設定できます。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "Djangoのモデル定義で unique=True を設定するとどうなりますか？",
+      "options": [
+        "そのフィールドが空でも良くなる",
+        "そのフィールドに同じ値が重複して登録されるのを防ぐ",
+        "自動的に数字が割り振られる",
+        "検索が遅くなる"
+      ],
+      "answer": 1,
+      "commentary": "unique=True は、データベース内でその値が一意であることを保証する制約です。"
+    },
+    {
+      "id": 12,
+      "type": "文法チェック",
+      "question": "Djangoの管理画面（Admin）にモデルを表示させるために、admin.pyに記述する正しいメソッドはどれですか？",
+      "options": [
+        "admin.site.add()",
+        "admin.site.show()",
+        "admin.site.register()",
+        "admin.site.connect()"
+      ],
+      "answer": 2,
+      "commentary": "admin.site.register(モデル名) を記述することで、管理画面からそのモデルのデータを操作できるようになります。"
+    },
+    {
+      "id": 13,
+      "type": "実行結果予測",
+      "question": "Djangoで ForeignKey の on_delete=models.CASCADE を設定したとき、親データが削除されるとどうなりますか？",
+      "options": [
+        "エラーになって削除できない",
+        "親データだけが削除される",
+        "紐付いている子データも一緒に削除される",
+        "何の影響も受けない"
+      ],
+      "answer": 2,
+      "commentary": "CASCADE（カスケード）は、関連するオブジェクトも連動して削除する設定です。"
+    },
+    {
+      "id": 14,
+      "type": "コード穴埋め",
+      "question": "Djangoで管理画面にログインするための最高権限を持つユーザーを作成するコマンドは何ですか？<pre><code>python manage.py ___</code></pre>",
+      "options": ["createadmin", "createsuperuser", "makeadmin", "newuser"],
+      "answer": 1,
+      "commentary": "createsuperuserコマンドで、管理画面にアクセス可能な管理者アカウントを作成します。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "Flutterの analysis_options.yaml において、`linter` ブロックの役割は何ですか？",
+      "options": [
+        "インターネット通信の設定をする",
+        "コードの書き方のルール（規約）を設定し、統一感を持たせる",
+        "アプリのアイコンを設定する",
+        "データベースの種類を決める"
+      ],
+      "answer": 1,
+      "commentary": "リンターは静的解析ツールで、推奨されるコードスタイルに従っているかをチェックします。"
+    },
+    {
+      "id": 16,
+      "type": "文法チェック",
+      "question": "FlutterのTextStyleでフォントサイズを20、色を黒に設定する正しい書き方はどれですか？",
+      "options": [
+        "TextStyle(size: 20, tint: Colors.black)",
+        "TextStyle(fontSize: 20, color: Colors.black)",
+        "TextStyle(font: 20, color: black)",
+        "TextStyle(fontSize: 20, style: Colors.black)"
+      ],
+      "answer": 1,
+      "commentary": "fontSizeプロパティとcolorプロパティを組み合わせてテキストの見た目を調整します。"
+    },
+    {
+      "id": 17,
+      "type": "実行結果予測",
+      "question": "Flutterで `Colors.grey[100]` と記述した場合の色の特徴はどれですか？",
+      "options": ["非常に濃いグレー", "非常に薄いグレー", "真っ黒", "赤みのあるグレー"],
+      "answer": 1,
+      "commentary": "[]内の数値は色の重み（シェード）を表し、100は最も薄い部類、900が最も濃い部類になります。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "Flutterアプリの画面上部に表示される「バー」を設定するウィジェットのプロパティ名は何ですか？<pre><code>Scaffold(\n    ___: AppBar(\n        title: Text('タイトル'),\n    ),\n)</code></pre>",
+      "options": ["topBar", "header", "appBar", "navBar"],
+      "answer": 2,
+      "commentary": "ScaffoldウィジェットのappBarプロパティにAppBarウィジェットを渡して表示します。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "Flutterのプロジェクト作成直後、アプリの開始地点となるソースコードが書かれているファイルはどれですか？",
+      "options": ["app.dart", "index.dart", "main.dart", "start.dart"],
+      "answer": 2,
+      "commentary": "lib/main.dart がFlutterアプリケーションの実行エントリーポイントです。"
+    },
+    {
+      "id": 20,
+      "type": "文法チェック",
+      "question": "Djangoのモデル内で、文字数に制限がある短い文字列を保存するのに最適なフィールドはどれですか？",
+      "options": ["TextField", "CharField", "IntegerField", "StringField"],
+      "answer": 1,
+      "commentary": "CharFieldは短い文字列用（max_lengthが必須）で、TextFieldは長い文章用です。"
+    },
+    {
+      "id": 21,
+      "type": "実行結果予測",
+      "question": "Djangoプロジェクトを作成した後、ブラウザからアクセスして「The install worked successfully!」の画面を見るためのデフォルトのアドレスは何ですか？",
+      "options": ["http://localhost:3000", "http://127.0.0.1:8000", "http://0.0.0.0:5000", "http://127.0.0.1:8080"],
+      "answer": 1,
+      "commentary": "Djangoのrunserverのデフォルトアドレスは 127.0.0.1（localhost）の 8000番ポートです。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "Django REST frameworkで使用されるデータ形式「JSON」の最大の特徴はどれですか？",
+      "options": [
+        "画像データそのものである",
+        "人間にもコンピュータにも読みやすく、データ交換に適したテキスト形式である",
+        "動画を配信するための専用形式である",
+        "Excelでしか開くことができない"
+      ],
+      "answer": 1,
+      "commentary": "JSONはJavaScript Object Notationの略で、軽量なデータ交換フォーマットとしてWeb APIで広く普及しています。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "Djangoで新しいアプリケーション「api」を作成するコマンドは何ですか？<pre><code>python manage.py ___ api</code></pre>",
+      "options": ["createapp", "newapp", "startapp", "initapp"],
+      "answer": 2,
+      "commentary": "startappコマンドで、プロジェクト内に新しいアプリケーション（機能単位）のフォルダ構成を作成します。"
+    },
+    {
+      "id": 24,
+      "type": "文法チェック",
+      "question": "Djangoモデルの `__str__` メソッドの役割は何ですか？",
+      "options": [
+        "データベースを削除する",
+        "管理画面などで、そのオブジェクトを人間が見て分かりやすい文字列で表示する",
+        "全ての文字を大文字にする",
+        "パスワードを暗号化する"
+      ],
+      "answer": 1,
+      "commentary": "__str__ はPythonの特殊メソッドで、オブジェクトの文字列表現を定義します。"
+    },
+    {
+      "id": 25,
+      "type": "実行結果予測",
+      "question": "settings.pyで `TIME_ZONE = \"Asia/Tokyo\"` と設定すると、何に影響しますか？",
+      "options": [
+        "アプリの動作速度",
+        "データベースに保存される日付や時刻の基準",
+        "アプリの背景色",
+        "インターネットの接続先"
+      ],
+      "answer": 1,
+      "commentary": "Django内部で日付や時刻を扱う際のタイムゾーンを指定する設定です。"
+    },
+    {
+      "id": 26,
+      "type": "用語理解",
+      "question": "Flutterの `runApp(const MyApp())` の役割は何ですか？",
+      "options": [
+        "アプリを終了させる",
+        "指定したウィジェットをルート（最上位）としてアプリを起動させる",
+        "インターネットからデータをダウンロードする",
+        "スマートフォンの電源を切る"
+      ],
+      "answer": 1,
+      "commentary": "main関数の最後で呼び出し、ウィジェットツリーを構築・描画し始めます。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "Flutterで「中央に配置する」ために使われるウィジェットは何ですか？",
+      "options": ["Middle", "Center", "Scaffold", "Theme"],
+      "answer": 1,
+      "commentary": "Centerウィジェットは、その子ウィジェット（child）を親の領域の真ん中に配置します。"
+    },
+    {
+      "id": 28,
+      "type": "コード穴埋め",
+      "question": "macOSで仮想環境を作成するコマンドを完成させてください。<pre><code>python3 -m ___ .venv</code></pre>",
+      "options": ["virtual", "venv", "env", "virtualenv"],
+      "answer": 1,
+      "commentary": "venvモジュールを使用して、プロジェクトごとに独立したPython実行環境（仮想環境）を作成します。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "Fixture用JSONファイル内の \"pk\": 1 とはどういう意味ですか？",
+      "options": [
+        "データの優先順位が1番である",
+        "そのデータの主キー（Primary Key）が1であることを示す",
+        "1回だけ表示する",
+        "データのサイズが1KBである"
+      ],
+      "answer": 1,
+      "commentary": "pkはPrimary Key（主キー）の略で、データベース内のデータを一意に識別するための番号です。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "Djangoの `CharField` で必須となる引数はどれですか？",
+      "options": ["default", "null", "max_length", "verbose_name"],
+      "answer": 2,
+      "commentary": "CharFieldは最大文字数（max_length）を指定しないとエラーになります。"
+    },
+    {
+      "id": 31,
+      "type": "文法チェック",
+      "question": "Flutterでウィジェットを再利用可能にし、変更がないことを示すキーワードはどれですか？",
+      "options": ["final", "static", "const", "var"],
+      "answer": 2,
+      "commentary": "constを付けることで、そのウィジェットがコンパイル時に定数として扱われ、パフォーマンスが向上します。"
+    },
+    {
+      "id": 32,
+      "type": "コード穴埋め",
+      "question": "Djangoモデルで、レシピとカテゴリーを紐付ける際に使う引数で、逆方向の参照名をつけるものはどれですか？<pre><code>models.ForeignKey(\n    Category, \n    on_delete=models.CASCADE, \n    ___=\"recipes\"\n)</code></pre>",
+      "options": ["related_query", "related_name", "back_reference", "link_name"],
+      "answer": 1,
+      "commentary": "related_name を設定すると、Category側から recipes.all() のように関連データを取得しやすくなります。"
+    },
+    {
+      "id": 33,
+      "type": "実行結果予測",
+      "question": "Djangoの `IntegerField` に「20分」と登録したい場合、どのように値を渡すべきですか？",
+      "options": ["\"20分\"", "20", "20.0", "[20]"],
+      "answer": 1,
+      "commentary": "IntegerFieldは整数専用のフィールドなので、数値の 20 を渡します。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "APIリクエストに対して、サーバーから返される結果のことを何と呼びますか？",
+      "options": ["リクエスト", "レスポンス", "コマンド", "クエリ"],
+      "answer": 1,
+      "commentary": "クライアントからの「要求（Request）」に対し、サーバーが「応答（Response）」を返します。"
+    },
+    {
+      "id": 35,
+      "type": "文法チェック",
+      "question": "Flutterで「マテリアルデザイン」の部品を使うためにインポートする必要があるファイルはどれですか？",
+      "options": [
+        "package:flutter/cupertino.dart",
+        "package:flutter/material.dart",
+        "package:flutter/widgets.dart",
+        "package:flutter/api.dart"
+      ],
+      "answer": 1,
+      "commentary": "AppBarやScaffoldなどはすべて material.dart に定義されています。"
+    },
+    {
+      "id": 36,
+      "type": "コード穴埋め",
+      "question": "FlutterのMaterialAppで、最初に表示する画面を指定するプロパティ名は何ですか？<pre><code>MaterialApp(\n    title: 'アプリ',\n    ___: MyHomePage(),\n)</code></pre>",
+      "options": ["start", "main", "home", "index"],
+      "answer": 2,
+      "commentary": "homeプロパティに、最初に表示したいScaffoldなどのウィジェットを渡します。"
+    },
+    {
+      "id": 37,
+      "type": "実行結果予測",
+      "question": "FlutterのAppBarThemeで `titleTextStyle` を設定すると、何が変わりますか？",
+      "options": [
+        "アプリバーの背景色",
+        "アプリバーに表示される文字のスタイル",
+        "画面中央の文字のサイズ",
+        "ボタンの色"
+      ],
+      "answer": 1,
+      "commentary": "アプリバー内のタイトル文字のフォント、サイズ、色などを一括設定できます。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "Djangoの loaddata コマンドがJSONファイルを探しに行くデフォルトのフォルダ名は何ですか？",
+      "options": ["data", "json", "fixtures", "static"],
+      "answer": 2,
+      "commentary": "Djangoはアプリケーション内の fixtures フォルダにあるファイルを自動的に認識します。"
+    },
+    {
+      "id": 39,
+      "type": "文法チェック",
+      "question": "Flutterのリンタールール `prefer_single_quotes: true` が有効な場合、推奨される書き方はどちらですか？",
+      "options": [
+        "\"Hello World\"",
+        "'Hello World'",
+        "(Hello World)",
+        "[Hello World]"
+      ],
+      "answer": 1,
+      "commentary": "このルールはダブルクォートよりもシングルクォートを優先して使うように促します。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "Djangoモデルの `IntegerField` で調理時間を管理する場合、適切な単位（minutesなど）をフィールド名に含めるメリットは何ですか？",
+      "options": [
+        "プログラムの実行が速くなる",
+        "コードを読む人が、その数字が何（分なのか秒なのか）を表しているか一目で理解できる",
+        "データベースの容量を節約できる",
+        "エラーが自動的に直る"
+      ],
+      "answer": 1,
+      "commentary": "変数名やフィールド名に単位を含めることは、プログラムの可読性を高める良い習慣です。"
+    }
+  ]
 }

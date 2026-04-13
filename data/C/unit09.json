@@ -1,4 +1,325 @@
 {
   "unit_title": "レシピデータ追加 - 演習と解説",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "サーバーに新しいレシピデータを送信して作成するために使用する HTTP メソッドは何ですか？",
+      "options": ["GET", "POST", "PUT", "DELETE"],
+      "answer": 1,
+      "commentary": "データの新規作成には POST メソッドを使用します。GET は取得、PUT は更新、DELETE は削除に用います。"
+    },
+    {
+      "id": 2,
+      "type": "文法チェック",
+      "question": "リクエストボディを JSON 形式に変換するために Dart で使用する関数は何ですか？",
+      "options": ["jsonDecode", "jsonEncode", "jsonToString", "jsonParse"],
+      "answer": 1,
+      "commentary": "jsonEncode を使うことで、Dart の Map データを JSON 文字列に変換して送信できます。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "HTTP ヘッダーで「送信するデータが JSON であること」をサーバーに伝える設定を完成させてください。<pre><code>headers: {\n  HttpHeaders.contentTypeHeader: ___.json.value,\n}</code></pre>",
+      "options": ["MediaType", "DataFormat", "ContentType", "Protocol"],
+      "answer": 2,
+      "commentary": "ContentType.json.value は 'application/json' を指し、サーバーにデータ形式を正しく伝えます。"
+    },
+    {
+      "id": 4,
+      "type": "実行結果予測",
+      "question": "POST リクエストが成功した際、Django REST framework が返す標準的なステータスコードは何番ですか？",
+      "options": ["200", "201", "204", "400"],
+      "answer": 1,
+      "commentary": "201 Created は、新しいリソースが正常に作成されたことを示す成功コードです。"
+    },
+    {
+      "id": 5,
+      "type": "用語理解",
+      "question": "調理時間などの数値を直感的に選択するために使用する、横にスライドさせるウィジェットは何ですか？",
+      "options": ["ProgressBar", "Slider", "Scrollbar", "Switch"],
+      "answer": 1,
+      "commentary": "Slider ウィジェットを使うと、つまみを動かして範囲内の数値を入力できます。"
+    },
+    {
+      "id": 6,
+      "type": "文法チェック",
+      "question": "Slider ウィジェットで現在の値を保持するために必須となるプロパティは何ですか？",
+      "options": ["min", "max", "value", "divisions"],
+      "answer": 2,
+      "commentary": "value プロパティに現在の値を渡すことで、Slider のつまみの位置が決定されます。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "Slider の値が変更されたときに、画面を更新するための関数は何ですか？<pre><code>onChanged: (newValue) {\n  ___(() {\n    _cookingTime = newValue.toInt();\n  });\n}</code></pre>",
+      "options": ["refresh", "rebuild", "setState", "update"],
+      "answer": 2,
+      "commentary": "setState を呼び出すことで build メソッドが再実行され、UI に最新の値が反映されます。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "入力フォーム全体で、複数行のテキスト（作り方など）を入力可能にするための TextFormField のプロパティは何ですか？",
+      "options": ["maxLength", "maxLines", "textHeight", "rowCount"],
+      "answer": 1,
+      "commentary": "maxLines に 1 より大きい数値を指定すると、入力フィールドが縦に広がります。"
+    },
+    {
+      "id": 9,
+      "type": "文法チェック",
+      "question": "Slider の色やスタイルを「アプリ全体」で統一して設定するために使用する ThemeData 内のクラスは何ですか？",
+      "options": ["SliderStyle", "SliderConfig", "SliderThemeData", "WidgetTheme"],
+      "answer": 2,
+      "commentary": "ThemeData の sliderTheme プロパティに SliderThemeData を設定することで、一括管理が可能です。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "Slider の「アクティブなトラック（進行部分）」の色を指定するプロパティ名は何ですか？",
+      "options": ["thumbColor", "activeTrackColor", "inactiveTrackColor", "overlayColor"],
+      "answer": 1,
+      "commentary": "activeTrackColor は Slider の始まりからつまみまでの線の色を指定します。"
+    },
+    {
+      "id": 11,
+      "type": "実行結果予測",
+      "question": "<code>Colors.orange.withOpacity(0.2)</code> と記述した場合、どのような色になりますか？",
+      "options": ["非常に濃いオレンジ", "透き通った（透明度のある）オレンジ", "オレンジの反対色", "真っ白"],
+      "answer": 1,
+      "commentary": "withOpacity(0.2) は透明度を 20% に設定するため、半透明の色になります。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "Slider 操作時に表示される、現在値を示す吹き出しのような部分を何と呼びますか？",
+      "options": ["つまみ", "インジケーター", "影", "ラベル"],
+      "answer": 1,
+      "commentary": "valueIndicatorColor などで設定される、現在の数値が見える部分を「値インジケーター」と呼びます。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "TextFormField のバリデーションにおいて、入力された文字列が「空（空白のみを含む）」であることを判定する正しい記述はどれですか？",
+      "options": ["value == null", "value.isEmpty", "value == null || value.trim().isEmpty", "value.length == 0"],
+      "answer": 2,
+      "commentary": "trim() を使うことでスペースだけの入力も「空」として正しく検知できます。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "入力フォームが画面の高さを超えた場合に、キーボードで隠れないようにスクロール可能にするウィジェットは何ですか？",
+      "options": ["ListView", "Column", "SingleChildScrollView", "Container"],
+      "answer": 2,
+      "commentary": "SingleChildScrollView で包むことで、フォーム全体がスクロールできるようになります。"
+    },
+    {
+      "id": 15,
+      "type": "コード穴埋め",
+      "question": "保存成功後に「レシピ一覧画面」へ戻るために、現在の画面を閉じる命令は何ですか？<pre><code>Navigator.___(context);</code></pre>",
+      "options": ["push", "pop", "back", "remove"],
+      "answer": 1,
+      "commentary": "pop はスタックから現在の画面を取り除き、前の画面に戻る操作です。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "Riverpod において、データを新規作成した後に「古い一覧データ」を捨てて最新化するために呼び出すメソッドは何ですか？",
+      "options": ["ref.refresh()", "ref.invalidate()", "ref.reset()", "ref.watch()"],
+      "answer": 1,
+      "commentary": "invalidate() を使うとプロバイダの状態を無効化し、次回アクセス時にデータを再取得させます。"
+    },
+    {
+      "id": 17,
+      "type": "文法チェック",
+      "question": "RecipeFormScreen で新規作成なのか編集なのかを判定するために使われている変数はどれですか？",
+      "options": ["categoryId", "recipe", "title", "cookingTime"],
+      "answer": 1,
+      "commentary": "引数の recipe が null かどうかで「新規作成（追加）」か「編集」かを動的に判断しています。"
+    },
+    {
+      "id": 18,
+      "type": "用語理解",
+      "question": "Slider ウィジェットで、数値を飛び飛び（例：5きざみ）に設定するために指定するプロパティ名は何ですか？",
+      "options": ["steps", "divisions", "intervals", "points"],
+      "answer": 1,
+      "commentary": "divisions に分割数を指定することで、つまみが段階的に動くようになります。"
+    },
+    {
+      "id": 19,
+      "type": "コード穴埋め",
+      "question": "非同期処理の中で SnackBar を表示する際、ウィジェットがまだ存在するか確認するフラグは何ですか？<pre><code>if (!___) return;\nScaffoldMessenger.of(context).showSnackBar(...)</code></pre>",
+      "options": ["alive", "loading", "mounted", "ready"],
+      "answer": 2,
+      "commentary": "mounted チェックは、画面が閉じられた後の不正な context 操作によるエラーを防ぎます。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "Slider で <code>min: 0, max: 240, divisions: 48</code> と設定した場合、1メモリあたり何分ずつ変化しますか？",
+      "options": ["1分", "2分", "5分", "10分"],
+      "answer": 2,
+      "commentary": "240 ÷ 48 = 5 となり、5分きざみで調整できるようになります。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "API からのレスポンスが 201 以外だった場合に、プログラムでエラーを「投げる」ためのキーワードは何ですか？",
+      "options": ["error", "catch", "throw", "reject"],
+      "answer": 2,
+      "commentary": "throw Exception('...') と書くことで、意図的にエラー状態を発生させることができます。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "三項演算子 <code>categoryId == null ? 'なし' : 'あり'</code> において、categoryId に数値が入っている場合の戻り値はどれですか？",
+      "options": ["categoryId", "null", "なし", "あり"],
+      "answer": 3,
+      "commentary": "条件（nullか？）が False なので、コロンの後の「あり」が返ります。"
+    },
+    {
+      "id": 23,
+      "type": "用語理解",
+      "question": "StatefulWidget において、画面が消える（破棄される）際にコントローラーを解放するためのメソッドは何ですか？",
+      "options": ["initState", "build", "dispose", "close"],
+      "answer": 2,
+      "commentary": "dispose 内で .dispose() を呼ぶことで、メモリリークを防止できます。"
+    },
+    {
+      "id": 24,
+      "type": "コード穴埋め",
+      "question": "API へのパスを動的に作成するために、URL の一部を置き換えるメソッドは何ですか？<pre><code>baseUrl.___(path: '...')</code></pre>",
+      "options": ["replace", "update", "change", "set"],
+      "answer": 0,
+      "commentary": "replace メソッドを使うと、既存の Uri オブジェクトから特定の要素だけを変えた新しい Uri が作れます。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "Slider ウィジェットの「つまみ」そのものの色を指定するプロパティ名は何ですか？",
+      "options": ["trackColor", "thumbColor", "pointColor", "dotColor"],
+      "answer": 1,
+      "commentary": "thumbColor で Slider の操作部分（つまみ）の色を変更できます。"
+    },
+    {
+      "id": 26,
+      "type": "文法チェック",
+      "question": "TextFormField の decoration 内で、入力欄に常に表示される「ヒント」を設定するプロパティは何ですか？",
+      "options": ["titleText", "hintText", "labelText", "placeholder"],
+      "answer": 2,
+      "commentary": "labelText を使うと、マテリアルデザイン風の浮き上がるラベルを表示できます。"
+    },
+    {
+      "id": 27,
+      "type": "実行結果予測",
+      "question": "演習2で、カテゴリーIDが指定されていない状態で保存ボタンを押すと、画面には何が表示されますか？",
+      "options": ["レシピ一覧画面", "「カテゴリーIDが指定されていません」という SnackBar", "真っ白な画面", "エラーでアプリが終了する"],
+      "answer": 1,
+      "commentary": "try-catch 文と if によるチェックにより、安全にエラーメッセージが表示されます。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "非同期処理（Future）の結果を待つために、関数定義に付ける必要があるキーワードは何ですか？",
+      "options": ["await", "async", "sync", "future"],
+      "answer": 1,
+      "commentary": "非同期処理を含む関数には async を付けるのが Dart のルールです。"
+    },
+    {
+      "id": 29,
+      "type": "文法チェック",
+      "question": "ElevatedButton のボタン内の文字を「太字」にするための正しい指定方法はどれですか？",
+      "options": ["Text('太字', weight: bold)", "style: TextStyle(fontWeight: FontWeight.bold)", "bold: true", "heavy: true"],
+      "answer": 1,
+      "commentary": "TextStyle の fontWeight プロパティに FontWeight.bold を指定します。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "Flutter のウィジェットライフサイクルで、変数の初期化などを「最初の一度だけ」行うメソッドは何ですか？",
+      "options": ["initState", "build", "dispose", "createState"],
+      "answer": 0,
+      "commentary": "initState はウィジェットがツリーに挿入された直後に一度だけ呼ばれます。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "別の画面から渡された値にアクセスするために使うキーワードは何ですか？<pre><code>_nameController.text = ___ .recipe?.title ?? '';</code></pre>",
+      "options": ["this", "parent", "widget", "super"],
+      "answer": 2,
+      "commentary": "State クラス内からは、widget を通じて StatefulWidget 本体のプロパティにアクセスできます。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "API 連携において、データを送る際のリクエストヘッダーに含まれる「Content-Type」の主な役割は何ですか？",
+      "options": ["サーバーの住所を伝える", "送るデータの形式（JSONなど）を教える", "通信速度を上げる", "画像を圧縮する"],
+      "answer": 1,
+      "commentary": "サーバーが受け取ったデータをどう解析すればよいか判断するために必須の情報です。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "Dart で、値が null の場合に代入する予備の値を指定する「??」演算子の名前は何ですか？",
+      "options": ["三項演算子", "Null合体演算子", "Elvis演算子", "等価演算子"],
+      "answer": 1,
+      "commentary": "?? は左辺が null のときだけ右辺の値を採用する便利な演算子です。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "<code>_titleController.text = 'カレー';</code> を実行した際、画面上の入力欄はどうなりますか？",
+      "options": ["何も変わらない", "「カレー」と入力された状態になる", "「カレー」という文字が消える", "エラーになる"],
+      "answer": 1,
+      "commentary": "コントローラーの .text プロパティを書き換えると、紐付いている入力欄の表示も変わります。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "API への POST リクエストを送信するために使用する Flutter の標準的な外部パッケージは何ですか？",
+      "options": ["json", "http", "api_client", "web_helper"],
+      "answer": 1,
+      "commentary": "pub.dev で公開されている http パッケージが、Web 通信の最も標準的なツールです。"
+    },
+    {
+      "id": 36,
+      "type": "文法チェック",
+      "question": "freezed の <code>copyWith</code> メソッドを使用して <code>title</code> だけを更新する正しい書き方はどれですか？",
+      "options": ["recipe.title = 'New'", "recipe.copyWith(title: 'New')", "recipe.update('New')", "recipe.changeTitle('New')"],
+      "answer": 1,
+      "commentary": "freezed モデルは「不変」なので、copyWith で新しいインスタンスを作る必要があります。"
+    },
+    {
+      "id": 37,
+      "type": "実行結果予測",
+      "question": "Flutter で <code>double.infinity</code> を横幅（width）に指定した時の効果はどれですか？",
+      "options": ["幅が 0 になる", "可能な限り横いっぱいに広がる", "画面外に突き抜ける", "ボタンが消える"],
+      "answer": 1,
+      "commentary": "親要素が許容する最大幅までウィジェットを広げる指定です。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "SnackBar を管理し、表示を実行するために使う Flutter 2 以降のクラス名は何ですか？",
+      "options": ["Scaffold", "SnackBarManager", "ScaffoldMessenger", "NotifySystem"],
+      "answer": 2,
+      "commentary": "ScaffoldMessenger.of(context) を通じて SnackBar を操作するのが現行の標準です。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "Form の状態をリセットしたりバリデーションを実行したりするために使う「キー」の型は何ですか？<pre><code>final _formKey = ___&lt;FormState&gt;();</code></pre>",
+      "options": ["StateKey", "FormKey", "GlobalKey", "UniqueKey"],
+      "answer": 2,
+      "commentary": "GlobalKey<FormState> を使うことで、離れた場所からでも Form の状態を操作できます。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "API 開発において、データの受け渡しに使われる軽量なテキストフォーマットを何と呼びますか？",
+      "options": ["HTML", "XML", "JSON", "CSV"],
+      "answer": 2,
+      "commentary": "JSON は人間にもコンピュータにも読みやすく、現在の Web API の主流です。"
+    }
+  ]
 }

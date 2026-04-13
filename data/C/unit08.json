@@ -1,4 +1,325 @@
 {
   "unit_title": "レシピ一覧画面の表示 - 演習と解説",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "Pythonなどで一般的な、単語をアンダースコアで繋ぐ命名規則（例：cooking_time_minutes）を何と呼びますか？",
+      "options": ["キャメルケース", "スネークケース", "パスカルケース", "ケバブケース"],
+      "answer": 1,
+      "commentary": "蛇（snake）のように地を這うイメージから、アンダースコアで繋ぐ記法をスネークケースと呼びます。"
+    },
+    {
+      "id": 2,
+      "type": "用語理解",
+      "question": "Dartなどで一般的な、単語の区切りを大文字にする命名規則（例：cookingTimeMinutes）を何と呼びますか？",
+      "options": ["スネークケース", "キャメルケース", "スクリームケース", "フラットケース"],
+      "answer": 1,
+      "commentary": "ラクダ（camel）のコブのような見た目から、最初の単語以外を大文字で始める記法をキャメルケースと呼びます。"
+    },
+    {
+      "id": 3,
+      "type": "文法チェック",
+      "question": "freezedライブラリを使用する際、JSONのキー名（スネークケース）をDartの変数名（キャメルケース）に自動変換するために設定するファイルは何ですか？",
+      "options": ["pubspec.yaml", "build.yaml", "analysis_options.yaml", "config.xml"],
+      "answer": 1,
+      "commentary": "build.yamlファイルにfield_rename: snakeを設定することで、命名規則の差異を自動で埋めることができます。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "freezedモデルで「レシピ」を定義する際、レシピ名「title」を必須項目にするためのキーワードは何ですか？<pre><code>const factory Recipe({\n  ___ String title,\n}) = _Recipe;</code></pre>",
+      "options": ["final", "static", "required", "const"],
+      "answer": 2,
+      "commentary": "requiredキーワードを付けることで、その値が必須であることをコンパイラに伝えます。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "freezedのコード生成コマンド「dart run build_runner build」を実行した後に生成される、モデルのシリアライズ用ファイル名はどれですか？",
+      "options": ["recipe.freezed.dart", "recipe.g.dart", "recipe.model.dart", "recipe.json.dart"],
+      "answer": 1,
+      "commentary": "g.dart（generatedの略）ファイルには、JSONとの相互変換を行うためのコードが書き出されます。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "URLのパスの中に「/categories/1/recipes/」のように含まれる、動的に変わるIDなどの値を何と呼びますか？",
+      "options": ["クエリパラメータ", "パスパラメータ", "ヘッダー", "ボディ"],
+      "answer": 1,
+      "commentary": "URLのパス自体に含まれる変数のことをパスパラメータと呼びます。"
+    },
+    {
+      "id": 7,
+      "type": "文法チェック",
+      "question": "DartのUriクラスにおいて、既存のURLの「パス」部分だけを書き換えて新しいURLを作るメソッドは何ですか？",
+      "options": ["update()", "replace()", "setPath()", "change()"],
+      "answer": 1,
+      "commentary": "replace(path: '...')メソッドを使うことで、ホスト名などを維持したまま特定の要素だけを変更できます。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "Riverpodで「引数（categoryId）を受け取る」非同期プロバイダを定義する際に使う特殊なコンストラクタは何ですか？<pre><code>final recipeProvider = FutureProvider.___&lt;List&lt;Recipe&gt;, int&gt;((ref, id) async { ... });</code></pre>",
+      "options": ["autoDispose", "family", "group", "link"],
+      "answer": 1,
+      "commentary": ".family修飾子を使うことで、プロバイダの呼び出し時に外部から値を渡せるようになります。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "Flutterで画面を移動させる際に「context（場所）」と「遷移先」を指定して呼び出す静的メソッドは何ですか？",
+      "options": ["Navigator.pop()", "Navigator.push()", "Router.go()", "Screen.show()"],
+      "answer": 1,
+      "commentary": "Navigator.push()により、現在の画面の上に新しい画面を重ねることができます。"
+    },
+    {
+      "id": 10,
+      "type": "文法チェック",
+      "question": "遷移先のアニメーションや画面の構築方法を定義するためにNavigator.pushの引数として渡すクラスは何ですか？",
+      "options": ["AppRoute", "MaterialPageRoute", "PageTransition", "WidgetRoute"],
+      "answer": 1,
+      "commentary": "MaterialPageRouteを使うことで、各OS（Android/iOS）標準のアニメーションで画面が切り替わります。"
+    },
+    {
+      "id": 11,
+      "type": "実行結果予測",
+      "question": "FutureProviderの状態を扱う「when」メソッドにおいて、データの取得が「成功」したときに実行されるブロックはどれですか？",
+      "options": ["error", "loading", "data", "success"],
+      "answer": 2,
+      "commentary": "dataブロックには、非同期処理の結果として得られた実際のオブジェクトが渡されます。"
+    },
+    {
+      "id": 12,
+      "type": "コード穴埋め",
+      "question": "ウィジェット内で「引数付きのプロバイダ」からデータを読み取る正しい書き方はどれですか？<pre><code>final asyncValue = ref.watch(recipeProvider(___));</code></pre>",
+      "options": ["id", "categoryId", "family", "value"],
+      "answer": 1,
+      "commentary": "familyプロバイダは関数のように呼び出し、引数（今回の場合はcategoryId）を渡して使用します。"
+    },
+    {
+      "id": 13,
+      "type": "用語理解",
+      "question": "テーブルの列幅設定「FlexColumnWidth()」を指定した場合、その列の幅はどうなりますか？",
+      "options": ["指定したピクセル数で固定される", "文字数に合わせて自動調整される", "他の固定幅以外の残りのスペースを分け合う", "常に画面の半分になる"],
+      "answer": 2,
+      "commentary": "Flex（フレックス）は、柔軟に残りの領域を埋める指定方法です。"
+    },
+    {
+      "id": 14,
+      "type": "文法チェック",
+      "question": "ユーザーのタップ操作を検出し、onTapイベントを発生させるためにウィジェットを包むクラスは何ですか？",
+      "options": ["TouchListener", "GestureDetector", "ClickContainer", "ActionBox"],
+      "answer": 1,
+      "commentary": "GestureDetectorを使うことで、TextやContainerなどあらゆる部品をボタンのように扱えます。"
+    },
+    {
+      "id": 15,
+      "type": "実行結果予測",
+      "question": "APIから送られてくる調理時間が「45」のとき、モデルの <code>recipe.cookingTimeMinutes.toString()</code> を実行すると何が返りますか？",
+      "options": ["45 (数値型)", "\"45\" (文字列型)", "Error", "null"],
+      "answer": 1,
+      "commentary": "toString()メソッドにより、整数型がTextウィジェットなどで表示可能な文字列に変換されます。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "API通信が失敗した際に、アプリ側で意図的に「失敗」として扱うために発生させるものは何ですか？",
+      "options": ["Error", "Exception（例外）", "Warning", "Alert"],
+      "answer": 1,
+      "commentary": "throw Exception('...')と記述することで、Riverpodのerror状態へと処理を移せます。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "リストデータを変換してテーブルの行を大量に作りたい際、Dartのリスト操作で使うメソッドは何ですか？<pre><code>...recipes.___( (recipe) => TableRow(...) )</code></pre>",
+      "options": ["forEach", "add", "map", "filter"],
+      "answer": 2,
+      "commentary": "mapメソッドは、リストの要素を別の形（今回はTableRowウィジェット）に変換して新しいリストを作る際に最適です。"
+    },
+    {
+      "id": 18,
+      "type": "文法チェック",
+      "question": "Tableウィジェットの中で、各セルの内容を定義する子ウィジェットの集合を持つクラスは何ですか？",
+      "options": ["TableLine", "TableRow", "TableColumn", "TableCell"],
+      "answer": 1,
+      "commentary": "TableRowウィジェットの中に、その行に並べるウィジェットをリスト形式で記述します。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "Navigator.pushで渡す「context」が表しているものは何ですか？",
+      "options": ["画面の背景色", "ウィジェットツリーにおける自身の位置情報", "インターネットの接続状態", "スマートフォンの機種名"],
+      "answer": 1,
+      "commentary": "BuildContext（context）は、Flutterが「今、画面のどこにいるか」を把握するための重要な情報です。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "build.yamlで「field_rename: snake」を設定した場合、Dartの「cookingTimeMinutes」はJSONでどのキーに対応しますか？",
+      "options": ["cookingtimeminutes", "cooking_time_minutes", "COOKING_TIME_MINUTES", "cooking-time-minutes"],
+      "answer": 1,
+      "commentary": "キャメルケースの単語の区切りにアンダースコアを入れるスネークケースに自動で変換されます。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "非同期通信中に表示される、丸いローディングアイコンのウィジェット名は何ですか？",
+      "options": ["LoadingSpinner", "CircularProgressIndicator", "RoundProgressBar", "WaitingIcon"],
+      "answer": 1,
+      "commentary": "Flutter標準のくるくる回る進捗表示ウィジェットです。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "FutureProvider.familyの定義において、<code>&lt;List&lt;Recipe&gt;, int&gt;</code> の「int」は何を意味していますか？",
+      "options": ["取得するデータの個数", "渡される引数（categoryId）の型", "エラーコード", "データのID"],
+      "answer": 1,
+      "commentary": "二番目の型指定は、このプロバイダを使用する際に外部から受け取る「引数の型」を指定します。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "Textウィジェットで文字の下に線を引きたい場合のスタイル指定はどれですか？<pre><code>style: TextStyle(\n  decoration: TextDecoration.___\n)</code></pre>",
+      "options": ["line", "bottom", "underline", "border"],
+      "answer": 2,
+      "commentary": "underlineを指定すると、リンクのような下線が表示されます。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "API通信などの非同期処理を扱う関数に必ず付けるキーワードは何ですか？",
+      "options": ["static", "async", "await", "future"],
+      "answer": 1,
+      "commentary": "非同期処理を含む関数の「定義」には async を付けます。"
+    },
+    {
+      "id": 25,
+      "type": "実行結果予測",
+      "question": "<code>ref.watch</code> を使っているウィジェットは、プロバイダのデータが更新されたときにどうなりますか？",
+      "options": ["アプリが終了する", "そのウィジェットのbuildメソッドが再度実行される", "画面がフリーズする", "何も起きない"],
+      "answer": 1,
+      "commentary": "watch（監視）しているため、データが変われば自動的に画面も最新の状態に描き直されます。"
+    },
+    {
+      "id": 26,
+      "type": "用語理解",
+      "question": "「Scaffold」ウィジェットの役割を日本語で例えると何ですか？",
+      "options": ["看板", "足場", "筆箱", "道路"],
+      "answer": 1,
+      "commentary": "アプリ画面を構築するための基本的な構造（足場）を提供します。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "Dartのリストで、要素と要素の区切りに使う記号は何ですか？",
+      "options": [".（ドット）", ",（カンマ）", ":（コロン）", ";（セミコロン）"],
+      "answer": 1,
+      "commentary": "List [A, B, C] のように、カンマで要素を区切ります。"
+    },
+    {
+      "id": 28,
+      "type": "コード穴埋め",
+      "question": "APIリクエストを送る際、結果が返ってくるまで処理を一時停止（待機）させるキーワードは何ですか？<pre><code>final response = ___ http.get(url);</code></pre>",
+      "options": ["async", "await", "wait", "hold"],
+      "answer": 1,
+      "commentary": "awaitを使うことで、通信が完了するのを待ってから次の行に進むことができます。"
+    },
+    {
+      "id": 29,
+      "type": "用語理解",
+      "question": "「ConsumerWidget」とはどのようなウィジェットですか？",
+      "options": ["Riverpodのプロバイダを利用できるウィジェット", "データを購入するためのウィジェット", "画像を加工するためのウィジェット", "何も表示しないウィジェット"],
+      "answer": 0,
+      "commentary": "StatelessWidgetの代わりにConsumerWidgetを継承することで、プロバイダへのアクセス（ref）が可能になります。"
+    },
+    {
+      "id": 30,
+      "type": "実行結果予測",
+      "question": "<code>response.statusCode</code> が 404 だった場合、何が起きたと考えられますか？",
+      "options": ["通信成功", "ページ（エンドポイント）が見つからない", "サーバー内部のエラー", "パスワードが違う"],
+      "answer": 1,
+      "commentary": "404 Not Foundは、リクエストしたURLがサーバー上に存在しないことを示します。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "モデルクラスで `part 'recipe.g.dart';` と記述する理由は何ですか？",
+      "options": ["画像を読み込むため", "別のファイルと1つのクラスを共有するため", "エラーを防ぐおまじない", "Pythonのコードを読み込むため"],
+      "answer": 1,
+      "commentary": "part句により、自動生成されたファイルと元のファイルを繋ぎ合わせることができます。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "Tableウィジェットで枠線を灰色に設定する正しい記述はどれですか？",
+      "options": ["border: Colors.grey", "border: TableBorder.all(color: Colors.grey)", "decoration: BoxDecoration(border: ...)", "style: grey"],
+      "answer": 1,
+      "commentary": "TableBorder.all()を使うと、格子状のすべての枠線を一括で設定できます。"
+    },
+    {
+      "id": 33,
+      "type": "実行結果予測",
+      "question": "<code>...</code> （スプレッド演算子）をリスト内で使った際の効果はどれですか？",
+      "options": ["リストを削除する", "リストの中身を展開して並べる", "リストの最後にnullを追加する", "何もしない"],
+      "answer": 1,
+      "commentary": "複数の要素をバラバラにして、親のリストの中に直接組み込むことができます。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "「Exception（例外）」が発生したときに、それをキャッチして適切に表示するためのRiverpodのメソッドは何ですか？",
+      "options": ["when", "catchError", "onError", "handle"],
+      "answer": 0,
+      "commentary": "whenメソッドのerrorブロックで、例外発生時の表示を定義できます。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "IconButtonウィジェットで、ゴミ箱（削除）のアイコンを表示する指定は何ですか？<pre><code>icon: const Icon(Icons.___)</code></pre>",
+      "options": ["remove", "bin", "delete", "trash"],
+      "answer": 2,
+      "commentary": "Flutter標準の削除アイコンは Icons.delete です。"
+    },
+    {
+      "id": 36,
+      "type": "文法チェック",
+      "question": "AppBarの「title」プロパティにテキストを表示する場合、正しい書き方はどれですか？",
+      "options": ["title: 'テキスト'", "title: Text('テキスト')", "title: AppBarTitle('テキスト')", "title: Heading('テキスト')"],
+      "answer": 1,
+      "commentary": "titleはWidget型を受け取るため、文字列を直接渡さずTextウィジェットで包む必要があります。"
+    },
+    {
+      "id": 37,
+      "type": "用語理解",
+      "question": "「FixedColumnWidth(60)」を指定した列の幅は、画面の大きさが変わるとどうなりますか？",
+      "options": ["画面に合わせて広がる", "常に60ピクセルで固定される", "半分になる", "消える"],
+      "answer": 1,
+      "commentary": "Fixed（固定）なので、画面サイズに関わらず一定の幅を保ちます。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "<code>jsonData.map((json) => Recipe.fromJson(json)).toList()</code> における `toList()` の役割は何ですか？",
+      "options": ["データを削除する", "変換されたデータを再びリスト形式にまとめる", "画面に表示する", "JSONに変換する"],
+      "answer": 1,
+      "commentary": "mapメソッドの戻り値（Iterable）を、Dartで扱いやすいList形式に確定させます。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "FloatingActionButtonウィジェットに一般的に配置されるアイコン（＋など）を指定するプロパティは何ですか？",
+      "options": ["icon", "image", "child", "content"],
+      "answer": 2,
+      "commentary": "FABの中身はchildプロパティで指定します。通常はIconウィジェットを入れます。"
+    },
+    {
+      "id": 13,
+      "type": "用語理解",
+      "question": "レシピ一覧画面を構築する際、データのロード中、エラー、成功の3つの状態を管理する設計手法を何と呼びますか？",
+      "options": ["ステートレス設計", "状態管理", "エラーハンドリング", "ローディング管理"],
+      "answer": 1,
+      "commentary": "Riverpodなどのツールを使ってアプリの「状態」を適切に扱うことを状態管理と呼びます。"
+    }
+  ]
 }

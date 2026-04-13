@@ -1,4 +1,420 @@
 {
   "unit_title": "レシピデータの API 開発 - 演習と解説",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "バックエンド担当とフロントエンド担当を明確に分けて開発するスタイルのデメリットとして、適切なものはどれですか？",
+      "options": [
+        "コードの統一感が失われやすい",
+        "密なコミュニケーションが必要で、開発速度がやや遅くなることがある",
+        "設計段階で詳細な要件を詰める必要がない",
+        "一人ですべてを完結できるため、柔軟性が低い"
+      ],
+      "answer": 1,
+      "commentary": "分業スタイルは保守性が高い一方で、担当者間の調整コストが発生するため開発速度が落ちる場合があります。"
+    },
+    {
+      "id": 2,
+      "type": "文法チェック",
+      "question": "ViewSetを使用して「作成」「更新」「削除」などのエンドポイントを自動マッピングするために使われるクラスは何ですか？",
+      "options": [
+        "PathRouter",
+        "DefaultRouter",
+        "UrlMapper",
+        "ViewManager"
+      ],
+      "answer": 1,
+      "commentary": "DefaultRouterクラスを使用することで、ViewSetに基づいたURLパターンを簡単に自動生成できます。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "URLからIDなどの情報を整数として受け取るための正しいパス指定を選んでください。<pre><code>path(\"categories/&lt;___:category_id&gt;/recipes/\", ...)</code></pre>",
+      "options": ["str", "id", "int", "pk"],
+      "answer": 2,
+      "commentary": "<int:変数名> と記述することで、URLの該当部分を整数型としてキャプチャできます。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "演習2で作成した RecipeSerializer において、model や fields 情報を定義するために使う内部クラスの名前は何ですか？",
+      "options": ["Config", "Meta", "Setup", "Schema"],
+      "answer": 1,
+      "commentary": "ModelSerializerでは内部に class Meta を定義して、対象モデルや対象フィールドを指定します。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "RecipeSerializer で fields に 'category' を含めた場合、出力される JSON の category の値には通常何が入りますか？",
+      "options": [
+        "カテゴリーの名前（文字列）",
+        "カテゴリーモデルの ID（数値）",
+        "カテゴリー情報のオブジェクト全体",
+        "カテゴリーが持つレシピの数"
+      ],
+      "answer": 1,
+      "commentary": "ModelSerializerのデフォルト動作では、ForeignKeyフィールドは関連モデルのIDとして表現されます。"
+    },
+    {
+      "id": 6,
+      "type": "文法チェック",
+      "question": "「特定のカテゴリーに属するレシピ」だけをフィルタリングして取得したい場合、オーバーライドすべきビューのメソッドは何ですか？",
+      "options": [
+        "get_objects()",
+        "filter_queryset()",
+        "get_queryset()",
+        "fetch_list()"
+      ],
+      "answer": 2,
+      "commentary": "get_queryset()メソッドを書き換えることで、APIが返すデータの集合を動的に変更できます。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "GETリクエストを処理し、オブジェクトの「リスト」を取得するために特化した汎用クラスベースビューは何ですか？",
+      "options": [
+        "RetrieveAPIView",
+        "CreateAPIView",
+        "ListAPIView",
+        "DestroyAPIView"
+      ],
+      "answer": 2,
+      "commentary": "ListAPIViewは、名前の通りデータの「一覧取得」機能を提供します。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "ビューの中で、URLパスに含まれるキーワード引数（category_idなど）にアクセスするための属性は何ですか？<pre><code>self.___['category_id']</code></pre>",
+      "options": ["params", "args", "kwargs", "path_info"],
+      "answer": 2,
+      "commentary": "self.kwargs に、URLパターンからキャプチャされた変数が辞書形式で格納されています。"
+    },
+    {
+      "id": 9,
+      "type": "文法チェック",
+      "question": "Djangoのクエリセットにおいて、「カテゴリーのID」でレシピをフィルタリングする正しい記述はどれですか？",
+      "options": [
+        "Recipe.objects.filter(category_id=category_id)",
+        "Recipe.objects.filter(category__id=category_id)",
+        "Recipe.objects.filter(category.id=category_id)",
+        "上記の1と2の両方"
+      ],
+      "answer": 3,
+      "commentary": "Django ORMでは、関連モデルのフィールド指定に「__（アンダースコア2つ）」を使いますが、ForeignKeyフィールド名_id も直接指定可能です。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "特定の ID のレシピの「詳細」を取得する機能を ViewSet に追加したい場合、継承すべき mixins クラスは何ですか？",
+      "options": [
+        "mixins.ViewModelMixin",
+        "mixins.DetailModelMixin",
+        "mixins.RetrieveModelMixin",
+        "mixins.FetchModelMixin"
+      ],
+      "answer": 2,
+      "commentary": "DRFにおいて 1 件のデータを取得する操作は「Retrieve（リトリーブ）」と呼ばれます。"
+    },
+    {
+      "id": 11,
+      "type": "実行結果予測",
+      "question": "ステータスコード 201 が返ってきた場合、それは何を意味しますか？",
+      "options": [
+        "データの取得に成功した",
+        "データの新規作成に成功した",
+        "データの削除に成功した",
+        "データが更新された"
+      ],
+      "answer": 1,
+      "commentary": "201 Created は、リソースの作成（POST）が正常に完了したことを示します。"
+    },
+    {
+      "id": 12,
+      "type": "文法チェック",
+      "question": "cURLコマンドで、データを更新するために PUT メソッドを指定する正しいフラグはどれですか？",
+      "options": ["-M PUT", "-X PUT", "-D PUT", "-V PUT"],
+      "answer": 1,
+      "commentary": "-X オプションを使って HTTP メソッドを指定します。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "ModelViewSet で、使用するシリアライザを指定するための変数名は何ですか？<pre><code>class RecipeViewSet(viewsets.ModelViewSet):\n    ___ = RecipeSerializer</code></pre>",
+      "options": ["use_serializer", "serializer_class", "convert_serializer", "model_serializer"],
+      "answer": 1,
+      "commentary": "serializer_class 属性に、定義したシリアライザクラスを割り当てます。"
+    },
+    {
+      "id": 14,
+      "type": "実行結果予測",
+      "question": "DELETE メソッドのリクエストが成功した場合、通常返されるステータスコードは何番ですか？",
+      "options": ["200", "201", "204", "404"],
+      "answer": 2,
+      "commentary": "204 No Content は、削除が成功し返すべきデータがない場合に使われる標準的なコードです。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "API 開発において、開発スタイルに関わらず「エンドポイント」や「返却値」をあらかじめ厳密に決める工程を何と呼びますか？",
+      "options": ["要件定義", "コーディング", "API設計", "データベース設計"],
+      "answer": 2,
+      "commentary": "API設計（インターフェース設計）は、フロントとバックの連携をスムーズにするために極めて重要です。"
+    },
+    {
+      "id": 16,
+      "type": "文法チェック",
+      "question": "urls.py で include 関数を使う目的は何ですか？",
+      "options": [
+        "モデルをデータベースに読み込むため",
+        "他のアプリなどの別の URL パターン設定を取り込むため",
+        "シリアライザを JSON に変換するため",
+        "サーバーを起動するため"
+      ],
+      "answer": 1,
+      "commentary": "include を使うことで、プロジェクト全体の urls.py をすっきり保ち、アプリごとにルーティングを分割管理できます。"
+    },
+    {
+      "id": 17,
+      "type": "実行結果予測",
+      "question": "URL が <code>/categories/1/recipes/</code> のとき、RecipeListView の self.kwargs の中身はどうなりますか？",
+      "options": [
+        "{'id': 1}",
+        "{'category_id': 1}",
+        "{'recipes': 1}",
+        "{'path': 1}"
+      ],
+      "answer": 1,
+      "commentary": "path 関数の <code><int:category_id></code> で指定した名前がキーとして格納されます。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "特定の ID に対応するレシピを取得するパスの定義です。<pre><code>path(\"recipes/&lt;int:___&gt;/\", ...)</code></pre>",
+      "options": ["id", "num", "pk", "key"],
+      "answer": 2,
+      "commentary": "DRF の ViewSet のデフォルト動作では ID を指定する変数として pk (Primary Key) を想定します。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "複数の API 操作（List, Create, Update など）の機能だけを持つ部品のようなクラスを何と呼びますか？",
+      "options": ["mixins", "plugins", "parts", "components"],
+      "answer": 0,
+      "commentary": "mixins は単体では動作しませんが、他のクラスと組み合わせることで特定の機能（一覧や作成など）を提供します。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "ステータスコード 400 が返ってきた場合の主な原因はどれですか？",
+      "options": [
+        "サーバーが落ちている",
+        "URLが間違っている",
+        "送信したデータの内容が不正（バリデーション失敗）である",
+        "アクセス権限がない"
+      ],
+      "answer": 2,
+      "commentary": "400 Bad Request は、クライアントから送られたデータに不備がある場合によく発生します。"
+    },
+    {
+      "id": 21,
+      "type": "文法チェック",
+      "question": "RecipeSerializer で `cooking_time_minutes` フィールドを表示したくない場合、最も適切な対処法はどれですか？",
+      "options": [
+        "モデルから削除する",
+        "Meta クラスの fields リストからその名前を外す",
+        "IntegerField を TextField に変える",
+        "シリアライザ自体を削除する"
+      ],
+      "answer": 1,
+      "commentary": "fields リストに含めた名前だけが API で返却されるため、リストから除外すれば非表示になります。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "リソースを「部分的に」更新したい場合、PUT ではなくどの HTTP メソッドを使うのが REST 的に一般的ですか？",
+      "options": ["UPDATE", "CHANGE", "PATCH", "POST"],
+      "answer": 2,
+      "commentary": "PUT は全体置換、PATCH は一部変更という使い分けが REST の基本原則です。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "ListAPIView などをインポートする正しいパッケージ先を選んでください。<pre><code>from rest_framework.___ import ListAPIView</code></pre>",
+      "options": ["views", "generic", "generics", "mixins"],
+      "answer": 2,
+      "commentary": "ListAPIView や CreateAPIView は rest_framework.generics に含まれています。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "<code>Recipe.objects.filter(...)</code> メソッドの戻り値は何ですか？",
+      "options": [
+        "条件に合う最初の 1 件のオブジェクト",
+        "条件に合うオブジェクトが含まれるクエリセット（リストのようなもの）",
+        "データの個数",
+        "True または False"
+      ],
+      "answer": 1,
+      "commentary": "filter() は 0 件以上の結果を含む QuerySet を返します。"
+    },
+    {
+      "id": 25,
+      "type": "文法チェック",
+      "question": "cURL コマンドで JSON データを送信する際、Content-Type を指定する正しいヘッダー指定はどれですか？",
+      "options": [
+        "-H \"Type: json\"",
+        "-H \"Content-Type: application/json\"",
+        "-H \"Format: JSON\"",
+        "-H \"Accept: text/json\""
+      ],
+      "answer": 1,
+      "commentary": "API サーバーに対して JSON データを送ることを伝えるために必須の指定です。"
+    },
+    {
+      "id": 26,
+      "type": "用語理解",
+      "question": "エンドポイント <code>/categories/&lt;category_id&gt;/recipes/</code> が提供すべきデータの種類として適切なのはどれですか？",
+      "options": [
+        "すべてのカテゴリーのリスト",
+        "特定のカテゴリーそのもの",
+        "特定のカテゴリーに紐付いているレシピのリスト",
+        "すべてのレシピのリスト"
+      ],
+      "answer": 2,
+      "commentary": "パスの構造から「特定のカテゴリー（親）の、レシピ（子）」を指していることがわかります。"
+    },
+    {
+      "id": 27,
+      "type": "コード穴埋め",
+      "question": "ViewSet で、データの作成機能を担う mixins クラスはどれですか？",
+      "options": [
+        "CreateModelMixin",
+        "PostModelMixin",
+        "AddModelMixin",
+        "SaveModelMixin"
+      ],
+      "answer": 0,
+      "commentary": "CreateModelMixin を継承すると、POST メソッドの処理が追加されます。"
+    },
+    {
+      "id": 28,
+      "type": "実行結果予測",
+      "question": "cURL でデータを送信する際、<code>-d '{\"title\": \"肉じゃが\"}'</code> のシングルクォーテーションの役割は何ですか？",
+      "options": [
+        "JSON のデータとして扱われる",
+        "ターミナル（シェル）に対して、中の文字列をひとかたまりのデータとして渡す",
+        "Django が Python 辞書として認識するため",
+        "文字を太字にするため"
+      ],
+      "answer": 1,
+      "commentary": "シェルのコマンドラインで空白を含む JSON 文字列を 1 つの引数として渡すために必要です。"
+    },
+    {
+      "id": 29,
+      "type": "文法チェック",
+      "question": "ViewSet クラスの中で、継承した mixins クラス以外に必ず継承すべき基本クラスはどれですか？",
+      "options": ["viewsets.BaseViewSet", "viewsets.GenericViewSet", "viewsets.APIViewSet", "viewsets.RouterViewSet"],
+      "answer": 1,
+      "commentary": "GenericViewSet は queryset や serializer_class を扱うための基盤機能を提供します。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "一人の開発者が特定のページのバックエンドとフロントエンドの両方を担当するスタイルのリスクは何ですか？",
+      "options": [
+        "コミュニケーション過多で開発が止まる",
+        "要件定義を厳密にしないと実装が始められない",
+        "複数の開発者が関わる際、コードが統一されず荒れやすい",
+        "新しいエンドポイントの追加が難しくなる"
+      ],
+      "answer": 2,
+      "commentary": "柔軟性は高いですが、各自が自由にコードを書いてしまうと全体の一貫性が失われるリスクがあります。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "RecipeSerializer の Meta クラスで、対象となるモデルを指定する変数名は何ですか？<pre><code>class Meta:\n    ___ = Recipe</code></pre>",
+      "options": ["db_table", "model_class", "model", "target"],
+      "answer": 2,
+      "commentary": "シリアライザとモデルを紐付けるには model 変数を使用します。"
+    },
+    {
+      "id": 32,
+      "type": "実行結果予測",
+      "question": "URL が間違っているエンドポイントにアクセスしたとき、通常返されるステータスコードは何番ですか？",
+      "options": ["200", "400", "404", "500"],
+      "answer": 2,
+      "commentary": "404 Not Found はリソース（URL）が見つからないことを示します。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "Django モデルで、あるモデルを別のモデルに紐付ける（1対多）際に使うフィールド型は何ですか？",
+      "options": ["OneToOneField", "ManyToManyField", "ForeignKey", "ConnectField"],
+      "answer": 2,
+      "commentary": "ForeignKey（外部キー）を使って親子関係を定義します。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "DRFにおいて、データの取得、変換、保存のルールを定義した「部品」は何と呼ばれますか？",
+      "options": ["ビュー", "ルーター", "シリアライザ", "マイグレーション"],
+      "answer": 2,
+      "commentary": "データの形式を変換する役割を持つのがシリアライザです。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "ViewSet の queryset 属性に代入する正しい形式はどれですか？<pre><code>queryset = Recipe.___</code></pre>",
+      "options": ["all()", "objects.all()", "query.all()", "get_all()"],
+      "answer": 1,
+      "commentary": "Django のモデルマネージャーである objects を通じて全件取得します。"
+    },
+    {
+      "id": 36,
+      "type": "実行結果予測",
+      "question": "シリアライザの fields に `['id', 'title']` と書いた場合、API レスポンスに含まれる情報はどうなりますか？",
+      "options": [
+        "モデルの全情報が表示される",
+        "id と title の 2 項目だけが表示される",
+        "id と title 以外の情報が表示される",
+        "エラーになる"
+      ],
+      "answer": 1,
+      "commentary": "fields リストに明示的に含めたフィールドだけがシリアライズ対象となります。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "ビューのクラス内で Python の `self` が指しているものは何ですか？",
+      "options": ["Django フレームワーク全体", "現在実行されているビューのインスタンス", "ログインしているユーザー", "データベース"],
+      "answer": 1,
+      "commentary": "self はそのクラス（ビュー）の実体を指し、kwargs などのプロパティにアクセスするために使います。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "cURL で API の詳細なやり取り（リクエストヘッダーなど）を確認したいときに便利なオプションは何ですか？",
+      "options": ["-v (verbose)", "-s (silent)", "-o (output)", "-L (location)"],
+      "answer": 0,
+      "commentary": "-v オプションを使うと通信のデバッグが非常にしやすくなります。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "router.register() の第 1 引数に指定する文字列は何を決定しますか？<pre><code>router.register('___', views.RecipeViewSet)</code></pre>",
+      "options": ["ビューのクラス名", "データベースのテーブル名", "URL のプレフィックス（接頭辞）", "アプリの名前"],
+      "answer": 2,
+      "commentary": "ここに 'recipes' と書くと、URL は <code>/api/recipes/</code> のようになります。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "フロントエンドが「データのみ」を受け取り、自由に画面（UI）を構築できる開発スタイルに最適なデータのやり取り形式は何ですか？",
+      "options": ["HTML", "JSON", "Excel", "PDF"],
+      "answer": 1,
+      "commentary": "JSONは軽量で、Flutterを含むあらゆるフロントエンドフレームワークで扱いやすいため、APIの標準形式として使われます。"
+    }
+  ]
 }

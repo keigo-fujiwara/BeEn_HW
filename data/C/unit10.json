@@ -1,4 +1,195 @@
 {
   "unit_title": "レシピデータ編集・削除 - 演習と解説",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "既存のデータを「更新」するために使用する、最も一般的な HTTP メソッドは何ですか？",
+      "options": ["GET", "POST", "PUT", "DELETE"],
+      "answer": 2,
+      "commentary": "データの更新には PUT メソッド（または PATCH）を使用します。GET は取得、POST は新規作成、DELETE は削除です。"
+    },
+    {
+      "id": 2,
+      "type": "文法チェック",
+      "question": "freezed ライブラリの copyWith() メソッドを使う最大のメリットは何ですか？",
+      "options": [
+        "データを削除できる",
+        "元のオブジェクトを変更せず、一部のプロパティだけを書き換えた新しいインスタンスを簡単に作れる",
+        "自動的に API サーバーへ送信してくれる",
+        "パスワードを暗号化できる"
+      ],
+      "answer": 1,
+      "commentary": "不変（Immutable）なモデルを扱う Flutter 開発において、copyWith は安全にデータを加工するために必須のメソッドです。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "特定のレシピを削除する際、URL パスに ID を含める正しい書き方はどれですか？<pre><code>baseUrl.replace(path: '${baseUrl.path}/recipes/___/')</code></pre>",
+      "options": ["recipe", "categoryId", "$recipeId", "delete"],
+      "answer": 2,
+      "commentary": "リソースを特定して削除するためには、パスの一部として動的な ID 変数を入れる必要があります。"
+    },
+    {
+      "id": 4,
+      "type": "実行結果予測",
+      "question": "削除に成功した際、Django REST framework が返す標準的なステータスコード（コンテンツなし）は何番ですか？",
+      "options": ["200", "201", "204", "400"],
+      "answer": 2,
+      "commentary": "204 No Content は、リクエストが成功し、返却するデータ本体がないことを示すコードです。"
+    },
+    {
+      "id": 5,
+      "type": "文法チェック",
+      "question": "三項演算子を使った `recipe == null ? '作成' : '編集'` という記述で、`recipe` が null でない場合に選ばれるのはどちらですか？",
+      "options": ["作成", "編集", "両方", "エラー"],
+      "answer": 1,
+      "commentary": "条件式が False（nullではない）となるため、後半の '編集' が選択されます。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "Riverpod において、編集や削除を行った後に最新のデータを API から取り直すために使うメソッドは何ですか？",
+      "options": ["ref.read()", "ref.watch()", "ref.invalidate()", "ref.refresh()"],
+      "answer": 2,
+      "commentary": "invalidate() を使うとキャッシュが破棄され、次に画面を開いた時に自動的に API リクエストが走ります。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "非同期処理の終了後、SnackBar を表示する前に、画面がまだ存在するか確認するコードを完成させてください。<pre><code>if (!___) return;\nScaffoldMessenger.of(context).showSnackBar(...)</code></pre>",
+      "options": ["context.mounted", "isAlive", "ref.exists", "loading"],
+      "answer": 0,
+      "commentary": "mounted プロパティを確認することで、破棄された BuildContext を操作してクラッシュするのを防ぎます。"
+    },
+    {
+      "id": 8,
+      "type": "実行結果予測",
+      "question": "update() メソッド内で `await http.put(...)` の `await` を書き忘れるとどうなりますか？",
+      "options": [
+        "エラーでコンパイルできない",
+        "通信が終わる前に次の行（成功メッセージなど）が実行されてしまう",
+        "通信速度が速くなる",
+        "削除処理として実行される"
+      ],
+      "answer": 1,
+      "commentary": "await がないと処理の完了を待たないため、更新が完了していないのに「更新しました」と表示されるなどの不整合が起きます。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "IconButton で編集ボタンを作る際、ペン（鉛筆）のアイコンを指定するコードはどれですか？",
+      "options": ["Icons.add", "Icons.delete", "Icons.edit", "Icons.update"],
+      "answer": 2,
+      "commentary": "Icons.edit は標準的な「編集」を表すペンのアイコンです。"
+    },
+    {
+      "id": 10,
+      "type": "文法チェック",
+      "question": "API 通信の結果 `response.statusCode` が 200 以外だった場合に、エラーを報告する正しい書き方はどれですか？",
+      "options": [
+        "print('エラー')",
+        "throw Exception('失敗しました')",
+        "return false",
+        "break"
+      ],
+      "answer": 1,
+      "commentary": "throw を使って例外を投げることで、呼び出し側の catch ブロックでエラーを捕捉し、ユーザーに通知できます。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "Django の ViewSet において、データの完全な更新（PUT）を受け持つ mixin クラスは何ですか？",
+      "options": ["ListModelMixin", "CreateModelMixin", "UpdateModelMixin", "DestroyModelMixin"],
+      "answer": 2,
+      "commentary": "UpdateModelMixin が PUT リクエストを処理するロジックを提供しています。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "削除が完了した後に `Navigator.pop(context)` を実行しないとどうなりますか？",
+      "options": [
+        "自動的に前の画面に戻る",
+        "編集画面が開いたままになり、ユーザーが手動で戻る必要がある",
+        "アプリが再起動する",
+        "データベースが空になる"
+      ],
+      "answer": 1,
+      "commentary": "pop を明示的に呼ばないと、現在の画面スタックは取り除かれません。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "データの送信時に Dart オブジェクトを JSON 文字列に変換する関数は何ですか？<pre><code>body: ___(recipe.toJson())</code></pre>",
+      "options": ["jsonDecode", "jsonEncode", "jsonToString", "jsonConverter"],
+      "answer": 1,
+      "commentary": "jsonEncode を使って Map 型のデータを JSON フォーマットの文字列へ変換します。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "API 設計において、特定の 1 つのリソース（ID=5のレシピなど）を指し示す URL の末尾の数字部分を何と呼びますか？",
+      "options": ["クエリパラメータ", "パスパラメータ", "ボディデータ", "ヘッダー情報"],
+      "answer": 1,
+      "commentary": "URL のパス自体に変数を埋め込む形式をパスパラメータと呼びます。"
+    },
+    {
+      "id": 15,
+      "type": "文法チェック",
+      "question": "http.delete() メソッドの戻り値を受け取る変数の型として正しいものはどれですか？",
+      "options": ["String", "int", "Future<http.Response>", "bool"],
+      "answer": 2,
+      "commentary": "HTTP 通信の結果はレスポンスオブジェクトを包んだ Future 型になります。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "Flutter のウィジェットで、入力フィールドやボタンをまとめて管理し、バリデーションを一括で行うウィジェットは何ですか？",
+      "options": ["Container", "Form", "Column", "Scaffold"],
+      "answer": 1,
+      "commentary": "Form ウィジェットと GlobalKey を組み合わせることで、複雑な入力フォームを制御できます。"
+    },
+    {
+      "id": 17,
+      "type": "実行結果予測",
+      "question": "SnackBar を表示する際に `ScaffoldMessenger.of(context).showSnackBar()` ではなく `Scaffold.of(context).showSnackBar()` を使うとどうなりますか？（最新の Flutter において）",
+      "options": [
+        "正常に動く",
+        "エラーになる、または非推奨の警告が出る",
+        "背景が赤くなる",
+        "スマホが振動する"
+      ],
+      "answer": 1,
+      "commentary": "Flutter 2.0 以降は ScaffoldMessenger を使うのが標準ルールです。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "編集画面に初期値を設定するために initState 内でコントローラーに値を代入する正しいプロパティはどれですか？<pre><code>_titleController.___ = widget.recipe?.title ?? '';</code></pre>",
+      "options": ["text", "value", "data", "string"],
+      "answer": 0,
+      "commentary": "TextEditingController の表示内容をプログラムから変えるには .text プロパティを書き換えます。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "API 通信のエラーを処理するために使う `try { ... } catch (e) { ... }` 構文の `e` には通常何が入りますか？",
+      "options": ["成功メッセージ", "発生したエラーや例外の情報", "サーバーの URL", "0"],
+      "answer": 1,
+      "commentary": "catch ブロックの引数には、トラブルの詳細（Exception など）が渡されます。"
+    },
+    {
+      "id": 20,
+      "type": "文法チェック",
+      "question": "Django の `Recipe.objects.filter(category__id=categoryId)` における `__`（アンダースコア2つ）の意味は何ですか？",
+      "options": [
+        "ただの名前",
+        "関連するモデル（Category）のフィールド（id）を辿るための記法",
+        "秘密のコード",
+        "データを削除する合図"
+      ],
+      "answer": 1,
+      "commentary": "Django ORM の特徴的な記法で、モデルをまたいだフィルタリングを行う際に使用します。"
+    }
+  ]
 }

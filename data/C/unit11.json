@@ -1,4 +1,330 @@
 {
   "unit_title": "コメントデータ API 開発 - 演習と解説",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "特定のレシピにコメントを紐付けるために、Commentモデルで使用するフィールド型は何ですか？",
+      "options": ["CharField", "IntegerField", "ForeignKey", "OneToOneField"],
+      "answer": 2,
+      "commentary": "1つのレシピに複数のコメントが紐付く「1対多」の関係を構築するためには ForeignKey（外部キー）を使用します。"
+    },
+    {
+      "id": 2,
+      "type": "文法チェック",
+      "question": "ForeignKeyの引数 `on_delete=models.CASCADE` の役割は何ですか？",
+      "options": ["レシピが削除されてもコメントを残す", "コメントが削除されたらレシピを消す", "レシピが削除されたら、紐付くコメントも自動的に削除する", "削除を禁止する"],
+      "answer": 2,
+      "commentary": "CASCADE（カスケード）は連動削除を意味し、親データが消えた時に子データも一緒に消去される設定です。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "コメントの作成日時を「保存時に自動設定」するための属性を完成させてください。<pre><code>created_at = models.DateTimeField(___=True)</code></pre>",
+      "options": ["auto_now", "auto_now_add", "default_now", "timestamp"],
+      "answer": 1,
+      "commentary": "auto_now_add=True を設定すると、そのデータが初めて作成された時の日時が自動的に記録されます。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "モデルの変更内容（Commentモデルの追加など）を検知して、設計図ファイルを作成するコマンドは何ですか？",
+      "options": ["python manage.py migrate", "python manage.py makemigrations", "python manage.py runserver", "python manage.py startapp"],
+      "answer": 1,
+      "commentary": "makemigrations は、モデルの変更履歴をマイグレーションファイルとして書き出すコマンドです。"
+    },
+    {
+      "id": 5,
+      "type": "文法チェック",
+      "question": "URLパターン `recipes/<int:recipe_id>/comments/` における `<int:recipe_id>` の意味は何ですか？",
+      "options": ["レシピの名前を入力する場所", "レシピのIDを整数型として受け取るパス変数", "コメントの数を表示する場所", "固定の文字列"],
+      "answer": 1,
+      "commentary": "<型:変数名> と記述することで、URLの一部を動的な値（パスパラメータ）として取得できます。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "「一覧取得（GET）」と「新規作成（POST）」の両方を1つのクラスでサポートするDRFの汎用ビューはどれですか？",
+      "options": ["ListAPIView", "CreateAPIView", "ListCreateAPIView", "RetrieveUpdateAPIView"],
+      "answer": 2,
+      "commentary": "ListCreateAPIView は、読み取りと作成の機能をセットで提供する便利なビューです。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "クラスベースビューにおいて、URLパスに含まれる変数（recipe_id）を取得するための属性は何ですか？<pre><code>self.___['recipe_id']</code></pre>",
+      "options": ["params", "args", "kwargs", "data"],
+      "answer": 2,
+      "commentary": "URLからキャプチャされたキーワード引数は、self.kwargs という辞書に格納されます。"
+    },
+    {
+      "id": 8,
+      "type": "文法チェック",
+      "question": "特定のレシピIDに絞り込んでデータを取得するために、`objects.all()` の代わりに使うメソッドは何ですか？",
+      "options": ["find()", "get()", "filter()", "search()"],
+      "answer": 2,
+      "commentary": "filter() メソッドを使うことで、指定した条件に合致する複数のデータを抽出できます。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "データの保存直前に、URLから取得したレシピIDを自動的にセットするためにオーバーライドするメソッドは何ですか？",
+      "options": ["get_queryset()", "perform_create()", "validate()", "save()"],
+      "answer": 1,
+      "commentary": "perform_create() は、シリアライザの save() が呼ばれるタイミングで独自の処理（IDの注入など）を追加できます。"
+    },
+    {
+      "id": 10,
+      "type": "実行結果予測",
+      "question": "cURLコマンドで POST リクエストが成功した際、正常に作成されたことを示すHTTPステータスコードは何番ですか？",
+      "options": ["200", "201", "204", "400"],
+      "answer": 1,
+      "commentary": "201 Created は、リソースの作成に成功した際によく使われるステータスコードです。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "ForeignKeyの引数 `related_name='comments'` を設定するとどうなりますか？",
+      "options": ["コメントを名前順に並べる", "レシピ側から `recipe.comments.all()` のようにコメントを逆引きできるようになる", "コメントのフィールド名を変更する", "エラーを防ぐ"],
+      "answer": 1,
+      "commentary": "related_name は、親オブジェクトから子オブジェクトを逆参照する際の属性名を指定します。"
+    },
+    {
+      "id": 12,
+      "type": "文法チェック",
+      "question": "CommentSerializer の `fields` リストに含めるべき内容として、最も適切なものはどれですか？",
+      "options": ["'__all__'", "['id', 'recipe', 'text', 'created_at']", "['text']", "['id', 'name']"],
+      "answer": 1,
+      "commentary": "今回の演習では、ID、紐付くレシピID、本文、作成日時をやり取りするため、これらを指定します。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "シリアライザを使用してデータを保存する命令を完成させてください。<pre><code>def perform_create(self, serializer):\n    serializer.___(recipe_id=recipe_id)</code></pre>",
+      "options": ["create", "post", "save", "commit"],
+      "answer": 2,
+      "commentary": "serializer.save() を呼ぶことで、バリデーション済みのデータがデータベースに保存されます。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "DRFにおいて、モデルインスタンスをJSON形式に変換する「通訳」のような役割のクラスを何と呼びますか？",
+      "options": ["ビュー", "シリアライザ", "ルーター", "パーサー"],
+      "answer": 1,
+      "commentary": "シリアライザ（Serializer）がデータの型変換を担います。"
+    },
+    {
+      "id": 15,
+      "type": "実行結果予測",
+      "question": "cURLで `-H \"Content-Type: application/json\"` を指定しなかった場合、どうなる可能性がありますか？",
+      "options": ["通常通り動く", "サーバーが送信データの形式を正しく理解できず、エラーになる可能性がある", "通信が速くなる", "文字が太くなる"],
+      "answer": 1,
+      "commentary": "サーバーが受け取ったデータを JSON として解析するために、ヘッダーで形式を伝える必要があります。"
+    },
+    {
+      "id": 16,
+      "type": "文法チェック",
+      "question": "`Comment.objects.filter(recipe_id=recipe_id)` という記述において、左辺の `recipe_id` は何を指していますか？",
+      "options": ["URLの中の変数", "Commentモデルのフィールド名", "レシピの名前", "現在のユーザーID"],
+      "answer": 1,
+      "commentary": "filterメソッドの引数名は、対象モデル（この場合はComment）に定義されたフィールド名を指します。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "APIの「エンドポイント」とは何ですか？",
+      "options": ["APIの最後のプログラム", "データの保存場所", "APIにアクセスするための特定のURL", "APIの開発終了日"],
+      "answer": 2,
+      "commentary": "特定の機能にアクセスするための窓口となるURLのことをエンドポイントと呼びます。"
+    },
+    {
+      "id": 18,
+      "type": "文法チェック",
+      "question": "urls.pyでクラスベースビューを指定する際に、ビュー名の後ろに付ける必要があるメソッドは何ですか？",
+      "options": ["()", ".start()", ".as_view()", ".to_url()"],
+      "answer": 2,
+      "commentary": "Djangoの仕様により、クラスをビュー関数として扱うために .as_view() が必須です。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "DateTimeFieldの `auto_now_add` と `auto_now` の違いは何ですか？",
+      "options": [
+        "違いはない",
+        "addは作成時のみ、auto_nowは更新されるたびに日時を記録する",
+        "addは未来の日付、auto_nowは過去の日付",
+        "addは手動、auto_nowは自動"
+      ],
+      "answer": 1,
+      "commentary": "作成日時（created_at）には add を、更新日時（updated_at）には auto_now を使います。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "cURLコマンドの `-d` オプションに続くデータの形式として正しいものはどれですか？",
+      "options": ["'text=hello'", "'{\"text\": \"hello\"}'", "[text: hello]", "hello"],
+      "answer": 1,
+      "commentary": "JSON形式として '{\"キー\": \"値\"}' のようにダブルクォーテーションで囲むのがルールです。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "あるモデル（レシピ）から、その親（カテゴリー）のフィールドを参照するために使う `__` の記法を何と呼びますか？",
+      "options": ["ダブルアンダー（ダンダー）", "フィールドルックアップ", "ジョイン演算子", "パスセパレータ"],
+      "answer": 1,
+      "commentary": "Django ORMでリレーションを辿る際に使われる強力な記法です。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "DRFの `status.HTTP_400_BAD_REQUEST` はどのような時に返すべきですか？",
+      "options": ["データの削除に成功したとき", "データの取得に成功したとき", "送信されたデータにバリデーションエラーがあったとき", "ページが見つからないとき"],
+      "answer": 2,
+      "commentary": "クライアント側のリクエストが正しくない場合（必須項目漏れなど）に400を返します。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "モデル内でオブジェクトを文字列で表現するための特殊メソッドは何ですか？<pre><code>def ___(self):\n    return f\"{self.text}\"</code></pre>",
+      "options": ["repr", "str", "print", "text"],
+      "answer": 1,
+      "commentary": "Pythonの `__str__` メソッドを定義すると、管理画面などでの表示をカスタマイズできます。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "APIリクエストを送信する際、URL以外に情報の種類（JSONなど）を指定する部分を何と呼びますか？",
+      "options": ["ボディ", "フッター", "ヘッダー", "パラメータ"],
+      "answer": 2,
+      "commentary": "Content-Typeなどのメタ情報は HTTP ヘッダーに含めます。"
+    },
+    {
+      "id": 25,
+      "type": "文法チェック",
+      "question": "Djangoの `TextField` が `CharField` と異なる点は何ですか？",
+      "options": ["数字しか入らない", "文字数の最大制限（max_length）が必須ではない、または非常に長い文章に適している", "色をつけられる", "DBに保存されない"],
+      "answer": 1,
+      "commentary": "タイトルなどの短い文字は CharField、コメント本文などの長い文字は TextField を使います。"
+    },
+    {
+      "id": 26,
+      "type": "実行結果予測",
+      "question": "URL `recipes/1/comments/` に対して GET を送ると、返ってくるのはどのようなデータですか？",
+      "options": ["全レシピのコメント", "ID 1 のコメント1件", "ID 1 のレシピに関連するすべてのコメントのリスト", "エラー"],
+      "answer": 2,
+      "commentary": "get_queryset() でフィルタリングしているため、特定のレシピに紐付くコメントの「一覧」が返ります。"
+    },
+    {
+      "id": 27,
+      "type": "用語理解",
+      "question": "DRFで、全リソースを対象とする基本的なデータの集合（QuerySet）を指定する変数名は何ですか？",
+      "options": ["data", "objects", "queryset", "models"],
+      "answer": 2,
+      "commentary": "クラスベースビューの `queryset` 属性に `Comment.objects.all()` などを代入してベースとなるデータを決めます。"
+    },
+    {
+      "id": 28,
+      "type": "文法チェック",
+      "question": "Pythonのf-strings（例：`f\"{self.recipe.title}に対するコメント\"`）の役割は何ですか？",
+      "options": ["ファイルを保存する", "文字列の中に変数の値を埋め込む", "文字列を削除する", "文字を太字にする"],
+      "answer": 1,
+      "commentary": "文字列の前に `f` を付け、`{}` 内に変数名を書くことで値を動的に挿入できます。"
+    },
+    {
+      "id": 29,
+      "type": "コード穴埋め",
+      "question": "クラスベースビュー内で、使用するシリアライザを指定する属性名は何ですか？<pre><code>class MyView(ListAPIView):\n    ___ = CommentSerializer</code></pre>",
+      "options": ["serializer", "use_serializer", "serializer_class", "convert_class"],
+      "answer": 2,
+      "commentary": "serializer_class 属性に、定義したシリアライザクラスを紐付けます。"
+    },
+    {
+      "id": 30,
+      "type": "実行結果予測",
+      "question": "データベースを最新状態に更新する `python manage.py migrate` を忘れるとどうなりますか？",
+      "options": ["プログラムが速くなる", "新しいモデル（Comment）のテーブルがDBに存在しないため、実行時にエラーになる", "自動で反映される", "画像が表示されない"],
+      "answer": 1,
+      "commentary": "マイグレーションの実行（migrate）によって、初めて実際のデータベースにテーブルが作成されます。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "API開発でリソースのリスト表示（一覧取得）に使われるHTTPメソッドは何ですか？",
+      "options": ["POST", "PUT", "GET", "DELETE"],
+      "answer": 2,
+      "commentary": "データの参照・取得は GET メソッドの役割です。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "DRFの `perform_create` メソッドが呼び出されるタイミングはいつですか？",
+      "options": ["リクエストが来た瞬間", "バリデーションが始まる前", "データの検証が終わり、実際にDBへ保存（save）される時", "レスポンスを返した後"],
+      "answer": 2,
+      "commentary": "検証済みのデータを保存する直前のフックとして機能します。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "CommentSerializer の `Meta` クラス内で対象モデルを指定する属性は何ですか？",
+      "options": ["model", "target", "source", "db"],
+      "answer": 0,
+      "commentary": "Meta クラスには `model = Comment` のように記述します。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "JSONデータ `{\"recipe\": 1}` を送ったとき、シリアライザはこれをどのように処理しますか？",
+      "options": ["ただの数字として保存する", "ID 1 のRecipeオブジェクトとのリレーションとして解釈する", "無視する", "文字列に変える"],
+      "answer": 1,
+      "commentary": "ModelSerializer は ForeignKey を適切に処理し、ID を通じて関連モデルに紐付けます。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "APIリクエストを送る側（Flutterアプリなど）のことを何と呼びますか？",
+      "options": ["サーバー", "ホスト", "クライアント", "マスター"],
+      "answer": 2,
+      "commentary": "サービスを利用する側が「クライアント」、提供する側が「サーバー」です。"
+    },
+    {
+      "id": 36,
+      "type": "コード穴埋め",
+      "question": "プロジェクトの `urls.py` からアプリ（main）の `urls.py` を読み込む際に使う関数は何ですか？<pre><code>path('api/', ___('main.urls'))</code></pre>",
+      "options": ["import", "add", "include", "load"],
+      "answer": 2,
+      "commentary": "include 関数を使って URL 設定を分割・集約します。"
+    },
+    {
+      "id": 37,
+      "type": "用語理解",
+      "question": "データのやり取りにおいて、型が正しいか、必須項目があるかなどをチェックすることを何と呼びますか？",
+      "options": ["レンダリング", "コンパイル", "バリデーション", "キャッシュ"],
+      "answer": 2,
+      "commentary": "シリアライザの `is_valid()` などで行われる検証作業のことです。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "GETリクエストで空のリスト `[]` が返ってきた場合、それは何を意味しますか？",
+      "options": ["サーバーが壊れている", "通信エラー", "該当するデータ（コメント）が1件も登録されていない", "アクセス禁止"],
+      "answer": 2,
+      "commentary": "リクエストは成功したが、検索条件に合うデータが0件であることを示します。"
+    },
+    {
+      "id": 39,
+      "type": "文法チェック",
+      "question": "DRFの `status.HTTP_201_CREATED` の実際の数値は何番ですか？",
+      "options": ["200", "201", "204", "400"],
+      "answer": 1,
+      "commentary": "ステータスコード 201 をプログラムから直感的に扱える定数です。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "この演習で作成した「レシピIDごとにコメントを管理する」ような階層的なリソース設計を何と呼びますか？",
+      "options": ["単一設計", "ネストされたリソース設計", "フラット設計", "ランダムアクセス設計"],
+      "answer": 1,
+      "commentary": "親子の関係をURLパスで表現する手法で、RESTful APIの一般的な設計です。"
+    }
+  ]
 }

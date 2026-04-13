@@ -1,4 +1,330 @@
 {
   "unit_title": "カテゴリデータ編集・削除",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "既存のデータを「更新（上書き）」するために使用される標準的な HTTP メソッドは何ですか？",
+      "options": ["GET", "POST", "PUT", "DELETE"],
+      "answer": 2,
+      "commentary": "データの更新には一般的に PUT メソッド（または一部更新の PATCH）を使用します。"
+    },
+    {
+      "id": 2,
+      "type": "文法チェック",
+      "question": "Django REST framework で「リソースの削除」が成功し、返却するコンテンツがない場合に返されるステータスコードは何番ですか？",
+      "options": ["200", "201", "204", "400"],
+      "answer": 2,
+      "commentary": "204 No Content は、削除が成功し、レスポンス本文が空であることを示します。"
+    },
+    {
+      "id": 3,
+      "type": "用語理解",
+      "question": "freezed ライブラリが自動生成する、オブジェクトの一部だけを書き換えた新しいインスタンスを作るメソッドは何ですか？",
+      "options": ["update()", "change()", "copyWith()", "clone()"],
+      "answer": 2,
+      "commentary": "copyWith() を使うことで、不変（immutable）なオブジェクトの特定のプロパティだけを安全に変更できます。"
+    },
+    {
+      "id": 4,
+      "type": "文法チェック",
+      "question": "Dart の http パッケージを使用してデータを「削除」する際に呼び出すメソッドは何ですか？",
+      "options": ["http.remove()", "http.clear()", "http.delete()", "http.drop()"],
+      "answer": 2,
+      "commentary": "HTTP DELETE リクエストを送るには、http.delete() メソッドを使用します。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "三項演算子 <code>category == null ? '追加' : '編集'</code> において、category にデータが入っている場合の戻り値はどれですか？",
+      "options": ["追加", "編集", "null", "エラー"],
+      "answer": 1,
+      "commentary": "条件式が偽（nullではない）なので、コロンの後の '編集' が返されます。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "特定の ID のカテゴリを更新する場合、URL を構築する正しい記述はどれですか？<pre><code>'${baseUrl.path}/categories/${___}/'</code></pre>",
+      "options": ["category.name", "category.id", "category.index", "pk"],
+      "answer": 1,
+      "commentary": "リソースを特定するためには、データベース上の識別子である id をパスに含める必要があります。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "データの変更後に、Riverpod のプロバイダを最新の状態に更新（再取得）させるために使うメソッドは何ですか？",
+      "options": ["ref.watch()", "ref.read()", "ref.invalidate()", "ref.listen()"],
+      "answer": 2,
+      "commentary": "invalidate() を使うと、指定したプロバイダの状態を破棄し、データを再取得させることができます。"
+    },
+    {
+      "id": 8,
+      "type": "文法チェック",
+      "question": "非同期処理で SnackBar を表示する際、ウィジェットがまだ画面に存在するか確認するプロパティは何ですか？",
+      "options": ["isAlive", "isCurrent", "mounted", "exists"],
+      "answer": 2,
+      "commentary": "mounted チェックを行うことで、画面が閉じられた後にコンテキストを操作してエラーになるのを防ぎます。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "Flutter において、ユーザーが編集ボタンを押した際に元のデータを編集画面に引き継ぐための仕組みは何ですか？",
+      "options": ["グローバル変数", "コンストラクタの引数", "ローカルストレージ", "API リクエスト"],
+      "answer": 1,
+      "commentary": "CategoryFormScreen(category: category) のように、引数としてデータを渡すことで初期値を設定できます。"
+    },
+    {
+      "id": 10,
+      "type": "実行結果予測",
+      "question": "PUT リクエストが成功した際、今回の設計でサーバーから返されるべきステータスコードは何番ですか？",
+      "options": ["200", "201", "400", "404"],
+      "answer": 0,
+      "commentary": "データの更新（PUT）が成功した場合は、通常 200 OK が返されます。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "更新時に Dart オブジェクトを JSON 文字列に変換して送信する設定を完成させてください。<pre><code>body: ___(category.toJson())</code></pre>",
+      "options": ["jsonDecode", "jsonEncode", "jsonToString", "jsonOutput"],
+      "answer": 1,
+      "commentary": "jsonEncode を使うことで、Map 形式のデータを送信可能な JSON 文字列に変換します。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "編集画面と新規作成画面で同じ `category_form.dart` を使用することを、プログラミング用語で何と呼びますか？",
+      "options": ["オーバーライド", "カプセル化", "コンポーネントの再利用", "ポリモーフィズム"],
+      "answer": 2,
+      "commentary": "共通のUIを部品化して使い回すことで、コードの重複を防ぎ保守性を高めています。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "IconButton で削除アイコンを表示するための正しいプロパティ設定はどれですか？",
+      "options": ["icon: Icons.delete", "icon: Icon(Icons.delete)", "child: Icon(Icons.delete)", "image: Icons.delete"],
+      "answer": 1,
+      "commentary": "IconButton の icon プロパティには Icon ウィジェットを渡す必要があります。"
+    },
+    {
+      "id": 14,
+      "type": "実行結果予測",
+      "question": "編集画面の initState 内で <code>_nameController.text = widget.category?.name ?? '';</code> と記述した場合、新規作成時の初期表示はどうなりますか？",
+      "options": ["null と表示される", "編集前の名前が表示される", "空欄（空の文字列）になる", "エラーになる"],
+      "answer": 2,
+      "commentary": "新規作成時は category が null なので、?? 以降の空文字列 '' が代入されます。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "API 通信が失敗した際（ステータスコードが期待通りでない時）に、意図的にエラーを発生させるキーワードは何ですか？",
+      "options": ["error", "catch", "throw", "break"],
+      "answer": 2,
+      "commentary": "throw Exception(...) とすることで、例外を発生させ、呼び出し元の catch ブロックへ処理を飛ばせます。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "削除成功時に SnackBar を表示するための命令を完成させてください。<pre><code>ScaffoldMessenger.of(context).___(SnackBar(...));</code></pre>",
+      "options": ["displaySnackBar", "showSnackBar", "pushSnackBar", "openSnackBar"],
+      "answer": 1,
+      "commentary": "ScaffoldMessenger を使って SnackBar を表示するには showSnackBar メソッドを呼び出します。"
+    },
+    {
+      "id": 17,
+      "type": "文法チェック",
+      "question": "PUT リクエストのヘッダーで、送信データの形式が JSON であることを示す正しい記述はどれですか？",
+      "options": [
+        "HttpHeaders.contentTypeHeader: ContentType.json.value",
+        "Headers.type: 'json'",
+        "Content: 'application/json'",
+        "Type: JSON"
+      ],
+      "answer": 0,
+      "commentary": "HttpHeaders クラスの定数を使用して、標準的な JSON 形式を指定します。"
+    },
+    {
+      "id": 18,
+      "type": "実行結果予測",
+      "question": "削除ボタンの onPressed 内で <code>await CategoryService().delete(id);</code> を実行した際、await がない場合の問題点はどれですか？",
+      "options": ["削除ができない", "削除完了を待たずに次の行（画面更新など）が実行されてしまう", "アプリがフリーズする", "スマホが熱くなる"],
+      "answer": 1,
+      "commentary": "await がないと非同期処理を待機しないため、削除が終わる前に一覧を再取得してしまい、古いデータが表示される可能性があります。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "Django の ViewSet において、データの更新（PUT）を担当している mixin クラスは何ですか？",
+      "options": ["CreateModelMixin", "ListModelMixin", "UpdateModelMixin", "DestroyModelMixin"],
+      "answer": 2,
+      "commentary": "UpdateModelMixin が PUT や PATCH リクエストの処理を提供します。"
+    },
+    {
+      "id": 20,
+      "type": "コード穴埋め",
+      "question": "cURL コマンドでデータを更新する際、IDが「5」のカテゴリにアクセスする URL はどれですか？",
+      "options": ["/api/categories/id/5/", "/api/categories/5/", "/api/categories/?id=5", "/api/edit/categories/5/"],
+      "answer": 1,
+      "commentary": "RESTful なパス設計では、リソース名に続けて ID を指定するのが一般的です。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "リクエストを送信する際、URL やメソッド、ヘッダー、ボディなどを含んだ通信のまとまりを何と呼びますか？",
+      "options": ["レスポンス", "リクエスト", "プロトコル", "パケット"],
+      "answer": 1,
+      "commentary": "クライアント（Flutter）からサーバー（Django）への要求が「リクエスト」です。"
+    },
+    {
+      "id": 22,
+      "type": "実行結果予測",
+      "question": "削除成功後に <code>Navigator.pop(context)</code> を実行しなかった場合、画面はどうなりますか？",
+      "options": ["自動で一覧画面に戻る", "編集・追加画面が開いたままになる", "アプリがクラッシュする", "一覧画面が新しく開く"],
+      "answer": 1,
+      "commentary": "pop を明示的に呼ばない限り、現在の画面スタックは取り除かれません。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "Future&lt;void&gt; 型を戻り値に持つメソッドの特徴はどれですか？",
+      "options": ["数値を返す", "文字列を返す", "非同期に実行され、具体的な値は返さない", "エラーを返す"],
+      "answer": 2,
+      "commentary": "Future<void> は、完了するまで時間がかかる「処理の終了」のみを報告する型です。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "Django の管理画面からデータを操作できるようにするために、`admin.py` で使うメソッドは何ですか？",
+      "options": ["register()", "add()", "show()", "connect()"],
+      "answer": 0,
+      "commentary": "admin.site.register(モデル名) を記述することで、管理画面のメニューに表示されます。"
+    },
+    {
+      "id": 25,
+      "type": "実行結果予測",
+      "question": "<code>jsonEncode({'name': '和食'})</code> を実行した結果の型は何ですか？",
+      "options": ["Map", "List", "String", "int"],
+      "answer": 2,
+      "commentary": "jsonEncode は Dart のデータを「JSON 形式の文字列」に変換する関数です。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "削除リクエストを送信する際、URL の一部を置き換えるメソッドは何ですか？<pre><code>baseUrl.___(path: '...')</code></pre>",
+      "options": ["change", "update", "replace", "fix"],
+      "answer": 2,
+      "commentary": "Uri オブジェクトの replace メソッドを使うことで、ベース情報を維持したままパスだけを変更できます。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "TextFormField で「バリデーションエラー時の文字色」などを変更できるテーマ設定はどれですか？",
+      "options": ["textSelectionTheme", "inputDecorationTheme", "buttonTheme", "appBarTheme"],
+      "answer": 1,
+      "commentary": "フォームの見た目全般（枠線、ラベル色、エラー色など）は inputDecorationTheme で管理します。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "cURL で DELETE リクエストを送る際の正しいコマンドの断片はどれですか？",
+      "options": ["-X REMOVE", "-X DROP", "-X DELETE", "-X CLEAR"],
+      "answer": 2,
+      "commentary": "HTTP メソッド名を指定する -X オプションに DELETE を渡します。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "削除処理中に catch ブロックが実行された場合、どのようなことが起きたと考えられますか？",
+      "options": ["削除が正常に完了した", "インターネット接続が切れた、またはサーバーがエラーを返した", "画面が遷移した", "新しいデータが作成された"],
+      "answer": 1,
+      "commentary": "catch は try ブロック内の処理で例外（トラブル）が発生した際に実行されます。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "編集画面で、入力された新しいカテゴリ名を取得するために使うプロパティは何ですか？",
+      "options": ["_nameController.string", "_nameController.value", "_nameController.text", "_nameController.data"],
+      "answer": 2,
+      "commentary": "TextEditingController の .text プロパティに入力内容が格納されています。"
+    },
+    {
+      "id": 31,
+      "type": "文法チェック",
+      "question": "<code>@override</code> アノテーションの役割は何ですか？",
+      "options": ["親クラスのメソッドを上書きすることを明示する", "エラーを無視する", "新しいクラスを定義する", "変数を定数にする"],
+      "answer": 0,
+      "commentary": "継承したメソッドを子クラスで定義し直す（オーバーライド）際に、意図的であることを示すために付けます。"
+    },
+    {
+      "id": 32,
+      "type": "実行結果予測",
+      "question": "<code>category.id.toString()</code> を実行する理由は何ですか？",
+      "options": ["数値を計算するため", "数値を Text ウィジェットなどで表示可能な文字列形式に変えるため", "ID を 0 にするため", "ID を削除するため"],
+      "answer": 1,
+      "commentary": "int 型の ID はそのままでは Text ウィジェットに渡せないため、String 型に変換する必要があります。"
+    },
+    {
+      "id": 33,
+      "type": "用語理解",
+      "question": "Flutter のウィジェットで、内部に状態を持ち、initState や dispose メソッドを使えるクラスは何ですか？",
+      "options": ["StatelessWidget", "StatefulWidget", "ConsumerWidget", "InheritedWidget"],
+      "answer": 1,
+      "commentary": "動的な変化やコントローラーの管理が必要な場合は StatefulWidget を使用します。"
+    },
+    {
+      "id": 34,
+      "type": "コード穴埋め",
+      "question": "編集画面で「更新」ボタンを画面横幅いっぱいに広げるための指定は何ですか？<pre><code>width: double.___</code></pre>",
+      "options": ["max", "full", "infinity", "limit"],
+      "answer": 2,
+      "commentary": "double.infinity を指定すると、親要素の最大幅まで広がります。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "Django において、モデルのインスタンスを JSON 形式に変換するための設定ファイル（仕組み）は何ですか？",
+      "options": ["views.py", "models.py", "serializers.py", "urls.py"],
+      "answer": 2,
+      "commentary": "Serializer が Python オブジェクトと JSON データの橋渡し役を担います。"
+    },
+    {
+      "id": 36,
+      "type": "実行結果予測",
+      "question": "<code>ref.invalidate(categoryProvider)</code> を実行した後、次にカテゴリ一覧画面を見た時の挙動はどれですか？",
+      "options": ["以前と同じデータが表示される", "最新のデータが API から再取得されて表示される", "画面が真っ白になる", "データがすべて消える"],
+      "answer": 1,
+      "commentary": "プロバイダを無効化することで、最新の情報をサーバーから取り直すことができます。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "http.put() の戻り値に含まれる、サーバーからの成功・失敗を判定するためのプロパティは何ですか？",
+      "options": ["response.body", "response.statusCode", "response.headers", "response.message"],
+      "answer": 1,
+      "commentary": "statusCode（200番台、400番台など）を確認することで、通信が成功したか判断します。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "削除ボタンとして使用された `Icons.delete` は、どのような見た目のアイコンですか？",
+      "options": ["プラス記号", "鉛筆", "ゴミ箱", "家の形"],
+      "answer": 2,
+      "commentary": "Flutter の標準的な Material アイコンで、ゴミ箱の形をしています。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "try ブロックの最後でエラーが起きなかった場合に実行される、前の画面に戻る命令は何ですか？<pre><code>Navigator.___(context);</code></pre>",
+      "options": ["push", "move", "pop", "jump"],
+      "answer": 2,
+      "commentary": "pop() メソッドで現在の画面を閉じ、遷移元の画面に戻ります。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "このユニットで行った、データの「作成、読み取り、更新、削除」の 4 つの基本操作を総称して何と呼びますか？",
+      "options": ["REST", "API", "CRUD", "JSON"],
+      "answer": 2,
+      "commentary": "Create, Read, Update, Delete の頭文字を取って CRUD（クラッド）と呼ばれます。"
+    }
+  ]
 }

@@ -1,4 +1,345 @@
 {
   "unit_title": "カテゴリデータ追加",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "サーバーに新しいデータを送信して作成する際に使用する、最も一般的な HTTP メソッドは何ですか？",
+      "options": ["GET", "POST", "PUT", "DELETE"],
+      "answer": 1,
+      "commentary": "データの新規作成には POST メソッドを使用します。GET は取得、PUT は更新、DELETE は削除に使用されます。"
+    },
+    {
+      "id": 2,
+      "type": "文法チェック",
+      "question": "Django REST framework で「リソースの新規作成」が成功した際に返される標準的な HTTP ステータスコードは何番ですか？",
+      "options": ["200", "201", "400", "404"],
+      "answer": 1,
+      "commentary": "201 Created は、リクエストが成功し、サーバー上に新しいリソースが正常に作成されたことを示します。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "Dart で POST リクエストのボディを JSON 形式に変換するために使用する関数は何ですか？<pre><code>body: ___( {'name': name} )</code></pre>",
+      "options": ["jsonDecode", "jsonEncode", "jsonToString", "jsonFormat"],
+      "answer": 1,
+      "commentary": "jsonEncode 関数を使うことで、Dart のマップ型（Map）データを JSON 文字列に変換できます。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "HTTP ヘッダーで「送信するデータが JSON であること」をサーバーに伝える設定を完成させてください。<pre><code>headers: {\n  HttpHeaders.contentTypeHeader: ___.json.value,\n}</code></pre>",
+      "options": ["MediaType", "DataFormat", "ContentType", "HeaderType"],
+      "answer": 2,
+      "commentary": "ContentType.json.value を指定することで、application/json 形式であることを明示できます。"
+    },
+    {
+      "id": 5,
+      "type": "用語理解",
+      "question": "Flutter において、フォーム全体の入力内容の検証（バリデーション）などを管理するために使われる「鍵」は何ですか？",
+      "options": ["FormKey", "GlobalKey<FormState>", "StateKey", "ValidationKey"],
+      "answer": 1,
+      "commentary": "GlobalKey<FormState> を Form ウィジェットに渡すことで、フォームの状態を外部から操作したり検証したりできるようになります。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "テキスト入力フィールド（TextFormField）に入力された内容をリアルタイムで取得・操作するためのクラスは何ですか？",
+      "options": ["TextController", "InputController", "TextEditingController", "FormState"],
+      "answer": 2,
+      "commentary": "TextEditingController を使うことで、入力されている文字列の取得や書き換えが可能になります。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "入力フォームで、カテゴリ名が空の場合にエラーを表示するためのプロパティは何ですか？<pre><code>TextFormField(\n  ___: (value) {\n    if (value == null || value.isEmpty) return '入力してください';\n    return null;\n  },\n)</code></pre>",
+      "options": ["check", "onValidate", "validator", "test"],
+      "answer": 2,
+      "commentary": "validator プロパティに関数を定義することで、条件に応じたエラーメッセージを表示できます。"
+    },
+    {
+      "id": 8,
+      "type": "実行結果予測",
+      "question": "入力フォームのデザインで <code>border: OutlineInputBorder()</code> を指定すると、枠線はどうなりますか？",
+      "options": ["下線のみ表示される", "四角い枠線で囲まれる", "枠線が消える", "角が丸いボタンになる"],
+      "answer": 1,
+      "commentary": "OutlineInputBorder を使用すると、入力フィールドの周囲を囲む四角い枠線が表示されます。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "画面の下部に一時的な通知メッセージ（「カテゴリが作成されました」など）を表示するウィジェットは何ですか？",
+      "options": ["Toast", "Dialog", "SnackBar", "Alert"],
+      "answer": 2,
+      "commentary": "SnackBar は、ユーザーの操作に対する短いフィードバックを表示するのに適したウィジェットです。"
+    },
+    {
+      "id": 10,
+      "type": "文法チェック",
+      "question": "別の画面へ遷移（移動）するために使用する、Flutter の標準的な命令はどれですか？",
+      "options": [
+        "Navigator.push(context, route)",
+        "Navigator.move(context, screen)",
+        "Navigator.pop(context)",
+        "Screen.open(context)"
+      ],
+      "answer": 0,
+      "commentary": "Navigator.push を使うことで、現在の画面の上に新しい画面を重ねて表示（遷移）できます。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "Riverpod において、プロバイダのデータを破棄して強制的に再取得（リフレッシュ）させるメソッドは何ですか？",
+      "options": ["ref.refresh()", "ref.clear()", "ref.invalidate()", "ref.reset()"],
+      "answer": 2,
+      "commentary": "ref.invalidate() を呼び出すと、そのプロバイダを無効化し、次回アクセス時に最新のデータを再取得させます。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "非同期処理の途中で <code>if (!mounted) return;</code> を記述する主な目的は何ですか？",
+      "options": [
+        "処理速度を上げるため",
+        "ウィジェットが既に破棄（画面が閉じられた）されている際のエラーを防ぐため",
+        "インターネット接続を確認するため",
+        "メモリを解放するため"
+      ],
+      "answer": 1,
+      "commentary": "画面が既に閉じられているのに Navigator や SnackBar を操作しようとするとエラーになるため、mounted チェックが必要です。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "ElevatedButton の横幅を「画面いっぱいに広げる」ために、ボタンをラップするウィジェットの width に設定すべき値は何ですか？",
+      "options": ["double.max", "double.infinity", "100%", "MediaSize.full"],
+      "answer": 1,
+      "commentary": "double.infinity を指定すると、親要素の許容する最大幅までウィジェットが広がります。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "Django の <code>mixins.CreateModelMixin</code> を継承した ViewSet が、POST リクエストを受けた際に行う動作はどれですか？",
+      "options": ["データの一覧を表示する", "データを削除する", "新しいインスタンスを作成して保存する", "既存のデータを取得する"],
+      "answer": 2,
+      "commentary": "CreateModelMixin は、モデルに対する典型的な「作成（Create）」処理を提供します。"
+    },
+    {
+      "id": 15,
+      "type": "コード穴埋め",
+      "question": "現在の画面を閉じて前の画面に戻るための正しい命令は何ですか？<pre><code>Navigator.___(context);</code></pre>",
+      "options": ["push", "close", "pop", "back"],
+      "answer": 2,
+      "commentary": "Navigator.pop を使うことで、現在の画面をウィジェットツリー（スタック）から取り除き、前の画面に戻ります。"
+    },
+    {
+      "id": 16,
+      "type": "文法チェック",
+      "question": "TextFormField で「ラベルが浮き上がったときの色（フローティングラベルの色）」を設定するテーマのプロパティはどれですか？",
+      "options": ["labelStyle", "floatingLabelStyle", "focusLabelColor", "hintStyle"],
+      "answer": 1,
+      "commentary": "inputDecorationTheme 内の floatingLabelStyle で、フォーカス時に上部に移動したラベルの色やデザインを指定できます。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "Flutter のテーマ設定（ThemeData）において、文字入力時のカーソルの色を変更するためのプロパティは何ですか？",
+      "options": ["cursorTheme", "inputCursorColor", "textSelectionTheme", "focusColor"],
+      "answer": 2,
+      "commentary": "textSelectionTheme プロパティの中で cursorColor や selectionColor を一括設定できます。"
+    },
+    {
+      "id": 18,
+      "type": "実行結果予測",
+      "question": "<code>formKey.currentState?.validate()</code> を実行した際、バリデーションに失敗した入力項目がある場合の戻り値はどうなりますか？",
+      "options": ["true", "false", "null", "エラーが発生する"],
+      "answer": 1,
+      "commentary": "一つでもエラーがある場合は false が返り、画面上の各項目にエラーメッセージが表示されます。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "Flutter のウィジェットライフサイクルにおいて、StatefulWidget が生成されたときに一度だけ呼ばれる初期化メソッドは何ですか？",
+      "options": ["build()", "initState()", "dispose()", "createState()"],
+      "answer": 1,
+      "commentary": "initState() は、ウィジェットの初期設定（コントローラーのテキスト設定など）を行うのに最適な場所です。"
+    },
+    {
+      "id": 20,
+      "type": "コード穴埋め",
+      "question": "StatefulWidget において、使用しなくなったコントローラーなどを破棄してメモリを解放するためのメソッドは何ですか？<pre><code>@override\nvoid ___() {\n  _nameController.dispose();\n  super.dispose();\n}</code></pre>",
+      "options": ["close", "finish", "delete", "dispose"],
+      "answer": 3,
+      "commentary": "dispose() メソッドをオーバーライドして、メモリリークを防ぐためにリソースを解放します。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "cURL コマンドのオプション <code>-d</code> の役割は何ですか？",
+      "options": ["リクエストメソッドの指定", "送信するデータ（JSONなど）の指定", "ヘッダーの指定", "URLの指定"],
+      "answer": 1,
+      "commentary": "`-d` （または `--data`）は、POST リクエストなどでサーバーに送る中身（データ）を指定するために使います。"
+    },
+    {
+      "id": 22,
+      "type": "実行結果予測",
+      "question": "Django で <code>mixins.CreateModelMixin</code> を使わずに POST リクエストを送るとどうなりますか？",
+      "options": ["通常通り作成される", "405 Method Not Allowed エラーになる", "無限ループになる", "データが削除される"],
+      "answer": 1,
+      "commentary": "必要な Mixin が継承されていない場合、その HTTP メソッドはサポートされていないとみなされます。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "Dart で <code>Future&lt;void&gt; _saveCategory() async { ... }</code> と定義された関数内で、非同期処理の完了を待つために使うキーワードは何ですか？",
+      "options": ["wait", "stop", "await", "sync"],
+      "answer": 2,
+      "commentary": "await キーワードを使うことで、非同期処理（Future）が完了するまで次の行の実行を待機させることができます。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "SnackBar を表示するために使用するクラスの静的メソッドは何ですか？",
+      "options": ["Scaffold.showSnackBar", "SnackBarMessenger.show", "ScaffoldMessenger.of(context).showSnackBar", "Theme.of(context).showSnackBar"],
+      "answer": 2,
+      "commentary": "Flutter 2 以降では ScaffoldMessenger を使って SnackBar を制御するのが標準です。"
+    },
+    {
+      "id": 25,
+      "type": "コード穴埋め",
+      "question": "入力フォームの各項目の「枠線」のデザインをテーマで統一するプロパティは何ですか？<pre><code>ThemeData(\n  inputDecorationTheme: InputDecorationTheme(\n    ___: OutlineInputBorder(),\n  ),\n)</code></pre>",
+      "options": ["line", "frame", "border", "outline"],
+      "answer": 2,
+      "commentary": "inputDecorationTheme の border プロパティを設定すると、全テキストフィールドの枠線スタイルを統一できます。"
+    },
+    {
+      "id": 26,
+      "type": "実行結果予測",
+      "question": "<code>final _nameController = TextEditingController();</code> を定義したとき、中身の文字列を取得する正しいプロパティはどれですか？",
+      "options": ["_nameController.data", "_nameController.string", "_nameController.text", "_nameController.value"],
+      "answer": 2,
+      "commentary": "コントローラーに現在入力されている内容は `.text` プロパティで String 型として取得できます。"
+    },
+    {
+      "id": 27,
+      "type": "用語理解",
+      "question": "Flutter の SnackBar ウィジェットで、メッセージ内容を指定するための必須プロパティは何ですか？",
+      "options": ["title", "body", "content", "text"],
+      "answer": 2,
+      "commentary": "content プロパティに Text ウィジェットなどを渡してメッセージを表示します。"
+    },
+    {
+      "id": 28,
+      "type": "文法チェック",
+      "question": "<code>required super.name</code> という書き方は、どのような役割をしますか？",
+      "options": [
+        "親クラスのプロパティを必須で受け取り、そのまま親のコンストラクタに渡す",
+        "新しい変数を作成する",
+        "親クラスを削除する",
+        "エラーを無視する"
+      ],
+      "answer": 0,
+      "commentary": "super パラメータを使うことで、親クラスへの引数渡しを簡潔に記述できます。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "Flutter で <code>Colors.orangeAccent</code> を指定した場合、通常の色と比べてどのような特徴がありますか？",
+      "options": ["より暗いオレンジ", "透明なオレンジ", "より鮮やか（アクセント用）なオレンジ", "オレンジの反対色"],
+      "answer": 2,
+      "commentary": "Accent がつく色は、UI の強調部分（選択状態など）によく使われる鮮やかな色相です。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "API リクエスト中に例外が発生した場合に処理を分けるための構文を完成させてください。<pre><code>try {\n  await CategoryService().create(name);\n} ___ (e) {\n  // エラー処理\n}</code></pre>",
+      "options": ["error", "fail", "catch", "if"],
+      "answer": 2,
+      "commentary": "try-catch 構文を使うことで、通信エラーなどの予期せぬトラブルを安全に処理できます。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "入力フォームのバリデーション関数における <code>value.trim().isEmpty</code> の <code>trim()</code> は何をしますか？",
+      "options": ["文字を削除する", "前後の空白を取り除く", "大文字にする", "数字に変換する"],
+      "answer": 1,
+      "commentary": "スペース（空白）のみが入力された場合に「空」とみなすために、trim() で余計な空白を除去してから空チェックを行います。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "MaterialPageRoute の役割として正しいものはどれですか？",
+      "options": [
+        "インターネット通信を管理する",
+        "プラットフォーム（iOS/Android）に応じたアニメーションで画面遷移を行う",
+        "ボタンの形を決める",
+        "アプリを終了する"
+      ],
+      "answer": 1,
+      "commentary": "MaterialPageRoute を使うことで、スマホ標準の自然な動きで新しい画面へ移動できます。"
+    },
+    {
+      "id": 33,
+      "type": "実行結果予測",
+      "question": "<code>SizedBox(width: double.infinity)</code> の中にあるボタンの幅はどうなりますか？",
+      "options": ["幅が 0 になる", "ボタンの文字数に合わせる", "横幅いっぱいに広がる", "エラーになる"],
+      "answer": 2,
+      "commentary": "親の幅が double.infinity の場合、中のウィジェットも引き伸ばされて表示されます。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "入力項目（TextField）の横に表示される「カテゴリ名」などの説明テキストのプロパティ名は何ですか？",
+      "options": ["titleText", "labelText", "placeholder", "header"],
+      "answer": 1,
+      "commentary": "labelText を使うと、入力前は中にあり、入力中は上部に浮き上がるマテリアルデザインのラベルになります。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "リクエストボディに JSON データを詰める際のキー名は、バックエンドの設計と一致させる必要があります。今回の設計では何ですか？<pre><code>jsonEncode({'___': name})</code></pre>",
+      "options": ["category", "title", "name", "value"],
+      "answer": 2,
+      "commentary": "Django の Category モデルでフィールド名を `name` と定義しているため、API でも `'name'` というキーを使います。"
+    },
+    {
+      "id": 36,
+      "type": "文法チェック",
+      "question": "Form ウィジェットの <code>key</code> プロパティに渡すべき変数はどれですか？",
+      "options": ["TextEditingController", "GlobalKey<FormState>", "FormState", "BuildContext"],
+      "answer": 1,
+      "commentary": "定義した GlobalKey を Form の key プロパティに紐付けることで、そのフォームを特定・操作できます。"
+    },
+    {
+      "id": 37,
+      "type": "実行結果予測",
+      "question": "Flutter アプリで <code>Navigator.pop(context)</code> が実行された直後の画面はどうなりますか？",
+      "options": ["アプリが閉じる", "現在の画面が消え、一つ前の画面（リスト画面など）が表示される", "画面がリフレッシュされる", "エラーメッセージが出る"],
+      "answer": 1,
+      "commentary": "pop（ポップ）はスタックから今の画面を取り除く操作なので、自動的に後ろの画面が見えるようになります。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "入力フォームで「入力内容が正しいかチェックする」一連の処理のことを何と呼びますか？",
+      "options": ["コンパイル", "バリデーション", "レンダリング", "デシリアライズ"],
+      "answer": 1,
+      "commentary": "バリデーション（検証）により、不正なデータがサーバーに送られるのを防ぎます。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "SnackBar の背景に文字を表示するウィジェットを完成させてください。<pre><code>SnackBar(content: ___('完了しました'))</code></pre>",
+      "options": ["String", "Label", "Text", "Msg"],
+      "answer": 2,
+      "commentary": "Flutter の多くのプロパティと同様に、表示する文字は Text ウィジェットで渡す必要があります。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "本ユニットの演習で、新規追加ボタン（＋）として使われた、右下に浮いているボタンの名前は何ですか？",
+      "options": ["RaisedButton", "IconButton", "FloatingActionButton", "CircleButton"],
+      "answer": 2,
+      "commentary": "FloatingActionButton（FAB）は、画面の主要なアクションを示すために使われる特徴的なボタンです。"
+    }
+  ]
 }

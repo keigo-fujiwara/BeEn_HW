@@ -1,4 +1,375 @@
 {
   "unit_title": "カテゴリ一覧画面の表示",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "APIリクエストを行うためにFlutterプロジェクトに追加する必要がある標準的なパッケージは何ですか？",
+      "options": ["json", "http", "api_client", "url_launcher"],
+      "answer": 1,
+      "commentary": "FlutterでHTTP通信（GET/POSTリクエストなど）を行うには、httpパッケージをプロジェクトに追加するのが一般的です。"
+    },
+    {
+      "id": 2,
+      "type": "用語理解",
+      "question": "Flutterプロジェクトのディレクトリ構成において、外部サービスやAPIとの通信ロジックを定義する場所として適切なのはどれですか？",
+      "options": ["models", "providers", "screens", "services"],
+      "answer": 3,
+      "commentary": "通信処理などのビジネスロジックは「services」ディレクトリに配置して管理します。"
+    },
+    {
+      "id": 3,
+      "type": "用語理解",
+      "question": "データ管理クラスの作成をサポートし、copyWith()メソッドなどを自動生成してくれるライブラリは何ですか？",
+      "options": ["riverpod", "freezed", "flutter_lints", "http"],
+      "answer": 1,
+      "commentary": "freezedは、イミュータブル（不変）なデータモデルを簡単に作成するための強力なコード生成ライブラリです。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "freezedを使用してモデルを定義する際、自動生成ファイルを指定するための正しい記述はどれですか？<pre><code>import 'package:freezed_annotation/freezed_annotation.dart';\n\npart 'category.___';\npart 'category.g.dart';</code></pre>",
+      "options": ["dart", "json.dart", "freezed.dart", "model.dart"],
+      "answer": 2,
+      "commentary": "freezedを使用する場合、「ファイル名.freezed.dart」というpart句を記述する必要があります。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "freezedのコード生成を行うためにターミナルで実行するコマンドは何ですか？",
+      "options": [
+        "flutter pub get",
+        "dart run build_runner build",
+        "flutter build apk",
+        "dart format ."
+      ],
+      "answer": 1,
+      "commentary": "build_runnerを実行することで、freezedやjson_serializableによるコード生成が開始されます。"
+    },
+    {
+      "id": 6,
+      "type": "文法チェック",
+      "question": "freezedモデルにおいて、JSON形式のデータからDartオブジェクトに変換するファクトリコンストラクタの定義はどれですか？",
+      "options": [
+        "factory Category.fromMap(Map map) => ...",
+        "factory Category.fromJson(Map<String, dynamic> json) => _$CategoryFromJson(json);",
+        "Category.toJson(Map json) { ... }",
+        "void fromJson(String source) { ... }"
+      ],
+      "answer": 1,
+      "commentary": "fromJsonはAPIから受け取ったデータをモデルに変換するための標準的なメソッド名です。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "既存のオブジェクトの特定のフィールドのみを変更した、新しいオブジェクトを生成するためのメソッドは何ですか？",
+      "options": ["update()", "change()", "copyWith()", "clone()"],
+      "answer": 2,
+      "commentary": "freezedが自動生成するcopyWith()を使うと、不変なオブジェクトの一部だけを変えたコピーを簡単に作れます。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "DartでURLを扱うために、ホスト名やパスを指定してオブジェクトを構築するコンストラクタは何ですか？<pre><code>final baseUrl = ___('127.0.0.1:8000', '/api');</code></pre>",
+      "options": ["Url.parse", "Uri.http", "Http.address", "Api.url"],
+      "answer": 1,
+      "commentary": "Uri.httpを使用すると、安全にURLの各パーツを組み立てることができます。"
+    },
+    {
+      "id": 9,
+      "type": "実行結果予測",
+      "question": "APIリクエストが「成功」したことを示す一般的なHTTPステータスコードは何番ですか？",
+      "options": ["200", "400", "404", "500"],
+      "answer": 0,
+      "commentary": "200 OKはリクエストが正常に処理されたことを示します。教科書でもこの番号で判定しています。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "APIから返ってきたレスポンスボディ（バイトデータ）を文字列として正しくデコードする処理を完成させてください。<pre><code>json.decode(utf8.decode(response.___));</code></pre>",
+      "options": ["text", "content", "bodyBytes", "data"],
+      "answer": 2,
+      "commentary": "日本語などの文字化けを防ぐため、bodyBytesをutf8でデコードしてからJSON解析するのが安全な方法です。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "非同期でデータを取得するRiverpodのプロバイダの種類は何ですか？",
+      "options": ["StateProvider", "FutureProvider", "StreamProvider", "ChangeNotifierProvider"],
+      "answer": 1,
+      "commentary": "API通信のようなFuture（非同期）を扱うプロバイダにはFutureProviderが適しています。"
+    },
+    {
+      "id": 12,
+      "type": "文法チェック",
+      "question": "FutureProviderの状態（データあり、ロード中、エラー）に応じて表示を切り替えるメソッドは何ですか？",
+      "options": ["map()", "switch()", "when()", "if()"],
+      "answer": 2,
+      "commentary": "AsyncValue型のwhen()メソッドを使うと、非同期処理の3つの状態を漏れなくハンドリングできます。"
+    },
+    {
+      "id": 13,
+      "type": "実行結果予測",
+      "question": "FutureProviderの <code>loading</code> 状態で表示するのに適した、くるくる回る進行状況インジケータは何ですか？",
+      "options": ["LinearProgressIndicator", "CircularProgressIndicator", "LoadingIcon", "WaitingSpinner"],
+      "answer": 1,
+      "commentary": "CircularProgressIndicatorは、データ読み込み中であることをユーザーに伝える標準的なウィジェットです。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "Flutterで「表」形式のレイアウトを構築するためのウィジェットは何ですか？",
+      "options": ["Grid", "List", "Table", "DataTable"],
+      "answer": 2,
+      "commentary": "Tableウィジェットを使用すると、行（TableRow）を重ねて表を作成できます。"
+    },
+    {
+      "id": 15,
+      "type": "コード穴埋め",
+      "question": "Tableウィジェットで、列の幅を固定（例：60ピクセル）に指定するためのクラスは何ですか？<pre><code>columnWidths: const {\n  0: ___(60),\n}</code></pre>",
+      "options": ["FlexColumnWidth", "FixedColumnWidth", "StaticColumnWidth", "PixelColumnWidth"],
+      "answer": 1,
+      "commentary": "FixedColumnWidthは数値を指定してその列の幅を固定します。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "Tableウィジェットで、残りのスペースを自動で割り当てる列の幅指定は何ですか？",
+      "options": ["AutoColumnWidth", "FlexColumnWidth", "MaxColumnWidth", "FillColumnWidth"],
+      "answer": 1,
+      "commentary": "FlexColumnWidthは、他の列が決まった後の残りの領域を埋めるように幅を調整します。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "タップやスワイプなどのユーザー操作を検出し、ボタン以外のウィジェットをクリック可能にするために使うクラスは何ですか？",
+      "options": ["TapDetector", "TouchHandler", "GestureDetector", "InputListener"],
+      "answer": 2,
+      "commentary": "GestureDetectorを使うと、TextやContainerなどあらゆるウィジェットにタップイベントを付けられます。"
+    },
+    {
+      "id": 18,
+      "type": "文法チェック",
+      "question": "Riverpodを使用する際、アプリのルート（main関数内）でウィジェットツリーを囲む必要があるクラスは何ですか？",
+      "options": ["RiverpodRoot", "ProviderScope", "ContainerScope", "AppScope"],
+      "answer": 1,
+      "commentary": "ProviderScopeでアプリ全体を囲むことで、プロバイダの状態を保持・共有できるようになります。"
+    },
+    {
+      "id": 19,
+      "type": "コード穴埋め",
+      "question": "プロバイダの状態を監視し、変更があった時にUIを再ビルドするためにウィジェット内で使うメソッドは何ですか？<pre><code>final asyncValue = ref.___(categoryProvider);</code></pre>",
+      "options": ["read", "listen", "watch", "get"],
+      "answer": 2,
+      "commentary": "watchメソッドはプロバイダを監視し、値が更新されると自動的にbuildメソッドを再実行させます。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "macOSアプリとして実行した際、「Operation not permitted」というネットワークエラーが出た場合に修正すべきファイルは何ですか？",
+      "options": ["pubspec.yaml", "main.dart", "DebugProfile.entitlements", "analysis_options.yaml"],
+      "answer": 2,
+      "commentary": "macOSにはセキュリティ制限（サンドボックス）があるため、entitlementsファイルで通信を許可する設定が必要です。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "modelsディレクトリに配置されたCategoryモデルの役割として正しいものはどれですか？",
+      "options": [
+        "APIリクエストを直接送信する",
+        "データの構造を定義し、JSONとの変換メソッドを持つ",
+        "画面のボタンの配置を決める",
+        "サーバーのIPアドレスを管理する"
+      ],
+      "answer": 1,
+      "commentary": "モデルはデータの「型」であり、プログラムで扱いやすいように構造化したものです。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "FutureProviderの中で、非同期処理の結果が返ってくるまで処理を待機させるためのキーワードは何ですか？",
+      "options": ["wait", "stop", "await", "sync"],
+      "answer": 2,
+      "commentary": "awaitキーワードを使うことで、非同期処理の完了を待ってから結果を受け取ることができます。"
+    },
+    {
+      "id": 23,
+      "type": "用語理解",
+      "question": "Riverpodにおける「AsyncValue」とはどのようなオブジェクトですか？",
+      "options": [
+        "常に最新の整数を保持する変数",
+        "非同期処理の実行状態と結果（データ、エラー、ロード中）を包んだもの",
+        "データベースそのもの",
+        "JSON文字列を保存するリスト"
+      ],
+      "answer": 1,
+      "commentary": "AsyncValueは非同期通信の状態を安全に扱うためのRiverpod専用の型です。"
+    },
+    {
+      "id": 24,
+      "type": "コード穴埋め",
+      "question": "Tableの中で1つの「行」を定義するために使うウィジェットは何ですか？<pre><code>children: [\n  ___(\n    children: [ Text('ID'), Text('Name') ],\n  ),\n]</code></pre>",
+      "options": ["TableRow", "TableLine", "Row", "GridRow"],
+      "answer": 0,
+      "commentary": "Tableの子要素には専用のTableRowウィジェットを使用します。"
+    },
+    {
+      "id": 25,
+      "type": "文法チェック",
+      "question": "リスト形式のデータ <code>categories</code> を <code>TableRow</code> のリストに変換するために使うDartのメソッドは何ですか？",
+      "options": ["forEach()", "add()", "map()", "filter()"],
+      "answer": 2,
+      "commentary": "map()メソッドを使うと、あるリストの各要素を別の形式（ウィジェットなど）に変換できます。"
+    },
+    {
+      "id": 26,
+      "type": "用語理解",
+      "question": "Flutterにおける「StatelessWidget」の特徴はどれですか？",
+      "options": [
+        "内部に変化する状態を持たない、一度表示されたら変わらないウィジェット",
+        "ボタンを押すたびに数字が変わるウィジェット",
+        "インターネット通信専用のウィジェット",
+        "アニメーションを表示するためのウィジェット"
+      ],
+      "answer": 0,
+      "commentary": "StatelessWidgetは外部から渡されたデータのみを表示し、自身で状態を管理しないUI部品に使われます。"
+    },
+    {
+      "id": 27,
+      "type": "用語理解",
+      "question": "DjangoのAPIが「127.0.0.1:8000」で動いている場合、これはどのような場所を指していますか？",
+      "options": ["アメリカのサーバー", "自分のコンピュータ自身（ローカルホスト）", "Googleのクラウド", "未接続状態"],
+      "answer": 1,
+      "commentary": "127.0.0.1はループバックアドレスと呼ばれ、自分自身のコンピュータを指します。"
+    },
+    {
+      "id": 28,
+      "type": "コード穴埋め",
+      "question": "API通信中に発生した例外を捕まえてエラーを表示させる際、whenメソッドのどの引数を使いますか？",
+      "options": ["data", "loading", "error", "catch"],
+      "answer": 2,
+      "commentary": "error引数には、例外が発生した時のエラーメッセージやスタックトレースが渡されます。"
+    },
+    {
+      "id": 29,
+      "type": "文法チェック",
+      "question": "Textウィジェットで文字に「下線」を引くための正しいスタイル指定はどれですか？",
+      "options": [
+        "decoration: TextDecoration.underline",
+        "line: underline",
+        "style: underline",
+        "font: TextUnderline"
+      ],
+      "answer": 0,
+      "commentary": "TextStyleのdecorationプロパティにTextDecoration.underlineを指定します。"
+    },
+    {
+      "id": 30,
+      "type": "実行結果予測",
+      "question": "<code>...categories.map(...)</code> という記述における「...」は何という演算子ですか？",
+      "options": ["ドット演算子", "スプレッド演算子", "レスト演算子", "アロー演算子"],
+      "answer": 1,
+      "commentary": "スプレッド演算子（...）は、リストの中身を展開して別のリストに統合する際に使われます。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "FutureProviderの引数にある <code>ref</code> の主な役割は何ですか？",
+      "options": [
+        "データを保存する",
+        "他のプロバイダを読み込んだり操作したりする",
+        "画面を真っ白にする",
+        "OSを再起動する"
+      ],
+      "answer": 1,
+      "commentary": "WidgetRefやProviderRef（ref）は、Riverpodの世界で他のプロバイダにアクセスするための鍵です。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "freezedを使用して「不変」なクラスを定義する際、クラス名の前に付けるアノテーションは何ですか？",
+      "options": ["@Data", "@immutable", "@freezed", "@Model"],
+      "answer": 2,
+      "commentary": "@freezedアノテーションを付けることで、コード生成の対象であることを示します。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "IconButtonウィジェットで、編集ボタンに適したアイコン画像を指定する正しいコードはどれですか？<pre><code>icon: const Icon(Icons.___),</code></pre>",
+      "options": ["add", "delete", "edit", "home"],
+      "answer": 2,
+      "commentary": "編集アイコンは Icons.edit として定義されています。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "FutureProviderが返すデータの型が <code>List&lt;Category&gt;</code> の場合、whenの <code>data</code> 部分に渡される変数の型は何になりますか？",
+      "options": ["String", "Category1つ", "List&lt;Category&gt;", "bool"],
+      "answer": 2,
+      "commentary": "非同期処理が完了すると、Futureの成功した結果がそのまま渡されます。"
+    },
+    {
+      "id": 35,
+      "type": "文法チェック",
+      "question": "Dartで <code>as Map&lt;String, dynamic&gt;</code> と書くことを何と呼びますか？",
+      "options": ["計算", "代入", "キャスト（型変換）", "初期化"],
+      "answer": 2,
+      "commentary": "ある変数を特定の型として扱うようにコンピュータに明示することをキャストと言います。"
+    },
+    {
+      "id": 36,
+      "type": "実行結果予測",
+      "question": "Tableウィジェットに <code>TableBorder.all()</code> を設定すると、表はどう見えますか？",
+      "options": [
+        "枠線が一切表示されない",
+        "すべてのセルの周囲に枠線が表示される",
+        "外枠だけ表示される",
+        "文字が消える"
+      ],
+      "answer": 1,
+      "commentary": "TableBorder.allは、表の格子状の線（外枠と内側の線すべて）を描画します。"
+    },
+    {
+      "id": 37,
+      "type": "用語理解",
+      "question": "FlutterのUIを再構築（ビルド）するきっかけとなる、プロバイダの状態監視。これを実現するために使われるメソッドはどれですか？",
+      "options": ["ref.read()", "ref.watch()", "ref.listen()", "ref.refresh()"],
+      "answer": 1,
+      "commentary": "buildメソッド内で ref.watch を使うことで、状態の変化に合わせて自動的に画面が更新されます。"
+    },
+    {
+      "id": 38,
+      "type": "コード穴埋め",
+      "question": "GestureDetectorで「タップされた時」の処理を書くプロパティは何ですか？<pre><code>GestureDetector(\n  ___: () { print('Tapped!'); },\n  child: ...\n)</code></pre>",
+      "options": ["onPress", "onClick", "onTap", "onTouch"],
+      "answer": 2,
+      "commentary": "タップ動作の検出には onTap プロパティを使用します。"
+    },
+    {
+      "id": 39,
+      "type": "文法チェック",
+      "question": "macOSの <code>entitlements</code> ファイルを編集して追加した <code>com.apple.security.network.client</code> とは何を許可する設定ですか？",
+      "options": [
+        "カメラの使用",
+        "アプリがクライアントとして外部サーバーに接続すること",
+        "ファイルの削除",
+        "音量の調節"
+      ],
+      "answer": 1,
+      "commentary": "これを設定しないと、macOSアプリからWeb APIへアクセスすることができません。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "Riverpodにおける <code>Consumer</code> ウィジェットの役割は何ですか？",
+      "options": [
+        "データをインターネットから受信するだけのウィジェット",
+        "refオブジェクトを使用してプロバイダにアクセスするためのウィジェット",
+        "画像を縮小するウィジェット",
+        "アプリを終了するボタン"
+      ],
+      "answer": 1,
+      "commentary": "Consumerを使うと、buildメソッドの引数にrefが含まれるようになり、プロバイダの値を読み取れるようになります。"
+    }
+  ]
 }

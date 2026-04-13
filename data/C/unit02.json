@@ -1,4 +1,360 @@
 {
   "unit_title": "シリアライザ",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "Djangoのモデルオブジェクトを、Flutterなどのフロントエンドが理解できるJSON形式などのデータに変換することを何と呼びますか？",
+      "options": ["デシリアライズ", "シリアライズ", "バリデーション", "ルーティング"],
+      "answer": 1,
+      "commentary": "シリアライズ（Serialize）は、Pythonのオブジェクトをネットワーク転送に適したJSONなどの形式に変換する処理を指します。"
+    },
+    {
+      "id": 2,
+      "type": "用語理解",
+      "question": "JSONなどのデータ形式を、Djangoのモデルオブジェクトに変換することを何と呼びますか？",
+      "options": ["シリアライズ", "デシリアライズ", "マイグレーション", "レンダリング"],
+      "answer": 1,
+      "commentary": "デシリアライズ（Deserialize）は、クライアントから送られてきたJSONデータをPythonのオブジェクトに戻す処理です。"
+    },
+    {
+      "id": 3,
+      "type": "文法チェック",
+      "question": "シリアライザのフィールド定義で <code>read_only=True</code> を設定した場合、どのような挙動になりますか？",
+      "options": ["クライアントからデータを送信（作成・更新）できる", "クライアントからの入力は受け付けず、出力（取得）のみ行われる", "データがデータベースに保存されなくなる", "エラーを常に無視する"],
+      "answer": 1,
+      "commentary": "read_only属性をTrueにすると、APIからの取得時には含まれますが、新規登録や更新時の入力としては無視されます。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "シリアライザで新しいインスタンスを作成する際にオーバーライドするメソッドは何ですか？<pre><code>class CategorySerializer(serializers.Serializer):\n    def ___(self, validated_data):\n        return Category.objects.create(**validated_data)</code></pre>",
+      "options": ["save", "init", "create", "update"],
+      "answer": 2,
+      "commentary": "Serializerクラスを継承した場合、データの新規作成処理はcreateメソッド内に記述します。"
+    },
+    {
+      "id": 5,
+      "type": "用語理解",
+      "question": "Pythonにおいて、辞書のキーと値をキーワード引数として展開して関数に渡すための記号は何ですか？（例：<code>**data</code>）",
+      "options": ["*", "**", "&", "++"],
+      "answer": 1,
+      "commentary": "**（ダブルアスタリスク）は辞書のアンパックを意味し、辞書の中身を名前付き引数として展開します。"
+    },
+    {
+      "id": 6,
+      "type": "文法チェック",
+      "question": "シリアライザで <code>is_valid()</code> メソッドを呼び出したとき、検証に失敗した場合の戻り値は何ですか？",
+      "options": ["True", "False", "None", "Error"],
+      "answer": 1,
+      "commentary": "is_valid()は、送信されたデータが型や文字数制限などのバリデーションを通過すればTrue、そうでなければFalseを返します。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "モデルの定義に基づいて、フィールドやcreate/updateメソッドを自動生成してくれる便利なシリアライザクラスは何ですか？",
+      "options": ["Serializer", "BaseSerializer", "ModelSerializer", "AutoSerializer"],
+      "answer": 2,
+      "commentary": "ModelSerializerを使用すると、モデルとフィールド名を指定するだけで簡潔にシリアライザを実装できます。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "ModelSerializerを定義する際、モデルの情報を記述する内部クラスの名前は何ですか？<pre><code>class CategorySerializer(serializers.ModelSerializer):\n    class ___:\n        model = Category\n        fields = ['id', 'name']</code></pre>",
+      "options": ["Info", "Data", "Meta", "Config"],
+      "answer": 2,
+      "commentary": "ModelSerializerやModelFormでは、内部に class Meta を定義して設定を記述します。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "クライアントとサーバーがデータをやり取りするための「窓口」となるURLのことを何と呼びますか？",
+      "options": ["エンドポイント", "ゲートウェイ", "ポート", "ブラウザ"],
+      "answer": 0,
+      "commentary": "/api/recipes/ のような、特定のリソースにアクセスするための特定のURLをエンドポイントと呼びます。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "RESTful APIのURI設計において、望ましい命名規則はどれですか？",
+      "options": [
+        "操作を名前に含める（例：/getRecipes/）",
+        "リソースを名前にする（例：/recipes/）",
+        "必ず動詞で始める",
+        "すべて日本語にする"
+      ],
+      "answer": 1,
+      "commentary": "RESTの原則では、URIは操作（動詞）ではなく、リソース（名詞）を表現するように設計するのが基本です。"
+    },
+    {
+      "id": 11,
+      "type": "文法チェック",
+      "question": "HTTPメソッドの中で、既存のリソースを「完全に更新」するために使われるものはどれですか？",
+      "options": ["GET", "POST", "PUT", "DELETE"],
+      "answer": 2,
+      "commentary": "PUTメソッドは、指定したIDのリソース全体を更新する際に使用します。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "シリアライザで <code>invalid_data = {'name': ''}</code> に対して <code>is_valid()</code> を実行した際、エラー内容が格納されるプロパティは何ですか？",
+      "options": ["serializer.errors", "serializer.fail", "serializer.message", "serializer.data"],
+      "answer": 0,
+      "commentary": "バリデーションエラーの詳細は、serializer.errorsに辞書形式で格納されます。"
+    },
+    {
+      "id": 13,
+      "type": "用語理解",
+      "question": "APIリクエストにおいて、リソースの「取得」を行う際に使われるHTTPメソッドは何ですか？",
+      "options": ["GET", "POST", "PATCH", "PUT"],
+      "answer": 0,
+      "commentary": "データの参照や取得にはGETメソッドを使用します。"
+    },
+    {
+      "id": 14,
+      "type": "文法チェック",
+      "question": "HTTPステータスコードにおいて、「200」は何を意味しますか？",
+      "options": ["作成完了", "リクエスト成功", "ページが見つからない", "サーバーエラー"],
+      "answer": 1,
+      "commentary": "200 OK は、リクエストが正常に処理されたことを示す標準的なステータスコードです。"
+    },
+    {
+      "id": 15,
+      "type": "コード穴埋め",
+      "question": "ModelSerializerで、モデルのすべてのフィールドを使いたい場合、fieldsに指定する特殊な記法は何ですか？<pre><code>fields = '___'</code></pre>",
+      "options": ["all", "__all__", "*", "everything"],
+      "answer": 1,
+      "commentary": "fields = '__all__' と記述することで、モデルに定義された全フィールドを自動的に含めることができます。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "Webサービスの設計パターンで、HTTPを利用して異なるシステム間で通信を行う仕組みを何と呼びますか？",
+      "options": ["RESTful API", "MVCモデル", "ORMシステム", "Djangoフレームワーク"],
+      "answer": 0,
+      "commentary": "REST（Representational State Transfer）の原則に基づいたAPIをRESTful APIと呼びます。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "既存のインスタンスを更新する <code>update</code> メソッドの引数で、現在のオブジェクトを表すものはどれですか？<pre><code>def update(self, ___, validated_data):</code></pre>",
+      "options": ["obj", "model", "instance", "entity"],
+      "answer": 2,
+      "commentary": "updateメソッドは、第2引数として更新対象のインスタンス（instance）を受け取ります。"
+    },
+    {
+      "id": 18,
+      "type": "実行結果予測",
+      "question": "<code>Category.objects.first()</code> で取得したデータをシリアライザに渡した際、実際のJSONデータを取り出すためのプロパティは何ですか？",
+      "options": ["serializer.json", "serializer.data", "serializer.result", "serializer.output"],
+      "answer": 1,
+      "commentary": "変換されたデータは、シリアライザインスタンスの .data プロパティに格納されます。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "新しいリソース（レシピなど）を「作成」する際に、エンドポイント設計で推奨されるHTTPメソッドは何ですか？",
+      "options": ["GET", "PUT", "POST", "UPDATE"],
+      "answer": 2,
+      "commentary": "データの新規登録には、一般的にPOSTメソッドを使用します。"
+    },
+    {
+      "id": 20,
+      "type": "文法チェック",
+      "question": "シリアライザがDjangoの中で似ている機能を持っているクラスは何ですか？",
+      "options": ["View クラス", "Model クラス", "Form クラス", "Template クラス"],
+      "answer": 2,
+      "commentary": "シリアライザは、データの入力チェック（バリデーション）や変換を行う点がDjangoのFormクラスと非常に似ています。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "APIの設計図として、「機能」「メソッド」「エンドポイント」を一覧化したものを何と呼びますか？",
+      "options": ["DB設計", "画面遷移図", "エンドポイント設計", "プロトコル仕様"],
+      "answer": 2,
+      "commentary": "どのようなURLでどのような操作ができるかを網羅したものをエンドポイント設計と呼びます。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "辞書型のデータから値を取得する際、キーが存在しない場合にデフォルト値を返せるメソッドは何ですか？<pre><code>validated_data.___('name', instance.name)</code></pre>",
+      "options": ["find", "get", "fetch", "search"],
+      "answer": 1,
+      "commentary": "Pythonの辞書型の .get() メソッドは、第1引数のキーがなければ第2引数の値を返します。"
+    },
+    {
+      "id": 23,
+      "type": "用語理解",
+      "question": "リソースを「削除」する際に使用するHTTPメソッドは何ですか？",
+      "options": ["CLEAR", "REMOVE", "DROP", "DELETE"],
+      "answer": 3,
+      "commentary": "データの削除にはDELETEメソッドが割り当てられます。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "シリアライザで <code>save()</code> メソッドを呼び出したとき、内部で自動的に呼び出されるメソッドの組み合わせはどれですか？",
+      "options": ["init または delete", "create または update", "start または stop", "get または post"],
+      "answer": 1,
+      "commentary": "新規作成時は create、既存インスタンスの更新時は update メソッドが save() 内で呼び出されます。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "RESTful APIの特徴で、サーバーがクライアントの状態を保持せず、各リクエストが独立している性質を何と呼びますか？",
+      "options": ["ステートレス", "ステートフル", "セッション管理", "キャッシュ"],
+      "answer": 0,
+      "commentary": "ステートレス（Stateless）は、リクエスト間に依存関係がないRESTの重要な原則の一つです。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "シリアライザのフィールド定義で、文字列の最大文字数を制限する属性は何ですか？<pre><code>name = serializers.CharField(___=100)</code></pre>",
+      "options": ["length", "max_length", "limit", "size"],
+      "answer": 1,
+      "commentary": "CharFieldでは max_length 属性を使って文字数のバリデーションルールを設定できます。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "Djangoの対話モード（シェル）を起動するためのコマンドは何ですか？",
+      "options": ["python run shell", "python manage.py shell", "python start shell", "django-admin shell"],
+      "answer": 1,
+      "commentary": "manage.py shell を使うことで、Djangoの設定を読み込んだ状態でPythonを実行できます。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "URI（Uniform Resource Identifier）がインターネット上で果たす役割として正しい例えはどれですか？",
+      "options": ["郵便番号", "氏名", "住所", "電話番号"],
+      "answer": 2,
+      "commentary": "URIは特定のリソースがどこにあるかを示す、インターネット上の「住所」の役割を果たします。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "<code>Category.objects.last()</code> はどのようなデータを取得しますか？",
+      "options": ["全てのデータ", "最初のデータ", "最後のデータ", "ランダムなデータ"],
+      "answer": 2,
+      "commentary": "last() メソッドは、クエリセットの中で最後に登録された（または並び順の最後の）レコードを1件取得します。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "JSON（JavaScript Object Notation）の性質として、間違っているものはどれですか？",
+      "options": [
+        "テキスト形式である",
+        "人間にも読みやすい",
+        "画像データを直接表現するための形式である",
+        "軽量なデータフォーマットである"
+      ],
+      "answer": 2,
+      "commentary": "JSONはデータの構造を記述するためのテキスト形式であり、画像そのものを表現する形式ではありません。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "シリアライザから特定のカテゴリ（id=1）を取得して表示する際の引数の渡し方を選んでください。<pre><code>category = Category.objects.get(id=1)\nserializer = CategorySerializer(___)</code></pre>",
+      "options": ["category", "data=category", "instance=category", "obj=category"],
+      "answer": 0,
+      "commentary": "既存のデータをシリアライズ（出力）する場合は、第1引数にそのインスタンスを直接渡します。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "シリアライザを作成するためにインポートする必要があるライブラリはどれですか？",
+      "options": [
+        "from django import serializers",
+        "from rest_framework import serializers",
+        "import json",
+        "from .models import serializers"
+      ],
+      "answer": 1,
+      "commentary": "Django REST frameworkの機能なので、rest_frameworkからインポートします。"
+    },
+    {
+      "id": 13,
+      "type": "用語理解",
+      "question": "エンドポイント <code>/categories/&lt;category_id&gt;/recipes/</code> が提供すべき機能として最も適切なものはどれですか？",
+      "options": [
+        "すべてのカテゴリの一覧取得",
+        "特定のカテゴリに属するレシピの一覧取得",
+        "新しいレシピの作成",
+        "カテゴリ名の編集"
+      ],
+      "answer": 1,
+      "commentary": "階層構造を持つエンドポイントは、親リソース（カテゴリ）に紐付く子リソース（レシピ）を表現しています。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "シリアライザの <code>save()</code> が成功して返ってきたオブジェクトは、通常どのようなデータ型ですか？",
+      "options": ["JSON文字列", "辞書(dict)", "Djangoのモデルインスタンス", "文字列(str)"],
+      "answer": 2,
+      "commentary": "save()メソッドは、デシリアライズして作成・更新されたモデルのオブジェクトを返します。"
+    },
+    {
+      "id": 35,
+      "type": "文法チェック",
+      "question": "Djangoシェルを終了するためのコマンドは何ですか？",
+      "options": ["quit()", "exit()", "stop()", "close()"],
+      "answer": 1,
+      "commentary": "exit() または Ctrl+D を入力することでシェルを終了できます。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "DRFの処理フローにおいて、URLルーティングの次にリクエストが到達する場所はどこですか？",
+      "options": ["モデル", "データベース", "ビュー", "シリアライザ"],
+      "answer": 2,
+      "commentary": "URLパターンに一致したリクエストは、まずビュー（View）に送られて処理が始まります。"
+    },
+    {
+      "id": 37,
+      "type": "用語理解",
+      "question": "シリアライザを使う最大のメリットは何ですか？",
+      "options": [
+        "データベースの速度が上がる",
+        "データの整合性を保ちながら、他システムとの連携（変換）を容易にする",
+        "HTMLの作成が簡単になる",
+        "管理画面が自動で作られる"
+      ],
+      "answer": 1,
+      "commentary": "型変換とバリデーションをセットで行えるため、バックエンドとフロントエンドの連携が安全かつ効率的になります。"
+    },
+    {
+      "id": 38,
+      "type": "コード穴埋め",
+      "question": "特定のレシピを取得するためのエンドポイントで、IDをURLに含める正しい表現形式はどれですか？",
+      "options": [
+        "/recipes/all/",
+        "/recipes/<recipe_id>/",
+        "/recipes/find?id=1",
+        "/recipes/delete/"
+      ],
+      "answer": 1,
+      "commentary": "リソースを特定する場合、URLのパスの一部にIDを含めるのがRESTfulな設計です。"
+    },
+    {
+      "id": 39,
+      "type": "実行結果予測",
+      "question": "<code>Category.objects.create(name=\"和食\")</code> を実行すると何が起きますか？",
+      "options": [
+        "和食という名前のJSONが作られる",
+        "データベースに新しいカテゴリが保存される",
+        "画面に「和食」と表示される",
+        "エラーになる"
+      ],
+      "answer": 1,
+      "commentary": "create()は新しいレコードを作成し、即座にデータベースへ保存するDjango ORMのメソッドです。"
+    },
+    {
+      "id": 40,
+      "type": "文法チェック",
+      "question": "シリアライザのフィールドで、整数を扱うためのクラスは何ですか？",
+      "options": ["serializers.CharField", "serializers.IntegerField", "serializers.FloatField", "serializers.NumberField"],
+      "answer": 1,
+      "commentary": "整数のバリデーションと変換には IntegerField を使用します。"
+    }
+  ]
 }

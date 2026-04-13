@@ -1,4 +1,165 @@
 {
   "unit_title": "コメント投稿画面 - 演習と解説",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "特定のレシピ詳細画面に遷移する際、そのレシピの情報を引き渡すために RecipeDetailScreen のコンストラクタで定義したプロパティは何ですか？",
+      "options": ["id", "recipe", "comment", "title"],
+      "answer": 1,
+      "commentary": "RecipeDetailScreen は、表示対象となる Recipe 型のオブジェクトを直接引数（プロパティ）として受け取ります。"
+    },
+    {
+      "id": 2,
+      "type": "文法チェック",
+      "question": "freezed ライブラリで作成した Comment モデルにおいて、日時を扱うプロパティに指定したデータ型は何ですか？",
+      "options": ["String", "int", "DateTime", "Time"],
+      "answer": 2,
+      "commentary": "作成日時（createdAt）などは、Dart の標準クラスである DateTime 型を使用して管理します。"
+    },
+    {
+      "id": 3,
+      "type": "用語理解",
+      "question": "特定の ID に基づいて異なるデータを提供するために使用する Riverpod のプロバイダ修飾子は何ですか？",
+      "options": [".autoDispose", ".family", ".scoped", ".link"],
+      "answer": 1,
+      "commentary": "FutureProvider.family を使うと、recipeId などの引数を受け取って動的にデータを取得できます。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "API エンドポイントのパスを作成する際、レシピIDを動的に埋め込む正しい記述はどれですか？<pre><code>'/api/recipes/$___/comments/'</code></pre>",
+      "options": ["id", "recipeId", "pk", "value"],
+      "answer": 1,
+      "commentary": "fetchAll(int recipeId) メソッドの引数として渡された recipeId を文字列の中に埋め込みます。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "API からステータスコード 201 が返ってきた場合、どのような処理が成功したことを意味しますか？",
+      "options": ["データの一覧取得", "データの更新", "リソース（コメント）の新規作成", "データの削除"],
+      "answer": 2,
+      "commentary": "201 Created は、POST リクエストなどによる新しいデータの作成が成功した際に返されます。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "テキスト入力フィールドの右側にアイコン（送信ボタンなど）を表示するために使う InputDecoration のプロパティは何ですか？",
+      "options": ["prefixIcon", "suffixIcon", "rightIcon", "endIcon"],
+      "answer": 1,
+      "commentary": "suffixIcon を使うと、入力欄の右端（末尾）にアイコンウィジェットを配置できます。"
+    },
+    {
+      "id": 7,
+      "type": "文法チェック",
+      "question": "サーバーから届いた協定世界時（UTC）の日時を、スマホの設定に合わせて表示するために使うメソッドは何ですか？",
+      "options": ["toString()", "toLocal()", "parse()", "format()"],
+      "answer": 1,
+      "commentary": "toLocal() メソッドを呼ぶことで、端末のタイムゾーンに合わせた日時に自動変換されます。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "コメント投稿後に `commentController.clear()` を実行する目的は何ですか？",
+      "options": ["サーバーのデータを消す", "入力欄に残っている文字を消して空にする", "アプリを再起動する", "エラーを消去する"],
+      "answer": 1,
+      "commentary": "投稿完了後に古い文字が残っていると不自然なため、クリアして次の入力をしやすくします。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "投稿が完了した際、画面をリフレッシュして最新のコメントを表示させるための Riverpod のメソッドは何ですか？<pre><code>ref.___(commentProvider(recipeId));</code></pre>",
+      "options": ["watch", "read", "invalidate", "listen"],
+      "answer": 2,
+      "commentary": "invalidate() を呼ぶとキャッシュが破棄され、プロバイダがデータを再取得しに行きます。"
+    },
+    {
+      "id": 10,
+      "type": "実行結果予測",
+      "question": "<code>comments.isEmpty</code> が true の場合、このアプリではどのような表示になりますか？",
+      "options": ["何も表示されない", "「コメントはまだありません」と中央に表示される", "エラー画面になる", "ローディングが続く"],
+      "answer": 1,
+      "commentary": "データが 0 件の場合のメッセージを表示するよう、if 文で条件分岐を実装しています。"
+    },
+    {
+      "id": 11,
+      "type": "文法チェック",
+      "question": "Flutter の Column の中で ListView.builder をそのまま使うとエラーになりますが、それを防ぐために ListView を包むウィジェットは何ですか？",
+      "options": ["Container", "SizedBox", "Expanded", "Center"],
+      "answer": 2,
+      "commentary": "Column 内の ListView は高さを確定させる必要があるため、Expanded で残りのスペースを埋めるように指定します。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "API 通信の結果を待ち、例外が発生した際に `catch (e)` ブロックを実行するための構文は何ですか？",
+      "options": ["if-else", "for-loop", "try-catch", "switch-case"],
+      "answer": 2,
+      "commentary": "try-catch 構文を使うことで、ネットワークエラーなどの予期せぬエラーを安全に処理できます。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "ListTile ウィジェットで、投稿日時などの補足情報を表示するために使うプロパティは何ですか？<pre><code>ListTile(\n  title: Text(comment.text),\n  ___: Text('投稿日: ...'),\n)</code></pre>",
+      "options": ["subtitle", "header", "footer", "content"],
+      "answer": 0,
+      "commentary": "subtitle プロパティを使うと、メインタイトル（title）の下に小さな文字で情報を追加できます。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "Dart で Map データを JSON 形式の文字列に変換するために使う、`json.dart` パッケージに含まれる関数は何ですか？",
+      "options": ["jsonDecode", "jsonEncode", "jsonToString", "jsonFormat"],
+      "answer": 1,
+      "commentary": "送信データを構築する際は jsonEncode、受信データを解析する際は jsonDecode を使います。"
+    },
+    {
+      "id": 15,
+      "type": "文法チェック",
+      "question": "非同期処理で画面の状態が破棄されていないか確認するためのプロパティ <code>mounted</code> は、どのクラスが持っていますか？",
+      "options": ["BuildContext", "State", "Widget", "Navigator"],
+      "answer": 1,
+      "commentary": "StatefulWidget の State クラス、または context.mounted（Flutter 3.7以降）として利用可能です。"
+    },
+    {
+      "id": 16,
+      "type": "実行結果予測",
+      "question": "TextField に `controller` を設定しなかった場合、プログラムから入力内容を消去することはできますか？",
+      "options": ["できる", "できない", "自動でできる", "設定次第"],
+      "answer": 1,
+      "commentary": "TextEditingController を紐付けることで、初めてプログラムから文字の取得やクリアが可能になります。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "API リクエストを行う際に、送信するデータの形式（JSONなど）を指定する HTTP ヘッダーの名前は何ですか？",
+      "options": ["Accept", "Authorization", "Content-Type", "Host"],
+      "answer": 2,
+      "commentary": "Content-Type: application/json を指定することで、サーバーに正しくデータを伝えられます。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "Navigator.push で使用する、Material デザイン標準の遷移を定義するクラスは何ですか？<pre><code>MaterialPageRoute(builder: (context) => ___(...))</code></pre>",
+      "options": ["NextPage", "Scaffold", "RecipeDetailScreen", "ListView"],
+      "answer": 2,
+      "commentary": "遷移先の画面クラス（今回はレシピ詳細画面）を builder で返します。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "Riverpod の AsyncValue において、データの読み込み中を表す状態は何ですか？",
+      "options": ["data", "error", "loading", "waiting"],
+      "answer": 2,
+      "commentary": "loading 状態のときに CircularProgressIndicator などを表示してユーザーに伝えます。"
+    },
+    {
+      "id": 20,
+      "type": "文法チェック",
+      "question": "ListView.builder の `itemCount` に指定すべき値は何ですか？",
+      "options": ["10", "comments.length", "0", "categoryId"],
+      "answer": 1,
+      "commentary": "取得したリスト（comments）の要素数（.length）を指定することで、正しい数だけリストが表示されます。"
+    }
+  ]
 }
