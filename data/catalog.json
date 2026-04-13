@@ -95,34 +95,166 @@
     },
     {
       "id": "B1",
-      "name": "B1コース",
+      "name": "Django Webアプリ発展コース",
       "fields": [
         {
-          "id": "B1-sample",
-          "name": "サンプル",
-          "units": [{ "id": "B1-u1", "title": "Web基礎（サンプル）", "jsonPath": "data/B1/unit01.json" }]
+          "id": "B1-django-advanced",
+          "name": "Django 発展",
+          "units": [
+            { "id": "B1-u1", "title": "クラスベースビュー", "jsonPath": "data/B1/unit01.json" },
+            { "id": "B1-u2", "title": "Django 発展 1 - 演習と解説", "jsonPath": "data/B1/unit02.json" },
+            { "id": "B1-u3", "title": "Django 発展 2 - 演習と解説", "jsonPath": "data/B1/unit03.json" },
+            { "id": "B1-u4", "title": "ユーザー検索機能の追加", "jsonPath": "data/B1/unit04.json" },
+            { "id": "B1-u5", "title": "カスタムテンプレートタグ", "jsonPath": "data/B1/unit05.json" },
+            { "id": "B1-u6", "title": "Django 発展 3 - 演習と解説", "jsonPath": "data/B1/unit06.json" },
+            { "id": "B1-u7", "title": "Django 発展 4 - 演習と解説", "jsonPath": "data/B1/unit07.json" }
+          ]
+        },
+        {
+          "id": "B1-more-django-ec",
+          "name": "More Django - EC サイト",
+          "units": [
+            { "id": "B1-u8", "title": "EC サイトの概要", "jsonPath": "data/B1/unit08.json" },
+            { "id": "B1-u9", "title": "設定とアカウント画面の実装", "jsonPath": "data/B1/unit09.json" },
+            { "id": "B1-u10", "title": "商品一覧画面の実装", "jsonPath": "data/B1/unit10.json" },
+            { "id": "B1-u11", "title": "商品詳細画面の実装", "jsonPath": "data/B1/unit11.json" },
+            { "id": "B1-u12", "title": "カート機能を実装する 1", "jsonPath": "data/B1/unit12.json" },
+            { "id": "B1-u13", "title": "カート機能を実装する 2", "jsonPath": "data/B1/unit13.json" },
+            { "id": "B1-u14", "title": "Stripe を導入する", "jsonPath": "data/B1/unit14.json" }
+          ]
+        },
+        {
+          "id": "B1-requirements-definition",
+          "name": "要件定義",
+          "units": [
+            { "id": "B1-u15", "title": "要件定義 1", "jsonPath": "data/B1/unit15.json" },
+            { "id": "B1-u16", "title": "要件定義 2", "jsonPath": "data/B1/unit16.json" },
+            { "id": "B1-u17", "title": "演習", "jsonPath": "data/B1/unit17.json" }
+          ]
+        },
+        {
+          "id": "B1-query-optimization",
+          "name": "クエリ最適化",
+          "units": [
+            { "id": "B1-u18", "title": "ダミーデータ作成", "jsonPath": "data/B1/unit18.json" },
+            { "id": "B1-u19", "title": "クエリ最適化 1", "jsonPath": "data/B1/unit19.json" },
+            { "id": "B1-u20", "title": "クエリ最適化 2", "jsonPath": "data/B1/unit20.json" },
+            { "id": "B1-u21", "title": "クエリ最適化 3", "jsonPath": "data/B1/unit21.json" },
+            { "id": "B1-u22", "title": "クエリ最適化 1 - 演習と解説", "jsonPath": "data/B1/unit22.json" },
+            { "id": "B1-u23", "title": "クエリ最適化 2 - 演習と解説", "jsonPath": "data/B1/unit23.json" }
+          ]
+        },
+        {
+          "id": "B1-logging",
+          "name": "ロギング",
+          "units": [
+            { "id": "B1-u24", "title": "ロギング - 基礎", "jsonPath": "data/B1/unit24.json" },
+            { "id": "B1-u25", "title": "ロギング - 応用", "jsonPath": "data/B1/unit25.json" }
+          ]
+        },
+        {
+          "id": "B1-testing",
+          "name": "テストコード",
+          "units": [
+            { "id": "B1-u26", "title": "テストコードを書く 1", "jsonPath": "data/B1/unit26.json" },
+            { "id": "B1-u27", "title": "テストコードを書く 2", "jsonPath": "data/B1/unit27.json" },
+            { "id": "B1-u28", "title": "テストコード - 演習と解説", "jsonPath": "data/B1/unit28.json" }
+          ]
+        },
+        {
+          "id": "B1-more-django-sns",
+          "name": "More Django - SNS アプリ",
+          "units": [
+            { "id": "B1-u29", "title": "SNS アプリ", "jsonPath": "data/B1/unit29.json" },
+            { "id": "B1-u30", "title": "コメント機能の実装 1", "jsonPath": "data/B1/unit30.json" },
+            { "id": "B1-u31", "title": "コメント機能の実装 2", "jsonPath": "data/B1/unit31.json" },
+            { "id": "B1-u32", "title": "SNS アプリのデプロイ", "jsonPath": "data/B1/unit32.json" }
+          ]
         }
       ]
     },
     {
       "id": "B2",
-      "name": "B2コース",
+      "name": "Flutter モバイルアプリ開発コース",
       "fields": [
         {
-          "id": "B2-sample",
-          "name": "サンプル",
-          "units": [{ "id": "B2-u1", "title": "Web基礎（サンプル）", "jsonPath": "data/B2/unit01.json" }]
+          "id": "B2-dart",
+          "name": "Dart 講座",
+          "units": [
+            { "id": "B2-u1", "title": "導入と Dart 開発環境の整備", "jsonPath": "data/B2/unit01.json" },
+            { "id": "B2-u2", "title": "変数と定数・関数", "jsonPath": "data/B2/unit02.json" },
+            { "id": "B2-u3", "title": "制御文", "jsonPath": "data/B2/unit03.json" },
+            { "id": "B2-u4", "title": "クラス", "jsonPath": "data/B2/unit04.json" },
+            { "id": "B2-u5", "title": "Dart 演習と解説", "jsonPath": "data/B2/unit05.json" }
+          ]
+        },
+        {
+          "id": "B2-flutter",
+          "name": "Flutter 講座",
+          "units": [
+            { "id": "B2-u6", "title": "Flutter 環境構築", "jsonPath": "data/B2/unit06.json" },
+            { "id": "B2-u7", "title": "SNS アプリ - テキスト表示", "jsonPath": "data/B2/unit07.json" },
+            { "id": "B2-u8", "title": "SNS アプリ - レイアウト調整", "jsonPath": "data/B2/unit08.json" },
+            { "id": "B2-u9", "title": "SNS アプリ - 画像表示", "jsonPath": "data/B2/unit09.json" },
+            { "id": "B2-u10", "title": "SNS アプリ - リスト表示", "jsonPath": "data/B2/unit10.json" }
+          ]
         }
       ]
     },
     {
       "id": "C",
-      "name": "Cコース",
+      "name": "プロエンジニアコース",
       "fields": [
         {
-          "id": "C-sample",
-          "name": "サンプル",
-          "units": [{ "id": "C-u1", "title": "Web基礎（サンプル）", "jsonPath": "data/C/unit01.json" }]
+          "id": "C-drf-api",
+          "name": "Django REST framework で API 開発",
+          "units": [
+            { "id": "C-u1", "title": "アプリの初期設定", "jsonPath": "data/C/unit01.json" },
+            { "id": "C-u2", "title": "シリアライザ", "jsonPath": "data/C/unit02.json" },
+            { "id": "C-u3", "title": "ビュー", "jsonPath": "data/C/unit03.json" },
+            { "id": "C-u4", "title": "カテゴリ一覧画面の表示", "jsonPath": "data/C/unit04.json" },
+            { "id": "C-u5", "title": "カテゴリデータ追加", "jsonPath": "data/C/unit05.json" },
+            { "id": "C-u6", "title": "カテゴリデータ編集・削除", "jsonPath": "data/C/unit06.json" },
+            { "id": "C-u7", "title": "レシピデータの API 開発 - 演習と解説", "jsonPath": "data/C/unit07.json" },
+            { "id": "C-u8", "title": "レシピ一覧画面の表示 - 演習と解説", "jsonPath": "data/C/unit08.json" },
+            { "id": "C-u9", "title": "レシピデータ追加 - 演習と解説", "jsonPath": "data/C/unit09.json" },
+            { "id": "C-u10", "title": "レシピデータ編集・削除 - 演習と解説", "jsonPath": "data/C/unit10.json" },
+            { "id": "C-u11", "title": "コメントデータ API 開発 - 演習と解説", "jsonPath": "data/C/unit11.json" },
+            { "id": "C-u12", "title": "コメント投稿画面 - 演習と解説", "jsonPath": "data/C/unit12.json" }
+          ]
+        },
+        {
+          "id": "C-flutter-sns",
+          "name": "Flutter SNS",
+          "units": [
+            { "id": "C-u13", "title": "SNS アプリの全画面", "jsonPath": "data/C/unit13.json" },
+            { "id": "C-u14", "title": "アプリの初期設定", "jsonPath": "data/C/unit14.json" },
+            { "id": "C-u15", "title": "API エンドポイントの定義 - ユーザー登録機能", "jsonPath": "data/C/unit15.json" },
+            { "id": "C-u16", "title": "API エンドポイントの定義 - ログイン機能", "jsonPath": "data/C/unit16.json" },
+            { "id": "C-u17", "title": "ログイン画面の作成", "jsonPath": "data/C/unit17.json" },
+            { "id": "C-u18", "title": "ログイン画面におけるロジックの実装", "jsonPath": "data/C/unit18.json" },
+            { "id": "C-u19", "title": "会員登録画面の作成", "jsonPath": "data/C/unit19.json" },
+            { "id": "C-u20", "title": "会員登録画面におけるロジックの実装", "jsonPath": "data/C/unit20.json" },
+            { "id": "C-u21", "title": "API エンドポイントの定義 - 投稿一覧", "jsonPath": "data/C/unit21.json" },
+            { "id": "C-u22", "title": "投稿一覧取得 API を 呼び出す", "jsonPath": "data/C/unit22.json" },
+            { "id": "C-u23", "title": "ホーム画面の作成", "jsonPath": "data/C/unit23.json" },
+            { "id": "C-u24", "title": "アクセストークンの更新", "jsonPath": "data/C/unit24.json" },
+            { "id": "C-u25", "title": "初期画面の制御", "jsonPath": "data/C/unit25.json" },
+            { "id": "C-u26", "title": "API エンドポイントの定義 - 投稿詳細", "jsonPath": "data/C/unit26.json" },
+            { "id": "C-u27", "title": "投稿詳細 API を呼び出す", "jsonPath": "data/C/unit27.json" },
+            { "id": "C-u28", "title": "投稿画面の作成", "jsonPath": "data/C/unit28.json" },
+            { "id": "C-u29", "title": "投稿削除機能の作成", "jsonPath": "data/C/unit29.json" },
+            { "id": "C-u30", "title": "投稿編集機能の作成", "jsonPath": "data/C/unit30.json" },
+            { "id": "C-u31", "title": "API エンドポイントの定義 - いいね", "jsonPath": "data/C/unit31.json" },
+            { "id": "C-u32", "title": "いいね機能の作成", "jsonPath": "data/C/unit32.json" },
+            { "id": "C-u33", "title": "いいねしたポスト一覧画面", "jsonPath": "data/C/unit33.json" },
+            { "id": "C-u34", "title": "API エンドポイントの定義 - アカウント", "jsonPath": "data/C/unit34.json" },
+            { "id": "C-u35", "title": "マイページ画面", "jsonPath": "data/C/unit35.json" },
+            { "id": "C-u36", "title": "アカウント情報の編集", "jsonPath": "data/C/unit36.json" },
+            { "id": "C-u37", "title": "設定画面の作成", "jsonPath": "data/C/unit37.json" },
+            { "id": "C-u38", "title": "発展 - ダークモード機能の追加", "jsonPath": "data/C/unit38.json" },
+            { "id": "C-u39", "title": "発展 - ページネーションの実装", "jsonPath": "data/C/unit39.json" }
+          ]
         }
       ]
     }
