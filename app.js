@@ -67,6 +67,31 @@ const CATALOG_URL = "data/catalog.json";
 /** @type {ReturnType<typeof parseCatalog> | null} */
 let catalogData = null;
 
+/**
+ * 単元ID（例: A-u12）の末尾番号を取得する。
+ * @param {string} unitId
+ * @returns {number|null}
+ */
+function getUnitNo(unitId) {
+  const m = String(unitId).trim().match(/-u(\d+)\s*$/i);
+  if (!m) return null;
+  const n = Number(m[1]);
+  return Number.isFinite(n) ? n : null;
+}
+
+/**
+ * 1学期用: すべてのコースで u12 まで表示する。
+ * @param {string} courseId
+ * @param {string} unitId
+ */
+function shouldShowUnit(courseId, unitId) {
+  // courseId は将来の拡張用（例: コース別で上限を変える）に残している
+  void courseId;
+  const no = getUnitNo(unitId);
+  if (no === null) return true;
+  return no <= 12;
+}
+
 /** @type {{ unit_title: string, questions: Array<{question:string, options:string[], answer:number, commentary:string}> } | null} */
 let currentUnit = null;
 
@@ -826,14 +851,17 @@ function onCourseChange() {
   for (const field of course.fields) {
     const og = document.createElement("optgroup");
     og.label = field.name;
+    let added = 0;
     for (const u of field.units) {
+      if (!shouldShowUnit(course.id, u.id)) continue;
       const opt = document.createElement("option");
       opt.value = u.id;
       opt.textContent = u.title;
       opt.dataset.jsonPath = u.jsonPath;
       og.appendChild(opt);
+      added += 1;
     }
-    els.unitSelect.appendChild(og);
+    if (added > 0) els.unitSelect.appendChild(og);
   }
   els.unitSelect.disabled = false;
   refreshUnitCustomUI();
