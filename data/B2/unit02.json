@@ -1,4 +1,325 @@
 {
   "unit_title": "変数と定数・関数",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "Dartで値を保存しておくための「箱」のような役割をするものを何と呼びますか？",
+      "options": ["定数", "関数", "変数", "引数"],
+      "answer": 2,
+      "commentary": "変数は、値を代入して保存したり、後から中身を書き換えたりできる箱のようなものです。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "整数型の変数 `x` に 10 を代入する正しい宣言を選んでください。<pre><code>___ x = 10;</code></pre>",
+      "options": ["String", "int", "double", "bool"],
+      "answer": 1,
+      "commentary": "整数を扱うデータ型は int (integer) です。"
+    },
+    {
+      "id": 3,
+      "type": "文法チェック",
+      "question": "Dartで型宣言を省略し、代入された値から自動的に型を決定させるキーワードは何ですか？",
+      "options": ["dynamic", "final", "const", "var"],
+      "answer": 3,
+      "commentary": "varキーワードを使うと、代入された値に基づいてDartが型を推論します。"
+    },
+    {
+      "id": 4,
+      "type": "実行結果予測",
+      "question": "次のコードを実行した結果はどうなりますか？<pre><code>String z = 'String';\nz = 10;</code></pre>",
+      "options": ["zの中身が10になる", "エラーが発生する", "zの中身が'10'になる", "何も起きない"],
+      "answer": 1,
+      "commentary": "Dartは静的型付け言語なので、String型の変数にint型の値を代入することはできません。"
+    },
+    {
+      "id": 5,
+      "type": "用語理解",
+      "question": "再代入が可能で、あらゆるデータ型をそのまま受け入れることができる型は何ですか？",
+      "options": ["var", "int", "dynamic", "final"],
+      "answer": 2,
+      "commentary": "dynamic型は全ての型を扱うことができ、異なる型の値を再代入することも可能です。"
+    },
+    {
+      "id": 6,
+      "type": "文法チェック",
+      "question": "「ファイル実行時」に値が決まり、以降絶対に書き換えられない定数を作るキーワードは何ですか？",
+      "options": ["static", "final", "const", "fixed"],
+      "answer": 2,
+      "commentary": "constはコンパイル時（実行時）に値が決まっている必要がある厳格な定数です。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "変数 `a` と `b` を足した結果を、後から変更できない定数 `d` に入れたい場合、どちらを使うべきですか？<pre><code>int a = 4; int b = 5;\n___ d = a + b;</code></pre>",
+      "options": ["const", "final", "var", "dynamic"],
+      "answer": 1,
+      "commentary": "計算結果など、プログラムが動き出してから決まる定数には final を使用します。"
+    },
+    {
+      "id": 8,
+      "type": "実行結果予測",
+      "question": "次のコードを実行するとどうなりますか？<pre><code>const a = [1, 2, 3];\na[0] = 10;</code></pre>",
+      "options": ["[10, 2, 3]になる", "エラーが発生する", "[1, 2, 3]のまま", "0番目が消える"],
+      "answer": 1,
+      "commentary": "constで作られたリストは、中身の要素（内部データ）を書き換えることも禁止されています。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "一連の処理をひとまとめにして名前を付けたものを何と呼びますか？",
+      "options": ["変数", "クラス", "関数", "プロパティ"],
+      "answer": 2,
+      "commentary": "関数を定義することで、同じ処理を何度も再利用できるようになります。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "関数が何も値を返さないことを示すキーワードを選んでください。<pre><code>___ main() { ... }</code></pre>",
+      "options": ["null", "empty", "void", "return"],
+      "answer": 2,
+      "commentary": "voidは「戻り値がない」ことを意味する特別な型です。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "関数を呼び出す際に、外部から渡す値のことを何と呼びますか？",
+      "options": ["戻り値", "引数", "定数", "メンバ"],
+      "answer": 1,
+      "commentary": "引数（ひきすう）は、関数の入力として機能します。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "次の関数を `calculator(10, 2)` で呼び出したときの出力は何ですか？<pre><code>void calculator(int a, int b) {\n  print(a / b);\n}</code></pre>",
+      "options": ["5", "5.0", "12", "エラー"],
+      "answer": 1,
+      "commentary": "Dartの除算演算子 `/` は常に double 型を返すため、結果は 5.0 になります。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "名前付き引数を必須（省略不可）にするために、引数の前に付けるキーワードは何ですか？",
+      "options": ["must", "required", "important", "final"],
+      "answer": 1,
+      "commentary": "requiredを付けると、呼び出し側でその引数を指定しないとエラーになります。"
+    },
+    {
+      "id": 14,
+      "type": "コード穴埋め",
+      "question": "名前付き引数を使用する場合、関数の定義で引数を囲む記号は何ですか？<pre><code>void func({___ int age}) { ... }</code></pre>",
+      "options": ["( )", "[ ]", "{ }", "< >"],
+      "answer": 2,
+      "commentary": "名前付き引数は波かっこ { } で囲んで定義します。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "何も値が入っていない状態を指す特別な値を何と呼びますか？",
+      "options": ["void", "empty", "null", "none"],
+      "answer": 2,
+      "commentary": "nullは、オブジェクトが存在しない、または値が未設定であることを示します。"
+    },
+    {
+      "id": 16,
+      "type": "文法チェック",
+      "question": "Dartで「nullを許容する（nullになる可能性がある）」変数を宣言する正しい書き方はどれですか？",
+      "options": ["String! name;", "String? name;", "nullable String name;", "String name = null;"],
+      "answer": 1,
+      "commentary": "型名の後ろに `?` を付けることで、その変数が null を持てることを示します。"
+    },
+    {
+      "id": 17,
+      "type": "実行結果予測",
+      "question": "次のコードの結果はどうなりますか？<pre><code>String? a;\nprint(a);</code></pre>",
+      "options": ["空文字を表示", "nullを表示", "エラーになる", "0を表示"],
+      "answer": 1,
+      "commentary": "nullを許容する変数に初期値を入れない場合、デフォルトで null が入ります。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "関数から計算結果などの「戻り値」を呼び出し元に返すために使う命令は何ですか？",
+      "options": ["return", "back", "give", "send"],
+      "answer": 0,
+      "commentary": "returnキーワードを使うと、関数の処理を終了し値を返します。"
+    },
+    {
+      "id": 19,
+      "type": "実行結果予測",
+      "question": "次の関数を実行したとき、変数 `res` に入る値は何ですか？<pre><code>double add(double a, double b) => a + b;\nvoid main() {\n  double res = add(1.5, 2.5);\n}</code></pre>",
+      "options": ["3.0", "4.0", "1.52.5", "エラー"],
+      "answer": 1,
+      "commentary": "1.5 + 2.5 = 4.0 が戻り値として res に代入されます。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "関数の処理が1行で書ける場合に、`{}` や `return` を省略して書く形式を何と呼びますか？",
+      "options": ["ショート関数", "ライン関数", "アロー関数", "シンプル関数"],
+      "answer": 2,
+      "commentary": "矢印のような記号 `=>` を使うことからアロー関数と呼ばれます。"
+    },
+    {
+      "id": 21,
+      "type": "文法チェック",
+      "question": "アロー関数 `=>` の後に書く正しい内容はどれですか？",
+      "options": ["{ return a + b; }", "return a + b;", "a + b;", "print(a + b)"],
+      "answer": 2,
+      "commentary": "アロー関数では return キーワードも波かっこも不要で、そのまま式を書きます。"
+    },
+    {
+      "id": 22,
+      "type": "コード穴埋め",
+      "question": "名前付き引数を使って関数を呼び出す正しい書き方を選んでください。<pre><code>void greet({String name}) { ... }\n// 呼び出し\ngreet(___);</code></pre>",
+      "options": ["'田中'", "name = '田中'", "name: '田中'", "{name: '田中'}"],
+      "answer": 2,
+      "commentary": "呼び出し時は `引数名: 値` の形式で渡します。"
+    },
+    {
+      "id": 23,
+      "type": "実行結果予測",
+      "question": "次のコードで `x` を `y` で上書きした後、`x` の値はどうなりますか？<pre><code>int x = 10; int y = 3;\nx = y;</code></pre>",
+      "options": ["10", "3", "13", "エラー"],
+      "answer": 1,
+      "commentary": "代入演算子 `=` は右側の値を左側の変数に上書きします。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "関数そのものを代入できる変数のデータ型は何型ですか？",
+      "options": ["Action", "Method", "Function", "dynamic"],
+      "answer": 2,
+      "commentary": "Dartでは関数もオブジェクトなので、Function型の変数に代入できます。"
+    },
+    {
+      "id": 25,
+      "type": "文法チェック",
+      "question": "final修飾子がついたリスト変数について、正しい説明はどれですか？",
+      "options": ["リストそのものを別のリストに入れ替えられる", "リストの中身の要素を書き換えることができる", "constと全く同じで中身も変えられない", "実行前に値を決めなければならない"],
+      "answer": 1,
+      "commentary": "finalは「参照先」を固定するだけなので、中身（要素）の変更は許可されます。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "位置引数を省略可能にしたい場合、引数を囲む記号は何ですか？<pre><code>void func(int a, ___ int b ___) { ... }</code></pre>",
+      "options": ["{ }", "[ ]", "( )", "< >"],
+      "answer": 1,
+      "commentary": "位置引数のオプション（省略可能）は `[]` で囲みます。※教科書外の一般的知識含むが、文脈から推測可"
+    },
+    {
+      "id": 27,
+      "type": "実行結果予測",
+      "question": "次のアロー関数の戻り値は何ですか？<pre><code>int doubleMe(int n) => n * 2;</code></pre>",
+      "options": ["n * 2 という文字列", "引数の2倍の数値", "何も返さない", "n * 2 という処理そのもの"],
+      "answer": 1,
+      "commentary": "=> の右側に書かれた式の評価結果がそのまま戻り値になります。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "「データの型」を指定することで防げるトラブルは何ですか？",
+      "options": ["プログラムの実行速度が遅くなること", "意図しないデータの代入やエラー", "パソコンの故障", "インターネットの切断"],
+      "answer": 1,
+      "commentary": "型を宣言することで、文字列に数値を入れようとするなどのミスを事前に防げます。"
+    },
+    {
+      "id": 29,
+      "type": "文法チェック",
+      "question": "Dartプログラムが自動的に実行を開始する特別な関数名は何ですか？",
+      "options": ["start()", "init()", "main()", "void()"],
+      "answer": 2,
+      "commentary": "どんなDartプログラムも main() 関数から始まります。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "変数の後ろに付けて「この値は絶対にnullではない」とDartに無理やり教える記号は何ですか？（非推奨）",
+      "options": ["?", "!", "*", "#"],
+      "answer": 1,
+      "commentary": "!（Null assertion operator）は、null安全チェックを強制的に通すための記号です。"
+    },
+    {
+      "id": 31,
+      "type": "実行結果予測",
+      "question": "次のコードを実行するとどうなりますか？<pre><code>final x = 10;\nx = 20;</code></pre>",
+      "options": ["xが20になる", "エラーが発生する", "xが10のまま進む", "警告が出るが実行できる"],
+      "answer": 1,
+      "commentary": "final変数は一度値を代入すると、二度と書き換えることはできません。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "引数に `double height = 4` のように定義時に値を入れておくことを何と呼びますか？",
+      "options": ["固定値", "戻り値", "初期値（デフォルト値）", "キーワード"],
+      "answer": 2,
+      "commentary": "引数が渡されなかった場合に使われる予備の値を初期値と呼びます。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "関数を呼び出す際、引数を渡す順番を気にしなくてよいのはどちらですか？",
+      "options": ["位置引数", "名前付き引数", "どちらも順番は重要", "どちらも順番は自由"],
+      "answer": 1,
+      "commentary": "名前付き引数は、名前で値を識別するため順番を変えても正しく機能します。"
+    },
+    {
+      "id": 34,
+      "type": "コード穴埋め",
+      "question": "変数 `y` の中身を `print` で表示する正しい書き方はどれですか？",
+      "options": ["print(y);", "print = y;", "print{y};", "void print(y);"],
+      "answer": 0,
+      "commentary": "関数を呼び出す際は `関数名(引数);` と記述します。"
+    },
+    {
+      "id": 35,
+      "type": "実行結果予測",
+      "question": "次のコードを実行するとどうなりますか？<pre><code>var x = 10;\nx = 'Hello';</code></pre>",
+      "options": ["xの中身がHelloになる", "エラーが発生する", "xの中身が10のまま", "自動的にString型に変わる"],
+      "answer": 1,
+      "commentary": "varは最初の代入(10)で型がintに固定されるため、後からStringを代入できません。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "「円周率」のように、プログラムのどこでも変わらず、最初から決まっている値を扱うのに最適なのはどれですか？",
+      "options": ["var", "dynamic", "const", "final"],
+      "answer": 2,
+      "commentary": "絶対に変わらない固定の値には const が最適です。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "関数定義の基本形として正しいものはどれですか？",
+      "options": ["void name() { 処理 }", "name() void { 処理 }", "void { 処理 } name()", "func void name()"],
+      "answer": 0,
+      "commentary": "戻り値の型、名前、引数、処理の順に記述します。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したときの出力は何ですか？<pre><code>void main() {\n  int x = 10; int y = 3;\n  print(x + y);\n}</code></pre>",
+      "options": ["103", "13", "7", "エラー"],
+      "answer": 1,
+      "commentary": "int型同士の足し算なので、算数通り 13 が出力されます。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "関数 `calculator` を代入した `Function` 型の変数を実行する正しい方法を選んでください。<pre><code>Function sample = calculator;\n___;</code></pre>",
+      "options": ["sample", "sample()", "execute sample", "run sample"],
+      "answer": 1,
+      "commentary": "関数を代入した変数であっても、実行するには後ろに `()` を付ける必要があります。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "関数の引数で、定義した順番通りに値を渡すものを何と呼びますか？",
+      "options": ["名前付き引数", "順番引数", "位置引数", "リスト引数"],
+      "answer": 2,
+      "commentary": "引数の「位置」で判断されるため、位置引数と呼ばれます。"
+    }
+  ]
 }

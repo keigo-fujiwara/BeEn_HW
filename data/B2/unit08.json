@@ -1,4 +1,405 @@
 {
-  "unit_title": "SNS アプリ - レイアウト調整",
-  "questions": []
+  "unit_title": "SNS アプリ - レイアウト調整",
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "子ウィジェットを「縦方向」に並べるために使用するウィジェットは何ですか？",
+      "options": ["Row", "Column", "Stack", "Container"],
+      "answer": 1,
+      "commentary": "Columnは「列」という意味で、複数のウィジェットを垂直（縦）に並べる際に使用します。"
+    },
+    {
+      "id": 2,
+      "type": "用語理解",
+      "question": "子ウィジェットを「横方向」に並べるために使用するウィジェットは何ですか？",
+      "options": ["Column", "Row", "SizedBox", "Padding"],
+      "answer": 1,
+      "commentary": "Rowは「行」という意味で、複数のウィジェットを水平（横）に並べる際に使用します。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "ColumnやRowで複数の子要素を指定するためのプロパティ名を選んでください。<pre><code>Column(\n  ___: [\n    Text('A'),\n    Text('B'),\n  ],\n)</code></pre>",
+      "options": ["child", "children", "widgets", "items"],
+      "answer": 1,
+      "commentary": "Containerなどは単一の子を持つため「child」を使いますが、ColumnやRowは複数の子を持つためリスト形式の「children」を使います。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "ウィジェット同士の間に「15論理ピクセル」の縦方向のスペースを作りたい場合、空欄に入るウィジェットは何ですか？<pre><code>Column(\n  children: [\n    Text('上'),\n    const ___(height: 15),\n    Text('下'),\n  ],\n)</code></pre>",
+      "options": ["Container", "Padding", "SizedBox", "Spacer"],
+      "answer": 2,
+      "commentary": "SizedBoxは特定のサイズを持つ箱を作るウィジェットですが、子要素を指定せずに高さや幅だけを指定することで、余白（スペース）として利用できます。"
+    },
+    {
+      "id": 5,
+      "type": "用語理解",
+      "question": "Columnを縦いっぱいに広げず、子要素の高さに合わせた最小サイズに調整するためのプロパティ設定はどれですか？",
+      "options": [
+        "mainAxisSize: MainAxisSize.max",
+        "mainAxisSize: MainAxisSize.min",
+        "crossAxisAlignment: CrossAxisAlignment.start",
+        "verticalDirection: VerticalDirection.down"
+      ],
+      "answer": 1,
+      "commentary": "MainAxisSize.minを設定すると、Column（またはRow）は子要素を収めるのに必要な最小限のサイズになります。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "Column内の子要素を「左揃え」にしたい場合の設定を完成させてください。<pre><code>Column(\n  ___: CrossAxisAlignment.start,\n  children: [...],\n)</code></pre>",
+      "options": ["mainAxisAlignment", "crossAxisAlignment", "alignment", "textAlign"],
+      "answer": 1,
+      "commentary": "Columnにおいて、メイン軸は「縦」、クロス軸は「横」です。横方向の並び（左揃えなど）を調整するにはcrossAxisAlignmentを使います。"
+    },
+    {
+      "id": 7,
+      "type": "実行結果予測",
+      "question": "RowのmainAxisAlignmentに「MainAxisAlignment.spaceBetween」を設定したとき、子要素の配置はどうなりますか？",
+      "options": [
+        "すべて中央に寄る",
+        "すべて左端に寄る",
+        "最初と最後の子要素を両端に配置し、残りを均等に配置する",
+        "各要素の周りに均等なスペースを開ける"
+      ],
+      "answer": 2,
+      "commentary": "spaceBetweenは、最初と最後を端に固定し、要素間の空白が均等になるように配置します。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "RowやColumnの中で、特定のウィジェットに残りの空きスペースをすべて使わせる（埋める）ために使用するウィジェットは何ですか？",
+      "options": ["Flexible", "Container", "Expanded", "SizedBox"],
+      "answer": 2,
+      "commentary": "Expandedでウィジェットをラップすると、その軸方向の利用可能な空きスペースを最大まで占有します。"
+    },
+    {
+      "id": 9,
+      "type": "文法チェック",
+      "question": "ColumnとRowの両方で共通して使える、メイン軸（並べる方向）の配置を調整するプロパティ名はどれですか？",
+      "options": ["mainAxisAlignment", "crossAxisAlignment", "startAlignment", "axisAlign"],
+      "answer": 0,
+      "commentary": "並べる方向（Columnなら縦、Rowなら横）の配置を調整するのがmainAxisAlignmentプロパティです。"
+    },
+    {
+      "id": 10,
+      "type": "実行結果予測",
+      "question": "Columnの中で「mainAxisAlignment: MainAxisAlignment.center」を設定すると、子要素はどう並びますか？",
+      "options": [
+        "横方向の中央に並ぶ",
+        "縦方向の中央に並ぶ",
+        "斜めの中央に並ぶ",
+        "画面の左上に並ぶ"
+      ],
+      "answer": 1,
+      "commentary": "Columnのメイン軸は縦方向なので、mainAxisAlignment.centerは縦方向の真ん中に要素をまとめます。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "Rowの中でExpandedを使ってテキストを配置する正しい構造を選んでください。<pre><code>Row(\n  children: [\n    ___(\n      child: Text('広がるテキスト'),\n    ),\n    Text('固定幅'),\n  ],\n)</code></pre>",
+      "options": ["Container", "SizedBox", "Expanded", "Column"],
+      "answer": 2,
+      "commentary": "Expandedは「child」プロパティを持ち、RowやColumnのchildrenリストの中で使用します。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "「crossAxisAlignment」プロパティにおいて、始まり（左側や上側）に寄せるための設定値は何ですか？",
+      "options": [".start", ".center", ".end", ".stretch"],
+      "answer": 0,
+      "commentary": "CrossAxisAlignment.startを指定すると、Columnなら左揃え、Rowなら上揃えになります。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "childrenプロパティにウィジェットを記述する際、正しい記号はどれですか？",
+      "options": ["( ) カッコ", "{ } 波カッコ", "[ ] 角カッコ", "< > 不等号"],
+      "answer": 2,
+      "commentary": "childrenは「リスト（配列）」を期待するため、Dartのリスト記法である [ ] を使います。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "Columnの子要素にSizedBox(width: 50)を入れた場合、どうなりますか？",
+      "options": [
+        "縦方向に50の隙間ができる",
+        "横方向に50の幅を持つ見えない箱ができるが、縦の隙間はできない",
+        "エラーになる",
+        "画面が50%のサイズになる"
+      ],
+      "answer": 1,
+      "commentary": "Column内で縦の隙間を作りたい場合は「height」を指定する必要があります。「width」だけを指定しても縦方向のスペースは生まれません。"
+    },
+    {
+      "id": 15,
+      "type": "実行結果予測",
+      "question": "Rowの中で子要素が3つあり、そのうちの1つをExpandedで囲みました。この要素はどう表示されますか？",
+      "options": [
+        "他の2つが配置された後の、残りの横幅をすべて占有する",
+        "画面の横幅を3等分したサイズになる",
+        "表示されなくなる",
+        "中央に配置される"
+      ],
+      "answer": 0,
+      "commentary": "Expandedは、固定サイズの要素が配置された後に残っている空きスペースを埋めるように動作します。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "投稿時間の文字色を少し薄い黒（グレー寄り）に設定するコードを完成させてください。<pre><code>TextStyle(\n  fontSize: 12,\n  color: Colors.___\n)</code></pre>",
+      "options": ["black", "grey", "black54", "white70"],
+      "answer": 2,
+      "commentary": "教科書の演習例では、少し透過された黒色である「Colors.black54」が使用されています。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "MainAxisAlignment.spaceEvenly と MainAxisAlignment.spaceAround の違いは何ですか？",
+      "options": [
+        "spaceEvenlyは端にも同じ幅の余白を作るが、spaceAroundは端の余白が要素間の半分になる",
+        "spaceAroundは端に余白を作らない",
+        "どちらも全く同じ動きをする",
+        "spaceEvenlyは横方向、spaceAroundは縦方向専用である"
+      ],
+      "answer": 0,
+      "commentary": "spaceEvenlyはすべての隙間（端を含む）を完全に均等にします。spaceAroundは要素の両側に余白を置くため、端の余白は要素間の余白の半分になります。"
+    },
+    {
+      "id": 18,
+      "type": "文法チェック",
+      "question": "SizedBoxを定数として効率的に定義するために前に付けるキーワードは何ですか？",
+      "options": ["final", "static", "const", "var"],
+      "answer": 2,
+      "commentary": "実行中にサイズが変わらないSizedBoxには「const」を付けることで、アプリのパフォーマンスが向上します。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "Rowウィジェットにおいて「クロス軸（CrossAxis）」はどの方向を指しますか？",
+      "options": ["横方向", "縦方向", "奥行き方向", "斜め方向"],
+      "answer": 1,
+      "commentary": "Rowのメイン軸は「並べる方向」である「横」です。それと交差するクロス軸は「縦方向」になります。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "Columnの中で「mainAxisSize: MainAxisSize.max」を設定した場合の挙動はどうなりますか？",
+      "options": [
+        "子要素と同じ高さになる",
+        "親要素（画面など）の縦方向いっぱいに広がる",
+        "横幅が最大になる",
+        "ウィジェットが消える"
+      ],
+      "answer": 1,
+      "commentary": "MainAxisSize.max（初期値）は、親要素から許可された最大のサイズまで領域を広げようとします。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "ユーザー名を「太字」にするための設定を選んでください。<pre><code>TextStyle(\n  fontWeight: ___.bold,\n)</code></pre>",
+      "options": ["Font", "TextWeight", "FontWeight", "Style"],
+      "answer": 2,
+      "commentary": "文字の太さはFontWeightクラスの定数（.boldなど）を使用して指定します。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "「mainAxisAlignment: MainAxisAlignment.end」を指定すると、Columnの子要素はどこに配置されますか？",
+      "options": ["一番上", "中央", "一番下", "左端"],
+      "answer": 2,
+      "commentary": "Column（縦並び）の「終わり（end）」は一番下を指します。"
+    },
+    {
+      "id": 23,
+      "type": "実行結果予測",
+      "question": "Containerのdecoration内で「Border.all(color: Colors.grey)」を設定すると、どうなりますか？",
+      "options": [
+        "背景が灰色になる",
+        "上下左右に灰色の枠線が表示される",
+        "左側にだけ枠線が出る",
+        "文字が灰色になる"
+      ],
+      "answer": 1,
+      "commentary": "Border.allを使用すると、ウィジェットの全周囲に指定した色の枠線を描画します。"
+    },
+    {
+      "id": 24,
+      "type": "文法チェック",
+      "question": "Columnの中にRowを入れる（ネストする）ことは可能ですか？",
+      "options": [
+        "はい、制限なく可能",
+        "いいえ、エラーになる",
+        "Rowの中にColumnは入れられないが、逆なら可能",
+        "Scaffoldの中でないと不可能"
+      ],
+      "answer": 0,
+      "commentary": "Flutterではウィジェットを組み合わせて複雑なUIを作るため、Columnの中にRowを入れたり、さらにその中に別のウィジェットを入れたりすることが日常的に行われます。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "「MainAxisAlignment.start」と「CrossAxisAlignment.start」を両方設定したColumnは、デフォルトでどこを基準に要素を並べますか？",
+      "options": ["左上", "中央", "左下", "右上"],
+      "answer": 0,
+      "commentary": "メイン軸の始まり（上）とクロス軸の始まり（左）が基準になるため、左上から並びます。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "Containerの角を丸くするためのプロパティ名と設定方法を選んでください。<pre><code>BoxDecoration(\n  ___: BorderRadius.circular(16),\n)</code></pre>",
+      "options": ["border", "round", "borderRadius", "shape"],
+      "answer": 2,
+      "commentary": "角の丸みはborderRadiusプロパティにBorderRadiusの値を渡して設定します。"
+    },
+    {
+      "id": 27,
+      "type": "用語理解",
+      "question": "Rowウィジェットの中で、2つのテキストを画面の両端に引き離して配置したい場合、最も適したmainAxisAlignmentの設定はどれですか？",
+      "options": [".center", ".spaceBetween", ".spaceEvenly", ".start"],
+      "answer": 1,
+      "commentary": "spaceBetweenを使えば、最初の子要素が左端、最後の子要素が右端に配置されます。"
+    },
+    {
+      "id": 28,
+      "type": "実行結果予測",
+      "question": "Column内でMainAxisAlignment.spaceAroundを設定したとき、要素間のスペースと上下端のスペースの関係はどうなりますか？",
+      "options": [
+        "すべて同じ",
+        "端のスペースは、要素間のスペースの半分になる",
+        "端にはスペースができない",
+        "要素間のスペースはできない"
+      ],
+      "answer": 1,
+      "commentary": "spaceAroundは各要素の「周囲」に余白を置くため、要素が隣り合う場所は余白が2倍（重なる）になり、端は1倍分のみとなります。"
+    },
+    {
+      "id": 29,
+      "type": "用語理解",
+      "question": "Containerの「margin」と「padding」の違いは何ですか？",
+      "options": [
+        "marginは枠の外側の余白、paddingは枠の内側の余白",
+        "marginは枠の内側の余白、paddingは枠の外側の余白",
+        "marginは横方向、paddingは縦方向の余白",
+        "名前が違うだけで全く同じ"
+      ],
+      "answer": 0,
+      "commentary": "ウィジェット自身の「外」に空白を作るのがmargin、ウィジェットの「中（子要素との間）」に空白を作るのがpaddingです。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "上下左右すべてに14のパディングを設定する正しい記述はどれですか？<pre><code>padding: const EdgeInsets.___</code></pre>",
+      "options": ["only(14)", "all(14)", "symmetric(14)", "fixed(14)"],
+      "answer": 1,
+      "commentary": "全方向に一律の値を設定する場合は「all」メソッドを使用します。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "Columnで「crossAxisAlignment: CrossAxisAlignment.stretch」を設定すると、子要素はどうなりますか？",
+      "options": [
+        "縦いっぱいに伸びる",
+        "横幅いっぱいに引き伸ばされる",
+        "中央に小さくまとまる",
+        "透明になる"
+      ],
+      "answer": 1,
+      "commentary": "stretch（ストレッチ）を設定すると、クロス軸方向（Columnなら横方向）に子要素を強制的に引き伸ばします。"
+    },
+    {
+      "id": 32,
+      "type": "実行結果予測",
+      "question": "Columnの中に2つのTextがあり、間にSizedBox(height: 15)を入れました。この15の単位は何ですか？",
+      "options": ["センチメートル", "ミリメートル", "論理ピクセル", "物理ピクセル"],
+      "answer": 2,
+      "commentary": "Flutterで数値を扱う際の標準単位は、画面密度に依存しない「論理ピクセル」です。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "childrenプロパティ内で、各ウィジェットを区切るために使う記号は何ですか？",
+      "options": ["; セミコロン", ": コロン", ", カンマ", ". ドット"],
+      "answer": 2,
+      "commentary": "リストの中の要素（ウィジェット）はカンマで区切って記述します。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "Containerの幅に「double.infinity」を指定した場合の挙動を一言で表すと？",
+      "options": ["見えなくなる", "できるだけ大きく広がる", "できるだけ小さくなる", "無限に増殖する"],
+      "answer": 1,
+      "commentary": "親要素が許す限りの最大幅までウィジェットを広げる指定です。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "Rowの「垂直方向（縦）」の配置を中央にしたい場合、どのプロパティをcenterにしますか？",
+      "options": ["mainAxisAlignment", "crossAxisAlignment", "verticalAlign", "textAlign"],
+      "answer": 1,
+      "commentary": "Rowのクロス軸は縦方向なので、crossAxisAlignmentをcenterに設定します。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "教科書内のSNSアプリの例で、ユーザー名と投稿時間の両方を横に並べるために使ったウィジェットは何ですか？",
+      "options": ["Column", "Container", "Row", "SizedBox"],
+      "answer": 2,
+      "commentary": "要素を水平に並べるためにRowウィジェットが使用されています。"
+    },
+    {
+      "id": 37,
+      "type": "実行結果予測",
+      "question": "Column内で3つのウィジェットがあり、2番目だけをExpandedで囲みました。どうなりますか？",
+      "options": [
+        "1番目と3番目が端に寄り、2番目が残りの空間をすべて埋める",
+        "すべて均等に広がる",
+        "2番目が一番上にくる",
+        "2番目が消える"
+      ],
+      "answer": 0,
+      "commentary": "Expandedでラップされていない要素がまずそのサイズで配置され、その後Expandedが残った領域をすべて占有します。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "MainAxisAlignment.spaceEvenly を使用したとき、各要素の間の余白はどうなりますか？",
+      "options": [
+        "要素間と両端のすべての空白が同じサイズになる",
+        "要素間だけ空白ができる",
+        "端だけ空白ができる",
+        "ランダムになる"
+      ],
+      "answer": 0,
+      "commentary": "「evenly（均等に）」という名前の通り、要素同士の間も端も、すべての隙間が同じサイズになります。"
+    },
+    {
+      "id": 39,
+      "type": "文法チェック",
+      "question": "children: [ ] の最後にカンマを置く（例：Text('A'), ]）ことは許されますか？",
+      "options": [
+        "はい、推奨される（末尾カンマ）",
+        "いいえ、エラーになる",
+        "コメントでないとダメ",
+        "数字の時だけ可能"
+      ],
+      "answer": 0,
+      "commentary": "Dartではリストの最後の要素の後にカンマを置くことができ、コードの整形や追加・削除がしやすくなるため推奨されています。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "ColumnやRowのchildrenプロパティの中身が空（[ ]）の場合、どうなりますか？",
+      "options": [
+        "エラーで止まる",
+        "何も表示されないがエラーにはならない",
+        "画面が真っ白になる",
+        "警告が出るが1つ目の要素がダミーで表示される"
+      ],
+      "answer": 1,
+      "commentary": "空のリストは文法的に正しいため、何も表示されないだけでプログラムは正常に動作します。"
+    }
+  ]
 }

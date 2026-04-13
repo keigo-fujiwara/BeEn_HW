@@ -1,4 +1,325 @@
 {
   "unit_title": "制御文",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "条件によって処理を分ける「条件分岐」に使われる代表的な構文は何ですか？",
+      "options": ["for 文", "if 文", "print 文", "var 文"],
+      "answer": 1,
+      "commentary": "条件が満たされているかどうかに基づいて処理を分けるには if 文を使用します。"
+    },
+    {
+      "id": 2,
+      "type": "文法チェック",
+      "question": "if 文の条件式として正しい結果を返すデータ型は何ですか？",
+      "options": ["int 型", "String 型", "bool 型", "double 型"],
+      "answer": 2,
+      "commentary": "if 文の条件には、真（true）か偽（false）を表す bool 型の値が必要です。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "2つの値がデータ型まで含めて「等しい」ことを確認するための比較演算子は何ですか？<pre><code>if (x ___ 10) { ... }</code></pre>",
+      "options": ["=", "==", "===", "!="],
+      "answer": 1,
+      "commentary": "プログラミングにおいて単一の「=」は代入を意味するため、等しいことを調べるには「==」を使用します。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "比較演算子「!=」はどういう意味ですか？",
+      "options": ["左右が等しい", "左の方が大きい", "左右が等しくない", "右の方が大きい"],
+      "answer": 2,
+      "commentary": "!= は「不等価演算子」と呼ばれ、両辺の値が異なる場合に true を返します。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、出力される結果は何ですか？<pre><code>void main() {\n  print('a' != 'b');\n}</code></pre>",
+      "options": ["true", "false", "ab", "エラー"],
+      "answer": 0,
+      "commentary": "'a' と 'b' は異なる文字なので、不等価演算の結果は真（true）になります。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "複数の条件を組み合わせて「かつ（すべての条件が真）」を表現する論理演算子はどれですか？",
+      "options": ["||", "!", "&&", "++"],
+      "answer": 2,
+      "commentary": "「かつ」を表す論理演算子は && です。両方の条件が true のときのみ true を返します。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "論理演算子「||」はどういう意味ですか？",
+      "options": ["否定", "かつ", "または", "インクリメント"],
+      "answer": 2,
+      "commentary": "|| は「または（OR）」を意味し、条件のどれか1つでも真であれば true を返します。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "条件式の真偽値を反転（true を false に、false を true に）させる論理演算子は何ですか？<pre><code>print(___ (10 == 4)); // 結果は true</code></pre>",
+      "options": ["&&", "||", "!", "?"],
+      "answer": 2,
+      "commentary": "! は「否定」を表し、続く条件式の真偽値を逆にします。"
+    },
+    {
+      "id": 9,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、画面に表示される内容はどれですか？<pre><code>void main() {\n  int x = 100;\n  if (x > 50) {\n    print('A');\n  }\n  if (x < 70) {\n    print('B');\n  }\n}</code></pre>",
+      "options": ["A", "B", "A と B の両方", "何も表示されない"],
+      "answer": 0,
+      "commentary": "x=100 なので、x > 50 は true ですが x < 70 は false です。よって 'A' のみ表示されます。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "if 文において、どの条件にも当てはまらなかった「その他すべて」の処理を書くキーワードは何ですか？",
+      "options": ["else if", "default", "else", "switch"],
+      "answer": 2,
+      "commentary": "else ブロックは、その前の if や else if の条件がすべて false だった場合に実行されます。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "if 文にさらに別の条件を追加したいときに使うキーワードは何ですか？<pre><code>if (x > 10) {\n  ...\n} ___ (x > 5) {\n  ...\n}</code></pre>",
+      "options": ["else if", "if else", "elseif", "case"],
+      "answer": 0,
+      "commentary": "複数の条件を順番に確認するには else if を使います。"
+    },
+    {
+      "id": 12,
+      "type": "文法チェック",
+      "question": "switch 文で、どの case パターンにも一致しなかった場合に実行される場所はどこですか？",
+      "options": ["else", "default:", "break", "case else:"],
+      "answer": 1,
+      "commentary": "switch 文では、当てはまる case がない場合の処理を default ブロックに記述します。"
+    },
+    {
+      "id": 13,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、何が表示されますか？<pre><code>void main() {\n  int x = 50;\n  if (x > 50) {\n    print('High');\n  } else if (x == 50) {\n    print('Just');\n  } else {\n    print('Low');\n  }\n}</code></pre>",
+      "options": ["High", "Just", "Low", "Just と Low"],
+      "answer": 1,
+      "commentary": "x は 50 なので、2番目の条件式 x == 50 が true となり 'Just' が表示されます。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "同じ処理を複数回繰り返すための構文を何と呼びますか？",
+      "options": ["条件分岐", "反復処理", "インクリメント", "論理演算"],
+      "answer": 1,
+      "commentary": "ループ処理とも呼ばれ、特定の回数や条件まで処理を繰り返すことを指します。"
+    },
+    {
+      "id": 15,
+      "type": "コード穴埋め",
+      "question": "for 文の基本構造を完成させてください。<pre><code>for (___; 条件式; 更新式) { ... }</code></pre>",
+      "options": ["初期化式", "変数式", "代入式", "比較式"],
+      "answer": 0,
+      "commentary": "for 文の最初は、ループの回数を数える変数を準備する「初期化式」を書きます。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "変数 `i` の値を1つ増やす「i++」のような記法を何と呼びますか？",
+      "options": ["デクリメント", "代入", "インクリメント", "オーバーライド"],
+      "answer": 2,
+      "commentary": "数値を1増やす操作をインクリメント、1減らす操作をデクリメントと呼びます。"
+    },
+    {
+      "id": 17,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、数字は何回表示されますか？<pre><code>void main() {\n  for (int i = 1; i <= 5; i++) {\n    print(i);\n  }\n}</code></pre>",
+      "options": ["4回", "5回", "6回", "1回"],
+      "answer": 1,
+      "commentary": "i が 1 から 5 までの間（i <= 5）繰り返されるため、1, 2, 3, 4, 5 の計5回実行されます。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "リストの中身を1つずつ取り出して処理を行うメソッドは何ですか？<pre><code>List language = ['Dart', 'Java'];\nlanguage.___((element) {\n  print(element);\n});</code></pre>",
+      "options": ["for", "forEach", "loop", "switch"],
+      "answer": 1,
+      "commentary": "forEach メソッドを使うと、リストの全要素に対して順番に処理を実行できます。"
+    },
+    {
+      "id": 19,
+      "type": "実行結果予測",
+      "question": "演習問題の FizzBuzz コードで、i が 3 のときに出力されるものはどれですか？<pre><code>if (i % 3 == 0) {\n  print('Fizz');\n} else {\n  print(i);\n}</code></pre>",
+      "options": ["3", "Fizz", "false", "エラー"],
+      "answer": 1,
+      "commentary": "3 % 3 は 0 なので条件式は true となり、'Fizz' が出力されます。"
+    },
+    {
+      "id": 20,
+      "type": "文法チェック",
+      "question": "Dart におけるデクリメント（値を1減らす）の正しい記法はどれですか？",
+      "options": ["i--", "i-1", "--i", "i minus"],
+      "answer": 0,
+      "commentary": "変数の値を1減らすには「変数--」と記述します。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "論理演算において、カッコ `()` を使う主な目的は何ですか？",
+      "options": ["コードを見やすくするため", "処理に優先順位をつけるため", "エラーを防ぐため", "文字列を囲むため"],
+      "answer": 1,
+      "commentary": "数学と同じく、カッコ内の演算が優先的に処理されます。"
+    },
+    {
+      "id": 22,
+      "type": "コード穴埋め",
+      "question": "switch 文で、ある値に一致したときの処理を指定するキーワードは何ですか？<pre><code>switch (day) {\n  ___ 'Friday':\n    print('Today is Friday.');\n}</code></pre>",
+      "options": ["if", "when", "case", "match"],
+      "answer": 2,
+      "commentary": "switch 文では case キーワードを使って各条件（パターン）を記述します。"
+    },
+    {
+      "id": 23,
+      "type": "実行結果予測",
+      "question": "次のコードを実行した結果はどうなりますか？<pre><code>void main() {\n  int i = 10;\n  i++;\n  i--;\n  print(i);\n}</code></pre>",
+      "options": ["11", "9", "10", "12"],
+      "answer": 2,
+      "commentary": "10 に 1 足して 11、その後 1 引くので 10 に戻ります。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "if (条件) { ... } の中にある `{}` で囲まれた部分を一般的に何と呼びますか？",
+      "options": ["ケース", "ブロック", "エレメント", "インデックス"],
+      "answer": 1,
+      "commentary": "一連の処理をまとめた範囲を「ブロック」と呼びます。"
+    },
+    {
+      "id": 25,
+      "type": "文法チェック",
+      "question": "比較演算子「<=」の読み方として正しいものはどれですか？",
+      "options": ["小なり", "大なりイコール", "小なりイコール", "等しくない"],
+      "answer": 2,
+      "commentary": "<= は「小なりイコール（〜以下）」、>= は「大なりイコール（〜以上）」と読みます。"
+    },
+    {
+      "id": 26,
+      "type": "実行結果予測",
+      "question": "次の論理演算の結果はどうなりますか？<pre><code>print(false || true);</code></pre>",
+      "options": ["true", "false", "null", "エラー"],
+      "answer": 0,
+      "commentary": "||（または）は、どちらか一方が true であれば true を返します。"
+    },
+    {
+      "id": 27,
+      "type": "用語理解",
+      "question": "for 文の更新式によく使われる「i = i + 1」と全く同じ意味の短い記法はどれですか？",
+      "options": ["i+1", "i++", "i+", "i+;"],
+      "answer": 1,
+      "commentary": "i++ は i に 1 を足して代入するインクリメントの省略記法です。"
+    },
+    {
+      "id": 28,
+      "type": "コード穴埋め",
+      "question": "if 文で条件が false だった場合にのみ確認する「次の条件」を書くためのキーワードを選んでください。<pre><code>if (x == 1) {\n  ...\n} ___ (x == 2) {\n  ...\n}</code></pre>",
+      "options": ["else", "if else", "else if", "case"],
+      "answer": 2,
+      "commentary": "最初の if が外れた場合の追加条件は else if を使います。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "次の for 文を実行したとき、最後に表示される数字は何ですか？<pre><code>for (int i = 0; i < 3; i++) {\n  print(i);\n}</code></pre>",
+      "options": ["0", "1", "2", "3"],
+      "answer": 2,
+      "commentary": "条件が i < 3 なので、i が 0, 1, 2 の間繰り返され、3 になるとループを抜けます。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "if 文の中で true が出て処理が実行された場合、それ以降の else if や else はどうなりますか？",
+      "options": ["続けて実行される", "エラーになる", "読まれずにスキップされる", "最後に実行される"],
+      "answer": 2,
+      "commentary": "if 文の連鎖では、どれか1つの条件が満たされた時点でそのブロックを実行し、残りは無視されます。"
+    },
+    {
+      "id": 31,
+      "type": "文法チェック",
+      "question": "switch 文で、条件に一致した処理の後に switch 文を抜けるために使われる暗黙の動作は何ですか？（教科書の説明に基づく）",
+      "options": ["自動的に末尾にジャンプする", "ループする", "default に行く", "エラーになる"],
+      "answer": 0,
+      "commentary": "Dartのswitch文では、一致したcaseの処理が終わるとswitch文の末尾へ移動します。"
+    },
+    {
+      "id": 32,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>void main() {\n  print(!(5 == 5));\n}</code></pre>",
+      "options": ["true", "false", "5", "!"],
+      "answer": 1,
+      "commentary": "5 == 5 は true ですが、その前に !（否定）がついているため false になります。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "数値が「10以上かつ20以下」であることを表す正しい論理式はどれですか？",
+      "options": ["x >= 10 || x <= 20", "x > 10 && x < 20", "x >= 10 && x <= 20", "10 <= x <= 20"],
+      "answer": 2,
+      "commentary": "「以上・以下」は「>=・<=」を使い、両方の条件が必要なので && を使います。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "「100 % 3」という計算の結果は何になりますか？（FizzBuzzの演習に関連）",
+      "options": ["33", "1", "0", "0.33"],
+      "answer": 1,
+      "commentary": "% は剰余演算子で、割り算の余りを求めます。100 ÷ 3 = 33 余り 1 です。"
+    },
+    {
+      "id": 35,
+      "type": "実行結果予測",
+      "question": "次の forEach の実行結果はどうなりますか？<pre><code>['A'].forEach((e) => print(e + '!'));</code></pre>",
+      "options": ["A", "A!", "element", "エラー"],
+      "answer": 1,
+      "commentary": "リストの要素 'A' に '!' を足して出力するため 'A!' となります。"
+    },
+    {
+      "id": 36,
+      "type": "文法チェック",
+      "question": "if 文の条件式をカッコ `()` で囲まない場合、Dart ではどうなりますか？",
+      "options": ["そのまま動く", "エラーになる", "自動で補完される", "コメント扱いになる"],
+      "answer": 1,
+      "commentary": "Dart の if 文、for 文などの条件部分は必ずカッコ `()` で囲む必要があります。"
+    },
+    {
+      "id": 37,
+      "type": "用語理解",
+      "question": "「switch 文は if 文よりも少ない分量で単純な条件分岐を書ける」とありますが、switch が特に適しているのはどのような場合ですか？",
+      "options": ["複雑な不等式を比べるとき", "1つの変数の値を複数の定数と比べるとき", "繰り返し処理をするとき", "論理演算をたくさん使うとき"],
+      "answer": 1,
+      "commentary": "switch 文は「もし値が A なら、B なら...」という特定の値との一致をたくさん調べるときに便利です。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "次のコードの結果はどうなりますか？<pre><code>void main() {\n  int i = 0;\n  for (; i < 1; ) {\n    print('Loop');\n    i++;\n  }\n}</code></pre>",
+      "options": ["'Loop' が1回表示される", "無限ループになる", "エラーになる", "何も表示されない"],
+      "answer": 0,
+      "commentary": "文法的に特殊ですが、初期化や更新を外に書いても条件が合えば1回実行されます。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "ある変数が「偶数である」ことを判定する条件式を完成させてください。<pre><code>if (num ___ 2 == 0) { // 偶数の処理 }</code></pre>",
+      "options": ["/", "%", "*", "-"],
+      "answer": 1,
+      "commentary": "2で割った余りが0であれば、その数値は偶数です。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "プログラミングにおいて、上から下に流れる基本的な実行順序を「制御文」で変えることを総称して何と呼びますか？",
+      "options": ["コンパイル", "制御フロー", "タイピング", "データモデリング"],
+      "answer": 1,
+      "commentary": "プログラムの実行の流れ（フロー）をコントロールすることを制御フローと呼びます。"
+    }
+  ]
 }

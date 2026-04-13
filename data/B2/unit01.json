@@ -1,4 +1,325 @@
 {
-  "unit_title": "導入と Dart 開発環境の整備",
-  "questions": []
+  "unit_title": "Dart の基礎とデータ型",
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "Dart を開発した企業はどこですか？",
+      "options": ["Apple", "Microsoft", "Google", "Meta"],
+      "answer": 2,
+      "commentary": "Dart は Google によって開発されたプログラミング言語です。"
+    },
+    {
+      "id": 2,
+      "type": "用語理解",
+      "question": "Dart が広く使われるきっかけとなった、モバイルアプリ開発のフレームワークは何ですか？",
+      "options": ["React Native", "Flutter", "Unity", "Django"],
+      "answer": 1,
+      "commentary": "Flutter は Dart を使用して Android や iOS アプリを開発できるフレームワークです。"
+    },
+    {
+      "id": 3,
+      "type": "文法チェック",
+      "question": "Dart プログラムの実行の起点となる、必ず記述しなければならない関数名は何ですか？",
+      "options": ["start()", "init()", "main()", "void()"],
+      "answer": 2,
+      "commentary": "Dart は main() 関数の中から処理を開始します。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "Dart で画面に値を出力するための命令を完成させてください。<pre><code>void main() {\n  ___(1 + 1);\n}</code></pre>",
+      "options": ["log", "print", "display", "output"],
+      "answer": 1,
+      "commentary": "print() 関数を使うことで、実行結果をコンソールに出力できます。"
+    },
+    {
+      "id": 5,
+      "type": "文法チェック",
+      "question": "Dart のプログラムにおいて、処理の区切り（行末）に付ける必要がある記号は何ですか？",
+      "options": [".（ドット）", ",（カンマ）", ":（コロン）", ";（セミコロン）"],
+      "answer": 3,
+      "commentary": "Dart では、文の終わりにセミコロン（;）を付ける必要があります。"
+    },
+    {
+      "id": 6,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したときの出力結果はどうなりますか？<pre><code>void main() {\n  print(10 / 2);\n}</code></pre>",
+      "options": ["5", "5.0", "20", "2"],
+      "answer": 1,
+      "commentary": "Dart の割り算（/）の結果は、割り切れる場合でも double 型（小数）の 5.0 になります。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "機械にデータの種類を伝えるための概念を何と呼びますか？",
+      "options": ["変数", "データ型", "コンパイル", "インデックス"],
+      "answer": 1,
+      "commentary": "数値、文字列などの情報の種類を「データ型」と呼びます。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "整数（2 や -6 など）を扱うデータ型は何ですか？",
+      "options": ["double", "String", "int", "bool"],
+      "answer": 2,
+      "commentary": "整数型は int (integer) です。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "小数（1.23 や -5.3 など）を扱うデータ型は何ですか？",
+      "options": ["int", "String", "bool", "double"],
+      "answer": 3,
+      "commentary": "浮動小数点数を扱う型は double です。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "文字列を扱うデータ型は何ですか？",
+      "options": ["String", "List", "Map", "Text"],
+      "answer": 0,
+      "commentary": "文字列型は String です。先頭が大文字であることに注意しましょう。"
+    },
+    {
+      "id": 11,
+      "type": "文法チェック",
+      "question": "Dart で正しい文字列の定義方法はどれですか？",
+      "options": ["(こんにちは)", "{こんにちは}", "[こんにちは]", "'こんにちは'"],
+      "answer": 3,
+      "commentary": "文字列は '（シングルクォーテーション）または \"（ダブルクォーテーション）で囲みます。"
+    },
+    {
+      "id": 12,
+      "type": "コード穴埋め",
+      "question": "文字列の中に変数の値を埋め込みたいときに使う記号は何ですか？<pre><code>String name = 'Dart';\nprint('Hello ___name');</code></pre>",
+      "options": ["&", "@", "$", "#"],
+      "answer": 2,
+      "commentary": "$記号（文字列補間）を使うと、文字列の中で変数を利用できます。"
+    },
+    {
+      "id": 13,
+      "type": "実行結果予測",
+      "question": "次のコードを実行した結果はどうなりますか？<pre><code>void main() {\n  print('100' + '200');\n}</code></pre>",
+      "options": ["300", "100200", "100 200", "エラー"],
+      "answer": 1,
+      "commentary": "'100' と '200' は文字列なので、+ でつなぐと文字が結合されます。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "真（true）か偽（false）のみを扱うデータ型は何ですか？",
+      "options": ["int", "double", "bool", "Null"],
+      "answer": 2,
+      "commentary": "真偽値を扱う型は bool (boolean) です。"
+    },
+    {
+      "id": 15,
+      "type": "文法チェック",
+      "question": "複数の値をまとめて扱う「リスト」を作成する際に使う記号は何ですか？",
+      "options": ["( )", "{ }", "[ ]", "< >"],
+      "answer": 2,
+      "commentary": "リストは [ ]（角かっこ）を使って定義します。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "文字列だけを入れるリストを宣言する正しい方法はどれですか？<pre><code>___ colors = ['red', 'blue'];</code></pre>",
+      "options": ["List(String)", "List<String>", "StringList", "List{String}"],
+      "answer": 1,
+      "commentary": "List<型名> という形式で、中身のデータの種類を制限できます。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "リストの要素を取り出すために指定する番号のことを何と呼びますか？",
+      "options": ["キー", "タグ", "インデックス", "ラベル"],
+      "answer": 2,
+      "commentary": "要素の場所を示す番号をインデックスと呼びます。"
+    },
+    {
+      "id": 18,
+      "type": "実行結果予測",
+      "question": "次のコードで、表示される値は何ですか？<pre><code>void main() {\n  List a = ['A', 'B', 'C'];\n  print(a[1]);\n}</code></pre>",
+      "options": ["A", "B", "C", "1"],
+      "answer": 1,
+      "commentary": "インデックスは 0 から始まるため、a[1] は 2 番目の要素 'B' になります。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "List 型と似ているが、重複した値を自動的に取り除くデータ型は何ですか？",
+      "options": ["Map", "Set", "dynamic", "Object"],
+      "answer": 1,
+      "commentary": "Set 型は重複した要素を持たない集合を表します。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、b の中身はどうなりますか？<pre><code>void main() {\n  Set b = {'A', 'B', 'A'};\n  print(b);\n}</code></pre>",
+      "options": ["{A, B, A}", "{A, B}", "{A, A}", "{B}"],
+      "answer": 1,
+      "commentary": "Set 型は重複を認めないため、2つ目の 'A' は自動的に消えます。"
+    },
+    {
+      "id": 21,
+      "type": "文法チェック",
+      "question": "Set 型から特定の要素を取り出すときに使うメソッドは何ですか？",
+      "options": ["at()", "get()", "index()", "elementAt()"],
+      "answer": 3,
+      "commentary": "Set 型は [ ] でアクセスできないため、elementAt() メソッドを使います。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "番号ではなく「キー」を使ってデータにアクセスする型は何ですか？",
+      "options": ["List", "Set", "Map", "double"],
+      "answer": 2,
+      "commentary": "Map 型は「キー」と「値」をペアにして管理します。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "Map 型を定義する際に使う記号は何ですか？",
+      "options": ["( )", "[ ]", "{ }", "< >"],
+      "answer": 2,
+      "commentary": "Map 型は { }（波かっこ）を使って定義します。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "次のコードで、表示される結果は何ですか？<pre><code>void main() {\n  Map user = {'id': 10, 'name': 'Tanaka'};\n  print(user['id']);\n}</code></pre>",
+      "options": ["id", "Tanaka", "10", "1"],
+      "answer": 2,
+      "commentary": "Map名['キー'] と記述することで、対応する値を取り出せます。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "どのようなデータ型でも代入できるが、型チェックが行われなくなる危険な型は何ですか？",
+      "options": ["Object", "Null", "dynamic", "num"],
+      "answer": 2,
+      "commentary": "dynamic 型はあらゆる型を許容しますが、エラーを事前に防げなくなるため使用には注意が必要です。"
+    },
+    {
+      "id": 26,
+      "type": "用語理解",
+      "question": "Null 以外のすべてのデータ型の元（親）となっている型は何ですか？",
+      "options": ["dynamic", "Object", "String", "bool"],
+      "answer": 1,
+      "commentary": "Dart ではすべてのクラスが Object 型を継承しています。"
+    },
+    {
+      "id": 27,
+      "type": "用語理解",
+      "question": "何も値が入っていない状態（無）を表す型、または値は何ですか？",
+      "options": ["false", "0", "null", "empty"],
+      "answer": 2,
+      "commentary": "値が空であることを示す特別な値を null と呼びます。"
+    },
+    {
+      "id": 28,
+      "type": "実行結果予測",
+      "question": "次のコードを実行した結果はどうなりますか？<pre><code>void main() {\n  int a = 5;\n  print(a * 3);\n}</code></pre>",
+      "options": ["5", "15", "53", "エラー"],
+      "answer": 1,
+      "commentary": "整数 5 に 3 を掛けた 15 が出力されます。"
+    },
+    {
+      "id": 29,
+      "type": "文法チェック",
+      "question": "Dart で掛け算を表す記号はどれですか？",
+      "options": ["x", "×", "*", "multi"],
+      "answer": 2,
+      "commentary": "プログラミングでは掛け算に *（アスタリスク）を使います。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "リストの 1 番最初の要素にアクセスするための番号（インデックス）は何番ですか？",
+      "options": ["1", "0", "-1", "最初の要素"],
+      "answer": 1,
+      "commentary": "プログラミングの多くでは、番号は 0 から数え始めます。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "Map で新しいデータを登録する正しい方法を選んでください。<pre><code>Map a = {'id': 1};\n___ = 'Kyoto';</code></pre>",
+      "options": ["a['address']", "a{address}", "a(address)", "a.address"],
+      "answer": 0,
+      "commentary": "Map名['新しいキー'] = 値 とすることで、新しいデータを追加できます。"
+    },
+    {
+      "id": 32,
+      "type": "実行結果予測",
+      "question": "次のコードで、a の最後の要素は何番目のインデックスですか？<pre><code>List a = [10, 20, 30, 40];</code></pre>",
+      "options": ["1", "3", "4", "0"],
+      "answer": 1,
+      "commentary": "要素数が 4 の場合、インデックスは 0, 1, 2, 3 となるため、最後は 3 です。"
+    },
+    {
+      "id": 33,
+      "type": "用語理解",
+      "question": "Dart プログラムを実行するためのコマンドは何ですか？",
+      "options": ["run dart", "dart run", "dart ファイル名", "flutter run"],
+      "answer": 2,
+      "commentary": "ターミナルで「dart ファイル名」と入力して実行します。"
+    },
+    {
+      "id": 34,
+      "type": "文法チェック",
+      "question": "Map の「キー」と「値」を区切る記号は何ですか？",
+      "options": ["=（イコール）", ":（コロン）", ";（セミコロン）", "-（ハイフン）"],
+      "answer": 1,
+      "commentary": "Map では 'key': 'value' のようにコロンを使います。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "1つの変数で複数のデータ型を扱いたい場合、List 型の宣言はどうなりますか？",
+      "options": ["List<dynamic>", "List<all>", "List<String>", "List<int>"],
+      "answer": 0,
+      "commentary": "dynamic を使うと、文字列や数値を混ぜたリストを作れます。"
+    },
+    {
+      "id": 36,
+      "type": "実行結果予測",
+      "question": "次のコードの結果はどうなりますか？<pre><code>void main() {\n  bool isTrue = 10 > 5;\n  print(isTrue);\n}</code></pre>",
+      "options": ["10", "5", "true", "false"],
+      "answer": 2,
+      "commentary": "10 は 5 より大きいため、比較の結果である true が代入されます。"
+    },
+    {
+      "id": 37,
+      "type": "用語理解",
+      "question": "Dart の文字列の中で変数を埋め込む機能を何と呼びますか？（ヒント：$... を使う機能）",
+      "options": ["文字列結合", "文字列補間", "文字列展開", "文字列キャスト"],
+      "answer": 1,
+      "commentary": "文字列の中に変数を埋め込むことを「文字列補間（String interpolation）」と呼びます。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>void main() {\n  print('Dart' 'is' 'fun');\n}</code></pre>",
+      "options": ["Dart is fun", "Dartisfun", "Dart,is,fun", "エラー"],
+      "answer": 1,
+      "commentary": "Dart では文字列リテラルを並べて書くと自動的に結合されます。"
+    },
+    {
+      "id": 39,
+      "type": "実行結果予測",
+      "question": "次のコードで、エラーになるのはどれですか？<pre><code>List<int> a = [1, 2];</code></pre>",
+      "options": ["a[0] = 3;", "a[1] = 0;", "a[2] = 5;", "a[0] = 1;"],
+      "answer": 2,
+      "commentary": "インデックス 2 は存在しない（最後は 1）ため、エラー（RangeError）になります。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "Dart プログラムにおいて、main() 関数の外に書かれた処理はどうなりますか？",
+      "options": ["最初に実行される", "最後に実行される", "実行されない", "エラーになる"],
+      "answer": 2,
+      "commentary": "処理は main() 関数の中でなければ実行されません。"
+    }
+  ]
 }

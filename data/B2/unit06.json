@@ -1,4 +1,325 @@
 {
-  "unit_title": "Flutter 環境構築",
-  "questions": []
+  "unit_title": "Flutter 環境構築とプロジェクト構成",
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "ターミナルで、使用可能なエミュレーターの一覧を表示するためのコマンドは何ですか？",
+      "options": ["flutter devices", "flutter emulators", "flutter list", "flutter run"],
+      "answer": 1,
+      "commentary": "flutter emulators コマンドを実行すると、作成済みのエミュレーター一覧を確認できます。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "ターミナルからエミュレーターを起動するためのコマンドを完成させてください。<pre><code>flutter emulators ___ &lt;エミュレーター名&gt;</code></pre>",
+      "options": ["--start", "--run", "--launch", "--open"],
+      "answer": 2,
+      "commentary": "--launch オプションに続けてエミュレーター名を指定することで起動が可能です。"
+    },
+    {
+      "id": 3,
+      "type": "用語理解",
+      "question": "Flutterプロジェクトを新規作成するためのコマンドは何ですか？",
+      "options": ["flutter start", "flutter new", "flutter init", "flutter create"],
+      "answer": 3,
+      "commentary": "flutter create <プロジェクト名> で、プロジェクトの雛形が自動生成されます。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "Flutterプロジェクトにおいて、UIやロジックなどのDartコードを記述する、最も重要なフォルダはどれですか？",
+      "options": ["android/", "ios/", "lib/", "test/"],
+      "answer": 2,
+      "commentary": "lib/ フォルダ内にアプリのソースコードを記述します。それ以外のフォルダは主にOS固有の設定用です。"
+    },
+    {
+      "id": 5,
+      "type": "用語理解",
+      "question": "アプリの設定（パッケージの登録や画像の指定など）を行うためのファイル名はどれですか？",
+      "options": ["main.dart", "pubspec.yaml", "analysis_options.yaml", "build.gradle"],
+      "answer": 1,
+      "commentary": "pubspec.yaml はプロジェクトの構成や依存関係を管理する重要なファイルです。"
+    },
+    {
+      "id": 6,
+      "type": "文法チェック",
+      "question": "Flutterプロジェクトの開始地点となるファイルはどれですか？",
+      "options": ["lib/start.dart", "lib/app.dart", "lib/main.dart", "lib/index.dart"],
+      "answer": 2,
+      "commentary": "lib/main.dart は、アプリ起動時に最初に読み込まれる特別なファイルです。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "Dartプログラムの実行を開始するための関数名は何ですか？<pre><code>void ___() {\n  runApp(const MyApp());\n}</code></pre>",
+      "options": ["init", "start", "main", "run"],
+      "answer": 2,
+      "commentary": "DartおよびFlutterは main() 関数から実行が始まります。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "Googleが推奨するデザインシステムに基づいたボタンやテキストなどの部品が含まれているパッケージは何ですか？",
+      "options": ["cupertino.dart", "material.dart", "widgets.dart", "flutter.dart"],
+      "answer": 1,
+      "commentary": "import 'package:flutter/material.dart'; を行うことでマテリアルデザインの部品（ウィジェット）が使えます。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "Flutterにおいて、画面に表示されるボタンやテキストなどの部品のことを何と呼びますか？",
+      "options": ["コンポーネント", "要素", "ウィジェット", "パーツ"],
+      "answer": 2,
+      "commentary": "FlutterのUIを構成する部品はすべて「ウィジェット（Widget）」と呼ばれます。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "引数に渡されたウィジェットをアプリとして起動させるための関数を選んでください。<pre><code>void main() {\n  ___(const MyApp());\n}</code></pre>",
+      "options": ["startApp", "runApp", "initApp", "buildApp"],
+      "answer": 1,
+      "commentary": "runApp() 関数にルートウィジェットを渡すことでアプリが動き出します。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "アプリを実行中にコードを変更し、即座に反映させる機能を何と呼びますか？（ターミナルで r を入力する操作）",
+      "options": ["ホットリロード", "インスタント反映", "クイックスタート", "ライブデバッグ"],
+      "answer": 0,
+      "commentary": "ホットリロードにより、アプリを再起動することなく変更内容をすぐに確認できます。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "ScaffoldのappBarプロパティに、backgroundColor: Colors.red を設定するとどうなりますか？",
+      "options": ["画面全体の背景が赤くなる", "画面上部のバーの色が赤くなる", "文字の色が赤くなる", "ボタンの色が赤くなる"],
+      "answer": 1,
+      "commentary": "AppBarウィジェットのbackgroundColorは、画面上部のタイトルバーの色を指定します。"
+    },
+    {
+      "id": 13,
+      "type": "用語理解",
+      "question": "コーディング規則に従って、コードの修正案を提示したりスタイルを統一したりするツールを何と呼びますか？",
+      "options": ["コンパイラ", "デバッガ", "リンター", "エミュレーター"],
+      "answer": 2,
+      "commentary": "リンターは analysis_options.yaml の設定に基づき、コードの品質をチェックします。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "リンターの設定において、すべての文字列を表すワイルドカード記号は何ですか？",
+      "options": ["?", "#", "&", "*"],
+      "answer": 3,
+      "commentary": "「*」はワイルドカードと呼ばれ、ファイル名の指定などで「すべて」を意味します。"
+    },
+    {
+      "id": 15,
+      "type": "文法チェック",
+      "question": "analysis_options.yaml 内で、特定のファイル（例：lib/demo.dart）を解析対象から除外するために使うブロックは何ですか？",
+      "options": ["include", "rules", "exclude", "linter"],
+      "answer": 2,
+      "commentary": "analyzer ブロック内の exclude リストに記述することで、解析対象外に設定できます。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "リンターの警告（青線など）が表示された場合の正しい認識はどれですか？",
+      "options": ["重大なエラーなので実行できない", "実行はできるが、推奨される書き方に従うべき状態", "ウイルスに感染している", "パソコンの故障"],
+      "answer": 1,
+      "commentary": "リンターの指摘は「エラー」ではないため実行可能ですが、保守性のために従うことが推奨されます。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "特定の1行だけでリンターの警告を無効化するためのコメントアウト記法を選んでください。<pre><code>// ___:設定項目\nprint(\"test\");</code></pre>",
+      "options": ["skip", "ignore", "pass", "delete"],
+      "answer": 1,
+      "commentary": "// ignore: を使って特定のルールの警告をその行だけ消すことができます。"
+    },
+    {
+      "id": 18,
+      "type": "用語理解",
+      "question": "プロジェクトの「build/」フォルダを削除し、古いコンパイルデータを消去するコマンドは何ですか？",
+      "options": ["flutter delete", "flutter remove", "flutter clean", "flutter reset"],
+      "answer": 2,
+      "commentary": "flutter clean を実行すると、ビルド時に生成された一時ファイルが削除されます。"
+    },
+    {
+      "id": 19,
+      "type": "文法チェック",
+      "question": "テキストのフォントサイズや色を変更するために、Textウィジェットのstyleプロパティに渡すクラスは何ですか？",
+      "options": ["FontStyle", "TextStyle", "FontConfig", "TextDesign"],
+      "answer": 1,
+      "commentary": "TextStyle(fontSize: 32, color: Colors.blue) のように記述して見た目を調整します。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "画面の中央に子ウィジェットを配置するためのウィジェットは何ですか？",
+      "options": ["Scaffold", "Column", "Center", "AppBar"],
+      "answer": 2,
+      "commentary": "Centerウィジェットを使うと、その中身（child）を画面の真ん中に置くことができます。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "縦方向にウィジェットを並べるためのウィジェットを選んでください。<pre><code>___(\n  children: [\n    Text('A'),\n    Text('B'),\n  ],\n)</code></pre>",
+      "options": ["Row", "Column", "Stack", "List"],
+      "answer": 1,
+      "commentary": "Columnウィジェットは、複数の子要素を垂直（縦）に並べます。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "analysis_options.yaml の include ブロックの役割は何ですか？",
+      "options": ["自分でルールを1から書く", "外部のリンター設定ファイルを取り込む", "解析を完全に停止する", "画像を読み込む"],
+      "answer": 1,
+      "commentary": "package:flutter_lints/flutter.yaml などの標準的なルールセットを読み込むために使われます。"
+    },
+    {
+      "id": 23,
+      "type": "実行結果予測",
+      "question": "Textウィジェット内で '$_counter' と記述した場合、画面には何が表示されますか？",
+      "options": ["そのまま $_counter と表示される", "変数 _counter の中身（数字）が表示される", "エラーになる", "何も表示されない"],
+      "answer": 1,
+      "commentary": "Dartの文字列補間機能により、$記号の後にある変数の値が展開されます。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "FloatingActionButtonウィジェットが押されたときに実行する処理を指定するプロパティは何ですか？",
+      "options": ["onClick", "onTap", "onPressed", "onAction"],
+      "answer": 2,
+      "commentary": "onPressed プロパティに、ボタンが押された時の関数を渡します。"
+    },
+    {
+      "id": 25,
+      "type": "文法チェック",
+      "question": "Scaffoldウィジェットの役割として正しいものはどれですか？",
+      "options": ["文字を表示するだけ", "アプリ画面の基本的な視覚的レイアウト構造（AppBarやbodyなど）を提供する", "計算を行う", "インターネットに接続する"],
+      "answer": 1,
+      "commentary": "Scaffoldは「足場」という意味で、マテリアルデザインの標準的な画面構成をサポートします。"
+    },
+    {
+      "id": 26,
+      "type": "用語理解",
+      "question": "リンタールールで prefer_single_quotes: true が設定されている場合、推奨される文字列の囲み方はどれですか？",
+      "options": ["\"ダブルクォーテーション\"", "'シングルクォーテーション'", "[カッコ]", "囲まない"],
+      "answer": 1,
+      "commentary": "Dart/Flutterの標準的なスタイルとして、シングルクォーテーションの使用が推奨されることが多いです。"
+    },
+    {
+      "id": 27,
+      "type": "実行結果予測",
+      "question": "setState() 関数を呼び出すと、アプリはどうなりますか？",
+      "options": ["アプリが終了する", "画面の表示（UI）が再構築されて更新される", "データがすべて消える", "何もしない"],
+      "answer": 1,
+      "commentary": "setState() はFlutterに対し「状態が変わったので画面を書き直して」と伝える命令です。"
+    },
+    {
+      "id": 28,
+      "type": "コード穴埋め",
+      "question": "ファイル全体で特定のリンターを無効化する正しい記述はどれですか？<pre><code>// ___:設定項目</code></pre>",
+      "options": ["ignore", "ignore_all", "ignore_for_file", "stop_analysis"],
+      "answer": 2,
+      "commentary": "ignore_for_file をファイルの先頭に書くことで、そのファイル全体に設定を適用できます。"
+    },
+    {
+      "id": 29,
+      "type": "用語理解",
+      "question": "pubspec.yaml に記載する「dependencies」とは何のことですか？",
+      "options": ["自分の名前", "アプリが依存（使用）するパッケージのリスト", "エラーのリスト", "色のリスト"],
+      "answer": 1,
+      "commentary": "外部の便利なライブラリなど、自分のアプリで使いたいプログラムをここに登録します。"
+    },
+    {
+      "id": 30,
+      "type": "文法チェック",
+      "question": "MaterialAppウィジェットの home プロパティには何を設定しますか？",
+      "options": ["アプリのアイコン", "アプリ起動後に最初に表示される画面（ウィジェット）", "アプリの保存場所", "スマホのホーム画面"],
+      "answer": 1,
+      "commentary": "home プロパティに渡したウィジェットが、アプリのトップ画面として表示されます。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "StatelessWidget とは何ですか？",
+      "options": ["動的に中身が変化するウィジェット", "状態を持たず、一度表示されたら変わらないウィジェット", "インターネット専用のウィジェット", "文字専用のウィジェット"],
+      "answer": 1,
+      "commentary": "変化しない静的なUI部品を作る際に継承するクラスです。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "StatefulWidget とは何ですか？",
+      "options": ["状態を持ち、ボタン操作などで中身が変化できるウィジェット", "静止画専用のウィジェット", "エラーを表示するウィジェット", "何もしないウィジェット"],
+      "answer": 0,
+      "commentary": "カウンターアプリのように、ユーザーの操作で表示が変わる部品を作る際に使います。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "Textウィジェットで、変数の値を文字列の中に埋め込む記号を補完してください。<pre><code>Text('回数: ___ _counter')</code></pre>",
+      "options": ["#", "&", "$", "@"],
+      "answer": 2,
+      "commentary": "$ を変数の直前に置くことで、文字列の中に値を埋め込めます。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "analysis_options.yaml の rules ブロックの役割は何ですか？",
+      "options": ["アプリの動作ルールを決める", "個別のリンタールールの有効・無効を切り替える", "画面の色を決める", "通信のルールを決める"],
+      "answer": 1,
+      "commentary": "各リンタールールに対して true（有効）や false（無効）を設定します。"
+    },
+    {
+      "id": 35,
+      "type": "文法チェック",
+      "question": "AppBarウィジェットの title プロパティに直接「'タイトル'」と文字列（String）を渡すことはできますか？",
+      "options": ["できる", "できない（Textウィジェットなどで囲む必要がある）", "エラーにはならないが表示されない", "設定を変えればできる"],
+      "answer": 1,
+      "commentary": "title プロパティは Widget 型を期待するため、Text('タイトル') のように記述します。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "リンターの設定項目 omit_local_variable_types: true は何を推奨するものですか？",
+      "options": ["変数の型を必ず書くこと", "（推論可能な場合）ローカル変数の型宣言を省略すること", "変数名を短くすること", "変数をすべて定数にすること"],
+      "answer": 1,
+      "commentary": "var や final を使い、重複する型宣言を省くすっきりとした記述を推奨するルールです。"
+    },
+    {
+      "id": 37,
+      "type": "実行結果予測",
+      "question": "Scaffoldのbodyプロパティに何も指定しなかった場合、画面はどうなりますか？",
+      "options": ["真っ赤になる", "真っ暗になる", "白い（または背景色の）空の領域が表示される", "エラーで開けない"],
+      "answer": 2,
+      "commentary": "bodyを指定しない場合、アプリバー以外のコンテンツエリアは空の状態で表示されます。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "Flutterがマルチプラットフォーム対応である理由として正しいものはどれですか？",
+      "options": ["1つのコード（Dart）からAndroidやiOS向けのコードを生成・動作させられるから", "すべてのスマホを同じ工場で作っているから", "インターネット経由で動くから", "画像だけでできているから"],
+      "answer": 0,
+      "commentary": "android/ や ios/ フォルダが存在し、共通の lib/ コードをそれぞれのOS用にビルドするためです。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "コンストラクタで親クラスにキーを渡すための記述を完成させてください。<pre><code>const MyApp({___});</code></pre>",
+      "options": ["super.key", "this.key", "key: super", "required key"],
+      "answer": 0,
+      "commentary": "Flutterの最新の書き方では super.key を使って簡潔に記述します。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "analysis_options.yaml 内で strong-mode: implicit-casts: false と設定する目的は何ですか？",
+      "options": ["解析を速くするため", "暗黙的な型変換を禁止し、型の安全性を高めるため", "すべてのエラーを無視するため", "画像を圧縮するため"],
+      "answer": 1,
+      "commentary": "型を厳格に扱うことで、予期せぬエラーを未然に防ぐ設定です。"
+    }
+  ]
 }

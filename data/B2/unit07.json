@@ -1,4 +1,340 @@
 {
   "unit_title": "SNS アプリ - テキスト表示",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "Flutter アプリケーションの UI を構築している「部品」のことを何と呼びますか？",
+      "options": ["モジュール", "ウィジェット", "パッケージ", "プラグイン"],
+      "answer": 1,
+      "commentary": "Flutter では、画面上のテキストやボタンなど、UI を構成するすべての要素を「ウィジェット」と呼びます。"
+    },
+    {
+      "id": 2,
+      "type": "用語理解",
+      "question": "ウィジェット同士のつながりにおいて、あるウィジェットの 1 つ下位に位置するウィジェットを何と呼びますか？",
+      "options": ["親ウィジェット", "ルートウィジェット", "子ウィジェット", "ブランチウィジェット"],
+      "answer": 2,
+      "commentary": "Flutter の画面構造はツリー状になっており、下位のものを「子」、上位のものを「親」と呼びます。"
+    },
+    {
+      "id": 3,
+      "type": "用語理解",
+      "question": "日本語で「足場」という意味があり、標準的なアプリ画面の土台となるウィジェットは何ですか？",
+      "options": ["MaterialApp", "Scaffold", "AppBar", "Container"],
+      "answer": 1,
+      "commentary": "Scaffold はアプリ画面の骨組み（足場）を提供し、アプリバーやボディを配置する土台となります。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "Scaffold のプロパティで、画面上部に表示されるアプリバーを設定するものはどれですか？<pre><code>Scaffold(\n  ___: AppBar(\n    title: Text('Title'),\n  ),\n)</code></pre>",
+      "options": ["body", "header", "appBar", "topBar"],
+      "answer": 2,
+      "commentary": "Scaffold の appBar プロパティに AppBar ウィジェットを渡すことで、画面上部にバーを表示できます。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "テキストにスタイルを適用するためのプロパティ名を答えてください。<pre><code>Text(\n  'Hello world!',\n  ___: TextStyle(fontSize: 15),\n)</code></pre>",
+      "options": ["decoration", "style", "font", "theme"],
+      "answer": 1,
+      "commentary": "Text ウィジェットの style プロパティに TextStyle を設定することで、文字の色や大きさを変更できます。"
+    },
+    {
+      "id": 6,
+      "type": "文法チェック",
+      "question": "TextStyle のプロパティで、文字の太さを「太字」に設定する正しい組み合わせはどれですか？",
+      "options": [
+        "fontWeight: FontWeight.bold",
+        "fontSize: 20",
+        "fontStyle: FontStyle.italic",
+        "color: Colors.black"
+      ],
+      "answer": 0,
+      "commentary": "文字の太さは fontWeight プロパティに FontWeight.bold などを指定して設定します。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "ウィジェットを再利用し、パフォーマンスやメモリ効率を向上させるために付けるキーワードは何ですか？",
+      "options": ["final", "static", "const", "required"],
+      "answer": 2,
+      "commentary": "値が変わらないウィジェットに const を付けると、再ビルド時にインスタンスが再利用されるため効率的です。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "デザインを整えるための「箱」の役割をし、余白や装飾を設定できるウィジェットは何ですか？",
+      "options": ["SizedBox", "Container", "Padding", "DecoratedBox"],
+      "answer": 1,
+      "commentary": "Container は子ウィジェットを包み込み、サイズ指定や背景色、枠線などの装飾を施すことができます。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "Container の「外側」にスペースを作りたい場合、どのプロパティを使用しますか？<pre><code>Container(\n  ___: const EdgeInsets.all(12),\n  child: Text('Text'),\n)</code></pre>",
+      "options": ["padding", "margin", "border", "space"],
+      "answer": 1,
+      "commentary": "margin はウィジェットの外側、padding はウィジェットの内側に余白を作ります。"
+    },
+    {
+      "id": 10,
+      "type": "実行結果予測",
+      "question": "Container の幅に <code>double.infinity</code> を設定すると、表示はどうなりますか？",
+      "options": [
+        "幅が 0 になる",
+        "エラーになる",
+        "横幅が画面（親要素）いっぱいに広がる",
+        "無限にスクロールできるようになる"
+      ],
+      "answer": 2,
+      "commentary": "double.infinity は「無限大」を意味し、レイアウト上では最大まで広がる指定として使われます。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "液晶の物理的な細かさに依存せず、共通の見た目の大きさを表す Flutter の数値単位を何と呼びますか？",
+      "options": ["ピクセル", "論理ピクセル", "物理ピクセル", "密度ピクセル"],
+      "answer": 1,
+      "commentary": "Flutter では、どのデバイスでも同じ見た目のサイズになるよう「論理ピクセル」という単位を使います。"
+    },
+    {
+      "id": 12,
+      "type": "文法チェック",
+      "question": "Container の背景色や角の丸みを設定するために使うプロパティは何ですか？",
+      "options": ["style", "theme", "decoration", "boxStyle"],
+      "answer": 2,
+      "commentary": "Container の見た目の装飾は decoration プロパティに BoxDecoration を渡して設定します。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "BoxDecoration を使って Container の角を丸める設定を完成させてください。<pre><code>BoxDecoration(\n  borderRadius: BorderRadius.circular(___),\n)</code></pre>",
+      "options": ["16", "all", "round", "Colors.grey"],
+      "answer": 0,
+      "commentary": "BorderRadius.circular(数値) で、指定した数値の半径分だけ角を丸くできます。"
+    },
+    {
+      "id": 14,
+      "type": "文法チェック",
+      "question": "VS Code で既存のウィジェットを Container などで簡単に包む機能の名前は何ですか？",
+      "options": ["Rename", "Refactor", "Rebuild", "Replace"],
+      "answer": 1,
+      "commentary": "Refactor（リファクタリング）メニューの「Wrap with widget...」を使うと、手動で書き直す手間が省けます。"
+    },
+    {
+      "id": 15,
+      "type": "実行結果予測",
+      "question": "Scaffold の <code>body</code> プロパティに Container を設定し、その中に Text を入れた場合、親ウィジェットはどれですか？",
+      "options": ["Text", "Scaffold", "Container", "MaterialApp"],
+      "answer": 2,
+      "commentary": "Text は Container の child プロパティに入っているため、Text から見た親は Container になります。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "リンターに従えない場合、特定の 1 行だけでルールを無効化するために使う記述はどれですか？",
+      "options": ["// delete", "// skip", "// ignore", "// remove"],
+      "answer": 2,
+      "commentary": "// ignore: ルール名 を記述することで、特定の箇所の解析エラーを無視できます。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "AppBar のタイトルを中央に配置するためのプロパティは何ですか？（Android OS で表示を合わせる際に使用）<pre><code>AppBar(\n  ___: true,\n  title: Text('Title'),\n)</code></pre>",
+      "options": ["alignTitle", "centerTitle", "titleCenter", "middleTitle"],
+      "answer": 1,
+      "commentary": "centerTitle プロパティを true に設定すると、タイトルが中央に寄ります。"
+    },
+    {
+      "id": 18,
+      "type": "文法チェック",
+      "question": "analysis_options.yaml 内で、暗黙的型変換を禁止するための analyzer の設定はどれですか？",
+      "options": ["implicit-casts: false", "linter: true", "rules: strict", "strong-mode: off"],
+      "answer": 0,
+      "commentary": "analyzer ブロックの implicit-casts を false にすると、型変換を明示的に行うよう強制できます。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "ウィジェットツリーにおいて、最も上位（根っこ）に位置するウィジェットを一般的に何と呼びますか？",
+      "options": ["ベースウィジェット", "親ウィジェット", "ルートウィジェット", "メインウィジェット"],
+      "answer": 2,
+      "commentary": "ツリーの出発点となる最上位のウィジェットを「ルートウィジェット」と呼びます。"
+    },
+    {
+      "id": 20,
+      "type": "文法チェック",
+      "question": "Container ウィジェットの中で、中に配置する別のウィジェットを指定するプロパティは何ですか？",
+      "options": ["widget", "sub", "children", "child"],
+      "answer": 3,
+      "commentary": "Container のように子を 1 つだけ持つウィジェットは「child」プロパティを使用します。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "Flutter において、文字のスタイル（大きさ、色、太さなど）を定義するためのクラスは何ですか？",
+      "options": ["FontDecoration", "TextStyle", "TextConfig", "FontStyle"],
+      "answer": 1,
+      "commentary": "Text ウィジェットの style プロパティには TextStyle クラスを渡します。"
+    },
+    {
+      "id": 22,
+      "type": "実行結果予測",
+      "question": "Container の <code>margin: const EdgeInsets.all(12)</code> を設定したとき、余白が作られる方向はどこですか？",
+      "options": ["上だけ", "左右だけ", "下だけ", "上下左右すべて"],
+      "answer": 3,
+      "commentary": "EdgeInsets.all(数値) は、上下左右の 4 方向すべてに同じサイズの余白を設定します。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "Text ウィジェット内で、変数の値を埋め込むための記号は何ですか？<pre><code>int count = 10;\nText('回数は $___ です')</code></pre>",
+      "options": ["name", "value", "count", "data"],
+      "answer": 2,
+      "commentary": "Dart の文字列補間機能により、$変数名 と書くことで文字列内に値を埋め込めます。"
+    },
+    {
+      "id": 24,
+      "type": "文法チェック",
+      "question": "BoxDecoration のプロパティで、枠線の太さや色を指定するために使用するクラスは何ですか？",
+      "options": ["Border", "Border.all", "Outline", "Edge"],
+      "answer": 1,
+      "commentary": "border プロパティに Border.all(color: Colors.grey) のように記述して枠線を作成します。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "Flutter プロジェクトの設定ファイル analysis_options.yaml の主な役割は何ですか？",
+      "options": ["画面のデザインを決める", "コードの書き方ルールの設定を行う", "画像を登録する", "アプリの名前を決める"],
+      "answer": 1,
+      "commentary": "このファイルはリンターの設定を記述し、コードの記述スタイルを統一するために使われます。"
+    },
+    {
+      "id": 26,
+      "type": "実行結果予測",
+      "question": "TextStyle で <code>fontStyle: FontStyle.italic</code> を設定すると、文字はどうなりますか？",
+      "options": ["太くなる", "消える", "斜体になる", "赤くなる"],
+      "answer": 2,
+      "commentary": "FontStyle.italic は文字をイタリック（斜体）にする設定です。"
+    },
+    {
+      "id": 27,
+      "type": "用語理解",
+      "question": "Scaffold のプロパティで、画面の中央部分（メインコンテンツ）を設定するものはどれですか？",
+      "options": ["appBar", "main", "body", "center"],
+      "answer": 2,
+      "commentary": "body プロパティに渡したウィジェットが画面の主要な表示エリアとなります。"
+    },
+    {
+      "id": 28,
+      "type": "文法チェック",
+      "question": "Colors クラスを使って「赤色」を指定する正しいコードはどれですか？",
+      "options": ["Colors.red()", "Colors.red", "color.Red", "Color.red"],
+      "answer": 1,
+      "commentary": "Flutter であらかじめ用意されている色は、Colors.色名 で指定します。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "Container の中に <code>padding: const EdgeInsets.all(14)</code> を設定した場合、余白はどこに作られますか？",
+      "options": ["Container の外側", "Container の内側（枠と子の間）", "Text の文字の間", "画面の端"],
+      "answer": 1,
+      "commentary": "padding はウィジェット自身の境界線からその子要素（child）までの内側の余白です。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "MaterialApp ウィジェットの <code>home</code> プロパティには通常何を設定しますか？<pre><code>MaterialApp(\n  home: const ___(),\n)</code></pre>",
+      "options": ["AppStart", "Scaffold", "MyHomePage", "MyApp"],
+      "answer": 2,
+      "commentary": "MaterialApp の home プロパティには、アプリ起動時に最初に表示される画面のウィジェットを設定します。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "ウィジェットツリーを理解することのメリットとして、適切でないものはどれですか？",
+      "options": ["画面の構成を整理しやすくなる", "コードの設計が効率的になる", "スマホのバッテリー消費が半分になる", "親子の関係が明確になる"],
+      "answer": 2,
+      "commentary": "ツリー構造の理解は開発効率を上げますが、直接的にハードウェアの電力消費を劇的に減らすものではありません。"
+    },
+    {
+      "id": 32,
+      "type": "実行結果予測",
+      "question": "AppBar の <code>backgroundColor</code> を変更した場合、どこが変わりますか？",
+      "options": ["画面全体の背景", "アプリ上部のバーの色", "テキストの色", "アイコンの色"],
+      "answer": 1,
+      "commentary": "AppBar ウィジェット自身の背景色が指定の色に変わります。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "Container ウィジェットで高さを 100 論理ピクセルに指定したい場合のプロパティ名は何ですか？<pre><code>Container(\n  ___: 100,\n)</code></pre>",
+      "options": ["width", "size", "height", "depth"],
+      "answer": 2,
+      "commentary": "高さは height、横幅は width プロパティで指定します。"
+    },
+    {
+      "id": 34,
+      "type": "文法チェック",
+      "question": "analysis_options.yaml の <code>linter</code> ブロックの下にある <code>rules</code> ブロックの役割は何ですか？",
+      "options": [
+        "具体的なリンタールールの有効・無効を設定する",
+        "アプリの実行順序を決める",
+        "外部パッケージをインストールする",
+        "パスワードを管理する"
+      ],
+      "answer": 0,
+      "commentary": "rules セクションで、各コーディング規約（ルール）を適用するかどうかを true/false で指定します。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "Scaffold の <code>floatingActionButton</code> プロパティで設定できるものは何ですか？",
+      "options": ["画面上部のバー", "画面中央のリスト", "画面右下に浮いているようなボタン", "スライドメニュー"],
+      "answer": 2,
+      "commentary": "円形のボタンなどが画面の最前面に浮いているように表示されるボタンの設定です。"
+    },
+    {
+      "id": 36,
+      "type": "コード穴埋め",
+      "question": "ファイル全体でリンターを無効にするための特別なコメント記法を完成させてください。<pre><code>// ignore_____: ルール名</code></pre>",
+      "options": ["_all", "_for_file", "_line", "_module"],
+      "answer": 1,
+      "commentary": "ignore_for_file を使うと、そのファイル内のすべての該当ルール警告を消すことができます。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "Text ウィジェットを表示する際、文字列を囲む正しい記号はどれですか？",
+      "options": ["' ' または \" \"", "( )", "[ ]", "< >"],
+      "answer": 0,
+      "commentary": "Dart の文字列リテラルはシングルクォートまたはダブルクォートで囲みます。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "ウィジェット全体が木のように枝分かれしている構造を何と呼びますか？",
+      "options": ["ウィジェットライン", "ウィジェットツリー", "ウィジェットリスト", "ウィジェットスタック"],
+      "answer": 1,
+      "commentary": "Flutter の UI 構造は階層的であるため「ウィジェットツリー」と呼ばれます。"
+    },
+    {
+      "id": 39,
+      "type": "実行結果予測",
+      "question": "BoxDecoration の <code>color</code> プロパティを設定し、Container の <code>color</code> プロパティも同時に設定した場合はどうなりますか？",
+      "options": ["色が混ざる", "両方表示される", "エラーになる", "片方が無視される"],
+      "answer": 2,
+      "commentary": "Container の color プロパティと decoration プロパティは同時には指定できず、エラーになります（decoration 側の color を使います）。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "Flutter アプリを作成するために最初に実行するターミナルコマンドは何ですか？",
+      "options": ["flutter start", "flutter build", "flutter create", "flutter init"],
+      "answer": 2,
+      "commentary": "flutter create プロジェクト名 を実行することで、新しいプロジェクトフォルダが作成されます。"
+    }
+  ]
 }

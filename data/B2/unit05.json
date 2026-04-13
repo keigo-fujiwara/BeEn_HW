@@ -1,4 +1,330 @@
 {
   "unit_title": "Dart 演習と解説",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "「直前の2つの数字の和」を次の数字とする数列を何と呼びますか？",
+      "options": ["素数数列", "フィボナッチ数列", "等差数列", "バイナリ数列"],
+      "answer": 1,
+      "commentary": "0, 1, 1, 2, 3, 5, 8... と続く、直前の和を次とする数列をフィボナッチ数列と呼びます。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "フィボナッチ数列を計算するコードです。空欄を埋めてください。<pre><code>int a = 0;\nint b = 1;\nfor (int i = 1; i <= 10; i++) {\n  print(a);\n  int sum = a + b;\n  a = ___;\n  b = sum;\n}</code></pre>",
+      "options": ["sum", "b", "a", "0"],
+      "answer": 1,
+      "commentary": "値を更新するため、aに現在のbの値を代入し、bに計算した合計(sum)を代入します。"
+    },
+    {
+      "id": 3,
+      "type": "実行結果予測",
+      "question": "3でも5でも割り切れる数字（例：15）の場合、FizzBuzzプログラムの標準的な出力は何ですか？",
+      "options": ["Fizz", "Buzz", "FizzBuzz", "15"],
+      "answer": 2,
+      "commentary": "両方の条件を満たす場合は「FizzBuzz」を出力するのがルールの基本です。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "「i が 3 で割り切れる」ことを確認する正しい条件式を選んでください。<pre><code>if (i ___ 3 == 0)</code></pre>",
+      "options": ["/", "%", "//", "=="],
+      "answer": 1,
+      "commentary": "「余り」を計算する演算子 % を使い、余りが0であれば割り切れると判断します。"
+    },
+    {
+      "id": 5,
+      "type": "文法チェック",
+      "question": "if文で「かつ（両方の条件を満たす）」を表現する記号は何ですか？",
+      "options": ["||", "!", "++", "&&"],
+      "answer": 3,
+      "commentary": "論理積（かつ）を表現するには && を使用します。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "if文のブロック内で代入を行い、その外でも値を使いたい変数の定義に適したキーワードは何ですか？<pre><code>___ int a;\nif (condition) { a = 10; }</code></pre>",
+      "options": ["const", "final", "var", "dynamic"],
+      "answer": 1,
+      "commentary": "一度だけ代入を許し、実行時に値が決まる変数には final が適しています。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "1とその数以外では割り切れない、2以上の自然数を何と呼びますか？",
+      "options": ["奇数", "偶数", "素数", "合成数"],
+      "answer": 2,
+      "commentary": "約数が1と自分自身のみである数を素数（Prime number）と呼びます。"
+    },
+    {
+      "id": 8,
+      "type": "実行結果予測",
+      "question": "isPrime(10) を実行したときの戻り値は何ですか？",
+      "options": ["true", "false", "10", "null"],
+      "answer": 1,
+      "commentary": "10は2や5で割り切れるため、素数ではありません。よって false が返ります。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "素数判定を効率化するため、ループを「nの平方根」までに制限する条件式を完成させてください。<pre><code>for (int i = 2; ___ <= n; i++)</code></pre>",
+      "options": ["i", "i + i", "i * i", "i / i"],
+      "answer": 2,
+      "commentary": "i * i <= n （i が n の平方根以下）まで調べれば、それ以上の約数チェックは不要です。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "数値を四捨五入して整数にするために使用するメソッドは何ですか？",
+      "options": ["floor()", "ceil()", "round()", "toInt()"],
+      "answer": 2,
+      "commentary": "数値.round() を使うことで、最も近い整数に四捨五入されます。"
+    },
+    {
+      "id": 11,
+      "type": "文法チェック",
+      "question": "Map の中身を1つずつ取り出して処理するメソッドは何ですか？",
+      "options": ["loop", "forEach", "addAll", "list"],
+      "answer": 1,
+      "commentary": "Map型.forEach((key, value) { ... }) で全要素を処理できます。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "次のコードで、q が null の場合、関数の戻り値は何になりますか？<pre><code>int calcItemPrice(int price, int? q) {\n  if (q != null) {\n    return (price * 1.1 * q).round();\n  } else {\n    return 0;\n  }\n}</code></pre>",
+      "options": ["price", "1.1", "0", "エラー"],
+      "answer": 2,
+      "commentary": "if文の条件分岐により、q が null のときは else ブロックの 0 が返ります。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "Map型の `shoppingListMap` から商品名 `item` で条件分岐させる構文を完成させてください。<pre><code>___ (item) {\n  case 'パン':\n    ...\n}</code></pre>",
+      "options": ["if", "for", "switch", "while"],
+      "answer": 2,
+      "commentary": "特定の値に応じた複数の条件分岐には switch 文が適しています。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "Bookクラスを継承してMangaクラスを作る際、Bookクラスを何と呼びますか？",
+      "options": ["子クラス", "親クラス", "サブクラス", "インスタンス"],
+      "answer": 1,
+      "commentary": "継承元となるクラスを親クラス（スーパークラス）と呼びます。"
+    },
+    {
+      "id": 15,
+      "type": "文法チェック",
+      "question": "親クラスのメソッドを子クラスで書き直す（上書きする）ことを何と呼びますか？",
+      "options": ["オーバーライド", "継承", "初期化", "インポート"],
+      "answer": 0,
+      "commentary": "メソッドの中身を子クラス向けに定義し直すことをオーバーライドと呼びます。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "子クラス Manga のコンストラクタで、親クラスのプロパティ（titleなど）に値を渡すキーワードは何ですか？<pre><code>Manga(this.volume, ___ .title, ___ .author);</code></pre>",
+      "options": ["this", "parent", "super", "self"],
+      "answer": 2,
+      "commentary": "親クラスのプロパティやメソッドを参照・初期化するには super キーワードを使います。"
+    },
+    {
+      "id": 17,
+      "type": "実行結果予測",
+      "question": "volume が 100 のとき `volume++;` を実行すると、volume の値はどうなりますか？",
+      "options": ["100", "101", "102", "200"],
+      "answer": 1,
+      "commentary": "++ 演算子（インクリメント）は値を1増加させます。"
+    },
+    {
+      "id": 18,
+      "type": "文法チェック",
+      "question": "アロー関数を使ってメソッドを定義する正しい書き方はどれですか？",
+      "options": [
+        "void describe() => print('A');",
+        "void describe() -> print('A');",
+        "void describe() = print('A');",
+        "void describe() : print('A');"
+      ],
+      "answer": 0,
+      "commentary": "処理が1行の場合は => 記号を使って簡潔に記述できます。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "クラス Book が持つ「title」や「author」などの値のことを何と呼びますか？",
+      "options": ["メソッド", "引数", "プロパティ", "戻り値"],
+      "answer": 2,
+      "commentary": "クラスが管理する変数（値）のことをプロパティと呼びます。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "次の Map に対し `print(map['牛乳'])` を実行すると何が表示されますか？<pre><code>final map = {'パン': 3, '牛乳': null};</code></pre>",
+      "options": ["3", "0", "null", "エラー"],
+      "answer": 2,
+      "commentary": "Map で定義された値が null の場合、そのキーを指定すると null が返ります。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "FizzBuzzプログラムで、3でも5でも割り切れない「その他の場合」の処理を書くキーワードは何ですか？",
+      "options": ["else if", "else", "switch", "case"],
+      "answer": 1,
+      "commentary": "すべての if, else if 条件に当てはまらない場合の処理は else ブロックに書きます。"
+    },
+    {
+      "id": 22,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したときの表示はどうなりますか？<pre><code>final nums = [6, 4];\nif (nums[0] > nums[1]) {\n  print('A');\n} else {\n  print('B');\n}</code></pre>",
+      "options": ["A", "B", "6", "4"],
+      "answer": 0,
+      "commentary": "6 は 4 より大きいため、最初の if ブロックが実行され 'A' が表示されます。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "Dartでオーバーライドを示すためにメソッドの上に付けるアノテーションは何ですか？",
+      "options": ["@Inherit", "@Overwrite", "@override", "@Super"],
+      "answer": 2,
+      "commentary": "意図的な上書きであることを示すため @override を記述します。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "関数の定義で `bool isPrime(int n)` と書いた場合、この `bool` は何を指していますか？",
+      "options": ["引数の型", "戻り値の型", "関数の名前", "変数の名前"],
+      "answer": 1,
+      "commentary": "関数名の前にある型は、その関数が最終的にどのようなデータを返すか（戻り値）を指定します。"
+    },
+    {
+      "id": 25,
+      "type": "実行結果予測",
+      "question": "List型 `[0, 1]` に対して `add(0+1)` を実行すると、リストの中身はどうなりますか？",
+      "options": ["[0, 1]", "[0, 1, 1]", "[1, 1]", "[0, 1, 0]"],
+      "answer": 1,
+      "commentary": "add メソッドはリストの末尾に新しい要素を追加します。0+1=1 が加わります。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "Map の要素を取り出す forEach の引数部分を完成させてください。<pre><code>shoppingListMap.forEach((___, ___) { ... });</code></pre>",
+      "options": ["item, price", "key, value", "i, n", "list, map"],
+      "answer": 1,
+      "commentary": "Map は「キー」と「値」のペアなので、引数にも2つの変数を指定します。"
+    },
+    {
+      "id": 27,
+      "type": "用語理解",
+      "question": "問5の `const tax = 0.1;` で使われている `const` の意味として正しいものはどれですか？",
+      "options": ["いつでも書き換えられる", "プログラム実行中に一度だけ決まる", "コンパイル時に決まる不変の定数", "nullを許容する"],
+      "answer": 2,
+      "commentary": "const は絶対に変わらない「定数」を定義するときに使います。"
+    },
+    {
+      "id": 28,
+      "type": "文法チェック",
+      "question": "switch 文の各ケースを区切る際に使用する記号は何ですか？",
+      "options": [";", ":", ",", "."],
+      "answer": 1,
+      "commentary": "case '値' : のようにコロンを使用します。"
+    },
+    {
+      "id": 29,
+      "type": "用語理解",
+      "question": "クラスから作られた「 demimanga 」のような具体的なデータ変数を何と呼びますか？",
+      "options": ["クラス", "プロパティ", "インスタンス", "メソッド"],
+      "answer": 2,
+      "commentary": "設計図（クラス）から実体化したものをインスタンスと呼びます。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "問6の Manga クラスで、親の describe() を呼び出さずに自分だけの情報を出力したい場合の定義はどうなりますか？<pre><code>@override\nvoid describe() ___ print('...');</code></pre>",
+      "options": ["->", "=>", "=", ":"],
+      "answer": 1,
+      "commentary": "処理が1行のメソッド定義にはアロー記号 => を使います。"
+    },
+    {
+      "id": 31,
+      "type": "実行結果予測",
+      "question": "1 から 100 までのループで `if (i % 3 == 0 && i % 5 == 0)` が最初に true になる i はいくつですか？",
+      "options": ["3", "5", "15", "30"],
+      "answer": 2,
+      "commentary": "3と5の最小公倍数である15のときに、最初のFizzBuzzが出力されます。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "問4の `isPrime` 関数の引数にある `int n` の `int` は何を表していますか？",
+      "options": ["戻り値が整数であること", "引数として整数を受け取ること", "関数が計算用であること", "変数が定数であること"],
+      "answer": 1,
+      "commentary": "カッコ内の型指定は、その関数を呼び出す際に渡すべきデータの種類（引数の型）を指定します。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "Dartでリストの n 番目の要素を取得する正しい書き方はどれですか？",
+      "options": ["list(n)", "list{n}", "list[n]", "list.n"],
+      "answer": 2,
+      "commentary": "リストの要素へのアクセスには角かっこ [] を使用します。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "問5の関数で `calcItemPrice(100, 2)` （税率10%）を呼んだ結果はどうなりますか？",
+      "options": ["100", "200", "220", "110"],
+      "answer": 2,
+      "commentary": "100円 * 1.1(税込) * 2個 = 220円となります。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "クラス Manga で `super.title` を使って親クラスのコンストラクタに値を渡していますが、これは何の機能ですか？",
+      "options": ["カプセル化", "継承", "ポリモーフィズム", "初期化リスト"],
+      "answer": 1,
+      "commentary": "extends キーワードによる継承を利用し、親クラスのプロパティを初期化しています。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "switch 文で、どのケースにも一致しない場合の「デフォルト」の処理を書く場所を何と呼びますか？（※今回は使用していませんが一般的な知識として）",
+      "options": ["else", "fallback", "default", "other"],
+      "answer": 2,
+      "commentary": "case 以外の場合は default: ブロックに記述します。"
+    },
+    {
+      "id": 37,
+      "type": "実行結果予測",
+      "question": "次のコードの出力結果はどうなりますか？<pre><code>int x = 5;\nint y = 2;\nprint(x % y);</code></pre>",
+      "options": ["2.5", "2", "1", "0"],
+      "answer": 2,
+      "commentary": "5割る2は、2余り1。%は余りを出力するので 1 となります。"
+    },
+    {
+      "id": 38,
+      "type": "コード穴埋め",
+      "question": "フィボナッチ数列の解答例2で、リストの最後に計算結果を追加するメソッドは何ですか？<pre><code>fibonacci.___(fibonacci[i-1]+fibonacci[i]);</code></pre>",
+      "options": ["push", "insert", "add", "append"],
+      "answer": 2,
+      "commentary": "Dart の List クラスには add メソッドを使用して要素を追加します。"
+    },
+    {
+      "id": 39,
+      "type": "文法チェック",
+      "question": "`if (n < 2) { return false; }` という記述が素数判定の最初にある理由は何ですか？",
+      "options": ["2が素数ではないから", "1は素数に含まれないという定義があるから", "計算を遅くするため", "偶数を省くため"],
+      "answer": 1,
+      "commentary": "数学の定義上、1は素数に含まれないため、2未満の数はすべて false と判定します。"
+    },
+    {
+      "id": 40,
+      "type": "実行結果予測",
+      "question": "問6のプログラムで、`publishLatest()` を1回実行した後の `volume` はいくつになりますか？（初期値100）",
+      "options": ["100", "101", "102", "1"],
+      "answer": 1,
+      "commentary": "メソッド内で `volume++` が実行されるため、100から101に増加します。"
+    }
+  ]
 }

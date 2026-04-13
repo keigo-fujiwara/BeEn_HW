@@ -1,4 +1,335 @@
 {
-  "unit_title": "SNS アプリ - リスト表示",
-  "questions": []
+  "unit_title": "SNS アプリ - リスト表示",
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "アプリで扱うデータの構造（ユーザー名や投稿内容など）を定義したクラスのことを何と呼びますか？",
+      "options": ["ウィジェット", "プロバイダー", "モデル", "コントローラー"],
+      "answer": 2,
+      "commentary": "Postクラスのように、データの保持や構造を定義するクラスを「モデル」と呼びます。"
+    },
+    {
+      "id": 2,
+      "type": "文法チェック",
+      "question": "モデルのプロパティを「値が入らない（nullになる）可能性がある」型にするための記号はどれですか？",
+      "options": ["!", "@", "?", "#"],
+      "answer": 2,
+      "commentary": "String? のように型の後ろに「?」をつけることで、nullを許容する型（Nullable型）になります。"
+    },
+    {
+      "id": 3,
+      "type": "用語理解",
+      "question": "作成した「PostCard」のように、既存のウィジェットを組み合わせて新しく定義した独自のUI部品を何と呼びますか？",
+      "options": ["カスタムウィジェット", "ネイティブウィジェット", "ルートウィジェット", "システムウィジェット"],
+      "answer": 0,
+      "commentary": "StatelessWidgetなどを継承して独自に作成したウィジェットをカスタムウィジェットと呼びます。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "PostCardウィジェット内で、渡されたモデルデータの「ユーザー名」を表示するためのコードを完成させてください。<pre><code>Text(post.___),</code></pre>",
+      "options": ["name", "username", "user", "title"],
+      "answer": 1,
+      "commentary": "Postモデルで定義したプロパティ名「username」を指定してデータにアクセスします。"
+    },
+    {
+      "id": 5,
+      "type": "文法チェック",
+      "question": "Nullable型の変数の後ろに「!」をつける操作（例：post.icon!）は何を意味しますか？",
+      "options": ["値がnullであることを期待する", "値をnullにリセットする", "値が絶対にnullではないことを保証する", "エラーを無視する"],
+      "answer": 2,
+      "commentary": "「!」はNull assertion operatorと呼ばれ、開発者がその値がnullでないことを確約する際に使用します。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "「値がnullの場合に代入するデフォルト値」を指定できるNull合体演算子は何ですか？<pre><code>Image.asset(post.icon ___ 'images/default.png')</code></pre>",
+      "options": ["!!", "??", "?:", "?!"],
+      "answer": 1,
+      "commentary": "「??」演算子（Null合体演算子）を使うと、左辺がnullのときに右辺の値を返します。"
+    },
+    {
+      "id": 7,
+      "type": "実行結果予測",
+      "question": "<code>children: [ if (true) Text('A'), ]</code> というコードを実行したとき、リストの中身はどうなりますか？",
+      "options": ["Text('A')が含まれる", "何も含まれない", "エラーになる", "if文自体が文字として表示される"],
+      "answer": 0,
+      "commentary": "Flutterのリスト（[]）内では、直接if文を使ってウィジェットの表示・非表示を切り替えることができます。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "リストの中身を展開して、複数のウィジェットをまとめて追加するために使う「...」という記号を何と呼びますか？",
+      "options": ["ドット演算子", "スプレッド演算子", "レスト演算子", "アロー演算子"],
+      "answer": 1,
+      "commentary": "スプレッド演算子を使うと、リストの中に別のリストの要素を展開して並べることができます。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "スプレッド演算子を使って条件付きで複数のウィジェットを表示する正しい書き方はどれですか？<pre><code>Column(\n  children: [\n    if (photo != null) ___ [\n      SizedBox(height: 12),\n      Image.asset(photo),\n    ],\n  ],\n)</code></pre>",
+      "options": [".", "..", "...", "!!!!"],
+      "answer": 2,
+      "commentary": "if文の後に「...[ウィジェット1, ウィジェット2]」と記述して展開します。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "表示するウィジェットが多くなっても、自動的にスクロール可能にするウィジェットは何ですか？",
+      "options": ["Column", "Row", "ListView", "Container"],
+      "answer": 2,
+      "commentary": "ListViewはスクロール可能なリストを作成するための標準的なウィジェットです。"
+    },
+    {
+      "id": 11,
+      "type": "実行結果予測",
+      "question": "Columnウィジェットの中に、画面の高さを超える数のウィジェットを並べるとどうなりますか？",
+      "options": ["自動でスクロールできるようになる", "画面外の部分が切り取られるだけ", "オーバーフロー（はみ出し）のエラーが表示される", "自動的にサイズが縮小される"],
+      "answer": 2,
+      "commentary": "Columnはスクロール機能を持たないため、画面サイズを超えると警告エラーが発生します。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "ListView.builderにおいて、表示するリストの総数を指定するプロパティは何ですか？",
+      "options": ["count", "total", "itemCount", "length"],
+      "answer": 2,
+      "commentary": "itemCountプロパティに、リストに表示したい要素の個数を渡します。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "ListView.builderで、各要素（行）のウィジェットを生成するための関数を指定するプロパティは何ですか？<pre><code>ListView.builder(\n  itemCount: 10,\n  ___: (context, index) { return Text('Item $index'); },\n)</code></pre>",
+      "options": ["itemGenerator", "itemBuilder", "buildItem", "viewBuilder"],
+      "answer": 1,
+      "commentary": "itemBuilderは、指定された個数分繰り返し実行され、各インデックスに対応するウィジェットを返します。"
+    },
+    {
+      "id": 14,
+      "type": "実行結果予測",
+      "question": "ListView.builderのitemBuilderに渡される「index」引数は、最初の要素のときにいくつから始まりますか？",
+      "options": ["-1", "0", "1", "ランダム"],
+      "answer": 1,
+      "commentary": "プログラムの配列やインデックスの多くと同様に、0から始まります。"
+    },
+    {
+      "id": 15,
+      "type": "文法チェック",
+      "question": "ListView.builderを使うメリットとして、正しいものはどれですか？",
+      "options": [
+        "すべてのウィジェットを一度に作るため速い",
+        "画面に表示される必要な分だけウィジェットを生成するため、メモリ効率が良い",
+        "画像が表示できなくなるのを防ぐ",
+        "インターネット接続を自動で行う"
+      ],
+      "answer": 1,
+      "commentary": "大量のデータがある場合、必要な分だけ作成する「遅延生成」により高いパフォーマンスを発揮します。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "要素の間に仕切り線（セパレーター）を入れたい場合に使用するListViewのコンストラクタは何ですか？",
+      "options": ["ListView.builder()", "ListView.separated()", "ListView.custom()", "ListView.divider()"],
+      "answer": 1,
+      "commentary": "separatedを使うと、要素間にDividerなどの区切り用ウィジェットを簡単に挿入できます。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "ListView.builderで、リスト「postList」の全要素を表示する場合、itemCountにはどう記述しますか？<pre><code>itemCount: ___</code></pre>",
+      "options": ["postList", "postList.all", "postList.length", "postList.size"],
+      "answer": 2,
+      "commentary": "リストの要素数を取得する .length プロパティを使用します。"
+    },
+    {
+      "id": 18,
+      "type": "実行結果予測",
+      "question": "<code>List&lt;Post&gt; list = []</code> と宣言されたリストに、数値を入れようとするとどうなりますか？",
+      "options": ["自動的に文字列に変換される", "エラー（型不一致）になる", "リストの末尾に追加される", "Noneという値になる"],
+      "answer": 1,
+      "commentary": "ジェネリクス（<Post>）により、そのリストにはPostクラスのインスタンスしか入れられなくなります。"
+    },
+    {
+      "id": 19,
+      "type": "文法チェック",
+      "question": "PostCardクラスの定義で「required this.post」とある場合、このウィジェットを使うときに必須となる操作は何ですか？",
+      "options": ["postという名前の変数を渡す", "背景を赤にする", "画像を必ず入れる", "Textウィジェットで囲む"],
+      "answer": 0,
+      "commentary": "requiredがついた引数は、コンストラクタ呼び出し時に必ず値を指定しなければなりません。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "複数のDartファイルを読み込むために、ファイルの先頭で使うキーワードは何ですか？",
+      "options": ["include", "require", "import", "using"],
+      "answer": 2,
+      "commentary": "models/post.dart などの別ファイルを読み込むには import 文を使用します。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "if文とelse文を使ってアイコン表示を切り替える際の正しい構文を選んでください。<pre><code>children: [\n  if (post.icon != null) ___ else ___,\n]</code></pre>",
+      "options": [
+        "WidgetA, WidgetB",
+        "WidgetA : WidgetB",
+        "{ WidgetA }, { WidgetB }",
+        "[ WidgetA ], [ WidgetB ]"
+      ],
+      "answer": 0,
+      "commentary": "リストの中のif-else文では、中括弧を使わずにそのままウィジェットを記述します。"
+    },
+    {
+      "id": 22,
+      "type": "実行結果予測",
+      "question": "<code>post.icon ?? 'default.png'</code> というコードで、post.iconに 'my_icon.png' が入っているときの結果は何ですか？",
+      "options": ["'default.png'", "'my_icon.png'", "null", "両方つながる"],
+      "answer": 1,
+      "commentary": "左辺がnullでない場合は、そのまま左辺の値が採用されます。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "モデルクラス Post のコンストラクタで、プロパティに値を代入する際の正しい書き方はどれですか？",
+      "options": ["this.username", "self.username", "super.username", "my.username"],
+      "answer": 0,
+      "commentary": "クラス自身のプロパティを指すには「this」キーワードを使用します。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "データの型（Stringやintなど）を厳格に扱い、Nullによるエラーを未然に防ぐFlutterの仕組みを何と呼びますか？",
+      "options": ["Null Point", "Null Safety", "Anti Null", "Safe Coding"],
+      "answer": 1,
+      "commentary": "Null Safetyにより、実行時の致命的なクラッシュを防ぐことができます。"
+    },
+    {
+      "id": 25,
+      "type": "実行結果予測",
+      "question": "itemCountを「5」に設定したListView.builderで、itemBuilderのindexが「4」のときは何番目の要素を指していますか？",
+      "options": ["4番目", "5番目", "1番目", "最後から2番目"],
+      "answer": 1,
+      "commentary": "インデックスは0から始まるため、0, 1, 2, 3, 4の「4」は5番目の要素です。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "PostCardをStatelessWidgetとして定義する際の正しい継承の書き方はどれですか？<pre><code>class PostCard ___ StatelessWidget { ... }</code></pre>",
+      "options": ["extends", "implements", "with", "is"],
+      "answer": 0,
+      "commentary": "既存のクラスを継承して新しいウィジェットを作る際は extends を使います。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "スプレッド演算子「...」を使わずにリストの中に別のリスト <code>[Text('A')]</code> を入れるとどうなりますか？",
+      "options": ["自動で展開される", "エラー（型の不一致）になる", "文字として[ ]が表示される", "何も起きない"],
+      "answer": 1,
+      "commentary": "List<Widget>の中に「List<Widget>」を直接入れると、Widgetを期待している場所にListが入るためエラーになります。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "Containerのdecorationプロパティに設定し、枠線や角の丸みを指定するウィジェットは何ですか？",
+      "options": ["BoxStyle", "BoxDecoration", "ContainerStyle", "ViewDecoration"],
+      "answer": 1,
+      "commentary": "BoxDecorationを使用してContainerの見た目を細かく装飾します。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "<code>List&lt;Post&gt; posts = [p1, p2];</code> に対して <code>posts[2]</code> にアクセスしようとするとどうなりますか？",
+      "options": ["nullが返る", "p2が返る", "エラー（範囲外）になる", "空のPostが作られる"],
+      "answer": 2,
+      "commentary": "要素数が2の場合、インデックスは0と1のみ有効です。範囲外アクセスはエラーになります。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "投稿画像がない場合に「何も表示しない」条件分岐を完成させてください。<pre><code>if (post.photo ___ null) ...[ ...画像ウィジェット... ]</code></pre>",
+      "options": ["==", "!=", "??", "!"],
+      "answer": 1,
+      "commentary": "「nullではない（!= null）」という条件のときにのみウィジェットを表示するようにします。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "ListView.builderのitemBuilder内で、ウィジェットを画面に描画するために最後に行う命令は何ですか？",
+      "options": ["show", "print", "return", "display"],
+      "answer": 2,
+      "commentary": "itemBuilder関数は、描画したいウィジェットを return する必要があります。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "models/post.dartというファイルを作成した際、フォルダ構造を表すパスの区切り文字は何ですか？",
+      "options": [".", ",", "/", "\\"],
+      "answer": 2,
+      "commentary": "一般的なコンピュータのパス指定と同様に、スラッシュ「/」を使用します。"
+    },
+    {
+      "id": 33,
+      "type": "実行結果予測",
+      "question": "<code>final String? photo;</code> と定義されたプロパティをコンストラクタで初期化しなかった場合、初期値は何になりますか？",
+      "options": ["'' (空文字)", "0", "null", "エラー"],
+      "answer": 2,
+      "commentary": "Nullableな型に値を代入しない場合、初期値は自動的に null になります。"
+    },
+    {
+      "id": 34,
+      "type": "コード穴埋め",
+      "question": "Textウィジェットで、変数の値を文字列の中に直接埋め込むための記号は何ですか？<pre><code>Text('こんにちは $___ さん')</code></pre>",
+      "options": ["post.name", "post.username", "post.content", "post.date"],
+      "answer": 1,
+      "commentary": "文字列補間を使い、$変数名 でプロパティの値を表示します。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "ListViewにおいて、画面に見えている範囲の要素だけをメモリ上に保持し、効率化を図る仕組みの一般的な名称は？",
+      "options": ["リサイクル", "遅延読み込み（Lazy Load）", "オートキャッシュ", "フルビルド"],
+      "answer": 1,
+      "commentary": "必要なタイミングで生成・破棄を行うこの仕組みは遅延読み込みや遅延生成と呼ばれます。"
+    },
+    {
+      "id": 36,
+      "type": "文法チェック",
+      "question": "ClipRRectウィジェットを使って画像を丸める際、中に入れるウィジェットを指定するプロパティは何ですか？",
+      "options": ["body", "children", "child", "content"],
+      "answer": 2,
+      "commentary": "ClipRRectは単一の子ウィジェットを切り抜くため、「child」プロパティを使います。"
+    },
+    {
+      "id": 37,
+      "type": "実行結果予測",
+      "question": "MainAxisAlignment.spaceBetween を設定した Row で、子要素が 1 つしかない場合、その要素はどこに配置されますか？",
+      "options": ["左端", "中央", "右端", "均等に広がる"],
+      "answer": 0,
+      "commentary": "spaceBetweenは要素間の隙間を広げるものなので、1つしかない場合は始まりの位置（左端）に置かれます。"
+    },
+    {
+      "id": 38,
+      "type": "コード穴埋め",
+      "question": "TextStyleで文字の色を「Colors.black54」に設定した際、「54」は何を意味していますか？",
+      "options": ["色の明るさ", "色の濃さ（不透明度）", "フォントサイズ", "青みの強さ"],
+      "answer": 1,
+      "commentary": "FlutterのColorsでは、数字が大きいほど不透明度が高くなります（54は約54%の不透明度）。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "ListView.builderの「builder」という言葉が示唆している動作は何ですか？",
+      "options": ["自動保存", "組み立てる（生成する）", "削除する", "インターネット通信"],
+      "answer": 1,
+      "commentary": "builderは「構築者」という意味で、必要に応じてUIを組み立てる機能を指します。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "アプリ全体を管理し、テーマやタイトルを設定する、最も外側のウィジェットは何ですか？",
+      "options": ["Scaffold", "MaterialApp", "Container", "PostCard"],
+      "answer": 1,
+      "commentary": "MaterialAppはマテリアルデザインアプリのルートとなる、全体設定を行うためのウィジェットです。"
+    }
+  ]
 }

@@ -1,4 +1,325 @@
 {
-  "unit_title": "SNS アプリ - 画像表示",
-  "questions": []
+  "unit_title": "SNS アプリ - 画像表示",
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "アプリ内に保存した画像（アセット画像）を表示するために使用するコンストラクタは何ですか？",
+      "options": ["Image.network()", "Image.file()", "Image.asset()", "Image.memory()"],
+      "answer": 2,
+      "commentary": "アプリ内のプロジェクトフォルダに保存した画像を表示するには Image.asset() を使用します。"
+    },
+    {
+      "id": 2,
+      "type": "文法チェック",
+      "question": "画像をアプリで使用するために、パスを登録する必要がある設定ファイルはどれですか？",
+      "options": ["main.dart", "pubspec.yaml", "analysis_options.yaml", "AndroidManifest.xml"],
+      "answer": 1,
+      "commentary": "Flutterで画像などのアセットを使用するには、pubspec.yaml の assets セクションにパスを記述する必要があります。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "pubspec.yaml で画像を登録する際の正しい記述を選んでください。<pre><code>flutter:\n  uses-material-design: true\n  ___:\n    - images/post/</code></pre>",
+      "options": ["images", "assets", "files", "paths"],
+      "answer": 1,
+      "commentary": "flutterブロックの下に assets キーを指定して、画像フォルダやファイルのパスをリスト形式で記述します。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "画像の「縦横比を保ちながら」、指定した領域全体を隙間なく覆う（はみ出た部分は切り取る）BoxFitの値はどれですか？",
+      "options": ["BoxFit.contain", "BoxFit.fill", "BoxFit.cover", "BoxFit.fitWidth"],
+      "answer": 2,
+      "commentary": "BoxFit.cover は領域を完全に埋めるように画像を拡大縮小し、入り切らない部分はトリミングされます。"
+    },
+    {
+      "id": 5,
+      "type": "用語理解",
+      "question": "画像の「縦横比を保ちながら」、画像全体が領域内に収まるように表示するBoxFitの値はどれですか？",
+      "options": ["BoxFit.cover", "BoxFit.contain", "BoxFit.fill", "BoxFit.none"],
+      "answer": 1,
+      "commentary": "BoxFit.contain は画像全体が表示されることを優先し、余白ができる場合があります。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "インターネット上のURLを指定して画像を表示する場合の書き方を完成させてください。<pre><code>Image.___('https://example.com/image.png')</code></pre>",
+      "options": ["asset", "url", "network", "web"],
+      "answer": 2,
+      "commentary": "Web上の画像を表示するには Image.network() を使用します。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "ウィジェットの「角を丸める」ために使用される、特定方向への切り抜きを行うウィジェットは何ですか？",
+      "options": ["Container", "ClipRRect", "BoxDecoration", "SizedBox"],
+      "answer": 1,
+      "commentary": "ClipRRect（クリップアールレクト）は、子ウィジェットの角を丸く切り抜くために使われます。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "ClipRRectで角の丸みを指定するためのプロパティ名は何ですか？<pre><code>ClipRRect(\n  ___: BorderRadius.circular(14),\n  child: Image.asset(...),\n)</code></pre>",
+      "options": ["border", "round", "borderRadius", "shape"],
+      "answer": 2,
+      "commentary": "borderRadius プロパティに BorderRadius.circular(数値) を指定することで丸みを設定します。"
+    },
+    {
+      "id": 9,
+      "type": "実行結果予測",
+      "question": "Image.asset に <code>width: 36</code> を設定し、親の ClipRRect に <code>BorderRadius.circular(18)</code> を設定すると、画像はどう見えますか？",
+      "options": ["四角いまま", "正円（丸いアイコン）に見える", "三角形に見える", "表示されなくなる"],
+      "answer": 1,
+      "commentary": "幅36の正方形画像に対して、その半分の18の半径で角を丸めると完全な円形になります。"
+    },
+    {
+      "id": 10,
+      "type": "文法チェック",
+      "question": "pubspec.yaml で <code>- images/user/</code> と記述した場合、どのような意味になりますか？",
+      "options": ["user.png というファイルのみ読み込む", "user フォルダ内のすべてのファイルをアセットとして取り込む", "フォルダを削除する", "インターネットから画像をダウンロードする"],
+      "answer": 1,
+      "commentary": "パスの末尾をスラッシュで終わらせることで、そのフォルダ内の全ファイルを一括で登録できます。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "SNSアプリの投稿画像のように、横幅いっぱいに画像を表示したい場合に便利な指定はどれですか？",
+      "options": ["width: 100", "width: double.infinity", "width: 0", "width: null"],
+      "answer": 1,
+      "commentary": "double.infinity を指定すると、親要素の許容する最大幅までウィジェットが広がります。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "Row の children に「画像」「名前」「投稿時間」の3つを直接入れ、MainAxisAlignment.spaceBetween を設定するとどうなりますか？",
+      "options": ["画像と名前がくっついて、時間が右端にいく", "3つが均等に離れて配置される", "すべて左に寄る", "エラーになる"],
+      "answer": 1,
+      "commentary": "spaceBetween は直接の子要素すべてを均等に離すため、画像と名前の間にも大きな隙間が空いてしまいます。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "画像とテキストの間に「10論理ピクセル」の横方向の隙間を作りたい場合、どのウィジェットを使いますか？<pre><code>Row(\n  children: [\n    Image.asset(...),\n    const ___(width: 10),\n    Text(...),\n  ],\n)</code></pre>",
+      "options": ["Padding", "Container", "SizedBox", "Spacer"],
+      "answer": 2,
+      "commentary": "SizedBox の width プロパティを使うことで、ウィジェット間に一定の余白を挿入できます。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "BoxFit.fill を画像に適用した際の特徴はどれですか？",
+      "options": ["縦横比を保つ", "画像の一部が切れる", "縦横比を無視して領域いっぱいに引き伸ばされる", "元のサイズのまま表示される"],
+      "answer": 2,
+      "commentary": "BoxFit.fill は指定された領域に合わせて画像を無理やり伸ばすため、画像が歪むことがあります。"
+    },
+    {
+      "id": 15,
+      "type": "実行結果予測",
+      "question": "ClipRRect を使わずに Image.asset を表示した場合、画像の角はどうなりますか？",
+      "options": ["自動で少し丸くなる", "完全な円になる", "角が尖った四角形になる", "透明になる"],
+      "answer": 2,
+      "commentary": "Imageウィジェット自体には角を丸める機能はないため、デフォルトでは直角の四角形で表示されます。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "pubspec.yaml の階層について正しい説明はどれですか？",
+      "options": ["libフォルダの中にある", "プロジェクトのルート（一番上）にある", "buildフォルダの中にある", "flutterが自動で隠している"],
+      "answer": 1,
+      "commentary": "pubspec.yaml はプロジェクト全体の設定ファイルなので、プロジェクトの一番上の階層に置かれます。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "画像を親ウィジェットの「横幅」にぴったり合わせる BoxFit の値は何ですか？",
+      "options": ["BoxFit.fitHeight", "BoxFit.fitWidth", "BoxFit.scaleDown", "BoxFit.none"],
+      "answer": 1,
+      "commentary": "BoxFit.fitWidth は画像の縦横比を維持しつつ、横幅が領域に合うように調整します。"
+    },
+    {
+      "id": 18,
+      "type": "文法チェック",
+      "question": "Image.asset に渡すパス（'images/post/post_1.png'）について正しいものはどれですか？",
+      "options": ["必ず大文字で書く", "シングルクォーテーション等で囲った文字列にする", "数値で指定する", "括弧を使わずに書く"],
+      "answer": 1,
+      "commentary": "パスは文字列データとして引数に渡す必要があります。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "教科書で「美香」という名前の横に画像を並べるために使った、横並びのウィジェットは何ですか？",
+      "options": ["Column", "Stack", "Row", "Wrap"],
+      "answer": 2,
+      "commentary": "要素を水平（横）に並べるには Row ウィジェットを使用します。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "ClipRRect の名前の由来である「RRect」は何の略ですか？",
+      "options": ["Red Rect", "Right Rect", "Rounded Rectangle", "Real Rect"],
+      "answer": 2,
+      "commentary": "Rounded Rectangle（角の丸い長方形）で切り抜く（Clip）ことを意味しています。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "Scaffold の本体部分にコンテンツを配置するためのプロパティ名は何ですか？<pre><code>Scaffold(\n  ___: Container(...),\n)</code></pre>",
+      "options": ["child", "home", "body", "main"],
+      "answer": 2,
+      "commentary": "Scaffold のメインコンテンツ領域を指定するのは body プロパティです。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "画像のファイル形式として教科書で使用されている拡張子は何ですか？",
+      "options": [".jpg", ".gif", ".png", ".svg"],
+      "answer": 2,
+      "commentary": "教科書の例では post_1.png や user_1.png など、PNG形式の画像が使われています。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "Flutterにおいてウィジェット同士に隙間を作る際、透明な箱としてよく使われるのはどれですか？",
+      "options": ["Container", "SizedBox", "Padding", "Space"],
+      "answer": 1,
+      "commentary": "特定の幅や高さの空白を作りたいときは SizedBox が最もシンプルです。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "Container の内側に余白を設定するプロパティは何ですか？",
+      "options": ["margin", "padding", "alignment", "spacing"],
+      "answer": 1,
+      "commentary": "Containerの内側の余白（枠から子までの距離）は padding で指定します。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "BoxFit.cover を設定したとき、画像の一部が見えなくなる（切れる）可能性がある理由はどれですか？",
+      "options": ["画像が壊れているから", "縦横比を保ったまま領域を隙間なく埋めるため", "画像が小さすぎるから", "エラーが発生したから"],
+      "answer": 1,
+      "commentary": "領域の形と画像の形が異なる場合、隙間を作らないために画像のはみ出た部分をカットします。"
+    },
+    {
+      "id": 26,
+      "type": "文法チェック",
+      "question": "Image.asset のパス指定を 'images/post_1.png' とした場合、画像は表示されますか？（実際のフォルダ構成が images/post/post_1.png の場合）",
+      "options": ["表示される", "自動で探してくれる", "エラー（表示されない）", "別の画像が出る"],
+      "answer": 2,
+      "commentary": "フォルダの階層構造を正確に記述しないと、画像ファイルを読み込むことができません。"
+    },
+    {
+      "id": 27,
+      "type": "用語理解",
+      "question": "MainAxisAlignment.spaceBetween の「メイン軸」について、Rowウィジェットの場合はどの方向ですか？",
+      "options": ["縦", "横", "奥行き", "斜め"],
+      "answer": 1,
+      "commentary": "Row のメイン軸は水平方向（横）です。Column の場合は垂直方向（縦）になります。"
+    },
+    {
+      "id": 28,
+      "type": "コード穴埋め",
+      "question": "Textウィジェットの文字を「太字」にする正しい指定はどれですか？<pre><code>TextStyle(fontWeight: FontWeight.___)</code></pre>",
+      "options": ["heavy", "bold", "normal", "italic"],
+      "answer": 1,
+      "commentary": "太字にするには FontWeight.bold を指定します。"
+    },
+    {
+      "id": 29,
+      "type": "用語理解",
+      "question": "Flutterで「色の情報」を扱うためのクラス名は何ですか？",
+      "options": ["Color", "Colors", "Palette", "Paint"],
+      "answer": 1,
+      "commentary": "Colors.grey や Colors.blue のように、Colors クラスに定義された定数を使用します。"
+    },
+    {
+      "id": 30,
+      "type": "実行結果予測",
+      "question": "ClipRRect の child に何も指定しなかった場合、どうなりますか？",
+      "options": ["画面が丸くなる", "エラーになる", "何も表示されない", "ランダムな画像が出る"],
+      "answer": 1,
+      "commentary": "ClipRRect には切り抜く対象となる child ウィジェットが必要です。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "Column ウィジェットの <code>mainAxisSize: MainAxisSize.min</code> はどのような効果がありますか？",
+      "options": ["横幅を最小にする", "高さを中身の大きさいっぱいまで縮める", "画面から消す", "フォントを小さくする"],
+      "answer": 1,
+      "commentary": "MainAxisSize.min を設定すると、Column は子要素の高さの合計分だけスペースを占有します。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "pubspec.yaml 内で assets を記述する際、インデント（字下げ）は重要ですか？",
+      "options": ["全く関係ない", "非常に重要（ずれるとエラーになる）", "1文字ならずれても良い", "書かなくても動く"],
+      "answer": 1,
+      "commentary": "YAML形式のファイルではインデントが構造を表すため、1マスでもずれると正しく読み込まれません。"
+    },
+    {
+      "id": 33,
+      "type": "用語理解",
+      "question": "アセット画像を管理する際、画像を解凍して配置した後のフォルダ名として推奨されているものはどれですか？",
+      "options": ["src", "assets", "images", "pictures"],
+      "answer": 2,
+      "commentary": "Flutterの慣習として「images」や「assets」といったフォルダ名がよく使われます。"
+    },
+    {
+      "id": 34,
+      "type": "コード穴埋め",
+      "question": "Container の境界線（枠線）を設定するプロパティ名は何ですか？<pre><code>BoxDecoration(\n  ___: Border.all(color: Colors.grey),\n)</code></pre>",
+      "options": ["outline", "line", "border", "edge"],
+      "answer": 2,
+      "commentary": "BoxDecoration の border プロパティに Border.all() などを指定して枠線を描きます。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "BoxFit.contain を使った際、画像と領域の形が違う場合に発生するものは何ですか？",
+      "options": ["画像の歪み", "画像の欠け", "余白（隙間）", "エラー"],
+      "answer": 2,
+      "commentary": "contain は画像全体を収めるため、はみ出さない代わりに縦か横に隙間ができます。"
+    },
+    {
+      "id": 36,
+      "type": "文法チェック",
+      "question": "EdgeInsets.all(14) の「14」の単位は何ですか？",
+      "options": ["センチ", "ミリ", "論理ピクセル", "物理ピクセル"],
+      "answer": 2,
+      "commentary": "Flutterで数値を指定する際は、画面密度に左右されない「論理ピクセル」という単位を使います。"
+    },
+    {
+      "id": 37,
+      "type": "実行結果予測",
+      "question": "Column の <code>crossAxisAlignment: CrossAxisAlignment.start</code> を設定すると、子要素はどう並びますか？",
+      "options": ["中央揃え", "右揃え", "左揃え", "上下に分散"],
+      "answer": 2,
+      "commentary": "Columnにおけるクロス軸は「横」なので、start を指定すると左揃えになります。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "教科書のコードで、AppBar の <code>centerTitle: true</code> を設定した主な理由は何ですか？",
+      "options": ["文字を大きくするため", "Android OS でのタイトル位置を中央に合わせるため", "タイトルを隠すため", "色を付けるため"],
+      "answer": 1,
+      "commentary": "OSによってタイトルのデフォルト位置が異なるため、明示的に中央揃えに指定しています。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "画像を表示する際に、横幅を親要素に合わせたい場合の指定を選んでください。<pre><code>Image.asset(\n  'path',\n  ___: double.infinity,\n)</code></pre>",
+      "options": ["height", "size", "width", "fit"],
+      "answer": 2,
+      "commentary": "横幅を指定するには width プロパティを使用します。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "Flutterのウィジェットで、中身を一つだけ持つ（childプロパティを持つ）ものの総称は何ですか？（教科書には「ラップ」とも書かれています）",
+      "options": ["コレクションウィジェット", "シングル子ウィジェット", "コンテナウィジェット", "ルートウィジェット"],
+      "answer": 2,
+      "commentary": "Container や ClipRRect のように、別の子ウィジェットを一つ包んで機能を追加するものを指します。"
+    }
+  ]
 }
