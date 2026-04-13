@@ -1,23 +1,410 @@
 {
-  "unit_title": "Django Webアプリ開発コース — Python の基礎 — 関数の定義",
+  "unit_title": "関数の定義",
   "questions": [
     {
-      "question": "関数を定義するキーワードはどれですか？",
-      "options": ["function", "def", "fn", "define"],
+      "id": 1,
+      "type": "用語理解",
+      "question": "Pythonで新しく関数を作る（定義する）ときに使うキーワードは何ですか？",
+      "options": ["function", "def", "define", "create"],
       "answer": 1,
-      "commentary": "def 関数名(引数): の形で定義します。"
+      "commentary": "Pythonでは「def 関数名():」という形式で関数を定義します。defはdefine（定義する）の略です。"
     },
     {
-      "question": "関数から値を返すのに使うキーワードはどれですか？",
-      "options": ["return", "yield", "output", "give"],
-      "answer": 0,
-      "commentary": "return で呼び出し元に値を返します（ジェネレータでは yield も使います）。"
+      "id": 2,
+      "type": "文法チェック",
+      "question": "関数の定義として、正しい書き方はどれですか？",
+      "options": [
+        "def hello() { }",
+        "def hello():",
+        "hello() def:",
+        "def: hello()"
+      ],
+      "answer": 1,
+      "commentary": "関数名の後に()とコロン（:）を記述し、その下の行からインデントして処理を書きます。"
     },
     {
-      "question": "デフォルト引数を持つ関数定義として適切な例はどれですか？",
-      "options": ["def f(a, b=1):", "def f(a, b := 1):", "def f(a, b == 1):", "def f(a, b default 1):"],
+      "id": 3,
+      "type": "用語理解",
+      "question": "関数に入力として渡す値のことを「引数」と言いますが、関数から出力として返される値のことを何と言いますか？",
+      "options": ["入力値", "代入値", "戻り値（返り値）", "結果値"],
+      "answer": 2,
+      "commentary": "関数が処理を終えて呼び出し元に返す値を「戻り値（返り値）」と呼びます。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "関数から値を返したいときに使うキーワードは何ですか？<pre><code>def add(a, b):\n    sum = a + b\n    ___ sum</code></pre>",
+      "options": ["give", "send", "return", "back"],
+      "answer": 2,
+      "commentary": "returnキーワードを使うと、関数の実行を終了して呼び出し元に値を返します。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、画面には何と表示されますか？<pre><code>def say_hi():\n    print(\"Hi!\")\n    return\n    print(\"Bye!\")\n\nsay_hi()</code></pre>",
+      "options": ["Hi!", "Bye!", "Hi! と Bye!", "何も表示されない"],
       "answer": 0,
-      "commentary": "def f(a, b=1): のように = でデフォルト値を指定します。"
+      "commentary": "return文が実行されるとその時点で関数は終了するため、それ以降の処理（Bye!の表示）は実行されません。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "引数の位置（順番）によってどの変数に代入するかを判断する、最も一般的な引数の渡し方を何と呼びますか？",
+      "options": ["キーワード引数", "位置引数", "デフォルト引数", "順番引数"],
+      "answer": 1,
+      "commentary": "avg_score(62, 75, 58)のように、書いた順番通りに関数に値を渡すのが位置引数です。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "関数の呼び出し時に、引数名を指定して値を渡す「キーワード引数」の正しい書き方はどれですか？<pre><code>def greet(name, message):\n    print(name, message)\n\n___</code></pre>",
+      "options": [
+        "greet(\"tanaka\", \"hello\")",
+        "greet(message=\"hello\", name=\"tanaka\")",
+        "greet(\"hello\"=message)",
+        "greet(name: \"tanaka\")"
+      ],
+      "answer": 1,
+      "commentary": "キーワード引数を使うと、引数の順番を自由に入れ替えて呼び出すことができます。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "関数を呼び出すときに引数を省略した場合に使われる「あらかじめ決めておく値」を何と呼びますか？",
+      "options": ["固定引数", "メイン引数", "デフォルト引数", "自動引数"],
+      "answer": 2,
+      "commentary": "「引数名=値」の形式で定義しておくと、呼び出し時にその引数を省略できるようになります。"
+    },
+    {
+      "id": 9,
+      "type": "文法チェック",
+      "question": "位置引数とデフォルト引数を混ぜて使うとき、正しい順序はどれですか？",
+      "options": [
+        "def func(a=1, b):",
+        "def func(a, b=1):",
+        "順序は関係ない",
+        "必ずすべてデフォルト値が必要"
+      ],
+      "answer": 1,
+      "commentary": "Pythonでは、デフォルト値のない引数（位置引数）を先に書き、その後にデフォルト引数を書くルールがあります。"
+    },
+    {
+      "id": 10,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、表示される内容は何ですか？<pre><code>def func(a, b=10):\n    print(a + b)\n\nfunc(5)</code></pre>",
+      "options": ["5", "10", "15", "エラーになる"],
+      "answer": 2,
+      "commentary": "bの引数が省略されているため、デフォルト値の10が使われ、5+10で15が表示されます。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "平均点を計算する関数を完成させてください。<pre><code>def avg_score(a, b, c):\n    total = a + b + c\n    ___ total / 3</code></pre>",
+      "options": ["print", "return", "calc", "avg"],
+      "answer": 1,
+      "commentary": "計算した結果を関数の外で利用できるようにするために return を使います。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "演習のparity関数で、3を入力したときの結果はどうなりますか？<pre><code>def parity(i):\n    if i % 2 == 0:\n        print(\"even\")\n    elif i % 2 == 1:\n        print(\"odd\")</code></pre>",
+      "options": ["even", "odd", "3", "何も表示されない"],
+      "answer": 1,
+      "commentary": "3を2で割った余りは1なので、奇数（odd）と判定されます。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "関数を定義しただけの状態でプログラムを実行すると、どうなりますか？",
+      "options": [
+        "関数の中身が実行される",
+        "関数は実行されず、何も起きない",
+        "エラーになる",
+        "自動的に一度だけ実行される"
+      ],
+      "answer": 1,
+      "commentary": "関数は「定義」しただけでは動きません。必ず「呼び出し（例：func()）」が必要です。"
+    },
+    {
+      "id": 14,
+      "type": "コード穴埋め",
+      "question": "演習のcollatz問題で、偶数のときに数字を半分（整数）にする正しい書き方はどれですか？<pre><code>if n % 2 == 0:\n    n = n ___ 2</code></pre>",
+      "options": ["/", "//", "%", "**"],
+      "answer": 1,
+      "commentary": "整数として扱いたい場合は、切り捨て除算の // を使います。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "「関数を呼び出す」とは、どのような操作のことですか？",
+      "options": [
+        "defと書くこと",
+        "プログラムを保存すること",
+        "定義した関数を実際に使って実行させること",
+        "関数を削除すること"
+      ],
+      "answer": 2,
+      "commentary": "定義された処理を、名前を指定して動かすことを「呼び出す（コールする）」と言います。"
+    },
+    {
+      "id": 16,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>def my_func(x):\n    return x * 2\n\nresult = my_func(10)\nprint(result)</code></pre>",
+      "options": ["x * 2", "10", "20", "None"],
+      "answer": 2,
+      "commentary": "10が引数として渡され、10 * 2の結果である20が戻り値として変数resultに入ります。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "引数が1つもない関数を呼び出すときの正しい書き方はどれですか？<pre><code>def hello():\n    print(\"Hi\")\n\n___</code></pre>",
+      "options": ["hello", "hello()", "hello[]", "def hello()"],
+      "answer": 1,
+      "commentary": "引数がない場合でも、呼び出すときは必ず後ろに () を付ける必要があります。"
+    },
+    {
+      "id": 18,
+      "type": "文法チェック",
+      "question": "関数の引数に指定できるデータの種類は何ですか？",
+      "options": [
+        "数値だけ",
+        "文字列だけ",
+        "数値、文字列、リストなどあらゆるデータ型",
+        "bool型だけ"
+      ],
+      "answer": 2,
+      "commentary": "Pythonの関数には、あらゆる種類のデータを引数として渡すことができます。"
+    },
+    {
+      "id": 19,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>def get_name(name=\"ゲスト\"):\n    return name\n\nprint(get_name())</code></pre>",
+      "options": ["ゲスト", "name", "None", "エラーになる"],
+      "answer": 0,
+      "commentary": "引数を指定せずに呼び出したため、デフォルト値である「ゲスト」が返されます。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "collatz問題のように、ある条件になるまで繰り返し処理を行うのによく使われる文は何ですか？",
+      "options": ["if 文", "for 文", "while 文", "return 文"],
+      "answer": 2,
+      "commentary": "「1になるまで」のように回数が決まっていない繰り返しには while 文が便利です。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "複数の引数を定義する場合、引数同士を何で区切りますか？<pre><code>def func(a ___ b ___ c):</code></pre>",
+      "options": [".", ";", ":", ","],
+      "answer": 3,
+      "commentary": "引数が複数ある場合は、カンマ（,）で区切って並べます。"
+    },
+    {
+      "id": 22,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、画面には何が表示されますか？<pre><code>def test():\n    a = 10\n\ntest()\nprint(a)</code></pre>",
+      "options": ["10", "None", "エラーになる", "0"],
+      "answer": 2,
+      "commentary": "関数の中で定義した変数は「ローカル変数」と呼ばれ、関数の外からは使うことができないため、エラーになります。"
+    },
+    {
+      "id": 23,
+      "type": "用語理解",
+      "question": "「parity」や「collatz」のように、関数につける名前で避けるべきものはどれですか？",
+      "options": [
+        "英単語の名前",
+        "アンダースコア（_）を入れた名前",
+        "Pythonですでに使われている名前（printなど）",
+        "長い名前"
+      ],
+      "answer": 2,
+      "commentary": "printやintなどの既存の関数名（組み込み関数）と同じ名前にすると、元々の機能が使えなくなるため避けるべきです。"
+    },
+    {
+      "id": 24,
+      "type": "コード穴埋め",
+      "question": "戻り値がない関数の場合、<code>return</code> を書かないと自動的に何が返されますか？",
+      "options": ["0", "False", "None", "空の文字列"],
+      "answer": 2,
+      "commentary": "明示的に return を書かない（または戻り値を指定しない）場合、Pythonの関数は None を返します。"
+    },
+    {
+      "id": 25,
+      "type": "文法チェック",
+      "question": "関数定義の <code>def my_func():</code> の下の行に書く処理で、絶対に守らなければならないルールは何ですか？",
+      "options": [
+        "すべて大文字で書く",
+        "必ずインデント（字下げ）をする",
+        "1行で書き切る",
+        "最後に必ずreturnを書く"
+      ],
+      "answer": 1,
+      "commentary": "インデントがないと、どこまでが関数の処理なのかコンピュータが判断できずエラーになります。"
+    },
+    {
+      "id": 26,
+      "type": "用語理解",
+      "question": "1つの関数に対して、複数の return 文を書くことはできますか？",
+      "options": [
+        "できる（条件分岐などで使い分ける場合）",
+        "できない（必ず1つだけ）",
+        "for文の中ならできる",
+        "数値しか返せない"
+      ],
+      "answer": 0,
+      "commentary": "if文などで「偶数ならこれ、奇数ならこれ」というように複数の return を書くことは可能ですが、最初に実行された return で関数は終了します。"
+    },
+    {
+      "id": 27,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>def double(n):\n    return n * 2\n\nprint(double(double(3)))</code></pre>",
+      "options": ["6", "9", "12", "エラー"],
+      "answer": 2,
+      "commentary": "内側の double(3) が 6 を返し、その結果が外側の double(6) の引数になるため、最終的に 12 になります。"
+    },
+    {
+      "id": 28,
+      "type": "コード穴埋め",
+      "question": "関数を呼び出す際、引数の数より多い値を渡そうとするとどうなりますか？",
+      "options": [
+        "余った分は無視される",
+        "エラーが発生する",
+        "自動的にリストにまとめられる",
+        "Noneとして扱われる"
+      ],
+      "answer": 1,
+      "commentary": "定義された引数の数と、呼び出し時の値の数は一致させる必要があります（デフォルト引数がある場合を除く）。"
+    },
+    {
+      "id": 29,
+      "type": "用語理解",
+      "question": "関数の目的として、ふさわしくないものはどれですか？",
+      "options": [
+        "同じ処理を何度も書かなくて済むようにする",
+        "プログラムを読みやすく整理する",
+        "プログラムの実行速度を100倍にする",
+        "後から修正しやすくする"
+      ],
+      "answer": 2,
+      "commentary": "関数化はコードの再利用性や読みやすさを高めるためのもので、それだけで速度が劇的に上がるわけではありません。"
+    },
+    {
+      "id": 30,
+      "type": "文法チェック",
+      "question": "<code>def my_func(a, b=5, c=10):</code> と定義された関数を呼び出す際、bだけを省略してaとcに値を渡すことはできますか？",
+      "options": [
+        "できない",
+        "できる（キーワード引数を使う）",
+        "できる（位置引数だけで可能）",
+        "cも省略しなければならない"
+      ],
+      "answer": 1,
+      "commentary": "<code>my_func(1, c=20)</code> のようにキーワード引数を使えば、特定の引数だけを指定して他をデフォルト値に任せることができます。"
+    },
+    {
+      "id": 31,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>def show(a):\n    print(a)\n\nx = show(\"Hello\")\nprint(x)</code></pre>",
+      "options": ["Hello, Hello", "Hello, None", "None, Hello", "Hello"],
+      "answer": 1,
+      "commentary": "show関数の中でHelloが表示されますが、戻り値がないため変数xにはNoneが代入されます。"
+    },
+    {
+      "id": 32,
+      "type": "コード穴埋め",
+      "question": "2つの引数を足し算して返すだけの「add」関数を完成させてください。<pre><code>___ add(x, y):\n    return x + y</code></pre>",
+      "options": ["function", "def", "define", "return"],
+      "answer": 1,
+      "commentary": "関数の定義は必ず def で始めます。"
+    },
+    {
+      "id": 33,
+      "type": "用語理解",
+      "question": "関数を定義する際に () の中に書く変数の名前（引数名）は、自由に決めてもよいですか？",
+      "options": [
+        "はい（変数名のルールに従えば自由）",
+        "いいえ（あらかじめ決まった名前がある）",
+        "a, b, c しか使えない",
+        "大文字しか使えない"
+      ],
+      "answer": 0,
+      "commentary": "その関数の中で使うための名前なので、わかりやすい名前を自由に付けることができます。"
+    },
+    {
+      "id": 34,
+      "type": "文法チェック",
+      "question": "Pythonのインデントで一般的に推奨されているスタイルはどれですか？",
+      "options": [
+        "タブキー1回分",
+        "スペース2つ",
+        "スペース4つ",
+        "スペースなし"
+      ],
+      "answer": 2,
+      "commentary": "Pythonの公式ガイドライン（PEP 8）では、スペース4つ分のインデントが推奨されています。"
+    },
+    {
+      "id": 35,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、何が表示されますか？<pre><code>def calc(n):\n    if n > 0:\n        return \"正\"\n    else:\n        return \"負\"\n\nprint(calc(0))</code></pre>",
+      "options": ["正", "負", "0", "エラー"],
+      "answer": 1,
+      "commentary": "0は 0 > 0 を満たさない（偽）ため、else 節の「負」が返されます。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "位置引数において、呼び出し側が渡す値を間違えるとどうなりますか？",
+      "options": [
+        "自動的に修正される",
+        "関数がその値を拒否する",
+        "意図しない計算結果やエラーになる",
+        "何も起きない"
+      ],
+      "answer": 2,
+      "commentary": "コンピュータは順番通りに代入するだけなので、中身が正しいかは人間が気をつける必要があります。"
+    },
+    {
+      "id": 37,
+      "type": "コード穴埋め",
+      "question": "キーワード引数を使って関数を呼び出すとき、記号は何を使いますか？<pre><code>my_func(name ___ \"tanaka\")</code></pre>",
+      "options": [":", "==", "=", "->"],
+      "answer": 2,
+      "commentary": "呼び出し時のキーワード引数には = を使います。"
+    },
+    {
+      "id": 38,
+      "type": "文法チェック",
+      "question": "1つの関数に引数をいくつまで持たせることができますか？",
+      "options": [
+        "1つだけ",
+        "10個まで",
+        "制限はない（現実的な範囲で複数可能）",
+        "3つまで"
+      ],
+      "answer": 2,
+      "commentary": "技術的な制限はありませんが、多すぎると使いにくくなるため、適切に整理することが推奨されます。"
+    },
+    {
+      "id": 39,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>def check():\n    return \"A\", \"B\"\n\nprint(check())</code></pre>",
+      "options": ["A", "B", "('A', 'B')", "エラー"],
+      "answer": 2,
+      "commentary": "Pythonでは return に複数の値を並べると、それらをまとめた「タプル」として返されます。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "このユニットで学んだ「自作の関数」を使う最大のメリットは何ですか？",
+      "options": [
+        "文字をきれいに表示できる",
+        "複雑な処理を一つの名前で呼び出せるようになる",
+        "パソコンのメモリが増える",
+        "インターネットが速くなる"
+      ],
+      "answer": 1,
+      "commentary": "複雑なロジックを関数の中に隠し、必要な時に名前一つで呼び出せる（抽象化）ことが最大の利点です。"
     }
   ]
 }

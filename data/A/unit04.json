@@ -1,23 +1,325 @@
 {
-  "unit_title": "Django Webアプリ開発コース — HTML・CSS の基礎 — HTML・CSS 演習 - オリジナルページを作成しよう",
+  "unit_title": "HTML・CSS 演習 - オリジナルページを作成しよう",
   "questions": [
     {
-      "question": "オリジナルページを作るとき、まず決めるとよいものとして適切なのはどれですか？",
-      "options": ["使用するプログラミング言語のバージョンだけ", "目的・見る人・伝えたい内容（構成）", "パソコンの機種名", "ブラウザのキャッシュ容量"],
+      "id": 1,
+      "type": "用語理解",
+      "question": "プログラミング学習において、作りたいもののイメージからコードを考える実践的な練習を何と呼びますか？",
+      "options": ["写経", "演習", "タイピング", "デバッグ"],
       "answer": 1,
-      "commentary": "誰向けか・何を伝えるかを整理すると、HTMLの構造やCSSのトーンが決めやすくなります。"
+      "commentary": "教科書では、成果物からコードを考える流れを「演習」と呼び、実践に近い練習として推奨しています。"
     },
     {
-      "question": "ページ全体のレイアウトや余白を整えるとき、まず意識するとよいのはどれですか？",
-      "options": ["画像だけを大きくする", "見出し・本文・ナビなどの情報の階層と余白（margin / padding）", "フォントをすべて同じサイズにする", "色をランダムに増やす"],
-      "answer": 1,
-      "commentary": "階層がはっきりすると読みやすく、余白で視線の流れを作れます。"
+      "id": 2,
+      "type": "文法チェック",
+      "question": "HTMLの枠組みを記述する際、Webページの言語を日本語に設定するための正しい属性はどれですか？",
+      "options": ["lang=\"en\"", "language=\"ja\"", "lang=\"ja\"", "charset=\"UTF-8\""],
+      "answer": 2,
+      "commentary": "htmlタグに lang=\"ja\" を指定することで、ブラウザに日本語のページであることを伝えます。"
     },
     {
-      "question": "CSSで要素を横並びにしたいとき、よく使う指定の組み合わせとして適切なものはどれですか？",
-      "options": ["display: block のみ", "display: flex や display: grid", "position: fixed だけ", "float はもう使わないので考えない"],
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "ページ上に表示されるすべての情報を記述するタグを選んでください。<pre><code>&lt;!DOCTYPE html&gt;\n&lt;html&gt;\n  &lt;head&gt;...&lt;/head&gt;\n  &lt;___&gt;\n    &lt;h1&gt;山田 太郎&lt;/h1&gt;\n  &lt;/___&gt;\n&lt;/html&gt;</code></pre>",
+      "options": ["title", "div", "header", "body"],
+      "answer": 3,
+      "commentary": "ブラウザの画面内に表示されるコンテンツはすべて body タグの中に記述します。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "好きなものを箇条書きにする際に使用する、リストの項目を表すタグは何ですか？<pre><code>&lt;ul&gt;\n  &lt;___&gt;野球&lt;/___&gt;\n  &lt;___&gt;映画&lt;/___&gt;\n&lt;/ul&gt;</code></pre>",
+      "options": ["ol", "li", "list", "p"],
       "answer": 1,
-      "commentary": "モダンなレイアウトでは flex / grid が定番です（用途に応じて選びます）。"
+      "commentary": "箇条書きの各項目は li (list item) タグで囲みます。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、画面にはどのように表示されますか？<pre><code>&lt;a href=\"https://google.com\"&gt;検索サイト&lt;/a&gt;</code></pre>",
+      "options": ["「検索サイト」という文字が表示され、クリックするとGoogleに飛ぶ", "Googleのロゴ画像が表示される", "「https://google.com」というURLがそのまま文字で表示される", "何も表示されない"],
+      "answer": 0,
+      "commentary": "aタグはハイパーリンクを作成します。href属性で指定したリンク先へ、タグで囲った文字をクリックすることで移動できます。"
+    },
+    {
+      "id": 6,
+      "type": "文法チェック",
+      "question": "imagesフォルダの中にある「image_1.png」を表示する正しいsrc属性の書き方はどれですか？",
+      "options": ["src=\"image_1.png\"", "src=\"images/image_1.png\"", "src=\"/image_1.png\"", "src=\"images.image_1.png\""],
+      "answer": 1,
+      "commentary": "フォルダ内のファイルを指定する場合、「フォルダ名/ファイル名」という形式でパスを記述します。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "ブラウザの「タブ」や「お気に入り」に表示される名前を決めるタグは何ですか？",
+      "options": ["h1", "body", "title", "meta"],
+      "answer": 2,
+      "commentary": "titleタグで囲った文字が、ページのタイトルとしてタブなどに表示されます。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "見た目は変わらないが、CSSでのスタイリングをしやすくするためにコンテンツを「かたまり」としてまとめるタグは何ですか？",
+      "options": ["p", "span", "br", "div"],
+      "answer": 3,
+      "commentary": "divタグは、要素をグループ化して構造を整理したり、CSSを適用しやすくしたりするために使われます。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "HTMLファイルから外部のCSSファイル「style.css」を読み込むための正しい記述を選んでください。<pre><code>&lt;head&gt;\n  &lt;link rel=\"___\" href=\"style.css\"&gt;\n&lt;/head&gt;</code></pre>",
+      "options": ["css", "style", "stylesheet", "link"],
+      "answer": 2,
+      "commentary": "外部CSSを読み込む際は link タグを使い、rel属性に \"stylesheet\" を指定します。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "画面全体の背景色を変えたいとき、CSSでセレクタとして指定すべきタグは何ですか？",
+      "options": ["html", "body", "div", "background"],
+      "answer": 1,
+      "commentary": "bodyタグはページ全体を覆う要素であるため、bodyに対して背景色を設定すると画面全体に反映されます。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "CSSで文字を中央揃えにしたいときに使うプロパティは何ですか？<pre><code>h1 {\n  ___: center;\n}</code></pre>",
+      "options": ["font-align", "text-center", "text-align", "center-align"],
+      "answer": 2,
+      "commentary": "文字の水平方向の配置を指定するのは text-align プロパティです。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "次のCSSを適用したとき、文字の大きさはどうなりますか？<pre><code>h1 { font-size: 48px; }</code></pre>",
+      "options": ["標準的な大きさになる", "かなり大きくなる", "文字が太くなる", "文字が小さくなる"],
+      "answer": 1,
+      "commentary": "一般的なWebページの標準サイズは16px程度であるため、48pxはかなり大きな見出しになります。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "HTMLで class=\"ramen-image\" と指定した要素を、CSSのセレクタで指定する正しい書き方はどれですか？",
+      "options": ["ramen-image { }", "#ramen-image { }", ".ramen-image { }", "class.ramen-image { }"],
+      "answer": 2,
+      "commentary": "CSSでクラスを指定する際は、名前の前に「. (ドット)」を付けます。"
+    },
+    {
+      "id": 14,
+      "type": "実行結果予測",
+      "question": "画像に対して width: 60%; のみを指定し、height を指定しなかった場合、表示はどうなりますか？",
+      "options": ["画像が横に伸びてしまう", "画像が表示されなくなる", "縦横比を保ったまま、幅に合わせて高さが自動で調整される", "高さが0pxになる"],
+      "answer": 2,
+      "commentary": "幅か高さの一方だけを指定すると、ブラウザが元の縦横比（アスペクト比）を維持してもう一方を自動調整します。"
+    },
+    {
+      "id": 15,
+      "type": "コード穴埋め",
+      "question": "要素の内側の余白（パディング）を左右に20%作りたい場合の正しい記述はどれですか？<pre><code>body {\n  padding: 36px ___; \n}</code></pre>",
+      "options": ["20%", "36px", "20% 36px", "0"],
+      "answer": 0,
+      "commentary": "paddingプロパティで値を2つ指定した場合、1つ目が上下、2つ目が左右の余白になります。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "CSSで背景色を「薄いオレンジ色」にする際などに使う、(赤, 緑, 青)の数値で色を指定する方法を何と呼びますか？",
+      "options": ["hex", "rgb", "hls", "color-id"],
+      "answer": 1,
+      "commentary": "rgb(255, 232, 190) のように、光の三原色の強さを0〜255で指定する方法です。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "演習1で作成した「Projects」の下にある「ex_html_css」フォルダの中に、画像をまとめて入れるために作成したフォルダ名は何ですか？",
+      "options": ["html", "css", "src", "images"],
+      "answer": 3,
+      "commentary": "慣習的に、Web制作では画像素材を「images」や「img」という名前のフォルダにまとめます。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "h1タグの文字の色を変更するプロパティは何ですか？<pre><code>h1 {\n  ___: rgb(54, 78, 150);\n}</code></pre>",
+      "options": ["font-color", "text-color", "background-color", "color"],
+      "answer": 3,
+      "commentary": "文字自体の色を指定するプロパティは単に color と記述します。"
+    },
+    {
+      "id": 19,
+      "type": "実行結果予測",
+      "question": "bodyタグに対して padding: 36px 20%; を適用すると、画面の見た目はどう変わりますか？",
+      "options": ["すべての文字が右端に寄る", "文字や画像が画面の端ギリギリではなく、中央付近に集まって表示される", "画面全体が20%小さくなる", "背景色が20%の濃さになる"],
+      "answer": 1,
+      "commentary": "左右に大きなパディング（余白）を設けることで、コンテンツが中央に寄った見やすいデザインになります。"
+    },
+    {
+      "id": 20,
+      "type": "文法チェック",
+      "question": "CSSの記述において、プロパティと値の区切り記号として正しいものはどれですか？",
+      "options": ["= (イコール)", ", (カンマ)", ": (コロン)", "; (セミコロン)"],
+      "answer": 2,
+      "commentary": "プロパティと値の区切りには「: (コロン)」を使い、文末には「; (セミコロン)」を付けます。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "特定の画像だけにスタイルを当てるために、HTMLタグの中に class=\"名前\" と書くことを何と言いますか？",
+      "options": ["属性の付与", "タグの定義", "リンクの設定", "コメントアウト"],
+      "answer": 0,
+      "commentary": "タグの中に記述する追加情報のことを属性と呼び、class属性を付与することで特定の要素を識別できます。"
+    },
+    {
+      "id": 22,
+      "type": "実行結果予測",
+      "question": "h2タグで囲った「好きなもの」という文字は、デフォルトでどのように表示されますか？",
+      "options": ["h1よりも大きく、太字で表示される", "h1よりも小さく、太字の見出しとして表示される", "標準的な文字と同じ大きさで表示される", "斜体で表示される"],
+      "answer": 1,
+      "commentary": "hタグは数字が大きくなるほど（h1からh6）、見出しとしての階層が下がり、サイズが小さくなります。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "HTML内でコメント（ブラウザには表示されないメモ）を書く際の記号はどれですか？<pre><code>___ 山田太郎のポートフォリオ ___</code></pre>",
+      "options": ["/* ... */", "// ...", "&lt;!-- ... --&gt;", "# ..."],
+      "answer": 2,
+      "commentary": "HTMLのコメントは で囲みます。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "CSSで width: 60%; と指定したとき、この「60%」は何を基準にした長さですか？",
+      "options": ["画面全体の幅", "画像の元のサイズ", "親要素（その画像を囲っているタグ）の幅", "ブラウザの高さ"],
+      "answer": 2,
+      "commentary": "%指定は、親要素の幅を100%とした時の相対的な割合になります。"
+    },
+    {
+      "id": 25,
+      "type": "文法チェック",
+      "question": "HTMLタグの開始タグと終了タグの組み合わせとして間違っているものはどれですか？",
+      "options": ["&lt;div&gt;...&lt;/div&gt;", "&lt;p&gt;...&lt;/p&gt;", "&lt;img&gt;...&lt;/img&gt;", "&lt;h1&gt;...&lt;/h1&gt;"],
+      "answer": 2,
+      "commentary": "imgタグは終了タグを持たない「空要素」であり、単独で使用します。"
+    },
+    {
+      "id": 26,
+      "type": "実行結果予測",
+      "question": "VSCodeで index.html を編集し、ブラウザですぐに結果を確認したいとき、まず何をすべきですか？",
+      "options": ["パソコンを再起動する", "VSCodeを閉じる", "ファイルを保存（Ctrl+Sなど）してブラウザを更新する", "新しいHTMLファイルを作る"],
+      "answer": 2,
+      "commentary": "編集した内容を反映させるには、ファイルの保存とブラウザの再読み込み（更新）が必要です。"
+    },
+    {
+      "id": 27,
+      "type": "用語理解",
+      "question": "「1富士」「2鷹」「3なすび」のように、番号付きのリストを作りたい場合に ul タグの代わりに使う親タグは何ですか？",
+      "options": ["li", "ol", "nl", "dl"],
+      "answer": 1,
+      "commentary": "番号付きリストは ol (ordered list) タグを使用します。"
+    },
+    {
+      "id": 28,
+      "type": "コード穴埋め",
+      "question": "HTML5の文書であることを宣言する、ファイルの1行目に書く記述はどれですか？<pre><code>___ \n&lt;html lang=\"ja\"&gt;</code></pre>",
+      "options": ["&lt;html&gt;", "&lt;!DOCTYPE html&gt;", "&lt;meta charset=\"UTF-8\"&gt;", "&lt;body&gt;"],
+      "answer": 1,
+      "commentary": "<!DOCTYPE html> は、このファイルがHTML5で書かれていることをブラウザに伝えます。"
+    },
+    {
+      "id": 29,
+      "type": "文法チェック",
+      "question": "HTMLの head タグの中に記述すべき情報の種類として正しいものはどれですか？",
+      "options": ["ページに表示する見出し", "箇条書きのリスト", "検索エンジン向けのメタ情報やタイトル", "表示したい画像"],
+      "answer": 2,
+      "commentary": "head タグ内には、画面には直接表示されない、文書の設定情報（タイトル、文字コード、外部ファイル読み込みなど）を記述します。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "CSSで color: rgb(54, 78, 150); と指定したとき、この値が表す三要素は何ですか？",
+      "options": ["(赤, 青, 黄)", "(赤, 緑, 青)", "(黒, 白, 灰)", "(明度, 彩度, 色相)"],
+      "answer": 1,
+      "commentary": "RGBは Red, Green, Blue の略で、光の三原色を表します。"
+    },
+    {
+      "id": 31,
+      "type": "実行結果予測",
+      "question": "aタグの中にimgタグを入れた場合、どうなりますか？<pre><code>&lt;a href=\"...\"&gt;&lt;img src=\"...\"&gt;&lt;/a&gt;</code></pre>",
+      "options": ["画像が表示されなくなる", "画像がクリックできるリンクになる", "画像の横にURLが表示される", "エラーで画面が真っ白になる"],
+      "answer": 1,
+      "commentary": "aタグの中に別の要素を入れることで、その要素全体をリンクにすることができます（画像をボタンのように使えます）。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "CSSのプロパティ font-size で使われる「px」という単位は何の略ですか？",
+      "options": ["Percent", "Pica", "Pixel", "Point"],
+      "answer": 2,
+      "commentary": "Pixel（ピクセル）は、デジタル画像の最小単位（画素）を指します。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "ページ内に改行を入れたいときに使用するタグはどれですか？<pre><code>こんにちは。___ さようなら。</code></pre>",
+      "options": ["&lt;p&gt;", "&lt;br&gt;", "&lt;div&gt;", "&lt;hr&gt;"],
+      "answer": 1,
+      "commentary": "<br>タグは、文章を強制的に改行させるために使われます。"
+    },
+    {
+      "id": 34,
+      "type": "文法チェック",
+      "question": "HTMLの属性と値を結ぶ記号として正しいものはどれですか？",
+      "options": [": (コロン)", "= (イコール)", "- (ハイフン)", ". (ドット)"],
+      "answer": 1,
+      "commentary": "HTMLの属性指定は class=\"名前\" のように「=」を使います。CSSの「:」と混同しないように注意しましょう。"
+    },
+    {
+      "id": 35,
+      "type": "実行結果予測",
+      "question": "CSSで body { padding: 36px 0; } と設定した場合、画面の左右に余白はできますか？",
+      "options": ["上下左右すべてに36pxできる", "左右に36pxできる", "上下に36pxできるが、左右にはできない", "余白は一切できない"],
+      "answer": 2,
+      "commentary": "2つの値を指定した場合、2つ目の値（0）が左右のパディングになるため、左右の余白は発生しません。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "Webサイトの集客に特化した、1ページで構成されることが多いページの略称は何ですか？",
+      "options": ["HP", "SNS", "LP", "URL"],
+      "answer": 2,
+      "commentary": "LP (Landing Page) は、ユーザーが最初にアクセスし、特定のアクションを促すためのページです。"
+    },
+    {
+      "id": 37,
+      "type": "コード穴埋め",
+      "question": "metaタグで文字コードを「UTF-8」に設定する正しい記述はどれですか？<pre><code>&lt;meta ___=\"UTF-8\"&gt;</code></pre>",
+      "options": ["charset", "code", "lang", "content"],
+      "answer": 0,
+      "commentary": "charset属性で文字エンコーディングを指定します。これを忘れると文字化けの原因になります。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "CSSで .ramen-image { width: 100%; } と設定した場合、画像はどう表示されますか？",
+      "options": ["画面全体の幅いっぱいに表示される", "元の画像の大きさで表示される", "親要素の幅いっぱいに表示される", "100pxの幅で表示される"],
+      "answer": 2,
+      "commentary": "100%は親要素（この場合はdivなど）の幅と同じサイズを意味します。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "HTMLの「H1」は何の略ですか？",
+      "options": ["Home 1", "Header 1", "Height 1", "Heading 1"],
+      "answer": 3,
+      "commentary": "Heading（見出し）の略です。h1からh6まであります。"
+    },
+    {
+      "id": 40,
+      "type": "文法チェック",
+      "question": "CSSで複数のプロパティを記述する際、正しい区切り方はどれですか？",
+      "options": ["color: red color: blue", "color: red, font-size: 16px", "color: red; font-size: 16px;", "color: red & font-size: 16px"],
+      "answer": 2,
+      "commentary": "各スタイルの指定（宣言）は「; (セミコロン)」で区切る必要があります。"
     }
   ]
 }

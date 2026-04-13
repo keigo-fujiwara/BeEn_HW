@@ -1,23 +1,340 @@
 {
-  "unit_title": "Django Webアプリ開発コース — Python の基礎 — クラス",
+  "unit_title": "クラス",
   "questions": [
     {
-      "question": "クラスを定義するキーワードはどれですか？",
-      "options": ["struct", "class", "object", "type"],
+      "id": 1,
+      "type": "用語理解",
+      "question": "プログラミングにおける「クラス」の役割を例えた言葉として、最も適切なものはどれですか？",
+      "options": ["データそのもの", "設計図", "計算機", "箱"],
       "answer": 1,
-      "commentary": "class クラス名: でクラスを定義します。"
+      "commentary": "クラスは「どんなデータや機能を持つか」を決める設計図のような役割をします。"
     },
     {
-      "question": "インスタンスメソッドの第1引数として慣習的に使う名前はどれですか？",
-      "options": ["this", "self", "me", "cls"],
+      "id": 2,
+      "type": "用語理解",
+      "question": "設計図（クラス）をもとにして、実際に作られた具体的なデータのことを何と呼びますか？",
+      "options": ["コンストラクタ", "インスタンス", "メソッド", "継承"],
       "answer": 1,
-      "commentary": "通常インスタンスメソッドでは self を使います（@classmethod では cls）。"
+      "commentary": "クラスから作られた実体のことをインスタンス（またはオブジェクト）と呼びます。"
     },
     {
-      "question": "オブジェクトの初期化処理を書く特別なメソッド名はどれですか？",
-      "options": ["__init__", "__new__", "__main__", "__start__"],
+      "id": 3,
+      "type": "文法チェック",
+      "question": "Pythonでクラスを定義するときの正しい書き方はどれですか？",
+      "options": ["class Human():", "class Human:", "def class Human:", "Human = class():"],
+      "answer": 1,
+      "commentary": "「class クラス名:」の形式で定義します。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "インスタンスが生成されたときに自動的に実行される、初期化のためのメソッドを何と呼びますか？",
+      "options": ["メイン関数", "コンストラクタ", "デストラクタ", "オーバーライド"],
+      "answer": 1,
+      "commentary": "インスタンス作成時に一度だけ実行される初期化処理をコンストラクタと言います。"
+    },
+    {
+      "id": 5,
+      "type": "文法チェック",
+      "question": "Pythonでコンストラクタを定義する際の名前として正しいものはどれですか？",
+      "options": ["__init__", "initial", "constructor", "__start__"],
       "answer": 0,
-      "commentary": "__init__ がコンストラクタ相当の初期化に使われます。"
+      "commentary": "Pythonでは「__init__」という名前のメソッドがコンストラクタとして機能します。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "クラスの中で定義された、そのインスタンスが持つ「関数」のことを何と呼びますか？",
+      "options": ["定数", "グローバル関数", "メソッド", "プロパティ"],
+      "answer": 2,
+      "commentary": "クラスに所属する関数のことをメソッドと呼びます。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "メソッドを定義する際、第1引数として必ず指定しなければならない、自分自身を指すキーワードは何ですか？<pre><code>def introduce(___):\n    print(self.name)</code></pre>",
+      "options": ["this", "it", "self", "me"],
+      "answer": 2,
+      "commentary": "Pythonのメソッドでは、自分自身のインスタンスを指す「self」を第1引数に置くのがルールです。"
+    },
+    {
+      "id": 8,
+      "type": "実行結果予測",
+      "question": "次のコードで、コンストラクタが受け取る引数の数（selfを除く）はいくつですか？<pre><code>class Dog:\n    def __init__(self, name, breed):\n        self.name = name\n        self.breed = breed</code></pre>",
+      "options": ["1つ", "2つ", "3つ", "なし"],
+      "answer": 1,
+      "commentary": "self以外の「name」と「breed」の2つの引数を指定してインスタンスを作成する必要があります。"
+    },
+    {
+      "id": 9,
+      "type": "実行結果予測",
+      "question": "次のコードで、山田さんの名前を表示するための正しい書き方はどれですか？<pre><code>class Human:\n    def __init__(self, name):\n        self.name = name\n\nyamada = Human(\"山田\")</code></pre>",
+      "options": ["print(Human.name)", "print(yamada.name)", "print(yamada(name))", "print(name)"],
+      "answer": 1,
+      "commentary": "「インスタンス名.変数名」で、そのインスタンスが持つデータにアクセスできます。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "あるクラスの機能を引き継いで、新しいクラスを作ることを何と言いますか？",
+      "options": ["コピー", "継承", "インポート", "オーバーライド"],
+      "answer": 1,
+      "commentary": "元のクラス（親クラス）の性質を新しいクラス（子クラス）に引き継がせることを継承と言います。"
+    },
+    {
+      "id": 11,
+      "type": "文法チェック",
+      "question": "Humanクラスを継承してStudentクラスを作るときの正しい書き方はどれですか？",
+      "options": ["class Student(Human):", "class Student inherits Human:", "class Student in Human:", "Student = Human.new()"],
+      "answer": 0,
+      "commentary": "クラス名の後のカッコ内に親クラス名を書くことで継承を表現します。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "親クラスにあるメソッドと同じ名前のメソッドを子クラスで定義し、内容を上書きすることを何と言いますか？",
+      "options": ["オーバーロード", "オーバーライド", "アップデート", "リセット"],
+      "answer": 1,
+      "commentary": "親クラスの機能を子クラス独自の処理に書き換えることをオーバーライドと言います。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "子クラスのメソッド内から、親クラスのメソッドを呼び出すために使う関数は何ですか？<pre><code>def introduce(self):\n    ___().introduce()\n    print(\"学生です\")</code></pre>",
+      "options": ["parent", "father", "super", "base"],
+      "answer": 2,
+      "commentary": "super()関数を使うことで、親クラスで定義されているメソッドを実行できます。"
+    },
+    {
+      "id": 14,
+      "type": "実行結果予測",
+      "question": "次のコードを実行した結果はどうなりますか？<pre><code>class A:\n    def say(self):\n        print(\"A\")\n\nclass B(A):\n    def say(self):\n        print(\"B\")\n\nb = B()\nb.say()</code></pre>",
+      "options": ["A", "B", "A B", "エラー"],
+      "answer": 1,
+      "commentary": "子クラスBでメソッドがオーバーライドされているため、「B」が表示されます。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "クラスの中で <code>self.name = name</code> のように、インスタンスに紐づけられた変数のことを何と呼びますか？",
+      "options": ["ローカル変数", "グローバル変数", "インスタンス変数", "クラス定数"],
+      "answer": 2,
+      "commentary": "個々のインスタンスが独自に保持する変数をインスタンス変数と言います。"
+    },
+    {
+      "id": 16,
+      "type": "文法チェック",
+      "question": "メソッドを呼び出すときの正しい書き方はどれですか？（インスタンス名: h, メソッド名: walk）",
+      "options": ["h.walk", "h.walk()", "h->walk()", "walk(h)"],
+      "answer": 1,
+      "commentary": "関数と同じく、呼び出すときは後ろに () が必要です。"
+    },
+    {
+      "id": 17,
+      "type": "実行結果予測",
+      "question": "演習のWizardクラスで、<code>magic = []</code> と定義されているのは何のデータ型ですか？",
+      "options": ["整数", "文字列", "リスト", "辞書"],
+      "answer": 2,
+      "commentary": "[] は空のリストを表します。ここに覚えた魔法を追加していきます。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "リストの最後に新しい要素を追加するメソッドは何ですか？<pre><code>self.magic.___(\"火炎魔法\")</code></pre>",
+      "options": ["add", "push", "append", "insert"],
+      "answer": 2,
+      "commentary": "Pythonのリストに要素を追加するには append() メソッドを使います。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "クラスや関数の役割を説明するために <code>\"\"\"</code> で囲んで書く説明文を何と呼びますか？",
+      "options": ["コメント", "タグ", "docstring", "マニュアル"],
+      "answer": 2,
+      "commentary": "docstring（ドックストリング）といい、プログラムの使い方の説明に使われます。"
+    },
+    {
+      "id": 20,
+      "type": "文法チェック",
+      "question": "メソッドの定義 <code>def set_age(self, age):</code> において、実際に呼び出すときに渡す引数の数はいくつですか？",
+      "options": ["1つ", "2つ", "0個", "3つ"],
+      "answer": 0,
+      "commentary": "selfは自動的に渡されるため、呼び出す側が指定するのはageの1つだけです。"
+    },
+    {
+      "id": 21,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>class Test:\n    pass\n\nt1 = Test()\nt2 = Test()\nprint(t1 == t2)</code></pre>",
+      "options": ["True", "False", "エラー", "None"],
+      "answer": 1,
+      "commentary": "t1とt2は同じクラスから作られていますが、別のインスタンス（個体）なので False になります。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "継承において、元になるクラス（Human）を「親クラス」と呼ぶのに対し、新しく作るクラス（Student）を何と呼びますか？",
+      "options": ["ベビークラス", "子クラス", "新クラス", "サブクラス"],
+      "answer": 1,
+      "commentary": "「親クラス（スーパークラス）」と「子クラス（サブクラス）」というペアで呼ばれます。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "インスタンスを生成する正しいコードを選んでください。<pre><code>class Cat:\n    def __init__(self, name):\n        self.name = name\n\n# たま という名前の猫を作る\nmy_cat = ___</code></pre>",
+      "options": ["Cat.new(\"たま\")", "Cat(\"たま\")", "new Cat(\"たま\")", "Cat.create(\"たま\")"],
+      "answer": 1,
+      "commentary": "「クラス名(引数)」と書くことで、そのクラスのインスタンスが作られます。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "メソッドの中で <code>self.name</code> と書いたとき、この <code>self</code> は具体的に何を指していますか？",
+      "options": ["クラス全体", "そのメソッドを呼び出している自分自身のインスタンス", "親クラス", "Pythonシステム"],
+      "answer": 1,
+      "commentary": "selfは「今、この処理を実行している自分自身（個体）」を指します。"
+    },
+    {
+      "id": 25,
+      "type": "文法チェック",
+      "question": "コンストラクタ <code>__init__</code> の前後にある <code>__</code> （アンダースコア2つ）は何のために付いていますか？",
+      "options": ["ただのデザイン", "Pythonで特別な意味を持つメソッドであることを示すため", "秘密のコードにするため", "エラーを防ぐため"],
+      "answer": 1,
+      "commentary": "Pythonでは、システムがあらかじめ決めた特別なメソッド（マジックメソッド）の名前に __ が使われます。"
+    },
+    {
+      "id": 26,
+      "type": "実行結果予測",
+      "question": "次のコードで <code>h.age</code> の値は何ですか？<pre><code>class Human:\n    def __init__(self):\n        self.age = 20\n\nh = Human()\nh.age = 25</code></pre>",
+      "options": ["20", "25", "エラー", "None"],
+      "answer": 1,
+      "commentary": "コンストラクタで20に初期化されますが、その後に25に書き換えられています。"
+    },
+    {
+      "id": 27,
+      "type": "用語理解",
+      "question": "クラスを「設計図」としたとき、そこから家を何軒も建てるように、複数のインスタンスを作ることは可能ですか？",
+      "options": ["はい", "いいえ", "1つのクラスにつき2つまで", "OSによって異なる"],
+      "answer": 0,
+      "commentary": "設計図が1つあれば、そこからいくつでもインスタンスを生成できます。"
+    },
+    {
+      "id": 28,
+      "type": "文法チェック",
+      "question": "メソッド内でインスタンス変数を作る際、正しい書き方はどれですか？",
+      "options": ["name = \"山田\"", "self.name = \"山田\"", "Human.name = \"山田\"", "var name = \"山田\""],
+      "answer": 1,
+      "commentary": "「self.変数名」とすることで、そのインスタンスに紐づいた変数として保存されます。"
+    },
+    {
+      "id": 29,
+      "type": "コード穴埋め",
+      "question": "演習のBraveクラスで、Characterクラスの機能を継承しつつ独自のメソッドを追加する正しい形を選んでください。<pre><code>class Brave(Character):\n    def buy_weapon(self, weapon):\n        ___</code></pre>",
+      "options": ["self.weapon = weapon", "weapon = self", "Character.weapon = weapon", "Brave.weapon"],
+      "answer": 0,
+      "commentary": "子クラス独自のメソッド内でも、selfを使ってインスタンス変数を作ることができます。"
+    },
+    {
+      "id": 30,
+      "type": "実行結果予測",
+      "question": "親クラスで <code>self.name</code> を設定している場合、子クラスでそれをもう一度定義し直す必要はありますか？",
+      "options": ["ある", "ない", "子クラスの名前が違うときだけある", "エラーになるので書いてはいけない"],
+      "answer": 1,
+      "commentary": "継承すれば親クラスの変数は自動的に引き継がれるため、書き直す必要はありません。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "1つのクラスから10個のインスタンスを作った場合、それぞれのインスタンス変数の値（例：名前）を別々にすることはできますか？",
+      "options": ["できる", "できない（すべて同じになる）", "5個までならできる", "クラスの定義による"],
+      "answer": 0,
+      "commentary": "インスタンスごとに異なるデータ（名前、年齢など）を持つことができるのがクラスの強みです。"
+    },
+    {
+      "id": 32,
+      "type": "コード穴埋め",
+      "question": "メソッドの中で別のメソッドを呼び出したい場合、どう書きますか？<pre><code>def method_a(self):\n    print(\"A\")\n\ndef method_b(self):\n    ___  # method_aを呼び出したい</code></pre>",
+      "options": ["method_a()", "self.method_a()", "Test.method_a()", "run method_a"],
+      "answer": 1,
+      "commentary": "同じインスタンス内のメソッドを呼ぶときも「self.メソッド名()」と書きます。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "クラス名の慣習として、Pythonではどのような書き方が推奨されていますか？",
+      "options": ["すべて小文字 (human)", "スネークケース (my_human)", "パスカルケース/頭文字大文字 (Human)", "特に決まりはない"],
+      "answer": 2,
+      "commentary": "クラス名は頭文字を大文字にする「PascalCase」が一般的に使われます。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、画面には何と表示されますか？<pre><code>class Bird:\n    def fly(self):\n        print(\"パタパタ\")\n\nBird().fly()</code></pre>",
+      "options": ["パタパタ", "エラー", "Bird", "None"],
+      "answer": 0,
+      "commentary": "変数に代入せずに、生成したインスタンスから直接メソッドを呼ぶことも可能です。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "「継承」を使う主なメリットは何ですか？",
+      "options": [
+        "プログラムの見た目がカラフルになる",
+        "共通の機能を何度も書かなくて済む（再利用できる）",
+        "タイピング速度が上がる",
+        "変数の数を制限できる"
+      ],
+      "answer": 1,
+      "commentary": "共通部分を親クラスにまとめることで、コードの重複を防ぎ、管理を楽にできます。"
+    },
+    {
+      "id": 36,
+      "type": "コード穴埋め",
+      "question": "親クラスのメソッドを上書き（オーバーライド）した後、その中で親の元の処理も実行したいときに使うものは？<pre><code>def introduce(self):\n    ___  # 親の紹介処理も呼び出す\n    print(\"追加の紹介内容\")</code></pre>",
+      "options": ["parent()", "Character()", "super().introduce()", "self.introduce()"],
+      "answer": 2,
+      "commentary": "super().メソッド名() とすることで、上書き前の親の処理を呼び出せます。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "クラスの定義 <code>class Human:</code> のすぐ後に書くべきことは何ですか？",
+      "options": [
+        "セミコロン",
+        "インデントした本体の処理",
+        "カッコ",
+        "変数の宣言"
+      ],
+      "answer": 1,
+      "commentary": "クラスの本体も、関数やif文と同様にインデントして記述します。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>class A:\n    name = \"A\"\n\na1 = A()\na2 = A()\na1.name = \"B\"\nprint(a2.name)</code></pre>",
+      "options": ["A", "B", "エラー", "None"],
+      "answer": 0,
+      "commentary": "a1のnameを書き換えても、別のインスタンスであるa2のnameには影響しません。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "プログラムが複雑になっても、関連するデータと機能をひとまとめにして管理しやすくする考え方を何と呼びますか？",
+      "options": ["手続き型プログラミング", "オブジェクト指向プログラミング", "関数型プログラミング", "論理型プログラミング"],
+      "answer": 1,
+      "commentary": "クラスやインスタンス（オブジェクト）を中心に組み立てる手法をオブジェクト指向と言います。"
+    },
+    {
+      "id": 40,
+      "type": "文法チェック",
+      "question": "コンストラクタ <code>__init__(self, name)</code> で受け取った <code>name</code> を、他のメソッドでも使えるように保存する正しい方法はどれですか？",
+      "options": [
+        "name = name",
+        "self.name = name",
+        "global name",
+        "return name"
+      ],
+      "answer": 1,
+      "commentary": "self.をつけることでインスタンスの持ち物になり、クラス内の他のメソッドからも <code>self.name</code> で参照できるようになります。"
     }
   ]
 }

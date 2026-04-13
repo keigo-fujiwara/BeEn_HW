@@ -1,23 +1,325 @@
 {
-  "unit_title": "Django Webアプリ開発コース — Python の基礎 — モジュール",
+  "unit_title": "モジュール",
   "questions": [
     {
-      "question": "標準ライブラリのモジュールを読み込むのに使う文はどれですか？",
-      "options": ["include math", "import math", "using math", "require math"],
+      "id": 1,
+      "type": "用語理解",
+      "question": "便利なクラスや関数をひとまとめにしたものを何と呼びますか？",
+      "options": ["変数", "ライブラリ", "インデント", "コンストラクタ"],
       "answer": 1,
-      "commentary": "import モジュール名 でインポートします。"
+      "commentary": "ライブラリやモジュールは、特定の機能を持つコードを再利用可能な形でまとめたものです。"
     },
     {
-      "question": "モジュールから特定の名前だけを取り込む文として正しいものはどれですか？",
-      "options": ["from math import pi", "import pi from math", "take pi from math", "using math.pi"],
-      "answer": 0,
-      "commentary": "from モジュール import 名前 の順です。"
+      "id": 2,
+      "type": "文法チェック",
+      "question": "Pythonで「math」というモジュールを読み込むための正しい記述はどれですか？",
+      "options": ["get math", "load math", "import math", "using math"],
+      "answer": 2,
+      "commentary": "モジュールを使用するには import 文を使います。"
     },
     {
-      "question": "パッケージ内のサブモジュールを import する場合の例として適切なものはどれですか？",
-      "options": ["import os.path", "import os/path", "include os.path", "from path import os"],
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "特定のモジュールから特定の関数だけを読み込みたい場合の書き方を選んでください。<pre><code>___ datetime import datetime</code></pre>",
+      "options": ["to", "from", "at", "get"],
+      "answer": 1,
+      "commentary": "「from モジュール名 import 関数名」と書くことで、特定の機能だけを直接読み込めます。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "「numpy」モジュールに「np」という短い別名をつけて読み込む正しい方法はどれですか？<pre><code>import numpy ___ np</code></pre>",
+      "options": ["to", "be", "as", "like"],
+      "answer": 2,
+      "commentary": "import ... as ... と書くことで、長いモジュール名に別名を付けることができます。"
+    },
+    {
+      "id": 5,
+      "type": "用語理解",
+      "question": "Pythonをインストールした直後からすぐに使える、便利なモジュール群を何と呼びますか？",
+      "options": ["基本モジュール", "標準ライブラリ", "外部パッケージ", "初期設定"],
+      "answer": 1,
+      "commentary": "Pythonに標準で搭載されているライブラリを標準ライブラリと呼びます。"
+    },
+    {
+      "id": 6,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、表示される値は何ですか？<pre><code>import math\nprint(math.sqrt(4))</code></pre>",
+      "options": ["2.0", "4.0", "16.0", "0.0"],
       "answer": 0,
-      "commentary": "ドットでパッケージ階層を表します（例: import os.path）。"
+      "commentary": "math.sqrt() は平方根（ルート）を求める関数です。4の平方根は2.0です。"
+    },
+    {
+      "id": 7,
+      "type": "実行結果予測",
+      "question": "次のコードの結果はどうなりますか？<pre><code>import math\nprint(math.factorial(3))</code></pre>",
+      "options": ["3", "6", "9", "3.0"],
+      "answer": 1,
+      "commentary": "math.factorial() は階乗を求めます。3の階乗は 3 * 2 * 1 = 6 です。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "「random」モジュールが提供する、一見ランダムに見えるが予測可能な計算に基づく数値を何と呼びますか？",
+      "options": ["完全乱数", "真実乱数", "疑似乱数", "固定乱数"],
+      "answer": 2,
+      "commentary": "コンピュータで作る乱数は計算式に基づいているため、疑似乱数と呼ばれます。"
+    },
+    {
+      "id": 9,
+      "type": "実行結果予測",
+      "question": "<code>random.randint(1, 6)</code> はどのような範囲の整数を返しますか？",
+      "options": ["1以上6未満", "1より大きく6より小さい", "1以上6以下", "0以上6以下"],
+      "answer": 2,
+      "commentary": "randint(a, b) は a 以上 b 以下の整数（bを含む）をランダムに返します。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "0以上1未満のランダムな小数を取得する関数は何ですか？<pre><code>import random\nprint(random.___())</code></pre>",
+      "options": ["rand", "float", "random", "decimal"],
+      "answer": 2,
+      "commentary": "random.random() は 0.0 以上 1.0 未満の float 型を返します。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "リストの中身をランダムに入れ替える関数は何ですか？<pre><code>a = [1, 2, 3]\nrandom.___(a)</code></pre>",
+      "options": ["change", "mix", "shuffle", "move"],
+      "answer": 2,
+      "commentary": "random.shuffle() はリストの要素をその場でシャッフルします。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "次のコードで、現在の日時を表示する正しい命令はどれですか？",
+      "options": ["datetime.now()", "datetime.today()", "datetime.current()", "datetime.time()"],
+      "answer": 0,
+      "commentary": "datetime.datetime.now()（from datetime import datetime の場合は datetime.now()）で現在日時を取得できます。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "日付の計算（1日後など）を行う際に使用する、経過時間を表すクラスは何ですか？<pre><code>dt - ___(days=1)</code></pre>",
+      "options": ["timedate", "timegap", "timedelta", "timespan"],
+      "answer": 2,
+      "commentary": "timedelta クラスを使うことで、日付や時刻の足し算・引き算ができます。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "Python外部のパッケージを管理・公開している場所（PyPI）からライブラリをインストールするためのコマンドは何ですか？",
+      "options": ["npm", "get", "pip", "setup"],
+      "answer": 2,
+      "commentary": "pip（またはpip3）は、Pythonのパッケージ管理ツールです。"
+    },
+    {
+      "id": 15,
+      "type": "文法チェック",
+      "question": "外部パッケージをインストールするための正しいコマンド形式はどれですか？",
+      "options": ["install requests", "python install requests", "pip install requests", "import requests install"],
+      "answer": 2,
+      "commentary": "ターミナル上で「pip install パッケージ名」を実行してインストールします。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "他のプロジェクトに影響を与えずに、特定のプロジェクト専用のライブラリ環境を構築することを何と呼びますか？",
+      "options": ["秘密環境", "仮想環境", "独立環境", "専用環境"],
+      "answer": 1,
+      "commentary": "venv などを使って作成する切り離された環境を「仮想環境」と呼びます。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "Webサイトへのアクセスやデータのダウンロードをサポートする有名な外部ライブラリは何ですか？",
+      "options": ["Requests", "WebAccess", "Internet", "Browser"],
+      "answer": 0,
+      "commentary": "Requests は、HTTP 通信を非常に簡単に行えるライブラリです。"
+    },
+    {
+      "id": 18,
+      "type": "実行結果予測",
+      "question": "Requestsライブラリで `r.status_code` が 200 だった場合、それは何を意味しますか？",
+      "options": ["エラーが発生した", "アクセスに成功した", "ページが見つからない", "接続待ち状態"],
+      "answer": 1,
+      "commentary": "HTTP ステータスコードの 200 は、リクエストが正常に成功したことを表します。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "効率的な数値計算や行列の計算をサポートする外部ライブラリは何ですか？",
+      "options": ["MathPlus", "Numpy", "Matrix", "Calcy"],
+      "answer": 1,
+      "commentary": "Numpy はデータサイエンスや機械学習の分野で欠かせない数値計算ライブラリです。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "Numpyで 2次元配列（行列）を作るための関数は何ですか？",
+      "options": ["np.list()", "np.matrix()", "np.array()", "np.data()"],
+      "answer": 2,
+      "commentary": "np.array() に入れ子のリストを渡すことで、多次元配列を作成できます。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "グラフや図を描画するための有名な外部ライブラリは何ですか？",
+      "options": ["GraphPlot", "DrawPy", "Matplotlib", "ShowGraph"],
+      "answer": 2,
+      "commentary": "Matplotlib は、データを可視化するための標準的なライブラリです。"
+    },
+    {
+      "id": 22,
+      "type": "コード穴埋め",
+      "question": "Matplotlibでグラフを画面に表示するための関数は何ですか？<pre><code>plt.plot(x, y)\nplt.___()</code></pre>",
+      "options": ["display", "view", "show", "open"],
+      "answer": 2,
+      "commentary": "plt.show() を呼び出すことで、作成したグラフがウィンドウに表示されます。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "インポートしたモジュール内の関数を使うときの正しい書き方はどれですか？",
+      "options": ["math:sqrt(2)", "math.sqrt(2)", "math->sqrt(2)", "math sqrt 2"],
+      "answer": 1,
+      "commentary": "「モジュール名.関数名」のように、ドット（.）で繋いで呼び出します。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "次のコードを実行した結果はどうなりますか？<pre><code>import math\nprint(math.pi)</code></pre>",
+      "options": ["3", "3.14159...", "180", "1.0"],
+      "answer": 1,
+      "commentary": "math.pi は円周率の値を保持している定数です。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "外部パッケージをインストールする際、仮想環境を作成せずにインストールするとどうなりますか？",
+      "options": ["インストールできない", "パソコン全体にインストールされ、他のプロジェクトに影響する可能性がある", "自動的に仮想環境が作られる", "インターネット速度が遅くなる"],
+      "answer": 1,
+      "commentary": "仮想環境を使わないと、異なるプロジェクトで必要なライブラリのバージョンが衝突するなどの問題が起きやすくなります。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "Numpyで「0から2πまで」の等間隔な数値を生成するために使われた関数は何ですか？<pre><code>x = np.___(0, 2 * np.pi)</code></pre>",
+      "options": ["range", "space", "linspace", "interval"],
+      "answer": 2,
+      "commentary": "np.linspace() は指定した範囲内で等間隔な数列を作ります。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "仮想環境を作成するコマンド `python3 -m venv .venv` の `.venv` の部分は自由に変更できますか？",
+      "options": ["はい、自由な名前を付けられる", "いいえ、必ず .venv でなければならない", "英単語一文字でなければならない", "OSによって決まっている"],
+      "answer": 0,
+      "commentary": "フォルダ名は自由ですが、慣習として `.venv` や `env` と名付けられることが多いです。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "Requestsライブラリの `r.text` には何が格納されていますか？",
+      "options": ["アクセスしたWebサイトの画像データ", "WebサイトのHTML（文字列）", "サーバーのIPアドレス", "URLの長さ"],
+      "answer": 1,
+      "commentary": "text属性には、ダウンロードしたWebページのテキストデータ（主にHTML）が入っています。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "Numpyの配列 <code>a = np.array([1, 2])</code> と <code>b = np.array([3, 4])</code> を <code>a + b</code> とした場合の結果は何ですか？",
+      "options": ["[1, 2, 3, 4]", "4, 6", "[1, 2], [3, 4]", "エラー"],
+      "answer": 1,
+      "commentary": "Numpyの配列同士を足すと、同じ位置にある要素同士が加算されます。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "サイコロのように、指定した範囲の整数をランダムに取得する関数を選んでください。<pre><code>random.___ (1, 6)</code></pre>",
+      "options": ["rand", "integer", "randint", "number"],
+      "answer": 2,
+      "commentary": "random.randint(a, b) は a と b を含む範囲から整数を1つ選びます。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "「from math import sqrt」とインポートした場合、関数を呼び出すときの正しい書き方はどれですか？",
+      "options": ["math.sqrt(2)", "sqrt(2)", "from.sqrt(2)", "sqrt"],
+      "answer": 1,
+      "commentary": "from を使って直接インポートした場合は、モジュール名を省略して関数名だけで使えます。"
+    },
+    {
+      "id": 32,
+      "type": "実行結果予測",
+      "question": "<code>random.random()</code> が 1.0 という値を返すことはありますか？",
+      "options": ["たまにある", "常にある", "絶対にない", "設定次第である"],
+      "answer": 2,
+      "commentary": "この関数は「1.0 未満」の値を返すため、1.0 ちょうどが返ることはありません。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "Matplotlibをインポートする際、よく使われる慣習的な別名は何ですか？",
+      "options": ["import matplotlib.pyplot as m", "import matplotlib.pyplot as plt", "import matplotlib.pyplot as plot", "import matplotlib.pyplot as show"],
+      "answer": 1,
+      "commentary": "「plt」という別名を使うのが、世界中のプログラマーの間での一般的な慣習です。"
+    },
+    {
+      "id": 34,
+      "type": "コード穴埋め",
+      "question": "仮想環境を有効にする（中に入る）際、macOS/Linuxで使用するコマンドは何ですか？<pre><code>___ .venv/bin/activate</code></pre>",
+      "options": ["open", "run", "source", "start"],
+      "answer": 2,
+      "commentary": "source コマンドを使って、仮想環境を有効化するスクリプトを実行します。"
+    },
+    {
+      "id": 35,
+      "type": "実行結果予測",
+      "question": "datetimeクラスで `dt = datetime(2026, 1, 1)` と作った場合、その後の 2026 は何を指しますか？",
+      "options": ["月", "日", "年", "秒"],
+      "answer": 2,
+      "commentary": "引数は左から 年、月、日の順番で指定します。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "「pip install numpy」を実行中、インターネットに接続されていない場合はどうなりますか？",
+      "options": ["インストールに失敗する", "オフライン用の予備が使われる", "自動で接続されるまで待機する", "何も起きない"],
+      "answer": 0,
+      "commentary": "pip はインターネット上のサーバー（PyPI）からデータをダウンロードするため、通信環境が必要です。"
+    },
+    {
+      "id": 37,
+      "type": "実行結果予測",
+      "question": "次のコードを実行した結果はどうなりますか？<pre><code>import math\nprint(math.cos(0))</code></pre>",
+      "options": ["0.0", "1.0", "3.14", "エラー"],
+      "answer": 1,
+      "commentary": "数学関数のコサイン 0 の値は 1.0 です。"
+    },
+    {
+      "id": 38,
+      "type": "コード穴埋め",
+      "question": "1つのインポート文で、複数のモジュールを同時に読み込むときに使う記号は何ですか？<pre><code>import math ___ random</code></pre>",
+      "options": [".", ":", ";", ","],
+      "answer": 3,
+      "commentary": "カンマ「,」で区切ることで、複数のモジュールを一行でインポートできます。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "Numpyライブラリにおいて、ndarrayクラスの「nd」は何を意味していますか？",
+      "options": ["Next Data", "N-Dimension (N次元)", "Number Data", "New Design"],
+      "answer": 1,
+      "commentary": "多次元（N次元）の配列をサポートしていることを表しています。"
+    },
+    {
+      "id": 40,
+      "type": "実行結果予測",
+      "question": "次のコードの結果、表示されるのは何ですか？<pre><code>import math\nprint(type(math.pi))</code></pre>",
+      "options": ["int", "float", "str", "math"],
+      "answer": 1,
+      "commentary": "円周率は小数なので float 型として扱われます。"
     }
   ]
 }

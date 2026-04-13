@@ -1,23 +1,365 @@
 {
-  "unit_title": "Django Webアプリ開発コース — Python の基礎 — 条件分岐と反復",
+  "unit_title": "条件分岐と反復",
   "questions": [
     {
-      "question": "条件分岐で「どちらでもない場合」を扱うときに使うキーワードはどれですか？",
-      "options": ["elseif", "elif", "else if", "otherwise"],
+      "id": 1,
+      "type": "用語理解",
+      "question": "Pythonで、プログラムの「かたまり（ブロック）」を判断するために使われる、行の先頭にスペースを入れる操作を何と呼びますか？",
+      "options": ["コーディング", "インデント", "デバッグ", "スペース"],
       "answer": 1,
-      "commentary": "Pythonでは elif が正しい綴りです（else if ではありません）。"
+      "commentary": "Pythonではインデント（字下げ）を使って、if文やfor文の範囲を決定します。一般的にスペース4つ分が推奨されます。"
     },
     {
-      "question": "一定回数ループするのに適した構文はどれですか？",
-      "options": ["for i in range(n):", "loop n times:", "repeat(n):", "for each n:"],
+      "id": 2,
+      "type": "文法チェック",
+      "question": "if文の構文として、正しい書き方はどれですか？",
+      "options": [
+        "if num == 0 then:",
+        "if num == 0:",
+        "if (num == 0) { }",
+        "if num == 0 ;"
+      ],
+      "answer": 1,
+      "commentary": "Pythonのif文は、条件式の後に必ずコロン（:）が必要です。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "「もし〜なら、そうでなくもし〜なら」という複数の条件を作りたいときに使うキーワードは何ですか？<pre><code>if num > 10:\n    print(\"大きい\")\n___ num > 5:\n    print(\"普通\")</code></pre>",
+      "options": ["else if", "elseif", "elif", "else"],
+      "answer": 2,
+      "commentary": "他の言語では else if と書くこともありますが、Pythonでは elif と短く記述します。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "Pythonのif文で、数値の「0」や「空の文字列（\"\"）」はどのように評価されますか？",
+      "options": ["真（True）", "偽（False）", "エラーになる", "0として表示される"],
+      "answer": 1,
+      "commentary": "Pythonでは数値の0や空の文字列、空のリストなどは「偽（False）」として扱われます。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "次のコードを実行して「3」を入力したとき、何が表示されますか？<pre><code>num = int(input())\nif num % 2 == 0:\n    print(\"偶数\")\nelse:\n    print(\"奇数\")</code></pre>",
+      "options": ["偶数", "奇数", "0", "エラー"],
+      "answer": 1,
+      "commentary": "3を2で割った余りは1なので、条件式は偽となり else 側の「奇数」が表示されます。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "リスト型などの反復可能なデータの中身を順番に処理するために使う文は何ですか？",
+      "options": ["if 文", "for 文", "while 文", "break 文"],
+      "answer": 1,
+      "commentary": "for文は、リストやrangeなどの要素を一つずつ取り出して処理を繰り返すのに適しています。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "10回繰り返す処理を作りたい場合、空欄に入る正しいコードはどれですか？<pre><code>for i in ___:\n    print(\"こんにちは\")</code></pre>",
+      "options": ["range(10)", "10", "list(10)", "count(10)"],
       "answer": 0,
-      "commentary": "range と組み合わせた for が定番です。"
+      "commentary": "range(10)は0から9までの10個の数字を生成するため、10回の繰り返しに使用できます。"
     },
     {
-      "question": "条件が真の間だけ繰り返すループを書くキーワードはどれですか？",
-      "options": ["until", "while", "during", "when"],
+      "id": 8,
+      "type": "実行結果予測",
+      "question": "次のコードの出力結果はどうなりますか？<pre><code>for i in range(3):\n    print(i)</code></pre>",
+      "options": ["1, 2, 3", "0, 1, 2", "0, 1, 2, 3", "3, 3, 3"],
       "answer": 1,
-      "commentary": "while 条件: で、条件が真の間ループします。"
+      "commentary": "range(3)は 0, 1, 2 の順に値を生成します。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "リストの中身を一つずつ表示したい場合の正しい書き方を選んでください。<pre><code>colors = [\"赤\", \"青\"]\nfor color ___ colors:\n    print(color)</code></pre>",
+      "options": ["at", "on", "in", "with"],
+      "answer": 2,
+      "commentary": "for 変数 in オブジェクト: の形式で記述します。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "「条件が真である限り、ずっと繰り返す」という処理に最も適した文はどれですか？",
+      "options": ["if 文", "for 文", "while 文", "continue 文"],
+      "answer": 2,
+      "commentary": "while文は、繰り返す回数が決まっておらず、条件を満たしている間繰り返したい時に使います。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "繰り返しの途中で強制的にループを終了させる命令は何ですか？<pre><code>while True:\n    if input() == \"終了\":\n        ___</code></pre>",
+      "options": ["stop", "exit", "break", "end"],
+      "answer": 2,
+      "commentary": "break文を使うと、実行中のループ（forやwhile）から即座に脱出します。"
+    },
+    {
+      "id": 12,
+      "type": "コード穴埋め",
+      "question": "繰り返しの現在の回をスキップして、次の回に進める命令は何ですか？<pre><code>for i in range(5):\n    if i == 2:\n        ___\n    print(i)</code></pre>",
+      "options": ["skip", "next", "pass", "continue"],
+      "answer": 3,
+      "commentary": "continue文が実行されると、その回の残りの処理を飛ばして次の繰り返しに移動します。"
+    },
+    {
+      "id": 13,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>num = 0\nwhile num < 3:\n    num += 1\nprint(num)</code></pre>",
+      "options": ["0", "2", "3", "4"],
+      "answer": 2,
+      "commentary": "numが0, 1, 2の時にループが回り、3になった時点で num < 3 が偽となりループを抜けます。最後に3が表示されます。"
+    },
+    {
+      "id": 14,
+      "type": "文法チェック",
+      "question": "インデントが間違っているコードはどれですか？",
+      "options": [
+        "if True:\n    print(\"OK\")",
+        "for i in range(1):\nprint(\"OK\")",
+        "while False:\n    pass",
+        "if True:\n    if True:\n        print(\"OK\")"
+      ],
+      "answer": 1,
+      "commentary": "for文やif文の中の処理は、必ずインデント（字下げ）をする必要があります。"
+    },
+    {
+      "id": 15,
+      "type": "実行結果予測",
+      "question": "次のFizzBuzzプログラムで「i = 3」のときの出力は何ですか？<pre><code>if i % 3 == 0:\n    print(\"Fizz\")\nelif i % 5 == 0:\n    print(\"Buzz\")</code></pre>",
+      "options": ["3", "Fizz", "Buzz", "FizzBuzz"],
+      "answer": 1,
+      "commentary": "3 % 3 は 0 なので、最初の if 節が実行されます。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "15の倍数（3の倍数かつ5の倍数）を判定する式として正しいものはどれですか？<pre><code>if i % ___ == 0:</code></pre>",
+      "options": ["3", "5", "8", "15"],
+      "answer": 3,
+      "commentary": "3と5の最小公倍数である15で割った余りが0かどうかを確認します。"
+    },
+    {
+      "id": 17,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、「i = 2」の行は表示されますか？<pre><code>for i in range(5):\n    if i == 2:\n        continue\n    print(\"i = \" + str(i))</code></pre>",
+      "options": ["表示される", "表示されない", "エラーになる", "0が表示される"],
+      "answer": 1,
+      "commentary": "iが2のとき continue が実行されるため、その下の print 文はスキップされます。"
+    },
+    {
+      "id": 18,
+      "type": "文法チェック",
+      "question": "while文で「無限ループ」を作ってしまう、正しくない書き方はどれですか？",
+      "options": [
+        "while num < 10:\n    num += 1",
+        "while True:\n    break",
+        "while num < 10:\n    print(num)",
+        "while False:\n    print(\"hello\")"
+      ],
+      "answer": 2,
+      "commentary": "numを増やしていないため、num < 10 がずっと真のままになり、無限に繰り返されてしまいます。"
+    },
+    {
+      "id": 19,
+      "type": "コード穴埋め",
+      "question": "1から10までの数字をfor文で表示したい場合、rangeの正しい範囲指定はどれですか？<pre><code>for i in range(___):\n    print(i)</code></pre>",
+      "options": ["10", "1, 10", "1, 11", "0, 10"],
+      "answer": 2,
+      "commentary": "range(開始, 終了) は終了の値を含まないため、10まで表示したい場合は11を指定します。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "辞書型のデータ <code>student = {\"name\": \"tanaka\"}</code> から名前を取り出す正しい書き方はどれですか？",
+      "options": [
+        "student(name)",
+        "student[\"name\"]",
+        "student.name",
+        "student{\"name\"}"
+      ],
+      "answer": 1,
+      "commentary": "辞書の値を取り出すときは、角かっこ [] を使います。"
+    },
+    {
+      "id": 21,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、何が表示されますか？<pre><code>if \"\":\n    print(\"A\")\nelse:\n    print(\"B\")</code></pre>",
+      "options": ["A", "B", "エラー", "何も表示されない"],
+      "answer": 1,
+      "commentary": "空の文字列 \"\" は「偽」と判定されるため、else 節の「B」が表示されます。"
+    },
+    {
+      "id": 22,
+      "type": "コード穴埋め",
+      "question": "あるリスト <code>list_a = [10, 20, 30]</code> のすべての値を足したい場合、どこを修正しますか？<pre><code>total = 0\nfor x in list_a:\n    total ___ x\nprint(total)</code></pre>",
+      "options": ["=", "+=", "-=", "*="],
+      "answer": 1,
+      "commentary": "現在までの合計値 total に、リストの各要素 x を順番に足していく必要があります。"
+    },
+    {
+      "id": 23,
+      "type": "用語理解",
+      "question": "プログラミングで、条件によって処理を変えたり繰り返したりすることをまとめて何と呼びますか？",
+      "options": ["編集文", "実行文", "制御文", "命令文"],
+      "answer": 2,
+      "commentary": "プログラムの流れを制御するための文なので「制御文」と呼びます。"
+    },
+    {
+      "id": 24,
+      "type": "コード穴埋め",
+      "question": "FizzBuzzの問題で、条件を判定する「順番」として最も適切なものはどれですか？",
+      "options": [
+        "3の倍数 → 5の倍数 → 15の倍数",
+        "15の倍数 → 3の倍数 → 5の倍数",
+        "3の倍数 → 15の倍数 → 5の倍数",
+        "どの順番でもよい"
+      ],
+      "answer": 1,
+      "commentary": "先に3の倍数を判定してしまうと、15の倍数のときも「Fizz」と表示されて終わってしまいます。条件が厳しいものから先に書くのが鉄則です。"
+    },
+    {
+      "id": 25,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>for i in range(1, 4):\n    if i == 2:\n        break\n    print(i)</code></pre>",
+      "options": ["1", "1, 2", "1, 2, 3", "1, 3"],
+      "answer": 0,
+      "commentary": "iが2になった瞬間に break でループが終わるため、それ以降の2や3は表示されません。"
+    },
+    {
+      "id": 26,
+      "type": "文法チェック",
+      "question": "while文の条件式に <code>True</code> を入れた場合、どうなりますか？",
+      "options": [
+        "1回だけ実行される",
+        "エラーになる",
+        "無限に繰り返される",
+        "何も実行されない"
+      ],
+      "answer": 2,
+      "commentary": "条件が常に「真」となるため、内部で break しない限り無限ループになります。"
+    },
+    {
+      "id": 27,
+      "type": "コード穴埋め",
+      "question": "偶数かどうかを判定する式を完成させてください。<pre><code>if i % ___ == 0:</code></pre>",
+      "options": ["1", "2", "3", "10"],
+      "answer": 1,
+      "commentary": "2で割った余りが0であれば、その数は偶数です。"
+    },
+    {
+      "id": 28,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>a = [1, 2]\nfor x in a:\n    print(\"A\")\nprint(\"B\")</code></pre>",
+      "options": ["A, B", "A, A, B", "A, B, A, B", "B"],
+      "answer": 1,
+      "commentary": "インデントされている print(\"A\") は2回繰り返されますが、外にある print(\"B\") はループが終わった後に1回だけ実行されます。"
+    },
+    {
+      "id": 29,
+      "type": "用語理解",
+      "question": "リストの中にさらにリストや辞書が入っているような構造を何と呼びますか？",
+      "options": ["ループ構造", "入れ子（ネスト）構造", "分岐構造", "インデント構造"],
+      "answer": 1,
+      "commentary": "箱の中に箱が入っているような状態を「入れ子」または「ネスト」と言います。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "「10より大きい」かつ「20より小さい」を表す正しい比較演算の組み合わせはどれですか？<pre><code>10 ___ num ___ 20</code></pre>",
+      "options": ["< , <", "> , >", "< , >", "> , <"],
+      "answer": 0,
+      "commentary": "10 < num < 20 と書くことで、範囲を表現できます。"
+    },
+    {
+      "id": 31,
+      "type": "実行結果予測",
+      "question": "次のコードの出力結果はどうなりますか？<pre><code>num = 5\nif num > 10:\n    print(\"X\")\nelif num > 0:\n    print(\"Y\")\nelse:\n    print(\"Z\")</code></pre>",
+      "options": ["X", "Y", "Z", "X, Y"],
+      "answer": 1,
+      "commentary": "最初の if は偽ですが、次の elif (5 > 0) が真なので「Y」が表示されます。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "if文の中でさらにif文を使うことはできますか？",
+      "options": [
+        "できる",
+        "できない",
+        "for文の中ならできる",
+        "elifを使わなければできる"
+      ],
+      "answer": 0,
+      "commentary": "条件分岐の中にさらに条件分岐を書くことができ、これを「ネスト」と言います。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "while文で、変数 <code>count</code> を1ずつ増やしていく正しい書き方はどれですか？<pre><code>while count < 5:\n    ___</code></pre>",
+      "options": ["count = 1", "count == 1", "count += 1", "count + 1"],
+      "answer": 2,
+      "commentary": "代入演算子 += を使うことで、現在の値に1を加えた結果で変数を更新できます。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、何が表示されますか？<pre><code>for s in \"ABC\":\n    print(s)</code></pre>",
+      "options": ["ABC", "A, B, C (改行される)", "A", "エラー"],
+      "answer": 1,
+      "commentary": "文字列も「反復可能なオブジェクト」なので、1文字ずつ取り出すことができます。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "range(2, 10, 3) と書いた時、最初の数字、最後の数字、増える数字の順序はどうなっていますか？",
+      "options": [
+        "終了, 開始, 増分",
+        "開始, 終了, 増分",
+        "増分, 開始, 終了",
+        "開始, 増分, 終了"
+      ],
+      "answer": 1,
+      "commentary": "range(start, stop, step) の順で引数を指定します。"
+    },
+    {
+      "id": 36,
+      "type": "コード穴埋め",
+      "question": "if文の条件を「〜ではないとき」としたい場合、どの演算子を使いますか？<pre><code>if ___ (num == 10):</code></pre>",
+      "options": ["and", "or", "not", "no"],
+      "answer": 2,
+      "commentary": "not 演算子を使うと、真偽値を反転させることができます。"
+    },
+    {
+      "id": 37,
+      "type": "実行結果予測",
+      "question": "次のコードの結果はどうなりますか？<pre><code>if 0:\n    print(\"A\")\nelse:\n    print(\"B\")</code></pre>",
+      "options": ["A", "B", "0", "エラー"],
+      "answer": 1,
+      "commentary": "数値の 0 は Python では「偽」とみなされます。"
+    },
+    {
+      "id": 38,
+      "type": "文法チェック",
+      "question": "for文の <code>for i in range(5):</code> という行の最後に必要な記号は何ですか？",
+      "options": [";（セミコロン）", ":（コロン）", ",（カンマ）", ".（ドット）"],
+      "answer": 1,
+      "commentary": "制御文（if, for, whileなど）の開始行の末尾には必ずコロンが必要です。"
+    },
+    {
+      "id": 39,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>for i in range(1):\n    for j in range(2):\n        print(\"*\")</code></pre>",
+      "options": ["*", "**", "* (2回改行される)", "エラー"],
+      "answer": 2,
+      "commentary": "外側が1回、内側が2回繰り返されるので、合計2つの星が表示されます。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "「もし5より大きければA、そうでなければB」という処理を行いたい場合、ifとセットで使うキーワードは何ですか？",
+      "options": ["elif", "else", "then", "otherwise"],
+      "answer": 1,
+      "commentary": "すべての条件に当てはまらなかった場合の処理は else 節に書きます。"
     }
   ]
 }
