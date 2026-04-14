@@ -1,23 +1,325 @@
 {
-  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — モデル・管理者サイト",
+  "unit_title": "モデルと管理者サイト",
   "questions": [
     {
-      "question": "モデルクラスの定義の基底クラスとして使うのはどれですか？",
-      "options": ["django.Model", "models.Model", "db.Model", "Model.Base"],
+      "id": 1,
+      "type": "用語理解",
+      "question": "アプリで使うデータを保存・管理しておく、二次元の表（テーブル）のような機能を何といいますか？",
+      "options": ["フレームワーク", "データベース", "テンプレート", "サーバー"],
       "answer": 1,
-      "commentary": "from django.db import models のうえで models.Model を継承します。"
+      "commentary": "データベースは、情報を整理して保存しておく「メモ帳」のような役割を担います。"
     },
     {
-      "question": "管理サイトでモデルを操作できるようにするために models.py に登録するクラスはどれですか？",
-      "options": ["ModelAdmin を継承したクラスを admin.site に登録", "settings.py に MODELS を書く", "views.py に AdminView を書く", "自動で登録されるので不要"],
-      "answer": 0,
-      "commentary": "admin.py で admin.site.register(Model, ModelAdmin) 等で登録します。"
+      "id": 2,
+      "type": "用語理解",
+      "question": "データベースの表において、横軸（保存する情報の種類）のことを何と呼びますか？",
+      "options": ["レコード", "カラム", "フィールド", "キー"],
+      "answer": 1,
+      "commentary": "表の列を「カラム」、行を「レコード」と呼びます。"
     },
     {
-      "question": "マイグレーションをデータベースに適用するコマンドはどれですか？",
-      "options": ["python manage.py migrate", "python manage.py syncdb", "django migrate", "python db apply"],
+      "id": 3,
+      "type": "用語理解",
+      "question": "異なるテーブル同士で、データが関連し合っている関係のことを何といいますか？",
+      "options": ["コネクション", "リレーション", "リンク", "マージ"],
+      "answer": 1,
+      "commentary": "「どの質問に対する回答か」のようにデータが繋がっている関係をリレーションといいます。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "Djangoでモデルを作成する際、継承すべき正しいクラスは何ですか？<pre><code>class Question(models.___):\n    question_text = models.CharField(max_length=200)</code></pre>",
+      "options": ["Base", "Data", "Model", "Table"],
+      "answer": 2,
+      "commentary": "Djangoのモデルは必ず「models.Model」を継承して作成します。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "文字列（短い文）を保存するためのフィールド型はどれですか？<pre><code>question_text = models.___ (max_length=200)</code></pre>",
+      "options": ["StringField", "TextField", "CharField", "IntegerField"],
+      "answer": 2,
+      "commentary": "決まった長さまでの文字列を保存するには「CharField」を使います。"
+    },
+    {
+      "id": 6,
+      "type": "実行結果予測",
+      "question": "IntegerField(default=0) と設定されたカラムに値を指定せずにデータを保存すると、どうなりますか？",
+      "options": ["エラーになる", "null が保存される", "0 が保存される", "空の文字列が保存される"],
+      "answer": 2,
+      "commentary": "default=0 が指定されているため、値がない場合は自動的に 0 が入ります。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "他のテーブル（モデル）と関連付ける（リレーションを作る）ために使うフィールド型はどれですか？<pre><code>question = models.___ (Question, on_delete=models.CASCADE)</code></pre>",
+      "options": ["RelateField", "ForeignKey", "ConnectField", "LinkField"],
+      "answer": 1,
+      "commentary": "「ForeignKey（外部キー）」を使うことで、他のモデルと紐付けることができます。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "日付と時刻の両方を保存するためのフィールド型はどれですか？<pre><code>pub_date = models.___ (\"date published\")</code></pre>",
+      "options": ["DateField", "TimeField", "DateTimeField", "ClockField"],
+      "answer": 2,
+      "commentary": "日付（Date）と時刻（Time）の両方を扱うには「DateTimeField」を使います。"
+    },
+    {
+      "id": 9,
+      "type": "文法チェック",
+      "question": "ForeignKeyで「on_delete=models.CASCADE」を指定したとき、何が起きますか？",
+      "options": ["親（質問）が消えても子（選択肢）は残る", "親（質問）が消えると子（選択肢）も一緒に削除される", "親（質問）を削除できなくなる", "子を削除すると親も消える"],
+      "answer": 1,
+      "commentary": "CASCADEは、関連するデータを連鎖的に削除する設定です。"
+    },
+    {
+      "id": 10,
+      "type": "文法チェック",
+      "question": "モデルの設計図を保存するための「マイグレーションファイル」を作成するコマンドはどれですか？",
+      "options": ["python manage.py migrate", "python manage.py makemigrations", "python manage.py create", "python manage.py save"],
+      "answer": 1,
+      "commentary": "makemigrations は「設計図（変更履歴）を作る」コマンドです。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "作成したマイグレーション（設計図）を実際のデータベースに適用するコマンドを完成させてください。<pre><code>python manage.py ___</code></pre>",
+      "options": ["apply", "run", "migrate", "start"],
+      "answer": 2,
+      "commentary": "migrate は「設計図をデータベースに反映させる」コマンドです。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "Djangoが自動で各データに割り当てる、重複しない番号（主キー）のことを何と呼びますか？",
+      "options": ["USER", "NAME", "ID", "CODE"],
+      "answer": 2,
+      "commentary": "個々のデータを区別するために「ID」という主キーが自動的に振られます。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "モデルを変更したあとに行う、正しい手順（3ステップ）はどれですか？",
+      "options": ["migrate → makemigrations → 編集", "編集 → migrate → makemigrations", "編集 → makemigrations → migrate", "編集 → サーバー起動 → 終了"],
+      "answer": 2,
+      "commentary": "コードを「編集」し、変更を「保存(makemigrations)」し、反映「適用(migrate)」する順番です。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "管理者サイトにログインするために必要な、すべての権限を持つユーザーのことを何といいますか？",
+      "options": ["マスターユーザー", "スーパーユーザー", "リーダー", "オーナー"],
+      "answer": 1,
+      "commentary": "Djangoでは最高権限を持つユーザーを「スーパーユーザー」と呼びます。"
+    },
+    {
+      "id": 15,
+      "type": "コード穴埋め",
+      "question": "スーパーユーザーを作成するコマンドは何ですか？<pre><code>python manage.py ___</code></pre>",
+      "options": ["newuser", "addadmin", "createsuperuser", "makeuser"],
+      "answer": 2,
+      "commentary": "「createsuperuser」で管理者アカウントを作成できます。"
+    },
+    {
+      "id": 16,
+      "type": "実行結果予測",
+      "question": "管理者サイトにアクセスするためのURLは、標準設定ではどれですか？",
+      "options": ["http://127.0.0.1:8000/", "http://127.0.0.1:8000/login/", "http://127.0.0.1:8000/admin/", "http://127.0.0.1:8000/main/"],
+      "answer": 2,
+      "commentary": "「/admin/」が標準の管理者サイト入り口です。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "作成したモデル「Question」を管理者サイトに表示させるには、どのファイルに登録（register）を書きますか？",
+      "options": ["main/models.py", "main/admin.py", "main/views.py", "polls/urls.py"],
+      "answer": 1,
+      "commentary": "管理者サイトの設定は「admin.py」に記述します。"
+    },
+    {
+      "id": 18,
+      "type": "実行結果予測",
+      "question": "admin.pyに admin.site.register(Choice) と書いたときに起きることは？",
+      "options": ["Choiceモデルが削除される", "管理者サイトのメニューにChoiceが表示される", "Choiceがテンプレートに表示される", "Choiceのデータが自動で増える"],
+      "answer": 1,
+      "commentary": "register（登録）することで、管理者画面からデータを追加・編集できるようになります。"
+    },
+    {
+      "id": 19,
+      "type": "コード穴埋め",
+      "question": "Questionモデルの全データを取得するビューでの書き方はどれですか？<pre><code>questions = Question.objects.___()</code></pre>",
+      "options": ["get", "find", "all", "select"],
+      "answer": 2,
+      "commentary": "「all()」メソッドで、テーブル内のすべてのデータを取得できます。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "Question.objects.all() を print した際に「<Question: Question object (1)>」と表示されました。これを「好きな教科は？」のように表示させるにはどうしますか？",
+      "options": ["モデルに __init__ を追加する", "モデルに __str__ を追加する", "モデルに __main__ を追加する", "モデルを一度削除する"],
+      "answer": 1,
+      "commentary": "「__str__」メソッドを定義すると、オブジェクトを文字で表示する際の内容を指定できます。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "日付が新しい順にデータを並べ替えて取得する際に使うメソッドは何ですか？<pre><code>Question.objects.___ (\"-pub_date\")</code></pre>",
+      "options": ["sort", "align", "order_by", "filter"],
+      "answer": 2,
+      "commentary": "並べ替えには「order_by」を使用し、降順（新しい順）にするには先頭に「-」を付けます。"
+    },
+    {
+      "id": 22,
+      "type": "実行結果予測",
+      "question": "order_by(\"-pub_date\")[:5] と書いたとき、どのような結果が得られますか？",
+      "options": ["5番目から10番目のデータ", "最新の5つのデータ", "最も古い5つのデータ", "ランダムな5つのデータ"],
+      "answer": 1,
+      "commentary": "「-」で最新順になり、「[:5]」で先頭から5つだけを切り取ります。"
+    },
+    {
+      "id": 23,
+      "type": "用語理解",
+      "question": "データベースへの操作（追加・変更など）を行うための、Djangoが提供する仕組みを何といいますか？",
+      "options": ["VCS", "ORM", "API", "SSL"],
+      "answer": 1,
+      "commentary": "Pythonのコードでデータベースを扱える仕組みを「ORM（Object-Relational Mapping）」と呼びます。"
+    },
+    {
+      "id": 24,
+      "type": "コード穴埋め",
+      "question": "ビューからテンプレートにデータを渡す際、辞書の「キー」として指定する名前を何といいますか？<pre><code>context = { \"___\" : all_question }</code></pre>",
+      "options": ["変数名", "ID", "タグ名", "ラベル"],
       "answer": 0,
-      "commentary": "makemigrations でファイル作成、migrate で適用です。"
+      "commentary": "ここで指定した名前（キー）が、テンプレート側で {{ ... }} として使えます。"
+    },
+    {
+      "id": 25,
+      "type": "文法チェック",
+      "question": "テンプレート内で、渡された all_question に中身があるか確認する正しいタグはどれですか？",
+      "options": ["{% if all_question %}", "{% for all_question %}", "{{ all_question }}", "{% has all_question %}"],
+      "answer": 0,
+      "commentary": "ifタグを使って、データが存在するか（空でないか）を確認できます。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "管理者サイトのログイン時、パスワードを入力しても文字が表示されない（カーソルが動かない）のはなぜですか？",
+      "options": ["パソコンが壊れているから", "セキュリティのため伏せられているだけで、入力はされているから", "キーボードの電池がないから", "Djangoのバグだから"],
+      "answer": 1,
+      "commentary": "パスワード入力時に内容を見えないようにするのは、ターミナルの標準的な仕様です。"
+    },
+    {
+      "id": 27,
+      "type": "用語理解",
+      "question": "管理者サイトを日本語にするために、settings.py で変更すべき項目はどれですか？",
+      "options": ["TIME_ZONE", "USE_TZ", "LANGUAGE_CODE", "ADMIN_LANG"],
+      "answer": 2,
+      "commentary": "LANGUAGE_CODE = 'ja' に設定すると日本語化されます。"
+    },
+    {
+      "id": 28,
+      "type": "コード穴埋め",
+      "question": "管理者サイトを表示するために、プロジェクトの urls.py で設定されている標準のパスは何ですか？<pre><code>path(\"___/\", admin.site.urls)</code></pre>",
+      "options": ["login", "root", "admin", "config"],
+      "answer": 2,
+      "commentary": "path(\"admin/\", ...) によって管理者サイトが有効になります。"
+    },
+    {
+      "id": 29,
+      "type": "文法チェック",
+      "question": "マイグレーションを行った際、データベースに自動で追加されるテーブル名のルールとして正しいものはどれですか？",
+      "options": ["モデル名のみ", "アプリ名_モデル名", "プロジェクト名_モデル名", "ID_モデル名"],
+      "answer": 1,
+      "commentary": "「main_question」のように、アプリ名とモデル名を組み合わせた名前になります。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "CharFieldで「max_length」の指定は必須ですか？",
+      "options": ["必須", "任意（書かなくてもよい）", "数値データの場合だけ必須", "文字が短いときだけ必須"],
+      "answer": 0,
+      "commentary": "CharField（短い文字列）では、最大文字数の指定が必ず必要です。"
+    },
+    {
+      "id": 31,
+      "type": "実行結果予測",
+      "question": "テンプレート内で {{ question.question_text }} と書いたとき、何が表示されますか？",
+      "options": ["「question_text」という文字", "データベースに保存されている質問の文章", "作成日時", "モデルのクラス名"],
+      "answer": 1,
+      "commentary": "モデルの属性（フィールド名）を指定することで、保存された値を表示できます。"
+    },
+    {
+      "id": 32,
+      "type": "コード穴埋め",
+      "question": "admin.pyで、モデルをインポートするための正しい書き方はどれですか？<pre><code>from ___ import Choice, Question</code></pre>",
+      "options": ["django", "admin", ".models", "models.py"],
+      "answer": 2,
+      "commentary": "同じアプリ内の models.py から読み込むため「.models」と指定します。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "Question.objects.all() で取得したデータは、どのような形式ですか？",
+      "options": ["リスト", "辞書", "QuerySet（クエリセット）", "タプル"],
+      "answer": 2,
+      "commentary": "Django独自のリストのような形式「QuerySet」として返されます。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "新しいモデルを models.py に追加しましたが、makemigrations をせずに migrate を実行しました。どうなりますか？",
+      "options": ["自動で追加を検知して反映される", "「No changes detected」と表示され、データベースは変わらない", "古いデータがすべて消える", "エラーでパソコンが止まる"],
+      "answer": 1,
+      "commentary": "「設計図（マイグレーション）」がないため、データベースに変更は適用されません。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "マイグレーションの履歴が保存されている、アプリ内のフォルダ名は何ですか？<pre><code>main/\n  |-- ___/ \n  |   `-- 0001_initial.py</code></pre>",
+      "options": ["history", "database", "migrations", "save"],
+      "answer": 2,
+      "commentary": "「migrations」フォルダの中に、過去の変更履歴がファイルとして残ります。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "データベースにおける「レコード」を一言で説明すると？",
+      "options": ["1項目分のデータ（表の1行）", "情報のタイトル（表の列）", "データの保存容量", "削除されたデータ"],
+      "answer": 0,
+      "commentary": "表の1行分、つまり1件1件のデータのことをレコードと呼びます。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "models.py でクラスを定義する際、クラス名の最初の文字は通常どうしますか？",
+      "options": ["小文字", "大文字", "数字", "アンダースコア"],
+      "answer": 1,
+      "commentary": "Pythonの慣習として、クラス名の1文字目は大文字（Questionなど）で書き始めます。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "データベース（DATABASES）のデフォルト設定として Django で使われているファイル形式は何ですか？",
+      "options": ["MySQL", "Oracle", "sqlite3", "Excel"],
+      "answer": 2,
+      "commentary": "軽量で使いやすい「sqlite3」というファイルが標準で使われます。"
+    },
+    {
+      "id": 39,
+      "type": "実行結果予測",
+      "question": "管理者サイトで「SAVE」ボタンを押したときに起きることは？",
+      "options": ["テンプレートが書き換わる", "データベースに新しいレコードが保存される", "プロジェクトが終了する", "GitHubにプッシュされる"],
+      "answer": 1,
+      "commentary": "入力した内容がデータベースのテーブルに書き込まれます。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "Djangoで「モデル」が担っている役割は、次のうちどれですか？",
+      "options": ["画面のデザイン", "URLの管理", "データ構造の定義とデータベース操作", "サーバーの起動"],
+      "answer": 2,
+      "commentary": "データの形を決め、それを出し入れするのがモデルの役割です。"
     }
   ]
 }

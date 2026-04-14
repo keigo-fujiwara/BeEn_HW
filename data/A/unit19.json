@@ -1,23 +1,325 @@
 {
-  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — フォーム",
+  "unit_title": "フォーム",
   "questions": [
     {
-      "question": "HTML フォームを Python で扱うためのクラスとして Django が提供するのはどれですか？",
-      "options": ["HttpForm", "forms.Form / forms.ModelForm", "DjangoForm", "HTMLForm"],
+      "id": 1,
+      "type": "用語理解",
+      "question": "Webサイトでユーザーが名前やコメントを記入し、サーバーへ送るための場所を何と呼びますか？",
+      "options": ["フレーム", "フォーム", "テンプレート", "テーブル"],
       "answer": 1,
-      "commentary": "django.forms の Form と ModelForm が代表的です。"
+      "commentary": "ユーザーが情報を入力して送信する仕組みを「フォーム」と呼びます。"
     },
     {
-      "question": "CSRF 対策でテンプレートに必ず含めるタグとして推奨されるのはどれですか？",
-      "options": ["{% csrf_token %}", "{{ csrf }}", "{% security_token %}", "{{ csrf_field }}"],
+      "id": 2,
+      "type": "文法チェック",
+      "question": "HTMLでフォームを作成するときに使用する、全体を囲むタグは何ですか？",
+      "options": ["&lt;input&gt;", "&lt;form&gt;", "&lt;textarea&gt;", "&lt;label&gt;"],
+      "answer": 1,
+      "commentary": "フォームの範囲は &lt;form&gt; タグで指定します。"
+    },
+    {
+      "id": 3,
+      "type": "用語理解",
+      "question": "フォームの送信先となるURLを指定するための属性は何ですか？",
+      "options": ["method", "href", "action", "link"],
+      "answer": 2,
+      "commentary": "action属性に、入力されたデータを処理するURLを記述します。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "フォームを送信する際の通信方式（HTTPメソッド）を指定する属性は何ですか？",
+      "options": ["type", "method", "action", "value"],
+      "answer": 1,
+      "commentary": "method属性で、GETまたはPOSTを指定します。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "一行のテキスト入力欄を作るためのtype属性は何ですか？<pre><code>&lt;input type=\"___\"&gt;</code></pre>",
+      "options": ["text", "string", "line", "box"],
       "answer": 0,
-      "commentary": "POST フォーム内に {% csrf_token %} を置きます。"
+      "commentary": "type=\"text\" が標準的な一行入力欄です。"
     },
     {
-      "question": "フォームのバリデーションでフィールドごとのチェックメソッドの命名規則として正しいものはどれですか？",
-      "options": ["validate_<フィールド名>", "clean_<フィールド名>", "check_<フィールド名>", "verify_<フィールド名>"],
+      "id": 6,
+      "type": "用語理解",
+      "question": "入力した文字が「●」などで隠され、見えないようになる入力欄の型はどれですか？",
+      "options": ["text", "hidden", "password", "private"],
+      "answer": 2,
+      "commentary": "type=\"password\" を使うと、入力内容が伏せ字になります。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "複数の選択肢から「1つだけ」選ばせたいときに使うボタンは何ですか？",
+      "options": ["チェックボックス", "ラジオボタン", "セレクトボックス", "送信ボタン"],
       "answer": 1,
-      "commentary": "clean_<フィールド名> でそのフィールド用のクリーニングを定義できます。"
+      "commentary": "ラジオボタン（radio）は、同じname属性を持つ中から1つしか選べない仕組みです。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "複数の選択肢から「いくつでも」選べるようにしたいときに使う型は何ですか？",
+      "options": ["radio", "checkbox", "select", "file"],
+      "answer": 1,
+      "commentary": "チェックボックス（checkbox）は、複数選択が可能です。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "住所や自己紹介など、長い文章を入力させるために使うタグは何ですか？<pre><code>&lt;___ rows=\"10\"&gt;&lt;/___&gt;</code></pre>",
+      "options": ["input", "text", "textarea", "longtext"],
+      "answer": 2,
+      "commentary": "&lt;textarea&gt; は、複数行の入力が可能なエリアを作ります。"
+    },
+    {
+      "id": 10,
+      "type": "文法チェック",
+      "question": "フォームの送信ボタンを作る正しい記述はどれですか？",
+      "options": ["&lt;input type=\"button\"&gt;", "&lt;input type=\"submit\"&gt;", "&lt;input type=\"send\"&gt;", "&lt;button&gt;送信&lt;/button&gt;"],
+      "answer": 1,
+      "commentary": "type=\"submit\" を設定したボタンを押すと、フォームの内容が送信されます。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "入力欄に名前（ラベル）を付け、使いやすくするために使うタグは何ですか？",
+      "options": ["&lt;label&gt;", "&lt;title&gt;", "&lt;span&gt;", "&lt;p&gt;"],
+      "answer": 0,
+      "commentary": "&lt;label&gt; タグを使うと、項目名をクリックしても入力欄にフォーカスが合うようになります。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "method=\"GET\" でフォームを送信したとき、入力内容はどこに表示されますか？",
+      "options": ["どこにも表示されない", "ブラウザのアドレスバー（URLの後ろ）", "画面の中央", "サーバーのログのみ"],
+      "answer": 1,
+      "commentary": "GETメソッドはURLにデータを連結して送信します。"
+    },
+    {
+      "id": 13,
+      "type": "用語理解",
+      "question": "パスワードや個人情報を送信する際、安全性のために使うべきメソッドはどちらですか？",
+      "options": ["GET", "POST", "PUSH", "SEND"],
+      "answer": 1,
+      "commentary": "POSTメソッドはURLにデータが表示されないため、重要な情報の送信に向いています。"
+    },
+    {
+      "id": 14,
+      "type": "コード穴埋め",
+      "question": "DjangoでPOSTフォームを安全に送信するために、必ず記述しなければならないタグは何ですか？<pre><code>&lt;form method=\"POST\"&gt;\n  ___ \n  ... \n&lt;/form&gt;</code></pre>",
+      "options": ["{% secure %}", "{% csrf_token %}", "{% protect %}", "{% post_data %}"],
+      "answer": 1,
+      "commentary": "CSRF対策として、Djangoでは {% csrf_token %} が必須です。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "CSRF（クロスサイトリクエストフォージェリ）とは何ですか？",
+      "options": ["パソコンの動作が遅くなるウイルス", "外部の悪意あるサイトから意図しない操作をさせられる攻撃", "インターネットが切断される現象", "画像が表示されなくなるエラー"],
+      "answer": 1,
+      "commentary": "なりすましなどで勝手にデータを送信させられる攻撃のことで、Djangoはこれに対する防御機能を持っています。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "ビューの中で、POSTで送られたデータを受け取るための正しい記述はどれですか？<pre><code>data = request.___['choice']</code></pre>",
+      "options": ["GET", "SEND", "POST", "DATA"],
+      "answer": 2,
+      "commentary": "request.POST という辞書形式のオブジェクトからデータを取得します。"
+    },
+    {
+      "id": 17,
+      "type": "実行結果予測",
+      "question": "ビューで redirect(\"index\") を返したとき、ブラウザはどうなりますか？",
+      "options": ["index.htmlをその場で表示する", "指定されたURL（index）へ自動的に移動する", "サーバーが停止する", "前の画面に戻る"],
+      "answer": 1,
+      "commentary": "リダイレクトは、別のURLへアクセスし直させる処理です。"
+    },
+    {
+      "id": 18,
+      "type": "用語理解",
+      "question": "POST処理の後に render() ではなく redirect() を使う主な理由は何ですか？",
+      "options": ["スピードが速いから", "二重送信（リロードによる再投票など）を防ぐため", "コードが短くなるから", "画像を読み込むため"],
+      "answer": 1,
+      "commentary": "リダイレクトによって最後のリクエストをGETに変えることで、リロードによる再送信を防げます。"
+    },
+    {
+      "id": 19,
+      "type": "コード穴埋め",
+      "question": "ラジオボタンの各項目を区別するためにサーバーへ送られる「名前」を設定する属性は何ですか？<pre><code>&lt;input type=\"radio\" ___=\"choice\"&gt;</code></pre>",
+      "options": ["id", "name", "class", "title"],
+      "answer": 1,
+      "commentary": "name属性で指定した名前が、サーバー側でデータを取得する際の「キー」になります。"
+    },
+    {
+      "id": 20,
+      "type": "コード穴埋め",
+      "question": "ラジオボタンが選択されたときに、サーバーへ送られる実際の「値」を設定する属性は何ですか？<pre><code>&lt;input type=\"radio\" name=\"choice\" ___=\"{{ choice.id }}\"&gt;</code></pre>",
+      "options": ["value", "data", "text", "id"],
+      "answer": 0,
+      "commentary": "value属性に設定した値が、サーバーへ送信されます。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "Djangoのテンプレートで、ループが何回目かを表示するための変数はどれですか？",
+      "options": ["{{ count }}", "{{ loop.index }}", "{{ forloop.counter }}", "{{ i }}"],
+      "answer": 2,
+      "commentary": "{{ forloop.counter }} を使うと、1から始まる現在のループ回数を取得できます。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "Pythonの辞書から存在しないキーを取り出そうとした時に発生するエラーは何ですか？",
+      "options": ["NameError", "TypeError", "KeyError", "ValueError"],
+      "answer": 2,
+      "commentary": "フォームで何も選択せずに送信した際など、期待したデータがない場合に発生します。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "変更したモデルのデータを、データベースに最終保存するために呼び出すメソッドは何ですか？<pre><code>selected_choice.votes += 1\nselected_choice.___()</code></pre>",
+      "options": ["commit", "update", "save", "push"],
+      "answer": 2,
+      "commentary": "save() メソッドを呼ぶことで、メモリ上の変更がデータベースに書き込まれます。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "「try...except」構文の役割は何ですか？",
+      "options": ["データをループで回す", "エラーが発生しそうな場所で、エラーが起きても処理を続けられるようにする", "インターネットを接続する", "新しいファイルを作る"],
+      "answer": 1,
+      "commentary": "例外（エラー）が発生した際に、別の処理を実行するための構文です。"
+    },
+    {
+      "id": 25,
+      "type": "コード穴埋め",
+      "question": "何も選択されなかった場合に表示するエラーメッセージをテンプレートへ渡す正しい書き方は？<pre><code>return render(request, '...', {\n  'question': question, \n  '___': \"選択されていません\"\n})</code></pre>",
+      "options": ["error_text", "error_message", "message", "alert"],
+      "answer": 1,
+      "commentary": "テンプレート側の {% if error_message %} と一致させる必要があります。"
+    },
+    {
+      "id": 26,
+      "type": "実行結果予測",
+      "question": "input要素に name=\"user\" value=\"Tanaka\" と設定して送信した場合、request.POST['user'] の値は何になりますか？",
+      "options": ["user", "Tanaka", "id", "エラー"],
+      "answer": 1,
+      "commentary": "value属性の値である「Tanaka」が取得されます。"
+    },
+    {
+      "id": 27,
+      "type": "コード穴埋め",
+      "question": "リダイレクト関数を使うためにインポートすべき場所はどこですか？<pre><code>from django.shortcuts import render, ___</code></pre>",
+      "options": ["redirect", "return", "move", "goto"],
+      "answer": 0,
+      "commentary": "renderと同様、django.shortcutsに含まれています。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "GETメソッドの特徴として「適していない」ものはどれですか？",
+      "options": ["検索キーワードの送信", "ページ番号の指定", "パスワードの送信", "Webページの表示要求"],
+      "answer": 2,
+      "commentary": "パスワードはURLに表示されてしまうため、GETで送ってはいけません。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "サーバー側で print(request.POST) を実行したとき、表示される形式はどれですか？",
+      "options": ["リスト形式", "辞書形式（QueryDict）", "HTML形式", "文字列形式"],
+      "answer": 1,
+      "commentary": "送信されたデータは、名前と値がペアになった辞書のような形式で表示されます。"
+    },
+    {
+      "id": 30,
+      "type": "文法チェック",
+      "question": "ラジオボタンで複数の項目に「同じname」を付ける理由は何ですか？",
+      "options": ["プログラムを短くするため", "その中から1つしか選べないようにグループ化するため", "Djangoのルールだから", "名前を考えるのが面倒だから"],
+      "answer": 1,
+      "commentary": "同じnameを持つラジオボタンは1つのグループとして扱われます。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "HTMLでファイルをアップロードする際に使うtype属性は何ですか？",
+      "options": ["text", "file", "upload", "image"],
+      "answer": 1,
+      "commentary": "type=\"file\" を使うと、ファイル選択ダイアログが開くようになります。"
+    },
+    {
+      "id": 32,
+      "type": "コード穴埋め",
+      "question": "forループを0から数えたい（1回目を0にしたい）ときに使う変数はどれですか？",
+      "options": ["{{ forloop.counter }}", "{{ forloop.counter0 }}", "{{ forloop.zero }}", "{{ i }}"],
+      "answer": 1,
+      "commentary": "counter0 は0から、counter は1から数え始めます。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "Djangoで「GET」のリクエスト内容を取得するために使うオブジェクトは何ですか？",
+      "options": ["request.POST", "request.GET", "request.DATA", "request.QUERY"],
+      "answer": 1,
+      "commentary": "GETメソッドの場合は request.GET を使用します。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "投票アプリで、投票ボタンが押されたときに行う計算処理はどれですか？",
+      "options": ["votes = 1", "votes += 1", "votes -= 1", "votes = 0"],
+      "answer": 1,
+      "commentary": "現在の投票数に1を足す（加算する）必要があります。"
+    },
+    {
+      "id": 35,
+      "type": "実行結果予測",
+      "question": "フォームの送信先URLが正しく設定されていない（urls.pyにない）場合、送信ボタンを押すとどうなりますか？",
+      "options": ["勝手にトップページに戻る", "404 Not Found などのエラーになる", "何も起きない", "勝手にデータが保存される"],
+      "answer": 1,
+      "commentary": "送信先が存在しないため、エラーページが表示されます。"
+    },
+    {
+      "id": 36,
+      "type": "コード穴埋め",
+      "question": "textareaタグで、入力欄の高さを指定する属性は何ですか？<pre><code>&lt;textarea ___=\"10\"&gt;</code></pre>",
+      "options": ["height", "lines", "rows", "size"],
+      "answer": 2,
+      "commentary": "rows属性で行数（高さ）を、cols属性で列数（幅）を指定します。"
+    },
+    {
+      "id": 37,
+      "type": "用語理解",
+      "question": "POST送信時、URLにデータが含まれない理由は何ですか？",
+      "options": ["データが暗号化されているから", "通信の「ボディ（本体）」の中にデータが隠されているから", "送信がキャンセルされているから", "サーバーが勝手に消すから"],
+      "answer": 1,
+      "commentary": "POSTデータはリクエストのボディ部分に入れられるため、URLには現れません。"
+    },
+    {
+      "id": 38,
+      "type": "文法チェック",
+      "question": "try文の中でエラーが「起きなかった」ときに実行されるブロックは何ですか？",
+      "options": ["except", "else", "finally", "done"],
+      "answer": 1,
+      "commentary": "tryでエラーなしならelse、エラーありならexceptが実行されます。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "送信ボタンの見た目の文字（「Vote」など）を変えるための属性は何ですか？<pre><code>&lt;input type=\"submit\" ___=\"投票する\"&gt;</code></pre>",
+      "options": ["text", "label", "value", "title"],
+      "answer": 2,
+      "commentary": "submit型のinputでは、value属性の値がボタンの表面に表示されます。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "Djangoのビュー関数で、何もしないでリダイレクトだけさせるために最低限必要な引数は何ですか？",
+      "options": ["requestのみ", "URLの名前のみ", "引数は不要", "パスワード"],
+      "answer": 0,
+      "commentary": "ビュー関数は常に第一引数として「request」を受け取る必要があります。"
     }
   ]
 }

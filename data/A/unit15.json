@@ -1,23 +1,325 @@
 {
-  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — ビュー",
+  "unit_title": "ビュー",
   "questions": [
     {
-      "question": "HTTP リクエストを受け取りレスポンスを返す Python の関数／クラスを総称して何と呼ぶことが多いですか？",
-      "options": ["モデル", "ビュー", "ミドルウェア", "テンプレート"],
+      "id": 1,
+      "type": "用語理解",
+      "question": "ユーザーからの「このページをください」という要求のことを何と呼びますか？",
+      "options": ["HTTP レスポンス", "HTTP リクエスト", "HTTP サーバー", "HTTP ビュー"],
       "answer": 1,
-      "commentary": "ビューがリクエスト処理の中心です（関数ベース・クラスベースがあります）。"
+      "commentary": "ユーザー（ブラウザ）からサーバーへの要求を「リクエスト」、サーバーからの返答を「レスポンス」と呼びます。"
     },
     {
-      "question": "URL とビューを対応づける設定を書くファイルとして代表的なのはどれですか？",
-      "options": ["views.py のみ", "urls.py", "models.py", "admin.py"],
-      "answer": 1,
-      "commentary": "urlpatterns に path() 等でビューを紐づけます。"
+      "id": 2,
+      "type": "用語理解",
+      "question": "ユーザーからのリクエストを受けて、それに応じたページ（レスポンス）を返す役割を持つものを何といいますか？",
+      "options": ["モデル", "テンプレート", "ビュー", "URLコンフィグ"],
+      "answer": 2,
+      "commentary": "ビューはDjangoにおける「処理の担当者」で、リクエストに対して何を返すかを決定します。"
     },
     {
-      "question": "関数ビューが受け取る第1引数として慣例的に使う名前はどれですか？",
-      "options": ["req", "request", "http", "ctx"],
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "ビュー関数を定義する際、関数の第一引数には何を受け取る必要がありますか？<pre><code>def index(___):\n    return render(request, 'index.html')</code></pre>",
+      "options": ["response", "user", "request", "url"],
+      "answer": 2,
+      "commentary": "ビュー関数は必ず第一引数として、ユーザーからのリクエスト情報が含まれる「request」オブジェクトを受け取ります。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "テンプレートファイルを読み込んでHTTPレスポンスを返すために使う、Djangoの便利な関数は何ですか？<pre><code>from django.shortcuts import ___\n\ndef index(request):\n    return ___(request, \"main/index.html\")</code></pre>",
+      "options": ["respond", "render", "return", "view"],
       "answer": 1,
-      "commentary": "request が HttpRequest オブジェクトです。"
+      "commentary": "render関数は、指定したHTML（テンプレート）を組み立ててブラウザに返してくれる関数です。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "次のコードで、ブラウザに表示されるHTMLファイルはどれですか？<pre><code>def contact(request):\n    return render(request, \"main/contact.html\")</code></pre>",
+      "options": ["index.html", "main.html", "contact.html", "views.py"],
+      "answer": 2,
+      "commentary": "render関数の第二引数で指定された \"main/contact.html\" が表示されます。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "URLパスとビュー関数を紐づける設定が書かれているファイル名はどれですか？",
+      "options": ["views.py", "models.py", "urls.py", "admin.py"],
+      "answer": 2,
+      "commentary": "urls.py（URLコンフィグ）に、「どのURLが来たら、どのビューを動かすか」という地図を書きます。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "プロジェクト全体のurls.py（polls/urls.py）で、アプリごとのURL設定を取り込むために使う関数は何ですか？<pre><code>from django.urls import path, ___\n\nurlpatterns = [\n    path(\"polls/\", ___(\"main.urls\")),\n]</code></pre>",
+      "options": ["link", "import", "include", "add"],
+      "answer": 2,
+      "commentary": "include()関数を使うことで、他のurls.pyファイルの内容を読み込むことができます。"
+    },
+    {
+      "id": 8,
+      "type": "文法チェック",
+      "question": "Djangoで新しく作ったアプリケーション（main）を認識させるために、settings.pyのどこに名前を追加する必要がありますか？",
+      "options": ["MIDDLEWARE", "TEMPLATES", "INSTALLED_APPS", "DATABASES"],
+      "answer": 2,
+      "commentary": "INSTALLED_APPSリストにアプリ名を追加しないと、Djangoはそのアプリのテンプレートなどを探してくれません。"
+    },
+    {
+      "id": 9,
+      "type": "実行結果予測",
+      "question": "次の設定があるとき、ブラウザでアクセスすべき正しいURLはどれですか？<pre><code># polls/urls.py\npath(\"polls/\", include(\"main.urls\"))\n\n# main/urls.py\npath(\"sample\", views.sample)</code></pre>",
+      "options": ["/polls/", "/sample/", "/polls/sample", "/main/sample"],
+      "answer": 2,
+      "commentary": "includeで指定された「polls/」と、アプリ側の「sample」が連結されて「polls/sample」となります。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "ビュー関数を登録するために、同じフォルダ内のviews.pyをインポートする正しい書き方はどれですか？<pre><code>from ___ import views</code></pre>",
+      "options": ["here", ".", "main", "urls"],
+      "answer": 1,
+      "commentary": "「.」は現在のディレクトリ（フォルダ）を意味します。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "Djangoで、HTMLなどのデザインファイルを置いておく場所として決められているフォルダ名は何ですか？",
+      "options": ["html", "views", "templates", "pages"],
+      "answer": 2,
+      "commentary": "HTMLファイルは「templates」フォルダの中に配置するのがDjangoのルールです。"
+    },
+    {
+      "id": 12,
+      "type": "コード穴埋め",
+      "question": "URL設定で、トップページ（空のパス）を指定したい場合、path関数の第一引数はどう書きますか？<pre><code>path(___, views.index, name=\"index\")</code></pre>",
+      "options": ["\"/\"", "\"*\"", "\"\"", "\"index\""],
+      "answer": 2,
+      "commentary": "空の文字列 \"\" を指定すると、その階層のルートURLを指します。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "Djangoで推奨されるURL設定の管理方法はどれですか？",
+      "options": ["すべてのURLをプロジェクトのurls.pyに書く", "アプリごとにurls.pyを作り、プロジェクトのurls.pyでincludeする", "views.pyの中にURLを直接書く", "URLは設定しなくてよい"],
+      "answer": 1,
+      "commentary": "アプリごとに設定を分けることで、機能の追加や再利用がしやすくなります。"
+    },
+    {
+      "id": 14,
+      "type": "実行結果予測",
+      "question": "path(\"admin/\", admin.site.urls) という設定がある場合、何が表示されますか？",
+      "options": ["自分の作ったトップページ", "Djangoが用意してくれている管理者サイト", "Googleの検索画面", "エラー画面"],
+      "answer": 1,
+      "commentary": "Djangoには標準で強力な「管理者サイト」機能が備わっており、その入り口の設定です。"
+    },
+    {
+      "id": 15,
+      "type": "コード穴埋め",
+      "question": "main/urls.py内で、ビュー関数を呼び出す正しい記述はどれですか？<pre><code>urlpatterns = [\n    path(\"test\", ___, name=\"test\"),\n]</code></pre>",
+      "options": ["views.index()", "views.index", "\"views.index\"", "index"],
+      "answer": 1,
+      "commentary": "path関数の第二引数には、関数名そのもの（カッコを付けない）を渡します。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "Djangoで関数を使ってビューを定義する方法を何と呼びますか？",
+      "options": ["クラスベースビュー", "関数ベースビュー", "メソッドビュー", "シンプルビュー"],
+      "answer": 1,
+      "commentary": "「関数」を使うので関数ベースビュー（FBV: Function Based View）と呼びます。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "render関数の引数の順番として正しいものはどれですか？<pre><code>return render(___ , ___ , ...)</code></pre>",
+      "options": ["template_name, request", "request, template_name", "request, response", "url, request"],
+      "answer": 1,
+      "commentary": "第一引数にrequest、第二引数に表示したいテンプレートファイルのパスを指定します。"
+    },
+    {
+      "id": 18,
+      "type": "文法チェック",
+      "question": "templatesフォルダの中にさらにアプリ名のフォルダ（main）を作る理由はなぜですか？",
+      "options": ["Djangoのバグを防ぐため", "他のアプリと同じ名前のHTMLファイルがあっても混同しないようにするため", "ファイルサイズを小さくするため", "特に意味はない"],
+      "answer": 1,
+      "commentary": "Djangoはすべてのアプリのtemplatesを合体させて探すため、フォルダを分けないと名前が重なった時に間違ったファイルを表示してしまうことがあります。"
+    },
+    {
+      "id": 19,
+      "type": "実行結果予測",
+      "question": "urlpatterns = [ path(\"hello\", views.hello) ] という設定で、http://.../hello/ にアクセスするとどうなりますか？",
+      "options": ["views.hello関数が実行される", "ファイルが見つからないエラーになる", "画面が真っ白になる", "自動でindex.htmlがダウンロードされる"],
+      "answer": 0,
+      "commentary": "URLパス「hello」に一致するため、対応するビュー関数が実行されます。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "urlpatternsリストの中に複数のpathが含まれているとき、Djangoはどのように一致するものを探しますか？",
+      "options": ["ランダムに選ぶ", "上から順番に比較して、最初に一致したもの", "アルファベット順に探す", "一番長いパスを選ぶ"],
+      "answer": 1,
+      "commentary": "Djangoのルーティングは、リストの「上から順」にチェックされます。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "ビュー関数の戻り値（return）には何を返す必要がありますか？",
+      "options": ["整数", "文字列", "HTTP レスポンス（render関数の結果など）", "None"],
+      "answer": 2,
+      "commentary": "ビューは最終的にブラウザへ返す「返答（レスポンス）」を返却する義務があります。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "main/urls.py を新規作成したあと、そのままで画面を表示できますか？",
+      "options": ["できる", "できない（プロジェクトのurls.pyでincludeする必要がある）", "サーバーを再起動すればできる", "ファイル名が合っていればできる"],
+      "answer": 1,
+      "commentary": "プロジェクトのメインの地図（polls/urls.py）から繋がっていないと、Djangoはそのファイルを見に行きません。"
+    },
+    {
+      "id": 23,
+      "type": "実行結果予測",
+      "question": "path(\"polls/\", include(\"main.urls\")) の設定で、ブラウザから http://.../polls/ にアクセスが来ました。main/urls.py 内のどの path が呼ばれますか？",
+      "options": ["path(\"polls\", ...)", "path(\"\", ...)", "path(\"index\", ...)", "何も呼ばれない"],
+      "answer": 1,
+      "commentary": "「polls/」までの部分は既に一致しているので、その後に何も続かない空のパス \"\" が呼ばれます。"
+    },
+    {
+      "id": 24,
+      "type": "コード穴埋め",
+      "question": "render関数をインポートするための正しい記述はどれですか？<pre><code>from django.___ import render</code></pre>",
+      "options": ["urls", "views", "shortcuts", "http"],
+      "answer": 2,
+      "commentary": "よく使う便利な機能がまとまった「django.shortcuts」からインポートします。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "URL設定の path(\"path\", view, name=\"name\") において、「name」引数の役割は何ですか？",
+      "options": ["ブラウザのタブに表示する名前", "URLに名前を付けて、後でプログラムから呼び出しやすくするため", "作成者の名前を記録するため", "エラーメッセージに表示するため"],
+      "answer": 1,
+      "commentary": "URLそのものを直接書く代わりに、名前（名前付きURLリバース）で指定できるようになります。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "演習で「This is sample page.」と表示させるために、views.pyに定義した関数名は何でしたか？<pre><code>def ___(request):\n    return render(request, \"main/sample.html\")</code></pre>",
+      "options": ["index", "sample", "test", "page"],
+      "answer": 1,
+      "commentary": "演習の指示に基づき、sampleという名前で関数を定義しました。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "Djangoで「ビュー」という言葉が指す、もう一つの定義方法は「〇〇ベースビュー」ですか？",
+      "options": ["データ", "ロジック", "クラス", "テンプレート"],
+      "answer": 2,
+      "commentary": "「関数ベースビュー」と「クラスベースビュー」の2種類があります。"
+    },
+    {
+      "id": 28,
+      "type": "実行結果予測",
+      "question": "INSTALLED_APPS に \"main\" を追加し忘れてサーバーを起動し、テンプレートを表示しようとするとどうなりますか？",
+      "options": ["自動で追加される", "TemplateDoesNotExist（テンプレートが見つからない）というエラーが出る", "パソコンが再起動する", "白黒の画面が表示される"],
+      "answer": 1,
+      "commentary": "アプリが登録されていないと、そのアプリ内のtemplatesフォルダをDjangoが探しに行ってくれません。"
+    },
+    {
+      "id": 29,
+      "type": "コード穴埋め",
+      "question": "urls.pyで、include関数を使うためにインポートすべきモジュールは何ですか？<pre><code>from django.urls import path, ___</code></pre>",
+      "options": ["views", "include", "admin", "render"],
+      "answer": 1,
+      "commentary": "django.urlsモジュールから、pathと一緒にincludeをインポートします。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "ユーザーからのリクエストを受け取った後、Djangoが一番最初にチェックするファイルはどれですか？",
+      "options": ["views.py", "settings.py", "プロジェクトの urls.py", "models.py"],
+      "answer": 2,
+      "commentary": "まず「どのURLか」を判断するために、プロジェクトのメインurls.pyを確認します。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "main/urls.pyに、urlpatternsリストを作成する正しい形式はどれですか？<pre><code>___ = [\n    path(\"\", views.index),\n]</code></pre>",
+      "options": ["url_list", "urlpatterns", "paths", "routes"],
+      "answer": 1,
+      "commentary": "Djangoはこの「urlpatterns」という名前のリストをURL設定として認識します。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "HTMLファイル内で日本語を正しく表示するために、<head>タグ内に書くべきメタタグはどれですか？",
+      "options": ["<meta charset=\"UTF-8\">", "<meta lang=\"ja\">", "<title>日本語</title>", "<meta name=\"viewport\">"],
+      "answer": 0,
+      "commentary": "文字化けを防ぐために「UTF-8」の文字コード指定が必要です。"
+    },
+    {
+      "id": 33,
+      "type": "実行結果予測",
+      "question": "path(\"sample\", views.sample) と設定したとき、ブラウザで「/sample/」（最後にスラッシュあり）でアクセスすると、Djangoはどう反応しますか？（標準設定の場合）",
+      "options": ["エラーになる", "自動で「/sample」にリダイレクトして表示してくれる", "何も表示されない", "警告が出る"],
+      "answer": 1,
+      "commentary": "Djangoは賢いので、スラッシュの有無を自動で調整して一致させてくれる機能があります。"
+    },
+    {
+      "id": 34,
+      "type": "コード穴埋め",
+      "question": "ビュー関数を外部から使えるようにするため、関数の定義の最初に付けるキーワードは何ですか？<pre><code>___ index(request):</code></pre>",
+      "options": ["func", "function", "def", "define"],
+      "answer": 2,
+      "commentary": "Pythonで関数を定義するキーワードは「def」です。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "「ビュー」を一言で説明すると、どのような役割ですか？",
+      "options": ["データの保存係", "画面のデザイン担当", "リクエストに応じたページの返却係", "URLの作成係"],
+      "answer": 2,
+      "commentary": "「どのデータを集めて、どのデザイン（テンプレート）を使って、ページとして返すか」を決める司令塔です。"
+    },
+    {
+      "id": 36,
+      "type": "文法チェック",
+      "question": "プロジェクトフォルダ(polls)とアプリケーションフォルダ(main)の両方に urls.py を置く理由は？",
+      "options": ["バックアップのため", "役割を分けて管理を整理するため（ルーティングの分割）", "Djangoがそうしないと動かないから", "コードの行数を増やすため"],
+      "answer": 1,
+      "commentary": "プロジェクト側でアプリごとの大まかなURLを決め、アプリ側で詳細なURLを決めることで整理されます。"
+    },
+    {
+      "id": 37,
+      "type": "コード穴埋め",
+      "question": "views.pyの関数内で、文字列を直接返すのではなくHTMLファイルを使いたい時に使う引数は？<pre><code>return render(request, \"___/index.html\")</code></pre>",
+      "options": ["templates", "main", "views", "html"],
+      "answer": 1,
+      "commentary": "templatesフォルダの中にある、アプリ名フォルダ（main）からのパスを指定します。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "urls.pyに何もpathが設定されていない状態でサーバーを起動してアクセスすると、何が表示されますか？",
+      "options": ["ロケットの画面", "404 Not Found（またはデフォルトのデバッグ画面）", "Google", "真っ暗な画面"],
+      "answer": 1,
+      "commentary": "一致するURLがないため、ページが見つからないというエラーが表示されます。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "教科書のサンプルコードに出てくる「# ...」という記法は何を意味していますか？",
+      "options": ["エラーが起きている場所", "コードが省略されていること", "重要なパスワード", "コメントの終わり"],
+      "answer": 1,
+      "commentary": "説明に不要な部分を飛ばしていることを示す、プログラミング学習でよく使われる記号です。"
+    },
+    {
+      "id": 40,
+      "type": "文法チェック",
+      "question": "Djangoで「Webページを表示する」ために最低限必要な3つの要素はどれですか？",
+      "options": ["URL設定、ビュー、テンプレート", "URL設定、モデル、管理者サイト", "モデル、テンプレート、データベース", "Python、HTML、CSS"],
+      "answer": 0,
+      "commentary": "「URL」が決まり、「ビュー」が処理し、「テンプレート」で見た目を作る。この3つが基本セットです。"
     }
   ]
 }

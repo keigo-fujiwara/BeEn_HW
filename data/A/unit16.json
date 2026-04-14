@@ -1,23 +1,325 @@
 {
-  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — テンプレート",
+  "unit_title": "テンプレート",
   "questions": [
     {
-      "question": "Django テンプレートで変数を表示するタグとして正しいものはどれですか？",
-      "options": ["{% variable %}", "{{ variable }}", "${variable}", "<%= variable %>"],
-      "answer": 1,
-      "commentary": "{{ }} が変数の出力、{% %} がタグです。"
+      "id": 1,
+      "type": "用語理解",
+      "question": "HTMLファイルに変数や処理を埋め込み、動的にページを生成する機能を何と呼びますか？",
+      "options": ["ビュー", "モデル", "テンプレート", "ルーティング"],
+      "answer": 2,
+      "commentary": "HTMLの「骨組み」にデータを流し込んで画面を作る仕組みを「テンプレート」と呼びます。"
     },
     {
-      "question": "テンプレートにコンテキストを渡してレンダリングする関数としてよく使うのはどれですか？",
-      "options": ["render()", "response()", "template()", "display()"],
+      "id": 2,
+      "type": "用語理解",
+      "question": "テンプレート内で、Pythonから渡された値を表示するために使う記法を何といいますか？",
+      "options": ["テンプレートタグ", "テンプレート変数", "テンプレートフィルタ", "テンプレートブロック"],
+      "answer": 1,
+      "commentary": "Python側で用意したデータを表示するためのものを「テンプレート変数」といいます。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "テンプレート変数をHTMLに記述する際、正しい記号はどれですか？<pre><code>&lt;p&gt;こんにちは、___ name ___ さん&lt;/p&gt;</code></pre>",
+      "options": ["{{ }}", "{% %}", "[[ ]]", "(( ))"],
       "answer": 0,
-      "commentary": "from django.shortcuts import render して render(request, 'template.html', context) など。"
+      "commentary": "変数を表示する場合は、二重の波カッコ「{{ }}」で囲みます。"
     },
     {
-      "question": "テンプレートの継承で子テンプレートが親を指定するタグはどれですか？",
-      "options": ["{% include %}", "{% extends %}", "{% block %}", "{% import %}"],
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で「if文」や「for文」などの処理を行うために使う記号はどれですか？<pre><code>___ if user.is_authenticated ___</code></pre>",
+      "options": ["{{ }}", "{% %}", "[[ ]]", "<% %>"],
       "answer": 1,
-      "commentary": "{% extends \"base.html\" %} で親テンプレートを継承します。"
+      "commentary": "命令や処理（テンプレートタグ）を記述する場合は「{% %}」で囲みます。"
+    },
+    {
+      "id": 5,
+      "type": "文法チェック",
+      "question": "Djangoのルールに従い、HTMLファイルを保存すべき正しいフォルダの場所はどれですか？",
+      "options": ["main/html/", "main/templates/main/", "main/views/index/", "polls/static/"],
+      "answer": 1,
+      "commentary": "「アプリ名/templates/アプリ名/」という階層にHTMLを置くのがDjangoの標準的なルールです。"
+    },
+    {
+      "id": 6,
+      "type": "実行結果予測",
+      "question": "ビュー関数で render(request, 'main/index.html', {'user': '山田'}) と書いたとき、HTML側で {{ user }} はどう表示されますか？",
+      "options": ["user", "{'user': '山田'}", "山田", "エラーになる"],
+      "answer": 2,
+      "commentary": "辞書のキーである 'user' がテンプレート内の {{ user }} に対応し、その値である「山田」が表示されます。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "render関数の第3引数に、テンプレートに渡すデータを指定するための「辞書」を記述してください。<pre><code>return render(request, \"main/index.html\", ___)</code></pre>",
+      "options": ["{\"name\": \"Tanaka\"}", "[\"name\", \"Tanaka\"]", "name=\"Tanaka\"", "name: \"Tanaka\""],
+      "answer": 0,
+      "commentary": "テンプレートにデータを渡す際は、キーと値をセットにした「辞書（dict）」形式を使います。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "テンプレートにおいて、特定の処理（もし〜なら、など）を埋め込むための仕組みを何と呼びますか？",
+      "options": ["テンプレート変数", "テンプレートタグ", "テンプレートコメント", "テンプレートインポート"],
+      "answer": 1,
+      "commentary": "if文やfor文などの「処理」を行うための記述を「テンプレートタグ」と呼びます。"
+    },
+    {
+      "id": 9,
+      "type": "実行結果予測",
+      "question": "リスト values = [1, 2, 3] をテンプレートに渡し、{% for v in values %}{{ v }}{% endfor %} と書いたときの出力はどうなりますか？",
+      "options": ["values", "123", "[1, 2, 3]", "v, v, v"],
+      "answer": 1,
+      "commentary": "forタグによってリストの中身が順番に取り出され、1、2、3が並んで表示されます。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "テンプレート内でif文を終了させるために必要な記述は何ですか？<pre><code>{% if condition %}\n  ...\n___</code></pre>",
+      "options": ["{% end %}", "{% endif %}", "{% stop %}", "{% end-if %}"],
+      "answer": 1,
+      "commentary": "Djangoのテンプレートタグ（ifやfor）は、必ず終了を示すタグ（endifやendfor）が必要です。"
+    },
+    {
+      "id": 11,
+      "type": "文法チェック",
+      "question": "ビューからテンプレートにデータを渡す際、辞書の「キー」はテンプレート内での何になりますか？",
+      "options": ["タグの名前", "変数名", "ファイル名", "フォルダ名"],
+      "answer": 1,
+      "commentary": "辞書のキーとして設定した名前が、テンプレート内で {{ キー名 }} として使える変数名になります。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "テンプレートを使う最大のメリットは何ですか？",
+      "options": ["HTMLを覚える必要がなくなる", "デザイン（HTML）と処理（Python）を分けて管理できる", "インターネットがなくても動くようになる", "画像が自動で最適化される"],
+      "answer": 1,
+      "commentary": "見た目のHTMLと中身のPython処理を分離することで、開発が整理されやすくなります。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "テンプレート変数の値を加工（例えば文字をすべて小文字にするなど）したい時に使う記号は何ですか？<pre><code>{{ name ___ lower }}</code></pre>",
+      "options": [".", ":", "|", "/"],
+      "answer": 2,
+      "commentary": "変数に「フィルタ」を適用して加工するには、パイプ記号「|」を使用します。"
+    },
+    {
+      "id": 14,
+      "type": "コード穴埋め",
+      "question": "辞書 data = {'age': 20} をテンプレートに渡しました。年齢を表示するにはどう書きますか？<pre><code>{{ ___ }}</code></pre>",
+      "options": ["data.age", "age", "data['age']", "dict.age"],
+      "answer": 1,
+      "commentary": "render関数の辞書の「キー」がそのまま変数名になるため、{{ age }} と書きます。"
+    },
+    {
+      "id": 15,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、HTMLに表示される内容はどれですか？<pre><code># views.py\ncontext = {'score': 80}\nreturn render(request, 'index.html', context)\n\n# index.html\n{% if score >= 70 %}合格{% else %}不合格{% endif %}</code></pre>",
+      "options": ["score", "80", "合格", "不合格"],
+      "answer": 2,
+      "commentary": "scoreは80であり、70以上という条件を満たすため「合格」が表示されます。"
+    },
+    {
+      "id": 16,
+      "type": "文法チェック",
+      "question": "テンプレートフォルダの構造において、なぜ「templates/main/index.html」のようにアプリ名を重ねるのですか？",
+      "options": ["Djangoのバグ", "別のアプリにある同じ名前のHTMLと混ざらないようにするため", "フォルダを深くした方が速くなるから", "Pythonの決まり"],
+      "answer": 1,
+      "commentary": "Djangoは全アプリのtemplatesを1つにまとめて探すため、名前の衝突（競合）を避けるためにアプリ名のフォルダを挟みます。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "ビューからテンプレートに渡すデータのまとまり（辞書）を一般的に何と呼びますか？",
+      "options": ["コンテンツ", "コンテキスト", "パラメータ", "引数リスト"],
+      "answer": 1,
+      "commentary": "render関数で渡すデータの辞書は「コンテキスト（context）」と呼ばれます。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "for文の中で、現在のループが何回目か（0から始まる番号）を知るために使えるテンプレート変数はどれですか？<pre><code>{{ ___ .counter0 }}</code></pre>",
+      "options": ["loop", "for", "forloop", "counter"],
+      "answer": 2,
+      "commentary": "forループ内では「forloop.counter」や「forloop.counter0」という特別な変数が使えます。"
+    },
+    {
+      "id": 19,
+      "type": "実行結果予測",
+      "question": "context = {'items': []}（空のリスト）を渡しました。{% for item in items %}こんにちは{% endfor %} と書いた場合、何が表示されますか？",
+      "options": ["こんにちは", "エラーになる", "何も表示されない", "[]"],
+      "answer": 2,
+      "commentary": "リストが空の場合、for文の中身は一度も実行されないため、何も表示されません。"
+    },
+    {
+      "id": 20,
+      "type": "コード穴埋め",
+      "question": "コメントアウト（テンプレート上で無視される記述）をするための正しい記号はどれですか？<pre><code>___ これはコメントです ___</code></pre>",
+      "options": ["{{# #}}", "{%# %#}", "{# #}", ""],
+      "answer": 2,
+      "commentary": "Djangoテンプレート独自のコメントアウトは「{# #}」を使います。"
+    },
+    {
+      "id": 21,
+      "type": "文法チェック",
+      "question": "render関数の第2引数に指定するテンプレートのパスとして正しいものはどれですか？",
+      "options": ["/templates/main/index.html", "main/index.html", "index.html", "C:/Users/main/index.html"],
+      "answer": 1,
+      "commentary": "「templates」フォルダはDjangoが自動で見つけるため、その中にある「アプリ名/ファイル名」から書き始めます。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "テンプレート内で、HTMLエスケープ（タグをそのまま表示する機能）を無効にして、HTMLとして解釈させたい時に使うフィルタはどれですか？",
+      "options": ["raw", "html", "safe", "escape"],
+      "answer": 2,
+      "commentary": "「safe」フィルタを使うと、HTMLタグが含まれる文字列をそのままブラウザに反映させることができます。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "URL設定で「name='detail'」と名付けたURLへのリンクを生成するためのタグは何ですか？<pre><code>&lt;a href=\"___ 'detail' ___\"&gt;詳細&lt;/a&gt;</code></pre>",
+      "options": ["{{ url }}", "{% url %}", "{% link %}", "{{ link }}"],
+      "answer": 1,
+      "commentary": "URLの逆引きには「{% url '名前' %}」タグを使用します。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "views.pyで context = {'is_login': False} としました。{% if is_login %}ようこそ{% else %}ログインしてください{% endif %} の表示は？",
+      "options": ["ようこそ", "ログインしてください", "is_login", "エラー"],
+      "answer": 1,
+      "commentary": "is_loginがFalse（偽）なので、elseの後の文章が表示されます。"
+    },
+    {
+      "id": 25,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で数値を四捨五入したり、日付の形式を変えたりする補助機能を何といいますか？",
+      "options": ["テンプレートフィルタ", "テンプレートツール", "テンプレート演算子", "テンプレートチェンジャー"],
+      "answer": 0,
+      "commentary": "変数の表示形式を変えるための機能を「テンプレートフィルタ」といいます。"
+    },
+    {
+      "id": 26,
+      "type": "文法チェック",
+      "question": "テンプレートタグ {% if %} の中で、複数の条件を「かつ（AND）」で繋ぐことはできますか？",
+      "options": ["できる", "できない", "特定のアプリが必要", "HTML5ではできない"],
+      "answer": 0,
+      "commentary": "「{% if a and b %}」のように、Pythonに近い論理演算が可能です。"
+    },
+    {
+      "id": 27,
+      "type": "コード穴埋め",
+      "question": "テンプレートエンジンがHTMLを生成する際、変数に値が入っていない（Noneや未定義）場合、画面にはどう表示されますか？",
+      "options": ["Noneと表示される", "エラー（500エラー）になる", "何も表示されない（空欄になる）", "undefinedと表示される"],
+      "answer": 2,
+      "commentary": "Djangoのテンプレートでは、変数が存在しない場合はエラーにならず、空の文字列として処理されます。"
+    },
+    {
+      "id": 28,
+      "type": "実行結果予測",
+      "question": "次のコードの出力はどうなりますか？<pre><code>{% for i in \"ABC\" %}{{ i }}-{% endfor %}</code></pre>",
+      "options": ["ABC-", "A-B-C-", "A-B-C", "-A-B-C-"],
+      "answer": 1,
+      "commentary": "文字列もループ可能で、各文字の後にハイフンが付きます。"
+    },
+    {
+      "id": 29,
+      "type": "用語理解",
+      "question": "テンプレートの骨組み（共通部分）を別のファイルに書き、それを引き継ぐ仕組みを何といいますか？",
+      "options": ["テンプレート・コピー", "テンプレート・インポート", "テンプレート継承", "テンプレート・シェア"],
+      "answer": 2,
+      "commentary": "共通のデザインを使い回す強力な機能を「テンプレート継承（Inheritance）」といいます。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "テンプレート継承で、親のテンプレートを読み込むために使うタグは何ですか？<pre><code>___ 'base.html' ___</code></pre>",
+      "options": ["{% include %}", "{% extends %}", "{% base %}", "{% load %}"],
+      "answer": 1,
+      "commentary": "「extends」タグをファイルの先頭に書くことで、親ファイルを継承できます。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "継承先のファイルで書き換えたい部分（中身）を指定するタグは何ですか？<pre><code>{% ___ content %}\n  ここを書き換える\n{% ___ %}</code></pre>",
+      "options": ["block / endblock", "part / endpart", "div / enddiv", "area / endarea"],
+      "answer": 0,
+      "commentary": "「block」タグで囲った部分が、継承によって中身が入れ替わる場所になります。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "テンプレートタグ {% for %} の中で、リストが空だった場合に実行される便利なサブタグは何ですか？",
+      "options": ["{% else %}", "{% empty %}", "{% ifempty %}", "{% none %}"],
+      "answer": 1,
+      "commentary": "「{% empty %}」を使うと、リストに中身がなかった時の専用表示を簡単に書けます。"
+    },
+    {
+      "id": 33,
+      "type": "用語理解",
+      "question": "静的なファイル（画像やCSS）を読み込むために、テンプレートの先頭で実行する命令は何ですか？",
+      "options": ["{% static %}", "{% load static %}", "{% import static %}", "{% use static %}"],
+      "answer": 1,
+      "commentary": "「{% load static %}」を書くことで、画像などのURLを生成するタグが使えるようになります。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "次のタグの出力結果は？<pre><code>{{ \"Django\"|length }}</code></pre>",
+      "options": ["Django", "6", "L", "D,j,a,n,g,o"],
+      "answer": 1,
+      "commentary": "lengthフィルタは文字列の長さ（文字数）を返します。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "URLパスの中に含まれる数字（IDなど）をテンプレートから渡したい場合の書き方は？<pre><code>{% url 'detail' ___ %}</code></pre>",
+      "options": ["id=1", "1", ":1", "->1"],
+      "answer": 1,
+      "commentary": "名前の後にスペースを開けて値を書くと、それがURLの引数として渡されます。"
+    },
+    {
+      "id": 36,
+      "type": "文法チェック",
+      "question": "テンプレート継承（extends）を使う際、ファイルの中で最初に書かなければならないものはどれですか？",
+      "options": ["<!DOCTYPE html>", "{% block %}", "{% extends %}", "<html>"],
+      "answer": 2,
+      "commentary": "extendsタグは、他のどの記述（HTMLタグも含む）よりも先に、一番上に書く必要があります。"
+    },
+    {
+      "id": 37,
+      "type": "コード穴埋め",
+      "question": "別のHTMLファイル（部品など）をその場所に埋め込むために使うタグは何ですか？<pre><code>{% ___ 'sidebar.html' %}</code></pre>",
+      "options": ["extends", "include", "load", "import"],
+      "answer": 1,
+      "commentary": "共通パーツを部品として読み込むには「include」タグを使います。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "次のコードの出力は？<pre><code>{% with name=\"Taro\" %}\n  {{ name }}\n{% endwith %}</code></pre>",
+      "options": ["name", "Taro", "{{ name }}", "何も表示されない"],
+      "answer": 1,
+      "commentary": "withタグを使うと、テンプレート内だけで使える一時的な変数を定義できます。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "Djangoテンプレートは、最終的にどのような形式としてブラウザに届きますか？",
+      "options": ["Pythonファイル", "JSONファイル", "普通のHTMLファイル", "画像ファイル"],
+      "answer": 2,
+      "commentary": "サーバー上で変数やタグがすべて処理（レンダリング）され、最終的にはただのHTMLとして届きます。"
+    },
+    {
+      "id": 40,
+      "type": "文法チェック",
+      "question": "テンプレートの「レンダリング（生成）」はどこで行われますか？",
+      "options": ["ユーザーのブラウザ", "Djangoが動いているサーバー", "データベースの中", "GitHub"],
+      "answer": 1,
+      "commentary": "サーバー側のPythonプログラム（Django）がHTMLを組み立ててから、完成品をユーザーに送ります。"
     }
   ]
 }

@@ -1,23 +1,325 @@
 {
-  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — データベースの操作",
+  "unit_title": "データベースの操作",
   "questions": [
     {
-      "question": "Django ORM で全件取得するメソッドとして一般的なのはどれですか？",
-      "options": ["Model.objects.all()", "Model.all()", "Model.query()", "Model.fetch()"],
-      "answer": 0,
-      "commentary": "objects マネージャ経由でクエリを組み立てます。"
+      "id": 1,
+      "type": "用語理解",
+      "question": "URLの中に「1」や「2」といった可変の値を埋め込んで、ビューに受け渡す仕組みを何と呼びますか？",
+      "options": ["クエリパラメータ", "パスパラメータ", "ポストパラメータ", "固定パラメータ"],
+      "answer": 1,
+      "commentary": "URLのパスの一部を引数として扱う仕組みを「パスパラメータ」と呼びます。"
     },
     {
-      "question": "主キーで1件取得するメソッドはどれですか？",
-      "options": ["get(id=1)", "find(pk=1)", "one(id=1)", "fetch(pk=1)"],
-      "answer": 0,
-      "commentary": "Model.objects.get(pk=1) や get(id=1) など。"
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "urls.pyで、整数型のパスパラメータ「question_id」を受け取る正しい書き方はどれですか？<pre><code>path(\"___/\", views.detail, name=\"detail\")</code></pre>",
+      "options": ["&lt;question_id&gt;", "&lt;int:question_id&gt;", "&lt;str:question_id&gt;", "(question_id)"],
+      "answer": 1,
+      "commentary": "&lt;型:変数名&gt; の形式で記述します。整数を受け取る場合は int を指定します。"
     },
     {
-      "question": "シェルで Django の環境を読み込んで対話的に試すコマンドはどれですか？",
-      "options": ["python manage.py shell", "django shell", "python -i manage.py", "python django repl"],
+      "id": 3,
+      "type": "実行結果予測",
+      "question": "path('&lt;int:num&gt;/', views.test) という設定で /123/ にアクセスしたとき、ビュー関数には何が渡されますか？",
+      "options": ["文字列の '123'", "整数の 123", "パス全体 '/123/'", "何も渡されない"],
+      "answer": 1,
+      "commentary": "intコンバータを指定しているため、Pythonの整数型（int）としてビューに渡されます。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "URLから question_id を受け取るビュー関数の定義を完成させてください。<pre><code>def detail(request, ___):\n    print(question_id)\n    ...</code></pre>",
+      "options": ["id", "question_id", "pk", "num"],
+      "answer": 1,
+      "commentary": "urls.pyで定義した変数名と同じ名前を、関数の第2引数に指定する必要があります。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で、名前付きURL 'detail' にIDを渡してリンクを作る正しい記法はどれですか？<pre><code>&lt;a href=\"{% url 'detail' ___ %}\"&gt;リンク&lt;/a&gt;</code></pre>",
+      "options": ["question.id", "id=question.id", "pk:question.id", "id"],
       "answer": 0,
-      "commentary": "manage.py shell が公式の方法です。"
+      "commentary": "urlタグの後にスペースを空けて、渡したい値を記述します。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "1つの質問（Question）に対して複数の選択肢（Choice）が紐づくような関係を、何対何の法律といいますか？",
+      "options": ["1対1", "多対多", "1対多", "多対1"],
+      "answer": 2,
+      "commentary": "一方が1つ、もう一方が複数紐づく関係を「1対多」と呼びます。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "ForeignKeyが設定されている「多」側から、「1」側を参照することを何といいますか？",
+      "options": ["逆参照", "順参照", "直接参照", "外部参照"],
+      "answer": 1,
+      "commentary": "自分から紐づけ先を見にいくことを「順参照」といいます。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "ForeignKeyで紐づけられている「1」側から、「多」側の一覧を参照することを何といいますか？",
+      "options": ["順参照", "逆参照", "連結参照", "内部参照"],
+      "answer": 1,
+      "commentary": "紐づけられている側から自分を指しているデータを探すことを「逆参照」といいます。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "主キー（ID）を指定して、データベースからデータを1件だけ取得するメソッドは何ですか？<pre><code>question = Question.objects.___ (pk=question_id)</code></pre>",
+      "options": ["all", "find", "get", "filter"],
+      "answer": 2,
+      "commentary": "「get()」は条件に合うデータを1つだけ取得します。見つからない場合はエラーになります。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "get()メソッドで見つからなかった場合に起きるエラーを回避し、自動的に404エラー画面を出す便利な関数は何ですか？",
+      "options": ["get_or_error", "get_object_or_404", "find_or_404", "render_404"],
+      "answer": 1,
+      "commentary": "get_object_or_404を使うと、データがない場合にスマートにエラーページを表示できます。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "get_object_or_404を使う際の正しい引数の順番はどれですか？<pre><code>question = get_object_or_404(___ , ___)</code></pre>",
+      "options": ["モデル名, 条件", "条件, モデル名", "リクエスト, モデル名", "URL, モデル名"],
+      "answer": 0,
+      "commentary": "第一引数に対象のモデルクラス、第二引数にpkなどの条件を渡します。"
+    },
+    {
+      "id": 12,
+      "type": "コード穴埋め",
+      "question": "ForeignKeyの設定で、逆参照に使う名前を自由に決めるためのオプションは何ですか？<pre><code>question = models.ForeignKey(..., ___=\"choices\")</code></pre>",
+      "options": ["reverse_name", "related_name", "backref", "alias"],
+      "answer": 1,
+      "commentary": "related_nameを指定することで、逆参照時の呼び出し名をカスタマイズできます。"
+    },
+    {
+      "id": 13,
+      "type": "実行結果予測",
+      "question": "related_name=\"choices\" と設定した場合、Questionオブジェクト(q)から紐づく全Choiceを取得する書き方はどれですか？",
+      "options": ["q.choices_all()", "q.choices.all()", "q.choices_set()", "q.get_choices()"],
+      "answer": 1,
+      "commentary": "「オブジェクト.related_name.all()」の形式で取得できます。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "related_name を設定していない場合、Djangoが自動的に生成する逆参照用の名前のルールはどれですか？",
+      "options": ["モデル名_list", "モデル名_set", "all_モデル名", "モデル名s"],
+      "answer": 1,
+      "commentary": "「モデル名_set」という名前が自動で付きます（例: choice_set）。"
+    },
+    {
+      "id": 15,
+      "type": "文法チェック",
+      "question": "テンプレート内で {% for choice in question.choices.all %} と書いたとき、allの後にカッコ「()」を付けないのはなぜですか？",
+      "options": ["Djangoのバグ", "テンプレート上ではメソッドのカッコを付けない決まりだから", "allは変数だから", "カッコを付けると速度が遅くなるから"],
+      "answer": 1,
+      "commentary": "Djangoテンプレート内では、メソッド呼び出しにカッコを付けないという文法上のルールがあります。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "特定のデータが存在しない場合に、自分で404エラーを発生させるために使うキーワードは何ですか？<pre><code>if not question:\n    ___ Http404(\"Error\")</code></pre>",
+      "options": ["return", "raise", "break", "get"],
+      "answer": 1,
+      "commentary": "例外（エラー）を発生させるには「raise」を使います。"
+    },
+    {
+      "id": 17,
+      "type": "実行結果予測",
+      "question": "question.choices.all() で取得されるデータの種類は何ですか？",
+      "options": ["1つのChoiceオブジェクト", "Choiceオブジェクトが複数入ったQuerySet", "文字列のリスト", "数字"],
+      "answer": 1,
+      "commentary": "紐づいているすべての「多」側のデータを集めたQuerySetが返ります。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "1件だけ取得する「get()」の引数で、主キーを指定する際によく使われる略称は何ですか？<pre><code>Question.objects.get(___=1)</code></pre>",
+      "options": ["id", "pk", "key", "num"],
+      "answer": 1,
+      "commentary": "primary keyの略である「pk」がよく使われます（idでも動作します）。"
+    },
+    {
+      "id": 19,
+      "type": "文法チェック",
+      "question": "順参照（ChoiceからQuestionを見る）をする正しい書き方はどれですか？<pre><code># choiceはChoiceの1つのデータ\nchoice.___</code></pre>",
+      "options": ["question_set", "question", "get_question()", "parent"],
+      "answer": 1,
+      "commentary": "ForeignKeyを定義したフィールド名（ここではquestion）をそのまま使うと、紐づいた親を取得できます。"
+    },
+    {
+      "id": 20,
+      "type": "コード穴埋め",
+      "question": "テンプレートからトップページに戻るリンクを生成してください。<pre><code>&lt;a href=\"___ 'index' ___\"&gt;戻る&lt;/a&gt;</code></pre>",
+      "options": ["{{ url }}", "{% url %}", "{% link %}", "{{ link }}"],
+      "answer": 1,
+      "commentary": "名前付きURLの展開には「{% url ... %}」を使います。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "http://localhost:8000/polls/5/ の「5」の部分のように、値が常に変わるURLのことを何と呼びますか？",
+      "options": ["静的URL", "動的URL", "トップURL", "リセットURL"],
+      "answer": 1,
+      "commentary": "パラメータによって中身が変わるURLを動的URLと呼びます。"
+    },
+    {
+      "id": 22,
+      "type": "コード穴埋め",
+      "question": "ビュー関数を外部からインポートするurls.pyの記述を完成させてください。<pre><code>from . import ___</code></pre>",
+      "options": ["models", "views", "urls", "admin"],
+      "answer": 1,
+      "commentary": "URLに対応する関数が書かれている「views.py」を読み込みます。"
+    },
+    {
+      "id": 23,
+      "type": "実行結果予測",
+      "question": "IDが存在しない /polls/999/ にアクセスした際、get_object_or_404 を使っているとどうなりますか？",
+      "options": ["真っ白な画面になる", "404 Not Found ページが表示される", "サーバーが停止する", "ID 1 のページが表示される"],
+      "answer": 1,
+      "commentary": "データが見つからないことをユーザーに正しく伝えるための挙動です。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "1対多の関係において、「1」側のモデルを削除したときに「多」側をどうするか決める設定は何ですか？",
+      "options": ["related_name", "on_delete", "max_length", "default"],
+      "answer": 1,
+      "commentary": "「on_delete」は、紐づけ先のデータが消えた時の挙動（一緒に消す、残すなど）を決めます。"
+    },
+    {
+      "id": 25,
+      "type": "コード穴埋め",
+      "question": "テンプレートのfor文で、個別のデータのテキストを表示する正しい書き方は？<pre><code>{% for choice in choices %}\n  &lt;li&gt;___&lt;/li&gt;\n{% endfor %}</code></pre>",
+      "options": ["{{ choice.choice_text }}", "{% choice.choice_text %}", "{{ choice_text }}", "{{ choice }}"],
+      "answer": 0,
+      "commentary": "変数の中身を表示するには「{{ }}」を使い、属性（フィールド）にアクセスします。"
+    },
+    {
+      "id": 26,
+      "type": "実行結果予測",
+      "question": "Question.objects.get()で複数のデータがヒットしてしまった場合、どうなりますか？",
+      "options": ["最初の1つを返す", "すべてのリストを返す", "エラー（MultipleObjectsReturned）が発生する", "何も返さない"],
+      "answer": 2,
+      "commentary": "get()は「ちょうど1件」である必要があるため、複数見つかるとエラーになります。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "パスパラメータ <int:question_id> の「int」の部分を省略した場合、デフォルトでどの型として扱われますか？",
+      "options": ["整数(int)", "文字列(str)", "浮動小数点(float)", "スラッシュを含む文字列(path)"],
+      "answer": 1,
+      "commentary": "何も書かない場合は文字列(str)として扱われます。"
+    },
+    {
+      "id": 28,
+      "type": "コード穴埋め",
+      "question": "ビューの中で404エラーを発生させるクラスをインポートするには？<pre><code>from django.http import ___</code></pre>",
+      "options": ["Http404", "PageNotFound", "Error404", "HttpResponse"],
+      "answer": 0,
+      "commentary": "django.httpモジュールの「Http404」をraiseして使います。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "URL設定で path('polls/<int:id>/', ...) とし、ビューで def detail(request, num): とした場合、どうなりますか？",
+      "options": ["自動的にidがnumに代入される", "名前が一致しないためエラーになる", "何も起きない", "最初の引数にidが入る"],
+      "answer": 1,
+      "commentary": "URL側の変数名と、ビューの引数名は「完全に一致」させる必要があります。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "逆参照において「question.choices.all()」の「all()」は何を意味しますか？",
+      "options": ["紐づいている全てのChoiceデータを取得する", "Choiceデータの合計数を出す", "データを削除する", "全てのQuestionを表示する"],
+      "answer": 0,
+      "commentary": "紐づいている「多」側のデータをリスト形式（QuerySet）ですべて取り出します。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "テンプレートで {% if choices %} と書いたとき、どのような場合に中身が実行されますか？",
+      "options": ["choicesが10件以上のとき", "choicesに1件でもデータが入っているとき", "choicesが空のとき", "いつでも実行される"],
+      "answer": 1,
+      "commentary": "QuerySetにデータが含まれていればTrue（真）と判定されます。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "ビューで question = Question.objects.all() とした場合、テンプレート側で question.question_text は使えますか？",
+      "options": ["使える", "使えない（個別のデータではなくリストだから）", "名前を変えれば使える", "そのまま表示される"],
+      "answer": 1,
+      "commentary": "all()はリストを返すため、そのままでは個別のフィールドにはアクセスできません。for文で1つずつ取り出す必要があります。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "related_nameに「choices」と名付けたとき、ForeignKeyを定義したモデルは何ですか？",
+      "options": ["Questionモデル", "Choiceモデル", "両方のモデル", "設定ファイル"],
+      "answer": 1,
+      "commentary": "ForeignKey（紐づけの設定）は、常に「多」側のモデル（Choice）に書きます。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "URLが /polls/sample/ の場合、パスパラメータ <int:question_id> を含む設定に合致して実行されますか？",
+      "options": ["合致する", "合致しない（sampleは整数ではないから）", "エラーになる", "最初の文字だけ読み取る"],
+      "answer": 1,
+      "commentary": "intコンバータは数字のみに反応するため、文字列「sample」には反応しません。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "Djangoのショートカット関数をインポートする正しい書き方は？<pre><code>from django.___ import render, get_object_or_404</code></pre>",
+      "options": ["views", "shortcuts", "urls", "http"],
+      "answer": 1,
+      "commentary": "よく使う機能をまとめた「shortcuts」モジュールに含まれています。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "Djangoにおける「pk」とは何の略ですか？",
+      "options": ["Personal Key", "Public Key", "Primary Key", "Point Key"],
+      "answer": 2,
+      "commentary": "データベースでデータを一意に特定するための「主キー（しゅきー）」のことです。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "ビューでコンソールにデータを出力して確認したいとき、Pythonのどの関数を使いますか？",
+      "options": ["display()", "show()", "print()", "log()"],
+      "answer": 2,
+      "commentary": "デバッグの基本として、ターミナルに値を出すには「print()」を使います。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "テンプレートで {% for choice in choices %} ... {% endfor %} と書いたとき、choicesが空だったらどうなりますか？",
+      "options": ["エラー画面が出る", "何も表示されず、次の行へ進む", "「空です」と自動で表示される", "無限ループになる"],
+      "answer": 1,
+      "commentary": "エラーにはならず、単に繰り返し処理がスキップされます。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "urls.pyでpath関数を読み込むための記述は？<pre><code>from django.urls import ___</code></pre>",
+      "options": ["path", "url", "route", "include"],
+      "answer": 0,
+      "commentary": "「path」関数を使ってURLのパターンを定義します。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "今回の授業で作成した「detail」ページの主な役割は何ですか？",
+      "options": ["全ての質問を一覧表示する", "特定の質問1つと、その回答の選択肢を表示する", "新しい質問を投稿する", "管理者用パスワードを変更する"],
+      "answer": 1,
+      "commentary": "「詳細（detail）」ページは、選んだ1つのデータの内容を詳しく見せるためのページです。"
     }
   ]
 }

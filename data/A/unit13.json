@@ -1,23 +1,325 @@
 {
-  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — Git の基礎",
+  "unit_title": "Git の基礎",
   "questions": [
     {
-      "question": "ローカルリポジトリの現在の状態を確認する代表的なコマンドはどれですか？",
-      "options": ["git log", "git status", "git clone", "git branch"],
-      "answer": 1,
-      "commentary": "git status で変更の有無やブランチなどを確認できます。"
-    },
-    {
-      "question": "変更をコミットする前にステージングするコマンドとして一般的なものはどれですか？",
-      "options": ["git add", "git push", "git merge", "git pull"],
+      "id": 1,
+      "type": "用語理解",
+      "question": "ファイルへの変更履歴を記録し、過去の状態に戻したりできるシステムのことを何と呼びますか？",
+      "options": ["VCS（バージョン管理システム）", "OSS（オープンソースソフトウェア）", "IDE（統合開発環境）", "API（アプリケーションインターフェース）"],
       "answer": 0,
-      "commentary": "git add でインデックス（ステージング）に追加してから commit します。"
+      "commentary": "ファイルに対する変更の履歴を管理するシステムをVCS（Version Control System）と呼び、Gitはその代表的なツールです。"
     },
     {
-      "question": "リモートから履歴を取り込みつつマージする操作としてよく使うのはどれですか？",
-      "options": ["git fetch", "git pull", "git init", "git reset"],
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "特定のフォルダをGitで管理し始める（リポジトリを初期化する）ためのコマンドは何ですか？<pre><code>___ init</code></pre>",
+      "options": ["git", "vcs", "init", "start"],
+      "answer": 0,
+      "commentary": "Gitの操作はすべて「git」から始まります。リポジトリの初期化は「git init」です。"
+    },
+    {
+      "id": 3,
+      "type": "用語理解",
+      "question": "Gitそのものではなく、Gitを利用した開発者を支援するWebサービスの名称はどれですか？",
+      "options": ["GitLab", "GitHub", "Bitbucket", "上記すべて"],
+      "answer": 3,
+      "commentary": "GitHub, GitLab, BitbucketはすべてGitを利用したWebサービスです。教科書ではGitHubを代表例として紹介しています。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "ファイルの変更を「ステージングエリア」に登録するためのコマンドを完成させてください。<pre><code>git ___ .</code></pre>",
+      "options": ["commit", "push", "add", "save"],
+      "answer": 2,
+      "commentary": "「git add .」と入力することで、作業ディレクトリ内のすべての変更をステージングエリア（コミットの準備場所）に移動させます。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "次のコマンドを実行したとき、Gitは何を記録しますか？<pre><code>git commit -m \"fix bug\"</code></pre>",
+      "options": ["「fix bug」という名前のファイルを新しく作る", "「fix bug」というメッセージと共に変更内容を保存する", "バグを自動的に修正する", "GitHubにファイルをアップロードする"],
       "answer": 1,
-      "commentary": "git pull は fetch + merge（設定により rebase）でリモートの更新を取り込みます。"
+      "commentary": "commitはステージングされた内容を保存する操作で、-mオプションでその変更内容の説明（コミットメッセージ）を残します。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "ローカルの変更内容を、リモートリポジトリ（GitHubなど）にアップロードするコマンドは何ですか？<pre><code>git ___ origin main</code></pre>",
+      "options": ["pull", "push", "upload", "send"],
+      "answer": 1,
+      "commentary": "自分のパソコン（ローカル）からインターネット上のサーバー（リモート）へデータを送ることを「push」といいます。"
+    },
+    {
+      "id": 7,
+      "type": "文法チェック",
+      "question": "コミットメッセージを間違えて保存してしまったとき、修正するために使うオプションはどれですか？",
+      "options": ["--fix", "--amend", "--change", "--reset"],
+      "answer": 1,
+      "commentary": "直前のコミットを修正したい場合は「git commit --amend」を使用します。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "過去にどのようなコミット（保存）が行われたか、履歴を確認するコマンドは何ですか？<pre><code>git ___</code></pre>",
+      "options": ["history", "log", "status", "list"],
+      "answer": 1,
+      "commentary": "「git log」を実行すると、過去のコミットメッセージや日時、作者の一覧が表示されます。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "GitHubでパスワードの代わりとして使用される、アクセス権限を設定した文字列を何と呼びますか？",
+      "options": ["公開鍵", "シークレットキー", "パーソナルアクセストークン", "ログインパスワード"],
+      "answer": 2,
+      "commentary": "GitHubではセキュリティのため、通常のパスワードではなく「パーソナルアクセストークン」を発行して使用します。"
+    },
+    {
+      "id": 10,
+      "type": "実行結果予測",
+      "question": "「git status」コマンドを実行したときの主な役割は何ですか？",
+      "options": ["現在のファイルがステージングされているかなどの状態を表示する", "Gitのバージョンを表示する", "パソコンを再起動する", "GitHubのURLを表示する"],
+      "answer": 0,
+      "commentary": "statusコマンドは、どのファイルに変更があり、どのファイルがコミットの準備（add）ができているかを確認するために使います。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "リモートリポジトリに「origin」という名前でURLを登録するコマンドの空欄を埋めてください。<pre><code>git remote ___ origin https://github.com/...</code></pre>",
+      "options": ["set", "add", "new", "connect"],
+      "answer": 1,
+      "commentary": "「git remote add」を使って、ローカルリポジトリとリモートリポジトリを紐付けます。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "ソースコードが一般に無償で公開されており、誰でも利用や改変ができるソフトウェアのことを何といいますか？",
+      "options": ["SNS", "OSS", "VCS", "WWW"],
+      "answer": 1,
+      "commentary": "Open Source Software（オープンソースソフトウェア）の略で、Gitを通じて世界中のOSSを利用することができます。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "Gitを使い始める際に、自分の名前を登録する設定コマンドを完成させてください。<pre><code>git config --global ___.name \"Your Name\"</code></pre>",
+      "options": ["git", "account", "user", "profile"],
+      "answer": 2,
+      "commentary": "初期設定では「user.name」と「user.email」を設定する必要があります。"
+    },
+    {
+      "id": 14,
+      "type": "文法チェック",
+      "question": "Gitのコマンドや使い方がわからなくなったときに、ヘルプを表示する正しいコマンドはどれですか？",
+      "options": ["git --help", "git help --all", "git <command> --help", "上記すべて"],
+      "answer": 3,
+      "commentary": "git --help で全体のヘルプ、特定のコマンドの詳細を知りたいときは git <command> --help が使えます。"
+    },
+    {
+      "id": 15,
+      "type": "実行結果予測",
+      "question": "次の順序でコマンドを実行しました。現在、変更内容はどこにありますか？<br>1. index.htmlを編集した<br>2. git add index.html を実行した",
+      "options": ["作業ディレクトリのみ", "ステージングエリア", "ローカルリポジトリ（保存完了）", "リモートリポジトリ（GitHub）"],
+      "answer": 1,
+      "commentary": "git addを実行した直後は「ステージングエリア（コミット待ちの状態）」にあります。まだ保存（commit）はされていません。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "現在のブランチ名を「main」に強制的に変更するコマンドは何ですか？<pre><code>git branch ___ main</code></pre>",
+      "options": ["-n", "-D", "-M", "-f"],
+      "answer": 2,
+      "commentary": "古いGitで作成された「master」ブランチなどを「main」に変更する場合、-Mオプションを使用します。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "Gitにおいて「リポジトリ」とはどのような意味ですか？",
+      "options": ["ファイルの変更履歴を保存しておく場所", "プログラミングを書くためのアプリ", "インターネットの接続速度", "パソコンのユーザー名"],
+      "answer": 0,
+      "commentary": "リポジトリは、ファイルやディレクトリの状態を記録しておく「貯蔵庫」のような場所です。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "リモートリポジトリの設定が正しく行われているか、URLを確認するコマンドは何ですか？<pre><code>git remote ___</code></pre>",
+      "options": ["-l", "-v", "-check", "-list"],
+      "answer": 1,
+      "commentary": "「git remote -v」を実行すると、登録されているリモートリポジトリのURL（fetch用とpush用）が表示されます。"
+    },
+    {
+      "id": 19,
+      "type": "実行結果予測",
+      "question": "「git push -u origin main」を実行した際、2回目以降はどのように省略してプッシュできますか？",
+      "options": ["git push origin", "git push main", "git push", "git send"],
+      "answer": 2,
+      "commentary": "最初に -u オプションをつけてプッシュすると、以降は「git push」だけで同じ場所へ送信できるようになります。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "GitHubでWebページを公開するための機能の名前は何ですか？",
+      "options": ["GitHub Web", "GitHub Pages", "GitHub Sites", "GitHub Hosting"],
+      "answer": 1,
+      "commentary": "GitHub Pagesを利用すると、リポジトリにアップロードしたHTMLファイルをWebサイトとして無料で公開できます。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "設定されているユーザー名やメールアドレスの一覧を表示するコマンドは何ですか？<pre><code>git config ___</code></pre>",
+      "options": ["--show", "--all", "--list", "--check"],
+      "answer": 2,
+      "commentary": "「git config --list」で、現在の設定内容を一覧で確認できます。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "Gitでファイルを管理する3つの「場」に含まれないものはどれですか？",
+      "options": ["ローカルリポジトリ", "クラウドストレージ", "リモートリポジトリ", "作業ディレクトリ"],
+      "answer": 1,
+      "commentary": "Gitでは「作業ディレクトリ（自身のパソコン）」「ローカルリポジトリ」「リモートリポジトリ」の3つを区別して考えます。"
+    },
+    {
+      "id": 23,
+      "type": "実行結果予測",
+      "question": "「git commit」だけを入力してメッセージ（-m）を忘れた場合、どうなりますか？",
+      "options": ["自動的に「no message」と記録される", "エラーになってコマンドが終了する", "エディタが開き、メッセージの入力を求められる", "ファイルが削除される"],
+      "answer": 2,
+      "commentary": "-mを忘れると、メッセージを入力するための専用エディタが起動します（初心者には少し難しい画面になることが多いです）。"
+    },
+    {
+      "id": 24,
+      "type": "コード穴埋め",
+      "question": "「style.css」というファイルだけをステージングしたい場合、正しいコマンドはどうなりますか？<pre><code>git add ___</code></pre>",
+      "options": ["*", "all", "style.css", "css"],
+      "answer": 2,
+      "commentary": "「.」を使うと全てのファイルを対象にしますが、ファイル名を指定すればそのファイルだけをステージングできます。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "同じプロジェクトの開発状況を枝分かれさせて管理する仕組みを何と呼びますか？",
+      "options": ["ブランチ", "ツリー", "フォーク", "パッチ"],
+      "answer": 0,
+      "commentary": "「ブランチ（Branch）」は枝という意味で、メインの開発を邪魔せずに新しい機能を作るときなどに使われます。"
+    },
+    {
+      "id": 26,
+      "type": "文法チェック",
+      "question": "GitHubのリポジトリ作成時、誰でも見ることができる設定はどちらですか？",
+      "options": ["Private", "Public", "Secret", "Shared"],
+      "answer": 1,
+      "commentary": "Public（パブリック）は公開、Private（プライベート）は自分や許可した人だけが見られる設定です。"
+    },
+    {
+      "id": 27,
+      "type": "コード穴埋め",
+      "question": "GitHubからアクセストークンを発行するとき、リポジトリ操作の権限を与えるためにチェックを入れる項目は何ですか？<pre><code>Select scopes: [ ___ ]</code></pre>",
+      "options": ["admin", "user", "repo", "gist"],
+      "answer": 2,
+      "commentary": "リポジトリ（Repository）への操作を行うためには「repo」のスコープにチェックを入れる必要があります。"
+    },
+    {
+      "id": 28,
+      "type": "実行結果予測",
+      "question": "ファイルを編集したが、まだ「git add」も「git commit」もしていない状態です。この時「git log」にその編集履歴は表示されますか？",
+      "options": ["表示される", "表示されない", "エラーが出る", "GitHubに反映される"],
+      "answer": 1,
+      "commentary": "コミット（保存）を完了しない限り、履歴（log）には残りません。"
+    },
+    {
+      "id": 29,
+      "type": "コード穴埋め",
+      "question": "特定のコマンド「commit」のヘルプを見たいとき、正しい書き方はどれですか？<pre><code>git ___ --help</code></pre>",
+      "options": ["info", "show", "commit", "manual"],
+      "answer": 2,
+      "commentary": "「git コマンド名 --help」で、そのコマンド専用の説明書を読むことができます。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "Gitを使ってファイルの変更を追跡し始めることを「リポジトリを〇〇する」といいます。〇〇に入る言葉は？",
+      "options": ["インストール", "初期化", "デプロイ", "マージ"],
+      "answer": 1,
+      "commentary": "「git init」の「init」は「initialize（初期化）」の略です。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "GitHub Pagesの設定で、どのブランチを公開するか選ぶ際、通常選択するブランチ名は何ですか？<pre><code>Branch: [ ___ ]</code></pre>",
+      "options": ["master", "develop", "main", "test"],
+      "answer": 2,
+      "commentary": "現在のGitの標準的なメインブランチ名は「main」です。"
+    },
+    {
+      "id": 32,
+      "type": "実行結果予測",
+      "question": "「git remote add origin (URL)」を実行した後、もう一度同じコマンドを実行するとどうなりますか？",
+      "options": ["URLが上書きされる", "originが2つ作られる", "既に存在するというエラーが出る", "何も起きない"],
+      "answer": 2,
+      "commentary": "一度登録した名前（origin）を再度追加しようとするとエラーになります。変更したい場合は別のコマンド（set-urlなど）が必要です。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "コミットメッセージの入力を開始するためのオプションは何ですか？<pre><code>git commit ___ \"メッセージ\"</code></pre>",
+      "options": ["-msg", "-m", "-message", "-a"],
+      "answer": 1,
+      "commentary": "「-m」はメッセージ（message）を指定するための非常に重要なオプションです。"
+    },
+    {
+      "id": 34,
+      "type": "文法チェック",
+      "question": "Gitで管理されているディレクトリ内で、まだGitに追跡されていない新しいファイルがある場合「git status」ではどのように表示されますか？",
+      "options": ["Tracked files", "Untracked files", "New files", "Unknown files"],
+      "answer": 1,
+      "commentary": "新しく作成して「git add」されていないファイルは、未追跡（Untracked）として表示されます。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "Gitで「ステージング」とは何をする操作のことですか？",
+      "options": ["ファイルを削除する操作", "コミットするファイルを準備エリアに登録する操作", "GitHubにログインする操作", "コードのバグを見つける操作"],
+      "answer": 1,
+      "commentary": "次に保存（コミット）したい変更を選んで、一時的な「ステージ」に乗せることをステージングといいます。"
+    },
+    {
+      "id": 36,
+      "type": "実行結果予測",
+      "question": "「git log」の結果が長すぎて画面が止まってしまった場合、元の画面に戻る（終了する）ためのキーは何ですか？",
+      "options": ["Enterキー", "Escキー", "Qキー", "Ctrl+C"],
+      "answer": 2,
+      "commentary": "Gitのログ表示などは「less」という形式で開かれることが多く、「q（quit）」キーで終了できます。"
+    },
+    {
+      "id": 37,
+      "type": "コード穴埋め",
+      "question": "自分のメールアドレスを設定するコマンドを完成させてください。<pre><code>git config --global user.___ \"mail@example.com\"</code></pre>",
+      "options": ["address", "mail", "email", "id"],
+      "answer": 2,
+      "commentary": "設定項目名は「user.email」です。"
+    },
+    {
+      "id": 38,
+      "type": "文法チェック",
+      "question": "Gitで「コミット」をする前に、必ず行わなければならない操作はどれですか？",
+      "options": ["git push", "git init (初回のみ)", "git add", "git log"],
+      "answer": 2,
+      "commentary": "変更を保存（commit）する前には、どの変更を保存するか指定（add）する必要があります。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "「git config --list」の結果を表示した後、設定画面を閉じるキーは何ですか？",
+      "options": ["A", "S", "Q", "Z"],
+      "answer": 2,
+      "commentary": "多くのGitのリスト表示画面は「q」キーで終了します。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "Gitを使う大きなメリットの1つはどれですか？",
+      "options": ["タイピングが速くなる", "過去のどの時点の状態にもコードを戻せる", "インターネットがなくてもGitHubが見れる", "デザインが自動で綺麗になる"],
+      "answer": 1,
+      "commentary": "「戻したい状態に簡単に戻せる」ことは、複雑な開発を行う上で非常に大きな安心材料になります。"
     }
   ]
 }

@@ -1,23 +1,325 @@
 {
-  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — 導入と Django 開発環境の整備",
+  "unit_title": "導入と Django 開発環境の整備",
   "questions": [
     {
-      "question": "Django プロジェクトを新規作成するコマンドとして正しいものはどれですか？",
-      "options": ["django-admin startproject mysite", "python -m django new mysite", "django new project mysite", "pip install django-project"],
-      "answer": 0,
-      "commentary": "django-admin startproject プロジェクト名 が公式チュートリアルの流れです。"
-    },
-    {
-      "question": "開発用サーバーを起動するコマンドはどれですか？",
-      "options": ["python manage.py runserver", "django serve", "python app.py start", "manage.py dev"],
-      "answer": 0,
-      "commentary": "プロジェクト直下で manage.py runserver を実行します。"
-    },
-    {
-      "question": "アプリケーションをプロジェクトに追加する際、INSTALLED_APPS に登録するファイルは主にどれですか？",
-      "options": ["urls.py", "settings.py", "wsgi.py", "manage.py"],
+      "id": 1,
+      "type": "用語理解",
+      "question": "アクセスするユーザーやタイミングによって表示内容が変わるWebサイトを何と呼びますか？",
+      "options": ["静的なWebサイト", "動的なWebサイト", "固定的なWebサイト", "フレームワーク"],
       "answer": 1,
-      "commentary": "settings.py の INSTALLED_APPS にアプリ名を追加します。"
+      "commentary": "ユーザーごとに内容が変わるサイトを「動的（どうてき）」、誰が見ても同じものを「静的（せいてき）」と呼びます。"
+    },
+    {
+      "id": 2,
+      "type": "用語理解",
+      "question": "Webアプリケーションを作るための「枠組み」を提供してくれるものを何といいますか？",
+      "options": ["ライブラリ", "仮想環境", "フレームワーク", "OS"],
+      "answer": 2,
+      "commentary": "開発の土台となるルールや機能のまとまりを「フレームワーク」と呼びます。Djangoはその一つです。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "Pythonで仮想環境（venv）を作成するコマンドを完成させてください。<pre><code>python -m ___ .venv</code></pre>",
+      "options": ["env", "virtual", "venv", "make"],
+      "answer": 2,
+      "commentary": "「python -m venv フォルダ名」で、プロジェクト専用の独立した実行環境を作ります。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "Djangoをインストールするためのコマンドはどれですか？<pre><code>___ install Django</code></pre>",
+      "options": ["get", "python", "pip", "django"],
+      "answer": 2,
+      "commentary": "Pythonのパッケージをインストールするには「pip」コマンドを使います。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "Djangoプロジェクト「polls」を現在のディレクトリに作成するコマンドの空欄を埋めてください。<pre><code>django-admin ___ polls .</code></pre>",
+      "options": ["newproject", "create", "startproject", "init"],
+      "answer": 2,
+      "commentary": "プロジェクトの新規作成は「startproject」コマンドで行います。"
+    },
+    {
+      "id": 6,
+      "type": "実行結果予測",
+      "question": "「python manage.py runserver」を実行し、成功したあとにブラウザでアクセスするURLはどれですか？",
+      "options": ["http://localhost:3000/", "http://127.0.0.1:8000/", "http://django.home/", "http://0.0.0.0:5000/"],
+      "answer": 1,
+      "commentary": "Djangoの標準ポート番号は8000番なので、127.0.0.1:8000にアクセスします。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "プロジェクト内に「main」という名前のアプリケーションを作成するコマンドは何ですか？<pre><code>python manage.py ___ main</code></pre>",
+      "options": ["newapp", "addapp", "startapp", "create"],
+      "answer": 2,
+      "commentary": "個別の機能（アプリ）を作成するときは「startapp」コマンドを使います。"
+    },
+    {
+      "id": 8,
+      "type": "文法チェック",
+      "question": "実行中の開発用サーバーを停止させるためのショートカットキーはどれですか？",
+      "options": ["Ctrl + S", "Ctrl + C", "Ctrl + V", "Ctrl + Z"],
+      "answer": 1,
+      "commentary": "「Ctrl + C」は実行中の処理を中断させる共通のコマンドです。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "Djangoの利用例として、教科書に書かれている有名なサービスはどれですか？",
+      "options": ["X (旧Twitter)", "Instagram", "Line", "TikTok"],
+      "answer": 1,
+      "commentary": "InstagramやYouTube、NASAの公式サイトなどでDjangoが使われています。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "venv（仮想環境）を使う主な理由は何ですか？",
+      "options": ["ネットが速くなるから", "PC全体のPython環境を汚さずにプロジェクトごとに管理するため", "自動でプログラミングをしてくれるから", "パソコンの容量を節約するため"],
+      "answer": 1,
+      "commentary": "プロジェクトごとに必要なソフトウェアのバージョンを分けるために、仮想環境（venv）を作ります。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "ディレクトリを移動するためのコマンド「cd」は何の略ですか？<pre><code>___ polls</code></pre>",
+      "options": ["create directory", "change directory", "copy data", "check directory"],
+      "answer": 1,
+      "commentary": "「change directory」の略で、作業するフォルダを切り替えるときに使います。"
+    },
+    {
+      "id": 12,
+      "type": "文法チェック",
+      "question": "Djangoプロジェクト作成時、以下のコマンドの最後にある「.」（ドット）は何を意味しますか？<pre><code>django-admin startproject polls .</code></pre>",
+      "options": ["コマンドの終了を意味する", "「現在のディレクトリ」に作成することを意味する", "エラーを防止するおまじない", "管理者権限で実行する"],
+      "answer": 1,
+      "commentary": "ドットは「今いるこの場所（現在のディレクトリ）」を指定する記号です。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "インストールされたDjangoのバージョンを確認するコマンドを完成させてください。<pre><code>python -m django ___</code></pre>",
+      "options": ["-v", "--version", "show", "check"],
+      "answer": 1,
+      "commentary": "「--version」でバージョン情報が表示されます。"
+    },
+    {
+      "id": 14,
+      "type": "実行結果予測",
+      "question": "Djangoの開発用サーバーを起動したとき、ターミナルに「$」や「PS>」が表示されなくなりました。この状態はどういう意味ですか？",
+      "options": ["パソコンがフリーズした", "サーバーが正常に動いていて、入力を待っている状態", "エラーが起きてコマンドが止まった", "インターネットが切断された"],
+      "answer": 1,
+      "commentary": "runserver実行中はサーバーが常に動いているため、次の入力を受け付ける記号（プロンプト）が表示されなくなります。"
+    },
+    {
+      "id": 15,
+      "type": "文法チェック",
+      "question": "プロジェクトとアプリケーションの関係として、正しいものはどれですか？",
+      "options": ["1つのアプリケーションに複数のプロジェクトが入る", "1つのプロジェクトに複数のアプリケーション（用途別の機能）を入れることができる", "プロジェクトとアプリケーションは同じ意味である", "プロジェクトは1回しか作れない"],
+      "answer": 1,
+      "commentary": "Djangoでは、大きな「プロジェクト」の中に、用途ごとの「アプリ」を複数作って管理します。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "誰がいつアクセスしても全く同じ表示を行うサイトを何と呼びますか？",
+      "options": ["動的なWebサイト", "静的なWebサイト", "枠組みWebサイト", "仮想Webサイト"],
+      "answer": 1,
+      "commentary": "変化しないサイトを「静的」、ユーザーによって変わるものを「動的」といいます。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "startprojectを実行した際、設定ファイルなどが含まれるフォルダの他に自動生成される、管理用ファイルは何ですか？<pre><code>|-- ___ \n`-- polls</code></pre>",
+      "options": ["manage.py", "admin.py", "settings.py", "views.py"],
+      "answer": 0,
+      "commentary": "「manage.py」は、サーバー起動やアプリ作成など、Djangoの様々な操作を行うための中心となるファイルです。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "Djangoアプリケーションを作成した際に、画面に表示する内容（ロジック）を書くためのファイルはどれですか？<pre><code>|-- ...\n|-- ___ \n`-- models.py</code></pre>",
+      "options": ["apps.py", "admin.py", "views.py", "tests.py"],
+      "answer": 2,
+      "commentary": "「views.py」に、ユーザーのリクエストに対してどんな画面を返すかという処理を書きます。"
+    },
+    {
+      "id": 19,
+      "type": "文法チェック",
+      "question": "ブラウザで「http://127.0.0.1:8000/」にアクセスして「ロケット」の画像が表示されたら、どのような状態だといえますか？",
+      "options": ["サーバーが故障している", "Djangoのインストールに失敗している", "Djangoプロジェクトが正常に立ち上がっている", "インターネットが繋がっていない"],
+      "answer": 2,
+      "commentary": "あのロケットは「インストール成功」をお祝いするDjangoのデフォルト画面です。"
+    },
+    {
+      "id": 20,
+      "type": "コード穴埋め",
+      "question": "Windowsで仮想環境を有効化（アクティベート）するコマンドを完成させてください。<pre><code>.venv\\Scripts\\___</code></pre>",
+      "options": ["start.exe", "Activate.ps1", "run.bat", "open.ps1"],
+      "answer": 1,
+      "commentary": "WindowsではActivate.ps1（PowerShellの場合）などを実行して仮想環境に入ります。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "「venv」は何の略ですか？",
+      "options": ["very environment", "virtual environment", "variable environment", "visual environment"],
+      "answer": 1,
+      "commentary": "「virtual environment（仮想環境）」の略です。"
+    },
+    {
+      "id": 22,
+      "type": "コード穴埋め",
+      "question": "サーバーを立ち上げるコマンドを完成させてください。<pre><code>python manage.py ___</code></pre>",
+      "options": ["start", "runserver", "server", "up"],
+      "answer": 1,
+      "commentary": "「runserver」コマンドで、自分のPC内だけで動くテスト用サーバーを起動します。"
+    },
+    {
+      "id": 23,
+      "type": "実行結果予測",
+      "question": "「django-admin startproject config .」というコマンドを、フォルダが空ではない場所で実行しようとするとどうなりますか？",
+      "options": ["既存のファイルが消える", "エラーになる可能性がある（基本は空のフォルダで実行する）", "勝手にフォルダが整理される", "スピードが速くなる"],
+      "answer": 1,
+      "commentary": "予期せぬトラブルを防ぐため、プロジェクトの作成は新しく作った空のフォルダで行うのが基本です。"
+    },
+    {
+      "id": 24,
+      "type": "文法チェック",
+      "question": "教科書で作成した「polls」プロジェクト内の「settings.py」は何をするためのファイルですか？",
+      "options": ["Webサイトのデザインを書く", "データベースや言語などの「設定」を管理する", "Pythonの文法をチェックする", "サーバーを起動する"],
+      "answer": 1,
+      "commentary": "settingsはその名の通り、プロジェクト全体のあらゆる「設定」を司るファイルです。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "「動的なサイト」の例として、教科書で挙げられているものはどれですか？",
+      "options": ["個人のブログ", "Amazonのおすすめ商品表示", "会社の住所録", "学校のホームページ"],
+      "answer": 1,
+      "commentary": "ユーザーごとに買うものが違うAmazonなどは、動的なWebサイトの代表例です。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "macOSで仮想環境を有効化する際のコマンドは何ですか？<pre><code>___ .venv/bin/activate</code></pre>",
+      "options": ["run", "source", "bash", "open"],
+      "answer": 1,
+      "commentary": "macOSやLinuxでは「source」コマンドを使ってアクティベートします。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "startappを実行したときに作られる「models.py」の主な役割は何ですか？",
+      "options": ["画面のデザインを保存する", "データベースの構造（データの形）を定義する", "URLを登録する", "計算式だけを書く"],
+      "answer": 1,
+      "commentary": "モデル（models.py）は、どんなデータを保存するかという「データの設計図」を書く場所です。"
+    },
+    {
+      "id": 28,
+      "type": "コード穴埋め",
+      "question": "プロジェクト内の「urls.py」は何を管理するためのファイルですか？<pre><code>|-- polls\n|   |-- ___ \n|   `-- settings.py</code></pre>",
+      "options": ["画像ファイル", "どのURLにアクセスした時にどの処理を呼ぶかの地図", "ユーザーのパスワード", "サーバーの速度"],
+      "answer": 1,
+      "commentary": "urls.pyは、住所（URL）と部屋（処理）を結びつける「案内所」のような役割をします。"
+    },
+    {
+      "id": 29,
+      "type": "用語理解",
+      "question": "開発用サーバーを起動したあとの「127.0.0.1」というIPアドレスは何を指していますか？",
+      "options": ["Googleのサーバー", "自分の使っているこのパソコン（ローカル）", "Djangoの公式サーバー", "世界中のどこかのパソコン"],
+      "answer": 1,
+      "commentary": "127.0.0.1は「自分自身」を指す特別なIPアドレスです。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "アプリケーションの作成「startapp」を行う際、manage.pyがある場所で実行する必要があります。そのために使う移動コマンドは何ですか？<pre><code>___ polls</code></pre>",
+      "options": ["move", "goto", "cd", "in"],
+      "answer": 2,
+      "commentary": "ディレクトリ移動の基本コマンド「cd」を正しく使いましょう。"
+    },
+    {
+      "id": 31,
+      "type": "文法チェック",
+      "question": "Djangoプロジェクトの初期設定の正しい順番はどれですか？",
+      "options": ["インストール → フォルダ作成 → プロジェクト作成", "フォルダ作成 → 仮想環境作成 → Djangoインストール → プロジェクト作成", "プロジェクト作成 → 仮想環境作成 → インストール", "サーバー起動 → インストール → プロジェクト作成"],
+      "answer": 1,
+      "commentary": "まず箱（フォルダ）を作り、環境（仮想環境）を整え、道具（Django）を入れ、中身（プロジェクト）を作る順序が一般的です。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "フレームワークを使うメリットとして、間違っているものはどれですか？",
+      "options": ["セキュリティなどの重要な機能を自分で一から作らなくて済む", "開発のスピードが上がる", "コードの書き方が統一されやすくなる", "Pythonの知識が全くなくてもアプリが作れる"],
+      "answer": 3,
+      "commentary": "フレームワークは便利ですが、Pythonなどのプログラミングの基礎知識は必要です。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "Pythonのパッケージ管理ツール「pip」を使って、リストを表示するコマンドは何ですか？<pre><code>pip ___</code></pre>",
+      "options": ["list", "show", "check", "all"],
+      "answer": 0,
+      "commentary": "「pip list」と打つと、現在インストールされているソフトの一覧が見れます。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "「python manage.py runserver」を実行した際、赤い文字で「You have unapplied migrations」と表示されました。これはどういう状態ですか？",
+      "options": ["サーバーが壊れたのでやり直すべき", "データベースの設定（マイグレーション）が未完了だが、今のところサーバーは動く", "Pythonが古いという警告", "インターネットが繋がっていない"],
+      "answer": 1,
+      "commentary": "これはデータベースの準備がまだですよというお知らせです。この段階ではサーバー自体は起動します。"
+    },
+    {
+      "id": 35,
+      "type": "文法チェック",
+      "question": "manage.pyが存在する場所で「ls」や「dir」コマンドを打ったとき、表示されないファイルはどれですか？",
+      "options": ["manage.py", "polls（フォルダ）", "django-admin", "db.sqlite3（サーバー起動後）"],
+      "answer": 2,
+      "commentary": "django-adminはPythonのツール（コマンド）であり、作成したプロジェクトフォルダの中にファイルとして存在するわけではありません。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "教科書でこれから作る「投票アプリ」の機能に含まれないものはどれですか？",
+      "options": ["質問に対して選択肢から回答する", "回答結果を投票数として表示する", "回答者にポイントを付与する", "質問に回答する"],
+      "answer": 2,
+      "commentary": "教科書では「質問」「選択肢」「投票結果」の機能を説明しており、ポイント付与については触れていません。"
+    },
+    {
+      "id": 37,
+      "type": "コード穴埋め",
+      "question": "Djangoプロジェクトの構造を確認する際、管理ファイルmanage.pyと同じ階層にあるはずのフォルダ名は何ですか？<pre><code>|-- manage.py\n`-- ___（プロジェクト名）</code></pre>",
+      "options": ["django", "main", "polls", "app"],
+      "answer": 2,
+      "commentary": "startprojectで指定した名前のフォルダが、manage.pyと同じ階層に作られます。"
+    },
+    {
+      "id": 38,
+      "type": "文法チェック",
+      "question": "VSCodeのターミナルで仮想環境を有効にしたあと、ターミナルの先頭に何が表示されますか？",
+      "options": ["(Django)", "(.venv)", "(Python)", "[Active]"],
+      "answer": 1,
+      "commentary": "有効になると、現在どの仮想環境にいるかを示す「(.venv)」といった表示が追加されます。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "NASAの公式サイトにDjangoが使われているのはなぜだと考えられますか？（教科書の導入より）",
+      "options": ["無料で使えるから", "大規模で複雑なアプリケーションも扱えるから", "NASAがDjangoを作ったから", "Pythonが宇宙でしか使えないから"],
+      "answer": 1,
+      "commentary": "Djangoは小規模から、NASAやInstagramのような大規模で複雑なシステムまで対応できるため採用されています。"
+    },
+    {
+      "id": 40,
+      "type": "実行結果予測",
+      "question": "「django-admin startproject polls .」を実行したあと、フォルダ内に「manage.py」が作られました。次にすべき正しいコマンドはどれですか？",
+      "options": ["python runserver", "python manage.py runserver", "django-admin runserver", "pip runserver"],
+      "answer": 1,
+      "commentary": "サーバー起動は、生成された manage.py を通じて行います。"
     }
   ]
 }

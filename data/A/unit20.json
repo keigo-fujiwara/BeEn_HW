@@ -1,23 +1,325 @@
 {
-  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — 質問一覧画面と投票画面の見た目の改善",
+  "unit_title": "質問一覧画面と投票画面の見た目の改善",
   "questions": [
     {
-      "question": "静的ファイル（CSS）をテンプレートで読み込むタグとして一般的なのはどれですか？",
-      "options": ["{% load static %} と {% static 'path' %}", "{% css 'file.css' %}", "{{ static_url }}", "{% include_css %}"],
-      "answer": 0,
-      "commentary": "{% load static %} のあと {% static 'polls/style.css' %} などで URL を生成します。"
+      "id": 1,
+      "type": "用語理解",
+      "question": "Djangoにおいて、CSSや画像、JavaScriptなどの、内容が直接変わらないファイルの総称を何といいますか？",
+      "options": ["動的ファイル", "静的ファイル（スタティックファイル）", "テンプレートファイル", "メディアファイル"],
+      "answer": 1,
+      "commentary": "CSSや画像のように、プログラムによって内容が書き換わらないファイルを「静的ファイル」と呼びます。"
     },
     {
-      "question": "テンプレートでループするタグとして正しいものはどれですか？",
-      "options": ["{% for item in list %} ... {% endfor %}", "{% loop list as item %}", "{{ for item in list }}", "{% iterate list %}"],
-      "answer": 0,
-      "commentary": "{% for %} ... {% endfor %} が Django テンプレート言語のループです。"
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で静的ファイルを扱うために、ファイルの先頭で記述する必要があるタグは何ですか？<pre><code>{% ___ static %}</code></pre>",
+      "options": ["import", "include", "load", "use"],
+      "answer": 2,
+      "commentary": "{% load static %} を記述することで、そのテンプレート内で static タグが使えるようになります。"
     },
     {
-      "question": "開発時に静的ファイルを集約するコマンドとして本番前によく使うのはどれですか？",
-      "options": ["python manage.py collectstatic", "django static build", "python manage.py gatherstatic", "npm run static"],
+      "id": 3,
+      "type": "文法チェック",
+      "question": "Djangoのルールに従い、アプリ単位でCSSを配置する正しいディレクトリ構造はどれですか？",
+      "options": ["static/css/style.css", "main/css/style.css", "static/main/css/style.css", "templates/static/style.css"],
+      "answer": 2,
+      "commentary": "テンプレートと同様、名前の衝突を避けるために「static/アプリ名/」という階層を作るのが慣習です。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "HTMLの&lt;head&gt;タグ内で、CSSファイルを読み込むためのタグを完成させてください。<pre><code>&lt;link rel=\"stylesheet\" href=\"{% ___ 'main/css/index.css' %}\"&gt;</code></pre>",
+      "options": ["url", "path", "static", "file"],
+      "answer": 2,
+      "commentary": "{% static 'パス' %} を使うことで、Djangoが正しい静的ファイルのURLを生成してくれます。"
+    },
+    {
+      "id": 5,
+      "type": "用語理解",
+      "question": "CSSで、要素の「内側」の余白を指定するプロパティは何ですか？",
+      "options": ["margin", "padding", "border", "spacing"],
+      "answer": 1,
+      "commentary": "paddingは境界線の内側、marginは境界線の外側の余白を指します。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "CSSで、要素の「外側」の余白を指定するプロパティは何ですか？",
+      "options": ["padding", "margin", "content", "outline"],
+      "answer": 1,
+      "commentary": "要素と要素の間の距離を空けるには margin を使用します。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "コンテナの幅を指定しつつ、左右の中央に配置するためのマージンの書き方はどれですか？<pre><code>.container {\n  width: 800px;\n  margin: ___;\n}</code></pre>",
+      "options": ["center", "0 auto", "auto 0", "0"],
+      "answer": 1,
+      "commentary": "margin: 0 auto; は「上下は0、左右は自動計算（中央寄せ）」という意味になります。"
+    },
+    {
+      "id": 8,
+      "type": "実行結果予測",
+      "question": "「border-radius: 8px;」を適用したとき、要素の見た目はどうなりますか？",
+      "options": ["枠線が太くなる", "角が丸くなる", "影がつく", "背景が透明になる"],
+      "answer": 1,
+      "commentary": "border-radius は角の丸みを設定するプロパティです。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "要素に影をつけるプロパティ「box-shadow: 0 4px 8px rgba(0,0,0,0.1);」の、rgba(0,0,0,0.1) の「0.1」は何を意味しますか？",
+      "options": ["色の濃さ", "影の広がり", "不透明度（透明度）", "影の角度"],
+      "answer": 2,
+      "commentary": "rgbaの4番目の数値は不透明度（0が透明、1が不透明）を表します。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "リストのマーカー（●や数字）を消すためのCSSプロパティは何ですか？<pre><code>.list {\n  ___: none;\n}</code></pre>",
+      "options": ["text-decoration", "list-style", "display", "marker"],
+      "answer": 1,
+      "commentary": "list-style: none; でリスト特有の記号を非表示にできます。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "リンク（&lt;a&gt;タグ）の下線を消すために使うプロパティは何ですか？",
+      "options": ["font-style", "line-height", "text-decoration", "border-bottom"],
+      "answer": 2,
+      "commentary": "text-decoration: none; を指定すると、デフォルトのアンダーラインが消えます。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "「background-color: rgb(245, 245, 245);」はどのような色を指しますか？",
+      "options": ["真っ白", "真っ黒", "薄いグレー", "青色"],
+      "answer": 2,
+      "commentary": "rgbの数値が255に近いほど明るくなり、同じ数値が並ぶとグレー系になります。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "要素を画面いっぱいの横幅にするために使う単位は何ですか？<pre><code>.button {\n  width: ___;\n}</code></pre>",
+      "options": ["100px", "100%", "full", "auto"],
+      "answer": 1,
+      "commentary": "100% を指定すると、親要素の幅いっぱいに広がります。"
+    },
+    {
+      "id": 14,
+      "type": "文法チェック",
+      "question": "CSSで特定のクラス名（例：index-container）を指定する際の記号は何ですか？",
+      "options": ["#index-container", ".index-container", "@index-container", "$index-container"],
+      "answer": 1,
+      "commentary": "クラス（class）を指定するときはドット「.」から書き始めます。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "テキストを左右中央に寄せるためのプロパティは何ですか？",
+      "options": ["align-items", "margin-center", "text-align: center", "vertical-align"],
+      "answer": 2,
+      "commentary": "文字やインライン要素を中央に寄せるには text-align: center; を使います。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "ボタンにマウスを乗せたとき、カーソルの形を指マーク（ポインタ）に変えるプロパティは何ですか？<pre><code>.button {\n  ___: pointer;\n}</code></pre>",
+      "options": ["mouse", "pointer", "cursor", "icon"],
+      "answer": 2,
+      "commentary": "cursor: pointer; を指定すると、クリック可能であることをユーザーに伝えやすくなります。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "ラジオボタンのチェック部分などの色を変えるために使うプロパティは何ですか？",
+      "options": ["color", "accent-color", "button-color", "fill"],
+      "answer": 1,
+      "commentary": "accent-color を使うと、チェックボックスやラジオボタンのテーマ色を簡単に変更できます。"
+    },
+    {
+      "id": 18,
+      "type": "実行結果予測",
+      "question": "「display: block;」をインライン要素（&lt;a&gt;など）に適用するとどうなりますか？",
+      "options": ["文字が太くなる", "前後に改行が入り、幅や高さが指定できるようになる", "要素が消える", "色が反転する"],
+      "answer": 1,
+      "commentary": "ブロック要素として扱うことで、ボタンのような見た目を作りやすくなります。"
+    },
+    {
+      "id": 19,
+      "type": "文法チェック",
+      "question": "CSSファイル内でコメントを書くときの正しい記法はどれですか？",
+      "options": ["// コメント", "{# コメント #}", "/* コメント */", "&lt;!-- コメント --&gt;"],
+      "answer": 2,
+      "commentary": "CSSのコメントは /* */ で囲みます。"
+    },
+    {
+      "id": 20,
+      "type": "コード穴埋め",
+      "question": "ボーダー（枠線）を消したいときに使う値は何ですか？<pre><code>.vote-button {\n  border: ___;\n}</code></pre>",
+      "options": ["0px", "none", "hidden", "clear"],
+      "answer": 1,
+      "commentary": "border: none; と書くことで、ボタンなどのデフォルトの枠線を消去できます。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "Djangoテンプレートで、staticタグが「正しいURL」を生成してくれる理由は？",
+      "options": ["ブラウザが勝手に探すから", "Djangoが設定に基づいてファイルの場所を解決するから", "インターネットからダウンロードするから", "PythonがCSSを書き換えるから"],
+      "answer": 1,
+      "commentary": "Djangoのシステムが静的ファイルのパスを管理しているため、環境が変わっても正しく読み込めます。"
+    },
+    {
+      "id": 22,
+      "type": "コード穴埋め",
+      "question": "要素の下側にだけ境界線を引きたい時に使うプロパティは何ですか？",
+      "options": ["border-top", "border-bottom", "border-line", "underline"],
+      "answer": 1,
+      "commentary": "border-bottom を使うと、アンダーラインのような仕切り線を作れます。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "CSSプロパティ「margin: 20px auto;」の「20px」はどこに適用されますか？",
+      "options": ["左右", "上下", "全部", "右側だけ"],
+      "answer": 1,
+      "commentary": "2つの値を指定した場合、1つ目は「上下」、2つ目は「左右」に適用されます。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "「box-shadow: 0 4px 8px ...」の「4px」は何を意味しますか？",
+      "options": ["影の透明度", "影を右にずらす距離", "影を下にずらす距離", "影のぼかし具合"],
+      "answer": 2,
+      "commentary": "2番目の数値は垂直方向（上下）の影のズレを表します。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "HTMLタグに複数の役割（デザイン）を付ける際、CSSで何を使ってグループ分けをしますか？",
+      "options": ["ID", "タグ名", "クラス(class)", "属性"],
+      "answer": 2,
+      "commentary": "複数の要素に同じデザインを当てたい場合は「class」を多用します。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "フォントの大きさを指定するプロパティは何ですか？",
+      "options": ["font-weight", "font-size", "text-size", "font-style"],
+      "answer": 1,
+      "commentary": "font-size で文字の大きさをピクセル（px）などで指定します。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "テンプレートの先頭以外で {% load static %} を書いた場合、どうなりますか？",
+      "options": ["全く動かない", "その行より後で static タグが使えるようになる", "エラーになる", "自動で先頭に移動する"],
+      "answer": 1,
+      "commentary": "読み込んだ場所以降で有効になりますが、慣習として一番上に書きます。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "rgb(255, 255, 255) は何色ですか？",
+      "options": ["赤", "緑", "青", "白"],
+      "answer": 3,
+      "commentary": "光の三原色がすべて最大値になると「白」になります。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "クラス「vote-content」内の「h1」だけにCSSを当てる正しい書き方はどれですか？",
+      "options": [".vote-content h1", "h1.vote-content", ".vote-content > h1", "vote-content-h1"],
       "answer": 0,
-      "commentary": "collectstatic で STATIC_ROOT へ集めます（開発サーバーの自動配信とは別用途）。"
+      "commentary": "「クラス名 スペース タグ名」と書くと、そのクラスの中にある特定のタグだけを指定できます。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "文字の色を変えるプロパティは何ですか？",
+      "options": ["text-color", "color", "font-color", "paint"],
+      "answer": 1,
+      "commentary": "文字の色はシンプルに「color」プロパティで指定します。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "CSSの「px（ピクセル）」とはどのような単位ですか？",
+      "options": ["文字の数", "画面の最小単位（点）の数", "センチメートル", "インチ"],
+      "answer": 1,
+      "commentary": "画面を構成する小さな点の集まりを単位とした、デジタルデザインの基本単位です。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "複数のCSSプロパティを並べる際、区切りに使う記号は何ですか？",
+      "options": [", (コンマ)", ": (コロン)", "; (セミコロン)", ". (ドット)"],
+      "answer": 2,
+      "commentary": "プロパティの最後には必ず「;（セミコロン）」を付けます。"
+    },
+    {
+      "id": 33,
+      "type": "用語理解",
+      "question": "「display: none;」を指定した要素はどうなりますか？",
+      "options": ["透明になるが場所はとる", "画面から完全に消え、場所もとらなくなる", "文字だけ消える", "色が消える"],
+      "answer": 1,
+      "commentary": "要素を存在しないかのように非表示にします。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "margin-bottom: 20px; と設定すると、どこに余白ができますか？",
+      "options": ["左側", "右側", "上側", "下側"],
+      "answer": 3,
+      "commentary": "bottom（下）の外側に余白を作ります。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "静的ファイルの指定で、アプリ名「main」の中に「css」フォルダを作る理由は？",
+      "options": ["フォルダを深くしないとDjangoが読めないから", "ファイルの整理と、他アプリとの重複防止のため", "表示速度が上がるから", "Pythonの仕様"],
+      "answer": 1,
+      "commentary": "複数のアプリを開発する際、同じ「style.css」という名前を使っても混乱しないようにするためです。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "「text-align」が効かない要素（ブロック要素など）を中央に寄せるには何を使いますか？",
+      "options": ["font-align", "margin: auto", "float: center", "padding: center"],
+      "answer": 1,
+      "commentary": "ブロック要素そのものを中央に寄せるには、左右のmarginをautoにします。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "CSSで rgb(46, 204, 113) のように3つの数字を指定するのは何の略ですか？",
+      "options": ["Red, Green, Blue", "Red, Gold, Black", "Right, Green, Bottom", "Range, Grid, Block"],
+      "answer": 0,
+      "commentary": "赤、緑、青の3色の混ぜ合わせで色を作ります。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "開発者ツール（F12キーなど）を使うと、CSSの何が確認できますか？",
+      "options": ["サーバーのパスワード", "要素にどのCSSが当たっているか、一時的に数値を書き換えて試せる", "ユーザーの個人情報", "データベースの中身"],
+      "answer": 1,
+      "commentary": "ブラウザ上でデザインを試行錯誤するのに非常に便利なツールです。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "要素の横幅を「800px」にする記述として正しいものは？",
+      "options": ["width = 800px", "width: 800px;", "height: 800px;", "size: 800;"],
+      "answer": 1,
+      "commentary": "プロパティ名の後に「:」を書き、最後に「;」を付けます。"
+    },
+    {
+      "id": 40,
+      "type": "実行結果予測",
+      "question": "CSSを新しく書いたのに画面に反映されない場合、最初に疑うべきことは？",
+      "options": ["パソコンを買い替える", "Djangoの設定や、{% load static %}の書き忘れ、ブラウザのキャッシュ", "インターネット回線を速くする", "Pythonのバグ"],
+      "answer": 1,
+      "commentary": "パスの間違いや、タグの記述漏れ、またはブラウザが古い情報を覚えている（キャッシュ）ことが多いです。"
     }
   ]
 }

@@ -1,23 +1,325 @@
 {
-  "unit_title": "Django Webアプリ開発コース — Django で投票アプリ作成 — 結果確認画面の作成",
+  "unit_title": "結果確認画面の作成",
   "questions": [
     {
-      "question": "投票結果の棒グラフなどで「選択肢ごとの票数」をテンプレートに渡すとき、ビュー側でよく行うのはどれですか？",
-      "options": ["QuerySet をそのまま渡すだけ", "annotate や集計してコンテキストに含める", "テンプレートのみで DB に直接アクセスする", "JavaScript だけで必ず描画する"],
+      "id": 1,
+      "type": "用語理解",
+      "question": "ユーザーが投票した後に、各選択肢の得票数を表示する画面のことを何と呼びますか？",
+      "options": ["詳細画面", "結果確認画面（resultsページ）", "管理者画面", "投稿画面"],
       "answer": 1,
-      "commentary": "ビューでクエリを集計・整形し、テンプレートは表示に専念させます。"
+      "commentary": "投票が終わった後に現在の集計状況を見せる画面を「結果確認画面」と呼びます。"
     },
     {
-      "question": "URL に質問 ID を含めて結果ページへルーティングする場合、path のキャプチャとして適切なのはどれですか？",
-      "options": ["<str:question_id>/", "<int:question_id>/", "<slug:question_id>/", "<uuid:question_id>/"],
-      "answer": 1,
-      "commentary": "整数 ID なら <int:question_id>/ が一般的です。"
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "投票処理が終わった後、結果画面へ自動的に移動させる（リダイレクトする）正しい書き方はどれですか？<pre><code>return redirect('___', question.id)</code></pre>",
+      "options": ["detail", "index", "results", "vote"],
+      "answer": 2,
+      "commentary": "urls.pyで定義した名前（results）を指定して、結果画面へ飛ばします。"
     },
     {
-      "question": "テンプレートで「票数が0のとき」の表示を分岐するタグとして正しいものはどれですか？",
-      "options": ["{% if count == 0 %} ... {% endif %}", "{% when count is 0 %}", "{{ if count === 0 }}", "{% check count zero %}"],
+      "id": 3,
+      "type": "用語理解",
+      "question": "「指定したデータがなければ404エラーを表示する」という処理を1行で書ける便利なメソッドは何ですか？",
+      "options": ["get_or_error()", "get_object_or_404()", "fetch_data()", "check_exists()"],
+      "answer": 1,
+      "commentary": "get_object_or_404()を使うと、データがない場合に自動で「ページが見つかりません」というエラー画面を出してくれます。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "結果画面を表示するためのビュー関数の定義を完成させてください。<pre><code>def results(request, ___):\n    question = get_object_or_404(Question, pk=question_id)\n    return render(request, \"main/results.html\", {\"question\": question})</code></pre>",
+      "options": ["id", "pk", "question_id", "num"],
+      "answer": 2,
+      "commentary": "URL設定（urls.py）で指定した変数名「question_id」と一致させる必要があります。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "テンプレートで {{ choice.votes }} と書いたとき、何が表示されますか？",
+      "options": ["選択肢の名前", "その選択肢の現在の票数", "投票した人の名前", "エラーメッセージ"],
+      "answer": 1,
+      "commentary": "モデルの「votes」フィールドに保存されている数値（票数）が表示されます。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "結果画面で、全ての選択肢を繰り返して表示するためのタグは何ですか？<pre><code>___ choice in question.choices.all ___\n    &lt;li&gt;{{ choice.choice_text }}&lt;/li&gt;\n___ endfor ___</code></pre>",
+      "options": ["{{ for }} / {{ }}", "{% for %} / {% %}", "{% if %} / {% %}", "[[ for ]] / [[ ]]"],
+      "answer": 1,
+      "commentary": "繰り返し処理には {% for %} タグを使用し、最後は {% endfor %} で閉じます。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "「1つの質問」から「複数の選択肢」を取得する際、models.pyで設定した名前を使ってデータを辿ることを何といいますか？",
+      "options": ["順参照", "逆参照", "自動参照", "外部参照"],
+      "answer": 1,
+      "commentary": "親（Question）から子（Choice）を辿るため「逆参照」といいます。"
+    },
+    {
+      "id": 8,
+      "type": "文法チェック",
+      "question": "CSSで「text-align: center;」をコンテナに指定すると、中にある文字はどうなりますか？",
+      "options": ["右に寄る", "左に寄る", "中央に寄る", "上下の真ん中に来る"],
+      "answer": 2,
+      "commentary": "text-alignプロパティは、テキストの水平方向の揃え方を指定します。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "リストの「一番最後の要素だけ」スタイルを変えたい（線を消したいなど）ときに使うCSSの書き方はどれですか？<pre><code>.result-item___ {\n    border-bottom: none;\n}</code></pre>",
+      "options": [":first-child", ":last-child", ":only-child", ":end-child"],
+      "answer": 1,
+      "commentary": ":last-child という疑似クラスを使うと、最後の要素だけを特定してデザインできます。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "CSSで文字を太字にするためのプロパティは何ですか？",
+      "options": ["font-size", "font-weight", "text-decoration", "font-style"],
+      "answer": 1,
+      "commentary": "font-weight: bold; などと指定して文字の太さを変えます。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "「もう一度投票する」リンクをボタンのような見た目（幅や高さを指定できる状態）にするためのプロパティは何ですか？<pre><code>.retry-link {\n    display: ___;\n}</code></pre>",
+      "options": ["block", "inline", "inline-block", "flex"],
+      "answer": 2,
+      "commentary": "inline-block を指定すると、文字の横に並びつつ、ボタンのような余白設定もできるようになります。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "background-color: rgb(52, 152, 219); は、教科書のデザインでは何色系のボタンになりますか？",
+      "options": ["赤系", "緑系", "青系", "グレー系"],
+      "answer": 2,
+      "commentary": "rgbの3番目の数値（Blue）が大きいため、青色のボタンになります。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "テンプレート内でURLの逆引き（名前からのURL生成）をする正しい記法はどれですか？",
+      "options": ["{% href 'detail' question.id %}", "{% url 'detail' question.id %}", "{{ url 'detail' question.id }}", "{% link 'detail' %}"],
+      "answer": 1,
+      "commentary": "{% url 'URL名' 引数 %} の形式で記述します。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "CSSのプロパティ「padding: 10px 20px;」を指定したとき、左右の余白は何ピクセルになりますか？",
+      "options": ["10px", "20px", "30px", "0px"],
+      "answer": 1,
+      "commentary": "2つの値を書くと、2番目の数値が「左右」の余白になります。"
+    },
+    {
+      "id": 15,
+      "type": "コード穴埋め",
+      "question": "特定の文字（票数など）の色だけを変えたいときに、その部分だけを囲むのによく使われるタグは何ですか？<pre><code>&lt;___ class=\"vote-count\"&gt;{{ choice.votes }}&lt;/___&gt; 票</code></pre>",
+      "options": ["div", "span", "p", "section"],
+      "answer": 1,
+      "commentary": "文章の一部だけにスタイルを当てたいときは、インライン要素である &lt;span&gt; を使います。"
+    },
+    {
+      "id": 16,
+      "type": "実行結果予測",
+      "question": "投票結果が0件のとき、question.choices.all をループさせると画面には何が表示されますか？",
+      "options": ["「0」と表示される", "エラー画面になる", "何も表示されない（ループが飛ばされる）", "「なし」と表示される"],
+      "answer": 2,
+      "commentary": "データが0件の場合、for文の中身は無視され、エラーも起きません。"
+    },
+    {
+      "id": 17,
+      "type": "文法チェック",
+      "question": "Djangoのビューからテンプレートへデータを渡すための「context」は、どのデータ型で作りますか？",
+      "options": ["リスト", "辞書（ディクショナリ）", "文字列", "整数"],
+      "answer": 1,
+      "commentary": "キーと値をペアにした辞書形式 { \"名前\": データ } で渡します。"
+    },
+    {
+      "id": 18,
+      "type": "用語理解",
+      "question": "CSSで「box-shadow」プロパティを使う目的は何ですか？",
+      "options": ["文字に影をつける", "要素の角を丸くする", "要素（ボックス）全体に影をつける", "要素を透明にする"],
+      "answer": 2,
+      "commentary": "カードのようなデザインにするために、要素の周りに影を落とします。"
+    },
+    {
+      "id": 19,
+      "type": "コード穴埋め",
+      "question": "静的ファイル（CSS）を読み込むlinkタグの「rel」属性には何と書きますか？<pre><code>&lt;link ___=\"stylesheet\" href=\"...\"&gt;</code></pre>",
+      "options": ["type", "rel", "class", "role"],
+      "answer": 1,
+      "commentary": "rel=\"stylesheet\" と書くことで、CSSファイルであることをブラウザに伝えます。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "「list-style: none;」を指定した &lt;ul&gt; タグの表示はどうなりますか？",
+      "options": ["横並びになる", "箇条書きの「●」が消える", "文字が消える", "背景が黒くなる"],
+      "answer": 1,
+      "commentary": "リスト特有のマーカーを消して、自由なデザインを作れるようにします。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "HTTPステータスコード「404」は何を意味しますか？",
+      "options": ["送信成功", "サーバーの故障", "ページが見つからない", "アクセス権限がない"],
+      "answer": 2,
+      "commentary": "存在しないURLやデータにアクセスした時に返される標準的なエラーコードです。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "Djangoテンプレートで、HTML以外の「{% ... %}」や「{{ ... }}」を正しく動かすための仕組みを何といいますか？",
+      "options": ["Djangoエンジン", "テンプレートエンジン", "HTMLコンパイラ", "Pythonサーバー"],
+      "answer": 1,
+      "commentary": "サーバー上でテンプレートファイルを解析し、HTMLに変換する仕組みのことです。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "CSSで要素の幅を「800ピクセル」に指定する正しい書き方はどれですか？",
+      "options": ["width: 800;", "width: 800px;", "size: 800px;", "width = 800px"],
+      "answer": 1,
+      "commentary": "数値だけでなく単位（px）が必要です。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "Djangoの get_object_or_404() を使うためにインポートすべきモジュールはどれですか？",
+      "options": ["django.http", "django.shortcuts", "django.urls", "django.db"],
+      "answer": 1,
+      "commentary": "renderやredirectと同じく、shortcutsモジュールに含まれています。"
+    },
+    {
+      "id": 25,
+      "type": "実行結果予測",
+      "question": "CSSで「color: rgb(39, 174, 96);」と指定された文字は何色に見えますか？",
+      "options": ["赤色", "緑色", "青色", "黄色"],
+      "answer": 1,
+      "commentary": "2番目の数値（Green）が大きいため、緑色の文字になります。"
+    },
+    {
+      "id": 26,
+      "type": "文法チェック",
+      "question": "urls.pyで results ページのURLパターンを定義する際、idを受け取る正しい書き方はどれですか？",
+      "options": ["path('<id>/results/')", "path('<int:question_id>/results/')", "path('results/<id>/')", "path('question_id/results/')"],
+      "answer": 1,
+      "commentary": "&lt;型:変数名&gt; の形式で、ビューの引数名と合わせます。"
+    },
+    {
+      "id": 27,
+      "type": "コード穴埋め",
+      "question": "CSSプロパティ「border-bottom: 1px solid rgb(238, 238, 238);」の「solid」は何を意味しますか？",
+      "options": ["点線", "実線", "二重線", "太線"],
+      "answer": 1,
+      "commentary": "solidは「途切れのない一本の線（実線）」を意味します。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "Djangoテンプレート内で {% load static %} を記述する、最も適切な場所はどこですか？",
+      "options": ["&lt;head&gt; の中", "&lt;body&gt; の一番下", "ファイルの先頭（一番上）", "CSSファイルを読み込む直前"],
+      "answer": 2,
+      "commentary": "慣習として、またエラーを防ぐために、ファイルの冒頭に記述します。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "テンプレートの href=\"{% url 'detail' question.id %}\" で、question.id が 5 の場合、どのようなURLが生成されますか？",
+      "options": ["/polls/results/5/", "/polls/5/", "/detail/5/", "/5/detail/"],
+      "answer": 1,
+      "commentary": "detailという名前で登録されたURL（/polls/&lt;int:question_id&gt;/）に基づいて生成されます。"
+    },
+    {
+      "id": 30,
+      "type": "文法チェック",
+      "question": "CSSで「padding: 0;」と書いたときの効果はどれですか？",
+      "options": ["余白を自動にする", "内側の余白を完全になくす", "外側の余白をなくす", "要素を透明にする"],
+      "answer": 1,
+      "commentary": "デフォルトで設定されている余白をリセットする際によく使われます。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "結果画面のコンテナを白くするために使うプロパティは何ですか？<pre><code>.results-container {\n    ___: rgb(255, 255, 255);\n}</code></pre>",
+      "options": ["color", "bg-color", "background-color", "box-color"],
+      "answer": 2,
+      "commentary": "要素の背景色を指定するのは background-color です。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "results.htmlの中で、質問文を {{ question.question_text }} と表示できる理由は？",
+      "options": ["Djangoが自動で全データを送るから", "ビューで question というキーでデータを渡しているから", "HTMLが自動でデータベースを読み取るから", "PythonがHTMLを書き換えるから"],
+      "answer": 1,
+      "commentary": "ビュー（views.py）からコンテキストを通じてデータを渡しているため、テンプレートで使えます。"
+    },
+    {
+      "id": 33,
+      "type": "実行結果予測",
+      "question": "CSSで「border-radius: 50%;」を正方形の要素に適用すると、どのような形になりますか？",
+      "options": ["ひし形", "星型", "丸（正円）", "三角形"],
+      "answer": 2,
+      "commentary": "50%を指定すると角が最大限丸くなり、円形になります。"
+    },
+    {
+      "id": 34,
+      "type": "文法チェック",
+      "question": "結果画面で、各選択肢の得票数の後に「票」という文字を追加したい。正しいテンプレートの書き方はどれですか？",
+      "options": ["{{ choice.votes + '票' }}", "{{ choice.votes }} 票", "{% choice.votes %} 票", "{{ choice.votes 票 }}"],
+      "answer": 1,
+      "commentary": "変数の表示タグの後に、そのまま普通のテキストとして「票」と書きます。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "CSSプロパティ「margin-bottom」が調整するのは、要素のどの方向の余白ですか？",
+      "options": ["上", "下", "左", "右"],
+      "answer": 1,
+      "commentary": "bottom（底・下）方向の余白です。"
+    },
+    {
+      "id": 36,
+      "type": "コード穴埋め",
+      "question": "ブラウザのデフォルトスタイルを上書きするために、CSSで「.results-list { padding: 0; }」のように書くことを一般的に何といいますか？",
+      "options": ["スタイル・リセット", "スタイル・ブースト", "スタイル・カット", "スタイル・クリア"],
       "answer": 0,
-      "commentary": "{% if %} で条件分岐します（=== は使いません）。"
+      "commentary": "ブラウザが勝手に付ける余白などを消して、一からデザインすることをリセットといいます。"
+    },
+    {
+      "id": 37,
+      "type": "実行結果予測",
+      "question": "resultsビューで get_object_or_404(Question, pk=100) を実行したが、ID 100 のデータがない。この時表示されるページは？",
+      "options": ["投票一覧画面", "500エラー画面", "404エラー画面", "真っ白な画面"],
+      "answer": 2,
+      "commentary": "データが存在しないことを示す標準的なエラーページが表示されます。"
+    },
+    {
+      "id": 38,
+      "type": "文法チェック",
+      "question": "複数のCSSファイルを読み込みたい場合、どのように記述しますか？",
+      "options": ["1つのlinkタグの中にまとめて書く", "必要な数だけlinkタグを並べて書く", "読み込めない（1つ限定）", "HTMLではなくPythonで指定する"],
+      "answer": 1,
+      "commentary": "各ファイルごとに &lt;link&gt; タグを記述して読み込みます。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "今回の「結果画面」を表示するためのURLとして適切なものはどれですか？",
+      "options": ["/polls/results/", "/polls/5/results/", "/admin/results/", "/main/results/"],
+      "answer": 1,
+      "commentary": "特定の質問（ID）に紐づく結果を見るため、URLにIDが含まれます。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "Djangoの results() 関数の中で、 return render(...) が行っていることは？",
+      "options": ["データベースに値を保存している", "テンプレートにデータを埋め込んで、HTMLとしてユーザーに返している", "ブラウザを閉じている", "Pythonを終了している"],
+      "answer": 1,
+      "commentary": "「料理（データ）を盛り付け（テンプレート）、完成した一皿（HTML）を客（ブラウザ）に届ける」役割です。"
     }
   ]
 }
