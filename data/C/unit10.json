@@ -1,195 +1,325 @@
 {
-  "unit_title": "レシピデータ編集・削除 - 演習と解説",
+  "unit_title": "コメント投稿画面 - 演習と解説",
   "questions": [
     {
       "id": 1,
       "type": "用語理解",
-      "question": "既存のデータを「更新」するために使用する、最も一般的な HTTP メソッドは何ですか？",
-      "options": ["GET", "POST", "PUT", "DELETE"],
-      "answer": 2,
-      "commentary": "データの更新には PUT メソッド（または PATCH）を使用します。GET は取得、POST は新規作成、DELETE は削除です。"
+      "question": "特定のレシピ詳細画面に遷移する際、そのレシピの情報を引き渡すために RecipeDetailScreen のコンストラクタで定義したプロパティは何ですか？",
+      "options": ["id", "recipe", "comment", "title"],
+      "answer": 1,
+      "commentary": "RecipeDetailScreen は、表示対象となる Recipe 型のオブジェクトを直接引数（プロパティ）として受け取ります。"
     },
     {
       "id": 2,
       "type": "文法チェック",
-      "question": "freezed ライブラリの copyWith() メソッドを使う最大のメリットは何ですか？",
-      "options": [
-        "データを削除できる",
-        "元のオブジェクトを変更せず、一部のプロパティだけを書き換えた新しいインスタンスを簡単に作れる",
-        "自動的に API サーバーへ送信してくれる",
-        "パスワードを暗号化できる"
-      ],
-      "answer": 1,
-      "commentary": "不変（Immutable）なモデルを扱う Flutter 開発において、copyWith は安全にデータを加工するために必須のメソッドです。"
+      "question": "freezed ライブラリで作成した Comment モデルにおいて、日時を扱うプロパティに指定したデータ型は何ですか？",
+      "options": ["String", "int", "DateTime", "Time"],
+      "answer": 2,
+      "commentary": "作成日時（createdAt）などは、Dart の標準クラスである DateTime 型を使用して管理します。"
     },
     {
       "id": 3,
-      "type": "コード穴埋め",
-      "question": "特定のレシピを削除する際、URL パスに ID を含める正しい書き方はどれですか？<pre><code>baseUrl.replace(path: '${baseUrl.path}/recipes/___/')</code></pre>",
-      "options": ["recipe", "categoryId", "$recipeId", "delete"],
-      "answer": 2,
-      "commentary": "リソースを特定して削除するためには、パスの一部として動的な ID 変数を入れる必要があります。"
+      "type": "用語理解",
+      "question": "特定の ID に基づいて異なるデータを提供するために使用する Riverpod のプロバイダ修飾子は何ですか？",
+      "options": [".autoDispose", ".family", ".scoped", ".link"],
+      "answer": 1,
+      "commentary": "FutureProvider.family を使うと、recipeId などの引数を受け取って動的にデータを取得できます。"
     },
     {
       "id": 4,
-      "type": "実行結果予測",
-      "question": "削除に成功した際、Django REST framework が返す標準的なステータスコード（コンテンツなし）は何番ですか？",
-      "options": ["200", "201", "204", "400"],
-      "answer": 2,
-      "commentary": "204 No Content は、リクエストが成功し、返却するデータ本体がないことを示すコードです。"
+      "type": "コード穴埋め",
+      "question": "API エンドポイントのパスを作成する際、レシピIDを動的に埋め込む正しい記述はどれですか？<pre><code>'/api/recipes/$___/comments/'</code></pre>",
+      "options": ["id", "recipeId", "pk", "value"],
+      "answer": 1,
+      "commentary": "fetchAll(int recipeId) メソッドの引数として渡された recipeId を文字列の中に埋め込みます。"
     },
     {
       "id": 5,
-      "type": "文法チェック",
-      "question": "三項演算子を使った `recipe == null ? '作成' : '編集'` という記述で、`recipe` が null でない場合に選ばれるのはどちらですか？",
-      "options": ["作成", "編集", "両方", "エラー"],
-      "answer": 1,
-      "commentary": "条件式が False（nullではない）となるため、後半の '編集' が選択されます。"
+      "type": "実行結果予測",
+      "question": "API からステータスコード 201 が返ってきた場合、どのような処理が成功したことを意味しますか？",
+      "options": ["データの一覧取得", "データの更新", "リソース（コメント）の新規作成", "データの削除"],
+      "answer": 2,
+      "commentary": "201 Created は、POST リクエストなどによる新しいデータの作成が成功した際に返されます。"
     },
     {
       "id": 6,
       "type": "用語理解",
-      "question": "Riverpod において、編集や削除を行った後に最新のデータを API から取り直すために使うメソッドは何ですか？",
-      "options": ["ref.read()", "ref.watch()", "ref.invalidate()", "ref.refresh()"],
-      "answer": 2,
-      "commentary": "invalidate() を使うとキャッシュが破棄され、次に画面を開いた時に自動的に API リクエストが走ります。"
+      "question": "テキスト入力フィールドの右側にアイコン（送信ボタンなど）を表示するために使う InputDecoration のプロパティは何ですか？",
+      "options": ["prefixIcon", "suffixIcon", "rightIcon", "endIcon"],
+      "answer": 1,
+      "commentary": "suffixIcon を使うと、入力欄の右端（末尾）にアイコンウィジェットを配置できます。"
     },
     {
       "id": 7,
-      "type": "コード穴埋め",
-      "question": "非同期処理の終了後、SnackBar を表示する前に、画面がまだ存在するか確認するコードを完成させてください。<pre><code>if (!___) return;\nScaffoldMessenger.of(context).showSnackBar(...)</code></pre>",
-      "options": ["context.mounted", "isAlive", "ref.exists", "loading"],
-      "answer": 0,
-      "commentary": "mounted プロパティを確認することで、破棄された BuildContext を操作してクラッシュするのを防ぎます。"
+      "type": "文法チェック",
+      "question": "サーバーから届いた協定世界時（UTC）の日時を、スマホの設定に合わせて表示するために使うメソッドは何ですか？",
+      "options": ["toString()", "toLocal()", "parse()", "format()"],
+      "answer": 1,
+      "commentary": "toLocal() メソッドを呼ぶことで、端末のタイムゾーンに合わせた日時に自動変換されます。"
     },
     {
       "id": 8,
-      "type": "実行結果予測",
-      "question": "update() メソッド内で `await http.put(...)` の `await` を書き忘れるとどうなりますか？",
-      "options": [
-        "エラーでコンパイルできない",
-        "通信が終わる前に次の行（成功メッセージなど）が実行されてしまう",
-        "通信速度が速くなる",
-        "削除処理として実行される"
-      ],
+      "type": "用語理解",
+      "question": "コメント投稿後に `commentController.clear()` を実行する目的は何ですか？",
+      "options": ["サーバーのデータを消す", "入力欄に残っている文字を消して空にする", "アプリを再起動する", "エラーを消去する"],
       "answer": 1,
-      "commentary": "await がないと処理の完了を待たないため、更新が完了していないのに「更新しました」と表示されるなどの不整合が起きます。"
+      "commentary": "投稿完了後に古い文字が残っていると不自然なため、クリアして次の入力をしやすくします。"
     },
     {
       "id": 9,
-      "type": "用語理解",
-      "question": "IconButton で編集ボタンを作る際、ペン（鉛筆）のアイコンを指定するコードはどれですか？",
-      "options": ["Icons.add", "Icons.delete", "Icons.edit", "Icons.update"],
+      "type": "コード穴埋め",
+      "question": "投稿が完了した際、画面をリフレッシュして最新のコメントを表示させるための Riverpod のメソッドは何ですか？<pre><code>ref.___(commentProvider(recipeId));</code></pre>",
+      "options": ["watch", "read", "invalidate", "listen"],
       "answer": 2,
-      "commentary": "Icons.edit は標準的な「編集」を表すペンのアイコンです。"
+      "commentary": "invalidate() を呼ぶとキャッシュが破棄され、プロバイダがデータを再取得しに行きます。"
     },
     {
       "id": 10,
-      "type": "文法チェック",
-      "question": "API 通信の結果 `response.statusCode` が 200 以外だった場合に、エラーを報告する正しい書き方はどれですか？",
-      "options": [
-        "print('エラー')",
-        "throw Exception('失敗しました')",
-        "return false",
-        "break"
-      ],
+      "type": "実行結果予測",
+      "question": "<code>comments.isEmpty</code> が true の場合、このアプリではどのような表示になりますか？",
+      "options": ["何も表示されない", "「コメントはまだありません」と中央に表示される", "エラー画面になる", "ローディングが続く"],
       "answer": 1,
-      "commentary": "throw を使って例外を投げることで、呼び出し側の catch ブロックでエラーを捕捉し、ユーザーに通知できます。"
+      "commentary": "データが 0 件の場合のメッセージを表示するよう、if 文で条件分岐を実装しています。"
     },
     {
       "id": 11,
-      "type": "用語理解",
-      "question": "Django の ViewSet において、データの完全な更新（PUT）を受け持つ mixin クラスは何ですか？",
-      "options": ["ListModelMixin", "CreateModelMixin", "UpdateModelMixin", "DestroyModelMixin"],
+      "type": "文法チェック",
+      "question": "Flutter の Column の中で ListView.builder をそのまま使うとエラーになりますが、それを防ぐために ListView を包むウィジェットは何ですか？",
+      "options": ["Container", "SizedBox", "Expanded", "Center"],
       "answer": 2,
-      "commentary": "UpdateModelMixin が PUT リクエストを処理するロジックを提供しています。"
+      "commentary": "Column 内の ListView は高さを確定させる必要があるため、Expanded で残りのスペースを埋めるように指定します。"
     },
     {
       "id": 12,
-      "type": "実行結果予測",
-      "question": "削除が完了した後に `Navigator.pop(context)` を実行しないとどうなりますか？",
-      "options": [
-        "自動的に前の画面に戻る",
-        "編集画面が開いたままになり、ユーザーが手動で戻る必要がある",
-        "アプリが再起動する",
-        "データベースが空になる"
-      ],
-      "answer": 1,
-      "commentary": "pop を明示的に呼ばないと、現在の画面スタックは取り除かれません。"
+      "type": "用語理解",
+      "question": "API 通信の結果を待ち、例外が発生した際に `catch (e)` ブロックを実行するための構文は何ですか？",
+      "options": ["if-else", "for-loop", "try-catch", "switch-case"],
+      "answer": 2,
+      "commentary": "try-catch 構文を使うことで、ネットワークエラーなどの予期せぬエラーを安全に処理できます。"
     },
     {
       "id": 13,
       "type": "コード穴埋め",
-      "question": "データの送信時に Dart オブジェクトを JSON 文字列に変換する関数は何ですか？<pre><code>body: ___(recipe.toJson())</code></pre>",
-      "options": ["jsonDecode", "jsonEncode", "jsonToString", "jsonConverter"],
-      "answer": 1,
-      "commentary": "jsonEncode を使って Map 型のデータを JSON フォーマットの文字列へ変換します。"
+      "question": "ListTile ウィジェットで、投稿日時などの補足情報を表示するために使うプロパティは何ですか？<pre><code>ListTile(\n  title: Text(comment.text),\n  ___: Text('投稿日: ...'),\n)</code></pre>",
+      "options": ["subtitle", "header", "footer", "content"],
+      "answer": 0,
+      "commentary": "subtitle プロパティを使うと、メインタイトル（title）の下に小さな文字で情報を追加できます。"
     },
     {
       "id": 14,
       "type": "用語理解",
-      "question": "API 設計において、特定の 1 つのリソース（ID=5のレシピなど）を指し示す URL の末尾の数字部分を何と呼びますか？",
-      "options": ["クエリパラメータ", "パスパラメータ", "ボディデータ", "ヘッダー情報"],
+      "question": "Dart で Map データを JSON 形式の文字列に変換するために使う、`json.dart` パッケージに含まれる関数は何ですか？",
+      "options": ["jsonDecode", "jsonEncode", "jsonToString", "jsonFormat"],
       "answer": 1,
-      "commentary": "URL のパス自体に変数を埋め込む形式をパスパラメータと呼びます。"
+      "commentary": "送信データを構築する際は jsonEncode、受信データを解析する際は jsonDecode を使います。"
     },
     {
       "id": 15,
       "type": "文法チェック",
-      "question": "http.delete() メソッドの戻り値を受け取る変数の型として正しいものはどれですか？",
-      "options": ["String", "int", "Future<http.Response>", "bool"],
-      "answer": 2,
-      "commentary": "HTTP 通信の結果はレスポンスオブジェクトを包んだ Future 型になります。"
+      "question": "非同期処理で画面の状態が破棄されていないか確認するためのプロパティ <code>mounted</code> は、どのクラスが持っていますか？",
+      "options": ["BuildContext", "State", "Widget", "Navigator"],
+      "answer": 1,
+      "commentary": "StatefulWidget の State クラス、または BuildContext（Flutter 3.7以降）が mounted を持っています。"
     },
     {
       "id": 16,
-      "type": "用語理解",
-      "question": "Flutter のウィジェットで、入力フィールドやボタンをまとめて管理し、バリデーションを一括で行うウィジェットは何ですか？",
-      "options": ["Container", "Form", "Column", "Scaffold"],
+      "type": "実行結果予測",
+      "question": "TextField に `controller` を設定しなかった場合、プログラムから入力内容を消去することはできますか？",
+      "options": ["できる", "できない", "自動でできる", "設定次第"],
       "answer": 1,
-      "commentary": "Form ウィジェットと GlobalKey を組み合わせることで、複雑な入力フォームを制御できます。"
+      "commentary": "TextEditingController を紐付けることで、初めてプログラムから文字の取得やクリアが可能になります。"
     },
     {
       "id": 17,
-      "type": "実行結果予測",
-      "question": "SnackBar を表示する際に `ScaffoldMessenger.of(context).showSnackBar()` ではなく `Scaffold.of(context).showSnackBar()` を使うとどうなりますか？（最新の Flutter において）",
-      "options": [
-        "正常に動く",
-        "エラーになる、または非推奨の警告が出る",
-        "背景が赤くなる",
-        "スマホが振動する"
-      ],
-      "answer": 1,
-      "commentary": "Flutter 2.0 以降は ScaffoldMessenger を使うのが標準ルールです。"
+      "type": "用語理解",
+      "question": "API リクエストを行う際に、送信するデータの形式（JSONなど）を指定する HTTP ヘッダーの名前は何ですか？",
+      "options": ["Accept", "Authorization", "Content-Type", "Host"],
+      "answer": 2,
+      "commentary": "Content-Type: application/json を指定することで、サーバーに正しくデータを伝えられます。"
     },
     {
       "id": 18,
       "type": "コード穴埋め",
-      "question": "編集画面に初期値を設定するために initState 内でコントローラーに値を代入する正しいプロパティはどれですか？<pre><code>_titleController.___ = widget.recipe?.title ?? '';</code></pre>",
-      "options": ["text", "value", "data", "string"],
-      "answer": 0,
-      "commentary": "TextEditingController の表示内容をプログラムから変えるには .text プロパティを書き換えます。"
+      "question": "Navigator.push で使用する、Material デザイン標準の遷移を定義するクラスは何ですか？<pre><code>MaterialPageRoute(builder: (context) => ___(...))</code></pre>",
+      "options": ["NextPage", "Scaffold", "RecipeDetailScreen", "ListView"],
+      "answer": 2,
+      "commentary": "遷移先の画面クラス（今回はレシピ詳細画面）を builder で返します。"
     },
     {
       "id": 19,
       "type": "用語理解",
-      "question": "API 通信のエラーを処理するために使う `try { ... } catch (e) { ... }` 構文の `e` には通常何が入りますか？",
-      "options": ["成功メッセージ", "発生したエラーや例外の情報", "サーバーの URL", "0"],
-      "answer": 1,
-      "commentary": "catch ブロックの引数には、トラブルの詳細（Exception など）が渡されます。"
+      "question": "Riverpod の AsyncValue において、データの読み込み中を表す状態は何ですか？",
+      "options": ["data", "error", "loading", "waiting"],
+      "answer": 2,
+      "commentary": "loading 状態のときに CircularProgressIndicator などを表示してユーザーに伝えます。"
     },
     {
       "id": 20,
       "type": "文法チェック",
-      "question": "Django の `Recipe.objects.filter(category__id=categoryId)` における `__`（アンダースコア2つ）の意味は何ですか？",
-      "options": [
-        "ただの名前",
-        "関連するモデル（Category）のフィールド（id）を辿るための記法",
-        "秘密のコード",
-        "データを削除する合図"
-      ],
+      "question": "ListView.builder の `itemCount` に指定すべき値は何ですか？",
+      "options": ["10", "comments.length", "0", "categoryId"],
       "answer": 1,
-      "commentary": "Django ORM の特徴的な記法で、モデルをまたいだフィルタリングを行う際に使用します。"
+      "commentary": "取得したリスト（comments）の要素数（.length）を指定することで、正しい数だけリストが表示されます。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "IconButton で送信アイコンとして一般的に使われる Icons クラスの定数はどれですか？",
+      "options": ["Icons.add", "Icons.send", "Icons.input", "Icons.upload"],
+      "answer": 1,
+      "commentary": "Icons.send は紙飛行機のような見た目の送信用アイコンです。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "Scaffold の body に Padding を適用した際、全方向に 16 ピクセルの余白を作る正しい記述はどれですか？",
+      "options": ["EdgeInsets.only(16)", "EdgeInsets.all(16.0)", "EdgeInsets.symmetric(16)", "EdgeInsets.zero"],
+      "answer": 1,
+      "commentary": "全方向に一律の余白を作るには EdgeInsets.all を使用します。"
+    },
+    {
+      "id": 23,
+      "type": "用語理解",
+      "question": "Flutter において、ユーザーが入力した情報を監視・制御する役割を持つオブジェクトを何と呼びますか？",
+      "options": ["Controller", "Manager", "State", "Listener"],
+      "answer": 0,
+      "commentary": "TextEditingController のように、入力フィールドの状態を制御するものを Controller と呼びます。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "<code>comment.createdAt.toLocal()</code> を行わなかった場合、表示される時間はどうなる可能性がありますか？",
+      "options": ["表示されない", "エラーになる", "サーバーの標準時（多くはUTC）のまま表示される", "自動でローカルになる"],
+      "answer": 2,
+      "commentary": "明示的に変換しない限り、データとして送られてきたタイムゾーンのまま表示されます。"
+    },
+    {
+      "id": 25,
+      "type": "コード穴埋め",
+      "question": "AppBar の左側に表示される「戻る」ボタンのタイトルバーに表示する文字を設定するプロパティは何ですか？<pre><code>AppBar(title: ___( 'レシピ詳細' ))</code></pre>",
+      "options": ["Label", "String", "Text", "Header"],
+      "answer": 2,
+      "commentary": "Flutter の多くのプロパティと同様に、文字は Text ウィジェットで渡す必要があります。"
+    },
+    {
+      "id": 26,
+      "type": "用語理解",
+      "question": "アプリ全体で Provider を使えるようにするために、main.dart でラップする必要があるウィジェットは何ですか？",
+      "options": ["ProviderScope", "RiverpodProvider", "AppScope", "Consumer"],
+      "answer": 0,
+      "commentary": "ProviderScope でアプリ全体を囲むことで、Riverpod の機能が有効になります。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "<code>final commentAsyncValue = ref.watch(commentProvider(recipeId));</code> において `ref.watch` を使う理由は何ですか？",
+      "options": ["一度だけ読み込むため", "状態の変化を監視し、変わった時にUIを自動で再描画するため", "データを削除するため", "エラーを防ぐため"],
+      "answer": 1,
+      "commentary": "watch はプロバイダを監視し、その値が変わるたびに build メソッドを走らせるために使います。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "ListView.builder の `itemBuilder` 関数の中で、リストの各要素を返すためのキーワードは何ですか？",
+      "options": ["show", "print", "return", "display"],
+      "answer": 2,
+      "commentary": "ビルド関数と同様に、生成したウィジェットを return する必要があります。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "TextField の `onPressed` が存在しない場合、代わりに何を使って送信ボタンを実装しましたか？",
+      "options": ["decoration の suffixIcon 内の IconButton", "画面下の大きなボタン", "ジェスチャー検出", "キーボードの確定ボタンのみ"],
+      "answer": 0,
+      "commentary": "TextField 自体にボタン機能はないため、装飾（decoration）の一部としてボタンを配置しました。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "API 連携において、非同期処理を扱う際にメソッド名の前、または戻り値の型として使われるキーワードは何ですか？",
+      "options": ["Stream", "Async", "Future", "Wait"],
+      "answer": 2,
+      "commentary": "「将来的に値が返ってくる」ことを表す Future 型を使用します。"
+    },
+    {
+      "id": 31,
+      "type": "文法チェック",
+      "question": "SnackBar を表示する際に `ScaffoldMessenger.of(context)` を使うのは、どのウィジェットツリーの状態を参照するためですか？",
+      "options": ["ThemeData", "Navigator", "BuildContext", "AppController"],
+      "answer": 2,
+      "commentary": "BuildContext（context）を介して、現在の画面情報を参照します。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "Dart の <code>json.decode(utf8.decode(response.bodyBytes))</code> において `utf8.decode` を使う主な理由は何ですか？",
+      "options": ["速度を上げるため", "日本語などの文字化けを防ぐため", "暗号化するため", "圧縮するため"],
+      "answer": 1,
+      "commentary": "バイトデータを正しい文字コード（UTF-8）で解釈することで、日本語を正しく扱えるようになります。"
+    },
+    {
+      "id": 33,
+      "type": "実行結果予測",
+      "question": "<code>Expanded</code> ウィジェットを使用しなかった Column 内の ListView は、通常どのような状態になりますか？",
+      "options": ["画面いっぱいに広がる", "エラー（無限の高さによるクラッシュなど）になる", "最小サイズになる", "自動で縮小される"],
+      "answer": 1,
+      "commentary": "ListView は高さをすべて使おうとするため、Column 内では Expanded 等で制限しないとエラーになります。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "Riverpod において、StatelessWidget の代わりに ref にアクセスしやすくするために継承するクラスは何ですか？",
+      "options": ["ConsumerWidget", "ProviderWidget", "RiverpodWidget", "StatefulWidget"],
+      "answer": 0,
+      "commentary": "ConsumerWidget を継承することで、build メソッドの引数に WidgetRef ref が追加されます。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "TextField のラベルテキストを設定するプロパティを完成させてください。<pre><code>InputDecoration( ___: 'コメントを入力' )</code></pre>",
+      "options": ["titleText", "hintText", "labelText", "placeholder"],
+      "answer": 2,
+      "commentary": "labelText を指定すると、入力前はフィールド内にあり、フォーカスすると上部に移動するラベルになります。"
+    },
+    {
+      "id": 36,
+      "type": "文法チェック",
+      "question": "freezed アノテーション <code>@freezed</code> をクラスの上に記述する際、必須となる factory メソッドのコンストラクタ名の形式はどれですか？",
+      "options": ["factory ClassName(...) = _ClassName;", "const factory ClassName(...) = _ClassName;", "factory ClassName.create(...) = _ClassName;", "ClassName(...)"],
+      "answer": 1,
+      "commentary": "freezed の標準的な書き方として <code>const factory</code> を使用します。"
+    },
+    {
+      "id": 37,
+      "type": "用語理解",
+      "question": "API 設計における HTTP メソッド「GET」と「POST」の使い分けとして正しいのはどれですか？",
+      "options": ["GETは削除、POSTは更新", "GETは取得、POSTは作成", "GETは作成、POSTは取得", "違いはない"],
+      "answer": 1,
+      "commentary": "情報の「取得」は GET、情報の「送信・作成」は POST を使用するのが Web の原則です。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "ListView.builder の `index` は、最初の要素のときにいくつから始まりますか？",
+      "options": ["-1", "0", "1", "ランダム"],
+      "answer": 1,
+      "commentary": "プログラミングの配列やリストのインデックスと同様、0 から始まります。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "非同期処理で結果が返ってくるまで処理を一時停止（待機）させるために使うキーワードは何ですか？",
+      "options": ["wait", "stop", "hold", "await"],
+      "answer": 3,
+      "commentary": "await キーワードを付けることで、その処理が終わるまで次の行の実行を待ってくれます。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "このユニットで作成した、レシピ詳細画面の下部にコメントが並び、その上で投稿できるようなUI構成を何と呼びますか？",
+      "options": ["マスター詳細ビュー", "親子リレーションUI", "シングルページレイアウト", "スタックUI"],
+      "answer": 1,
+      "commentary": "1つのメインリソースに対して、関連する子リソースを操作する一般的なUIパターンです。"
     }
   ]
 }

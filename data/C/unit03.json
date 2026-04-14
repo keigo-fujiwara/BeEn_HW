@@ -349,7 +349,7 @@
       "commentary": "クラスベースビューではメソッド名と HTTP メソッドが直接対応します。"
     },
     {
-      "id": 13,
+      "id": 40,
       "type": "用語理解",
       "question": "Django REST framework で「モデルに基づいて CRUD を一番手軽に実装したい」場合に最適なクラスはどれですか？",
       "options": ["APIView", "ModelViewSet", "GenericAPIView", "viewsets.ViewSet"],

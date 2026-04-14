@@ -119,7 +119,7 @@
       "question": "非同期処理で画面の状態が破棄されていないか確認するためのプロパティ <code>mounted</code> は、どのクラスが持っていますか？",
       "options": ["BuildContext", "State", "Widget", "Navigator"],
       "answer": 1,
-      "commentary": "StatefulWidget の State クラス、または context.mounted（Flutter 3.7以降）として利用可能です。"
+      "commentary": "StatefulWidget の State クラス、または BuildContext（Flutter 3.7以降）が mounted を持っています。"
     },
     {
       "id": 16,
@@ -160,6 +160,166 @@
       "options": ["10", "comments.length", "0", "categoryId"],
       "answer": 1,
       "commentary": "取得したリスト（comments）の要素数（.length）を指定することで、正しい数だけリストが表示されます。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "IconButton で送信アイコンとして一般的に使われる Icons クラスの定数はどれですか？",
+      "options": ["Icons.add", "Icons.send", "Icons.input", "Icons.upload"],
+      "answer": 1,
+      "commentary": "Icons.send は紙飛行機のような見た目の送信用アイコンです。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "Scaffold の body に Padding を適用した際、全方向に 16 ピクセルの余白を作る正しい記述はどれですか？",
+      "options": ["EdgeInsets.only(16)", "EdgeInsets.all(16.0)", "EdgeInsets.symmetric(16)", "EdgeInsets.zero"],
+      "answer": 1,
+      "commentary": "全方向に一律の余白を作るには EdgeInsets.all を使用します。"
+    },
+    {
+      "id": 23,
+      "type": "用語理解",
+      "question": "Flutter において、ユーザーが入力した情報を監視・制御する役割を持つオブジェクトを何と呼びますか？",
+      "options": ["Controller", "Manager", "State", "Listener"],
+      "answer": 0,
+      "commentary": "TextEditingController のように、入力フィールドの状態を制御するものを Controller と呼びます。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "<code>comment.createdAt.toLocal()</code> を行わなかった場合、表示される時間はどうなる可能性がありますか？",
+      "options": ["表示されない", "エラーになる", "サーバーの標準時（多くはUTC）のまま表示される", "自動でローカルになる"],
+      "answer": 2,
+      "commentary": "明示的に変換しない限り、データとして送られてきたタイムゾーンのまま表示されます。"
+    },
+    {
+      "id": 25,
+      "type": "コード穴埋め",
+      "question": "AppBar のタイトル部分に表示する文字を設定する際に使うウィジェットは何ですか？<pre><code>AppBar(title: ___( 'レシピ詳細' ))</code></pre>",
+      "options": ["Label", "String", "Text", "Header"],
+      "answer": 2,
+      "commentary": "Flutter の多くのプロパティと同様に、文字は Text ウィジェットで渡す必要があります。"
+    },
+    {
+      "id": 26,
+      "type": "用語理解",
+      "question": "アプリ全体で Provider を使えるようにするために、main.dart でラップする必要があるウィジェットは何ですか？",
+      "options": ["ProviderScope", "RiverpodProvider", "AppScope", "Consumer"],
+      "answer": 0,
+      "commentary": "ProviderScope でアプリ全体を囲むことで、Riverpod の機能が有効になります。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "<code>final commentAsyncValue = ref.watch(commentProvider(recipeId));</code> において `ref.watch` を使う理由は何ですか？",
+      "options": ["一度だけ読み込むため", "状態の変化を監視し、変わった時にUIを自動で再描画するため", "データを削除するため", "エラーを防ぐため"],
+      "answer": 1,
+      "commentary": "watch はプロバイダを監視し、その値が変わるたびに build メソッドを走らせるために使います。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "ListView.builder の `itemBuilder` 関数の中で、リストの各要素を返すためのキーワードは何ですか？",
+      "options": ["show", "print", "return", "display"],
+      "answer": 2,
+      "commentary": "ビルド関数と同様に、生成したウィジェットを return する必要があります。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "TextField の `onPressed` が存在しない場合、代わりに何を使って送信ボタンを実装しましたか？",
+      "options": ["decoration の suffixIcon 内の IconButton", "画面下の大きなボタン", "ジェスチャー検出", "キーボードの確定ボタンのみ"],
+      "answer": 0,
+      "commentary": "TextField 自体にボタン機能はないため、装飾（decoration）の一部としてボタンを配置しました。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "API 連携において、非同期処理を扱う際に戻り値の型として使われるキーワードは何ですか？",
+      "options": ["Stream", "Async", "Future", "Wait"],
+      "answer": 2,
+      "commentary": "「将来的に値が返ってくる」ことを表す Future 型を使用します。"
+    },
+    {
+      "id": 31,
+      "type": "文法チェック",
+      "question": "SnackBar を表示する際に `ScaffoldMessenger.of(context)` を使うのは、どのウィジェットツリーの状態を参照するためですか？",
+      "options": ["ThemeData", "Navigator", "BuildContext", "AppController"],
+      "answer": 2,
+      "commentary": "BuildContext（context）を介して、現在の画面情報を参照します。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "Dart の <code>json.decode(utf8.decode(response.bodyBytes))</code> において `utf8.decode` を使う主な理由は何ですか？",
+      "options": ["速度を上げるため", "日本語などの文字化けを防ぐため", "暗号化するため", "圧縮するため"],
+      "answer": 1,
+      "commentary": "バイトデータを正しい文字コード（UTF-8）で解釈することで、日本語を正しく扱えるようになります。"
+    },
+    {
+      "id": 33,
+      "type": "実行結果予測",
+      "question": "<code>Expanded</code> ウィジェットを使用しなかった Column 内の ListView は、通常どのような状態になりますか？",
+      "options": ["画面いっぱいに広がる", "エラー（無限の高さによるクラッシュなど）になる", "最小サイズになる", "自動で縮小される"],
+      "answer": 1,
+      "commentary": "ListView は高さをすべて使おうとするため、Column 内では Expanded 等で制限しないとエラーになります。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "Riverpod において、StatelessWidget の代わりに ref にアクセスしやすくするために継承するクラスは何ですか？",
+      "options": ["ConsumerWidget", "ProviderWidget", "RiverpodWidget", "StatefulWidget"],
+      "answer": 0,
+      "commentary": "ConsumerWidget を継承することで、build メソッドの引数に WidgetRef ref が追加されます。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "TextField のラベルテキストを設定するプロパティを完成させてください。<pre><code>InputDecoration( ___: 'コメントを入力' )</code></pre>",
+      "options": ["titleText", "hintText", "labelText", "placeholder"],
+      "answer": 2,
+      "commentary": "labelText を指定すると、入力前はフィールド内にあり、フォーカスすると上部に移動するラベルになります。"
+    },
+    {
+      "id": 36,
+      "type": "文法チェック",
+      "question": "freezed アノテーション <code>@freezed</code> をクラスの上に記述する際、必須となる factory メソッドのコンストラクタ名の形式はどれですか？",
+      "options": ["factory ClassName(...) = _ClassName;", "const factory ClassName(...) = _ClassName;", "factory ClassName.create(...) = _ClassName;", "ClassName(...)"],
+      "answer": 1,
+      "commentary": "freezed の標準的な書き方として <code>const factory</code> を使用します。"
+    },
+    {
+      "id": 37,
+      "type": "用語理解",
+      "question": "API 設計における HTTP メソッド「GET」と「POST」の使い分けとして正しいのはどれですか？",
+      "options": ["GETは削除、POSTは更新", "GETは取得、POSTは作成", "GETは作成、POSTは取得", "違いはない"],
+      "answer": 1,
+      "commentary": "情報の「取得」は GET、情報の「送信・作成」は POST を使用するのが Web の原則です。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "ListView.builder の `index` は、最初の要素のときにいくつから始まりますか？",
+      "options": ["-1", "0", "1", "ランダム"],
+      "answer": 1,
+      "commentary": "プログラミングの配列やリストのインデックスと同様、0 から始まります。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "非同期処理で結果が返ってくるまで処理を一時停止（待機）させるために使うキーワードは何ですか？",
+      "options": ["wait", "stop", "hold", "await"],
+      "answer": 3,
+      "commentary": "await キーワードを付けることで、その処理が終わるまで次の行の実行を待ってくれます。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "このユニットで作成した、レシピ詳細画面の下部にコメントが並び、その上で投稿できるようなUI構成を何と呼びますか？",
+      "options": ["マスター詳細ビュー", "親子リレーションUI", "シングルページレイアウト", "スタックUI"],
+      "answer": 1,
+      "commentary": "1つのメインリソースに対して、関連する子リソースを操作する一般的なUIパターンです。"
     }
   ]
 }
