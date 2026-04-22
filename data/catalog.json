@@ -3,7 +3,7 @@
   "courses": [
     {
       "id": "A",
-      "name": "Django Webアプリ開発コース",
+      "name": "チャットアプリ開発コース",
       "fields": [
         {
           "id": "A-html-css",
