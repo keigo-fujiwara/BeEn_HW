@@ -139,6 +139,9 @@ const els = {
   btnTest: document.getElementById("btnTest"),
   btnAdmin: document.getElementById("btnAdmin"),
   btnBack: document.getElementById("btnBack"),
+  testBackConfirm: document.getElementById("testBackConfirm"),
+  confirmBackYes: document.getElementById("confirmBackYes"),
+  confirmBackNo: document.getElementById("confirmBackNo"),
   modeBadge: document.getElementById("modeBadge"),
   homeworkPanel: document.getElementById("homeworkPanel"),
   homeworkHeading: document.getElementById("homeworkHeading"),
@@ -771,6 +774,27 @@ function renderAdmin() {
   showAdminQuestion();
 }
 
+function returnToSetup() {
+  clearTestTimer();
+  testSubmitting = false;
+  els.setupPanel.hidden = false;
+  els.mainArea.hidden = true;
+  if (els.testBackConfirm) els.testBackConfirm.hidden = true;
+  currentMode = "idle";
+}
+
+function openTestBackConfirm() {
+  if (!els.testBackConfirm) return;
+  els.testBackConfirm.hidden = false;
+  els.confirmBackNo?.focus();
+}
+
+function closeTestBackConfirm() {
+  if (!els.testBackConfirm) return;
+  els.testBackConfirm.hidden = true;
+  els.btnBack.focus();
+}
+
 function startTest() {
   if (!currentUnit) return;
   const nq = currentUnit.questions.length;
@@ -1062,11 +1086,11 @@ if (els.btnAdmin) {
 }
 
 els.btnBack.addEventListener("click", () => {
-  clearTestTimer();
-  testSubmitting = false;
-  els.setupPanel.hidden = false;
-  els.mainArea.hidden = true;
-  currentMode = "idle";
+  if (currentMode === "test") {
+    openTestBackConfirm();
+    return;
+  }
+  returnToSetup();
 });
 
 els.btnRetryTest.addEventListener("click", () => {
@@ -1110,9 +1134,33 @@ if (els.adminNext) {
   });
 }
 
+if (els.confirmBackYes) {
+  els.confirmBackYes.addEventListener("click", () => {
+    returnToSetup();
+  });
+}
+
+if (els.confirmBackNo) {
+  els.confirmBackNo.addEventListener("click", () => {
+    closeTestBackConfirm();
+  });
+}
+
+if (els.testBackConfirm) {
+  els.testBackConfirm.addEventListener("click", (e) => {
+    if (e.target === els.testBackConfirm) closeTestBackConfirm();
+  });
+}
+
+document.addEventListener("keydown", (e) => {
+  if (e.key !== "Escape" || !els.testBackConfirm || els.testBackConfirm.hidden) return;
+  closeTestBackConfirm();
+});
+
 async function init() {
   if (els.btnAdmin) els.btnAdmin.style.display = ENABLE_ADMIN_MODE ? "inline-flex" : "none";
   if (els.adminPanel) els.adminPanel.hidden = true;
+  if (els.testBackConfirm) els.testBackConfirm.hidden = true;
   await loadCatalog();
 }
 

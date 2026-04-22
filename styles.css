@@ -48,7 +48,8 @@ body {
 #testResult[hidden],
 #testTimeNotice[hidden],
 #unitSelectPanel[hidden],
-#btnAdmin[hidden] {
+#btnAdmin[hidden],
+#testBackConfirm[hidden] {
   display: none !important;
 }
 
@@ -902,6 +903,37 @@ body {
   box-shadow: 0 0 0 1px rgba(63, 185, 80, 0.25);
 }
 
+.confirm-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 200;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 20px;
+  background: rgba(1, 4, 9, 0.72);
+}
+
+.confirm-dialog {
+  width: 100%;
+  max-width: 420px;
+  margin: 0;
+  box-shadow: 0 18px 50px rgba(0, 0, 0, 0.45);
+}
+
+.confirm-message {
+  margin: 0;
+  color: var(--text);
+  line-height: 1.6;
+}
+
+.confirm-actions {
+  display: flex;
+  justify-content: flex-end;
+  gap: 10px;
+  margin-top: 18px;
+}
+
 #homeworkCommentaryWrap {
   margin-top: 4px;
 }
@@ -1211,9 +1243,14 @@ body {
 
 @media (max-width: 599px) {
   .admin-nav-btn,
-  .admin-question-picker {
+  .admin-question-picker,
+  .confirm-actions .btn {
     width: 100%;
     min-width: 0;
+  }
+
+  .confirm-actions {
+    flex-direction: column;
   }
 
   .q-text pre,
