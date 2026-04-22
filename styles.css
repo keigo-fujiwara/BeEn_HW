@@ -1102,3 +1102,16 @@ body {
     gap: 10px;
   }
 }
+
+@media (max-width: 599px) {
+  .q-text pre,
+  .test-card .question-text pre,
+  .test-all-questions .question-text pre,
+  .test-result-detail .question-text pre,
+  .commentary pre {
+    overflow-x: hidden;
+    white-space: pre-wrap;
+    overflow-wrap: anywhere;
+    word-break: break-word;
+  }
+}

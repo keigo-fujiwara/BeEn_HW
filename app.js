@@ -102,6 +102,8 @@ let currentMode = "idle";
 let homeworkCursor = 0;
 /** 宿題: これまでの正解数 */
 let homeworkScore = 0;
+/** 宿題: 現在の問題に回答済みか */
+let homeworkAnswered = false;
 
 /** テストに出す問題の unit 内インデックス（長さ 10 以下） */
 let testSubset = [];
@@ -604,8 +606,10 @@ function showHomeworkQuestion() {
   els.homeworkComplete.hidden = true;
   els.homeworkCard.hidden = false;
   els.homeworkNext.hidden = true;
+  els.homeworkNext.disabled = true;
   els.homeworkCommentaryWrap.hidden = true;
   els.homeworkCommentaryWrap.innerHTML = "";
+  homeworkAnswered = false;
 
   const q = questions[homeworkCursor];
   const { labels: optionLabels, answerIndex: displayAnswer } = shuffleOptionsOrder(q.options, q.answer);
@@ -621,6 +625,7 @@ function showHomeworkQuestion() {
   const reveal = (selectedIdx) => {
     if (revealed) return;
     revealed = true;
+    homeworkAnswered = true;
     const correct = selectedIdx === displayAnswer;
     if (correct) homeworkScore += 1;
     updateHomeworkProgress(true);
@@ -643,6 +648,7 @@ function showHomeworkQuestion() {
     const isLast = homeworkCursor >= total - 1;
     els.homeworkNext.textContent = isLast ? "結果を見る" : "次の問題へ";
     els.homeworkNext.hidden = false;
+    els.homeworkNext.disabled = false;
   };
 
   optionLabels.forEach((label, oi) => {
@@ -963,6 +969,9 @@ els.btnSubmitTest.addEventListener("click", () => {
 
 els.homeworkNext.addEventListener("click", () => {
   if (currentMode !== "homework" || !currentUnit) return;
+  if (!homeworkAnswered) return;
+  homeworkAnswered = false;
+  els.homeworkNext.disabled = true;
   homeworkCursor += 1;
   showHomeworkQuestion();
 });
