@@ -92,10 +92,10 @@ function shouldShowUnit(courseId, unitId) {
   return no <= 12;
 }
 
-/** @type {{ unit_title: string, questions: Array<{question:string, options:string[], answer:number, commentary:string}> } | null} */
+/** @type {{ unit_title: string, questions: Array<{id:string, type:string, question:string, options:string[], answer:number, commentary:string}> } | null} */
 let currentUnit = null;
 
-/** @type {'idle'|'homework'|'test'} */
+/** @type {'idle'|'homework'|'test'|'admin'} */
 let currentMode = "idle";
 
 /** 宿題: 現在の問題インデックス（0 始まり） */
@@ -104,6 +104,8 @@ let homeworkCursor = 0;
 let homeworkScore = 0;
 /** 宿題: 現在の問題に回答済みか */
 let homeworkAnswered = false;
+/** 管理者確認: 現在の問題インデックス（0 始まり） */
+let adminCursor = 0;
 
 /** テストに出す問題の unit 内インデックス（長さ 10 以下） */
 let testSubset = [];
@@ -133,6 +135,7 @@ const els = {
   mainArea: document.getElementById("mainArea"),
   btnHomework: document.getElementById("btnHomework"),
   btnTest: document.getElementById("btnTest"),
+  btnAdmin: document.getElementById("btnAdmin"),
   btnBack: document.getElementById("btnBack"),
   modeBadge: document.getElementById("modeBadge"),
   homeworkPanel: document.getElementById("homeworkPanel"),
@@ -146,6 +149,17 @@ const els = {
   homeworkComplete: document.getElementById("homeworkComplete"),
   homeworkScoreSummary: document.getElementById("homeworkScoreSummary"),
   homeworkCompleteCheer: document.getElementById("homeworkCompleteCheer"),
+  adminPanel: document.getElementById("adminPanel"),
+  adminHeading: document.getElementById("adminHeading"),
+  adminSummary: document.getElementById("adminSummary"),
+  adminPrev: document.getElementById("adminPrev"),
+  adminQuestionSelect: document.getElementById("adminQuestionSelect"),
+  adminNext: document.getElementById("adminNext"),
+  adminCard: document.getElementById("adminCard"),
+  adminMeta: document.getElementById("adminMeta"),
+  adminQuestion: document.getElementById("adminQuestion"),
+  adminOptions: document.getElementById("adminOptions"),
+  adminCommentary: document.getElementById("adminCommentary"),
   testPanel: document.getElementById("testPanel"),
   testUnitLine: document.getElementById("testUnitLine"),
   testIntro: document.getElementById("testIntro"),
@@ -266,6 +280,8 @@ function normalizeUnit(raw) {
   const qs = raw.questions;
   if (!Array.isArray(qs) || qs.length === 0) throw new Error("questions が空です。");
   const questions = qs.map((q, i) => {
+    const id = String(q.id ?? i + 1).trim() || String(i + 1);
+    const type = String(q.type ?? "").trim();
     const question = String(q.question ?? "");
     const options = Array.isArray(q.options) ? q.options.map(String) : [];
     if (options.length !== 4) throw new Error(`問題${i + 1}: options は4件必要です。`);
@@ -275,6 +291,8 @@ function normalizeUnit(raw) {
       throw new Error(`問題${i + 1}: answer は 0〜3 の整数で指定してください。`);
     }
     return {
+      id,
+      type,
       question,
       options,
       answer,
@@ -668,6 +686,85 @@ function renderHomework() {
   showHomeworkQuestion();
 }
 
+function getAdminChecks(question) {
+  return [
+    { label: "問題文", ok: question.question.trim().length > 0 },
+    { label: "選択肢4件", ok: question.options.length === 4 },
+    { label: "正解設定", ok: Number.isInteger(question.answer) && question.answer >= 0 && question.answer < question.options.length },
+    { label: "解説", ok: question.commentary.trim().length > 0 },
+  ];
+}
+
+function showAdminQuestion() {
+  if (!currentUnit) return;
+  const total = currentUnit.questions.length;
+  if (total === 0) return;
+
+  adminCursor = Math.max(0, Math.min(adminCursor, total - 1));
+  const q = currentUnit.questions[adminCursor];
+  const checks = getAdminChecks(q);
+  const barPct = total > 0 ? ((adminCursor + 1) / total) * 100 : 0;
+
+  els.adminHeading.textContent = `管理者確認モード — ${currentUnit.unit_title}`;
+  els.adminSummary.innerHTML = `
+    <div class="progress-head">
+      <span class="progress-emoji" aria-hidden="true">🔎</span>
+      <span class="progress-label">確認中 <strong>${adminCursor + 1}</strong> / <strong>${total}</strong> 問</span>
+    </div>
+    <div class="progress-track" role="progressbar" aria-valuenow="${adminCursor + 1}" aria-valuemin="1" aria-valuemax="${total}" aria-label="管理者確認の現在位置">
+      <div class="progress-fill progress-fill--admin" style="width:${barPct}%"></div>
+    </div>
+    <div class="admin-status-row">
+      ${checks
+        .map(
+          (check) =>
+            `<span class="admin-status-pill ${check.ok ? "admin-status-pill--ok" : "admin-status-pill--ng"}">${check.label}: ${check.ok ? "OK" : "要確認"}</span>`,
+        )
+        .join("")}
+    </div>
+  `;
+
+  els.adminMeta.innerHTML = `
+    <span class="admin-meta-pill">問題 ${adminCursor + 1}</span>
+    <span class="admin-meta-pill">ID: ${q.id}</span>
+    <span class="admin-meta-pill">種別: ${q.type || "未設定"}</span>
+    <span class="admin-meta-pill">正解: ${q.answer + 1} 番</span>
+  `;
+
+  els.adminQuestion.innerHTML = sanitizeRichHtml(q.question);
+  els.adminOptions.innerHTML = "";
+  els.adminOptions.className = "options cols-2 admin-options";
+
+  q.options.forEach((label) => {
+    const btn = createOptionButton(label);
+    btn.disabled = true;
+    els.adminOptions.appendChild(btn);
+  });
+
+  applyAnswerMarks(els.adminOptions, q.answer, -1);
+  const adminBtns = els.adminOptions.querySelectorAll(".opt-btn");
+  if (adminBtns[q.answer]) adminBtns[q.answer].classList.add("admin-answer");
+
+  els.adminCommentary.innerHTML = `<span class="commentary-label">解説</span>${sanitizeRichHtml(q.commentary || "（解説なし）")}`;
+
+  els.adminQuestionSelect.innerHTML = "";
+  currentUnit.questions.forEach((question, index) => {
+    const opt = document.createElement("option");
+    opt.value = String(index);
+    opt.textContent = `問題 ${index + 1}${question.type ? ` (${question.type})` : ""}`;
+    els.adminQuestionSelect.appendChild(opt);
+  });
+  els.adminQuestionSelect.value = String(adminCursor);
+  els.adminPrev.disabled = adminCursor <= 0;
+  els.adminNext.disabled = adminCursor >= total - 1;
+}
+
+function renderAdmin() {
+  if (!currentUnit) return;
+  adminCursor = 0;
+  showAdminQuestion();
+}
+
 function startTest() {
   if (!currentUnit) return;
   const nq = currentUnit.questions.length;
@@ -710,17 +807,23 @@ function startTest() {
 
 function enterMode(mode) {
   if (!currentUnit) return;
+  clearTestTimer();
+  testSubmitting = false;
   currentMode = mode;
   els.setupPanel.hidden = true;
   els.mainArea.hidden = false;
   els.homeworkPanel.hidden = mode !== "homework";
+  els.adminPanel.hidden = mode !== "admin";
   els.testPanel.hidden = mode !== "test";
-  els.modeBadge.textContent = mode === "homework" ? "宿題モード" : "確認テストモード";
+  els.modeBadge.textContent =
+    mode === "homework" ? "宿題モード" : mode === "test" ? "確認テストモード" : "管理者確認モード";
 
   if (mode === "homework") {
     renderHomework();
-  } else {
+  } else if (mode === "test") {
     startTest();
+  } else {
+    renderAdmin();
   }
 }
 
@@ -950,6 +1053,7 @@ els.btnLoadUnit.addEventListener("click", () => {
 
 els.btnHomework.addEventListener("click", () => enterMode("homework"));
 els.btnTest.addEventListener("click", () => enterMode("test"));
+els.btnAdmin.addEventListener("click", () => enterMode("admin"));
 
 els.btnBack.addEventListener("click", () => {
   clearTestTimer();
@@ -974,6 +1078,24 @@ els.homeworkNext.addEventListener("click", () => {
   els.homeworkNext.disabled = true;
   homeworkCursor += 1;
   showHomeworkQuestion();
+});
+
+els.adminQuestionSelect.addEventListener("change", () => {
+  if (currentMode !== "admin" || !currentUnit) return;
+  adminCursor = Number(els.adminQuestionSelect.value) || 0;
+  showAdminQuestion();
+});
+
+els.adminPrev.addEventListener("click", () => {
+  if (currentMode !== "admin" || !currentUnit || adminCursor <= 0) return;
+  adminCursor -= 1;
+  showAdminQuestion();
+});
+
+els.adminNext.addEventListener("click", () => {
+  if (!currentUnit || currentMode !== "admin" || adminCursor >= currentUnit.questions.length - 1) return;
+  adminCursor += 1;
+  showAdminQuestion();
 });
 
 async function init() {
