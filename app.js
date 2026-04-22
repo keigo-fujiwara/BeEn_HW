@@ -30,6 +30,8 @@
 const TEST_COUNT = 10;
 /** 確認テストの制限時間（秒） */
 const TEST_TIME_LIMIT_SEC = 300;
+/** 管理者確認モードの表示可否。ローカル確認時だけ true にする */
+const ENABLE_ADMIN_MODE = false;
 
 /** 10問のとき 8 問以上で合格（問数が少ない単元は 80% 切り上げ） */
 function testPassThreshold(questionCount) {
@@ -92,10 +94,10 @@ function shouldShowUnit(courseId, unitId) {
   return no <= 12;
 }
 
-/** @type {{ unit_title: string, questions: Array<{question:string, options:string[], answer:number, commentary:string}> } | null} */
+/** @type {{ unit_title: string, questions: Array<{id:string, type:string, question:string, options:string[], answer:number, commentary:string}> } | null} */
 let currentUnit = null;
 
-/** @type {'idle'|'homework'|'test'} */
+/** @type {'idle'|'homework'|'test'|'admin'} */
 let currentMode = "idle";
 
 /** 宿題: 現在の問題インデックス（0 始まり） */
@@ -104,6 +106,8 @@ let homeworkCursor = 0;
 let homeworkScore = 0;
 /** 宿題: 現在の問題に回答済みか */
 let homeworkAnswered = false;
+/** 管理者確認: 現在の問題インデックス（0 始まり） */
+let adminCursor = 0;
 
 /** テストに出す問題の unit 内インデックス（長さ 10 以下） */
 let testSubset = [];
@@ -133,6 +137,7 @@ const els = {
   mainArea: document.getElementById("mainArea"),
   btnHomework: document.getElementById("btnHomework"),
   btnTest: document.getElementById("btnTest"),
+  btnAdmin: document.getElementById("btnAdmin"),
   btnBack: document.getElementById("btnBack"),
   modeBadge: document.getElementById("modeBadge"),
   homeworkPanel: document.getElementById("homeworkPanel"),
@@ -146,6 +151,16 @@ const els = {
   homeworkComplete: document.getElementById("homeworkComplete"),
   homeworkScoreSummary: document.getElementById("homeworkScoreSummary"),
   homeworkCompleteCheer: document.getElementById("homeworkCompleteCheer"),
+  adminPanel: document.getElementById("adminPanel"),
+  adminHeading: document.getElementById("adminHeading"),
+  adminSummary: document.getElementById("adminSummary"),
+  adminPrev: document.getElementById("adminPrev"),
+  adminQuestionSelect: document.getElementById("adminQuestionSelect"),
+  adminNext: document.getElementById("adminNext"),
+  adminMeta: document.getElementById("adminMeta"),
+  adminQuestion: document.getElementById("adminQuestion"),
+  adminOptions: document.getElementById("adminOptions"),
+  adminCommentary: document.getElementById("adminCommentary"),
   testPanel: document.getElementById("testPanel"),
   testUnitLine: document.getElementById("testUnitLine"),
   testIntro: document.getElementById("testIntro"),
@@ -266,6 +281,8 @@ function normalizeUnit(raw) {
   const qs = raw.questions;
   if (!Array.isArray(qs) || qs.length === 0) throw new Error("questions が空です。");
   const questions = qs.map((q, i) => {
+    const id = String(q.id ?? i + 1).trim() || String(i + 1);
+    const type = String(q.type ?? "").trim();
     const question = String(q.question ?? "");
     const options = Array.isArray(q.options) ? q.options.map(String) : [];
     if (options.length !== 4) throw new Error(`問題${i + 1}: options は4件必要です。`);
@@ -275,6 +292,8 @@ function normalizeUnit(raw) {
       throw new Error(`問題${i + 1}: answer は 0〜3 の整数で指定してください。`);
     }
     return {
+      id,
+      type,
       question,
       options,
       answer,
@@ -287,7 +306,7 @@ function normalizeUnit(raw) {
 function setUnit(data) {
   currentUnit = data;
   els.unitTitleDisplay.textContent = `単元名: ${data.unit_title}（全 ${data.questions.length} 問）`;
-  els.modeButtons.hidden = false;
+  if (els.btnAdmin) els.btnAdmin.style.display = ENABLE_ADMIN_MODE ? "inline-flex" : "none";
 }
 
 /**
@@ -668,6 +687,90 @@ function renderHomework() {
   showHomeworkQuestion();
 }
 
+function getAdminChecks(question) {
+  return [
+    { label: "問題文", ok: question.question.trim().length > 0 },
+    { label: "選択肢4件", ok: question.options.length === 4 },
+    { label: "正解設定", ok: Number.isInteger(question.answer) && question.answer >= 0 && question.answer < question.options.length },
+    { label: "解説", ok: question.commentary.trim().length > 0 },
+  ];
+}
+
+function populateAdminQuestionSelect() {
+  if (!currentUnit) return;
+  els.adminQuestionSelect.innerHTML = "";
+  currentUnit.questions.forEach((question, index) => {
+    const opt = document.createElement("option");
+    opt.value = String(index);
+    opt.textContent = `問題 ${index + 1}${question.type ? ` (${question.type})` : ""}`;
+    els.adminQuestionSelect.appendChild(opt);
+  });
+}
+
+function showAdminQuestion() {
+  if (!ENABLE_ADMIN_MODE || !currentUnit) return;
+  const total = currentUnit.questions.length;
+  if (total === 0) return;
+
+  adminCursor = Math.max(0, Math.min(adminCursor, total - 1));
+  const q = currentUnit.questions[adminCursor];
+  const checks = getAdminChecks(q);
+  const barPct = ((adminCursor + 1) / total) * 100;
+
+  els.adminHeading.textContent = `管理者確認モード — ${currentUnit.unit_title}`;
+  els.adminSummary.innerHTML = `
+    <div class="progress-head">
+      <span class="progress-emoji" aria-hidden="true">🔎</span>
+      <span class="progress-label">確認中 <strong>${adminCursor + 1}</strong> / <strong>${total}</strong> 問</span>
+    </div>
+    <div class="progress-track" role="progressbar" aria-valuenow="${adminCursor + 1}" aria-valuemin="1" aria-valuemax="${total}" aria-label="管理者確認の現在位置">
+      <div class="progress-fill progress-fill--admin" style="width:${barPct}%"></div>
+    </div>
+    <div class="admin-status-row">
+      ${checks
+        .map(
+          (check) =>
+            `<span class="admin-status-pill ${check.ok ? "admin-status-pill--ok" : "admin-status-pill--ng"}">${check.label}: ${check.ok ? "OK" : "要確認"}</span>`,
+        )
+        .join("")}
+    </div>
+  `;
+
+  els.adminMeta.innerHTML = `
+    <span class="admin-meta-pill">問題 ${adminCursor + 1}</span>
+    <span class="admin-meta-pill">ID: ${q.id}</span>
+    <span class="admin-meta-pill">種別: ${q.type || "未設定"}</span>
+    <span class="admin-meta-pill">正解: ${q.answer + 1} 番</span>
+  `;
+
+  els.adminQuestion.innerHTML = sanitizeRichHtml(q.question);
+  els.adminOptions.innerHTML = "";
+  els.adminOptions.className = "options cols-2 admin-options";
+
+  q.options.forEach((label) => {
+    const btn = createOptionButton(label);
+    btn.disabled = true;
+    els.adminOptions.appendChild(btn);
+  });
+
+  applyAnswerMarks(els.adminOptions, q.answer, -1);
+  const btns = els.adminOptions.querySelectorAll(".opt-btn");
+  const correctBtn = btns[q.answer];
+  if (correctBtn) correctBtn.classList.add("admin-answer");
+
+  els.adminCommentary.innerHTML = `<span class="commentary-label">解説</span>${sanitizeRichHtml(q.commentary || "（解説なし）")}`;
+  els.adminQuestionSelect.value = String(adminCursor);
+  els.adminPrev.disabled = adminCursor <= 0;
+  els.adminNext.disabled = adminCursor >= total - 1;
+}
+
+function renderAdmin() {
+  if (!ENABLE_ADMIN_MODE || !currentUnit) return;
+  adminCursor = 0;
+  populateAdminQuestionSelect();
+  showAdminQuestion();
+}
+
 function startTest() {
   if (!currentUnit) return;
   const nq = currentUnit.questions.length;
@@ -710,22 +813,28 @@ function startTest() {
 
 function enterMode(mode) {
   if (!currentUnit) return;
+  if (mode === "admin" && !ENABLE_ADMIN_MODE) return;
+  clearTestTimer();
+  testSubmitting = false;
   currentMode = mode;
   els.setupPanel.hidden = true;
   els.mainArea.hidden = false;
   els.homeworkPanel.hidden = mode !== "homework";
+  els.adminPanel.hidden = mode !== "admin";
   els.testPanel.hidden = mode !== "test";
-  els.modeBadge.textContent = mode === "homework" ? "宿題モード" : "確認テストモード";
+  els.modeBadge.textContent =
+    mode === "homework" ? "宿題モード" : mode === "test" ? "確認テストモード" : "管理者確認モード";
 
   if (mode === "homework") {
     renderHomework();
-  } else {
+  } else if (mode === "test") {
     startTest();
+  } else {
+    renderAdmin();
   }
 }
 
 function resetUnitSelectionState() {
-  els.modeButtons.hidden = true;
   currentUnit = null;
   els.unitTitleDisplay.textContent = "単元名: （未読み込み）";
 }
@@ -889,8 +998,6 @@ async function onLoadUnit() {
   const unit = findUnitInCourse(course, uid);
   if (!unit) return;
 
-  els.modeButtons.hidden = true;
-
   try {
     const r = await fetch(unit.jsonPath, { cache: "no-store" });
     if (!r.ok) throw new Error(`HTTP ${r.status}`);
@@ -950,6 +1057,9 @@ els.btnLoadUnit.addEventListener("click", () => {
 
 els.btnHomework.addEventListener("click", () => enterMode("homework"));
 els.btnTest.addEventListener("click", () => enterMode("test"));
+if (els.btnAdmin) {
+  els.btnAdmin.addEventListener("click", () => enterMode("admin"));
+}
 
 els.btnBack.addEventListener("click", () => {
   clearTestTimer();
@@ -976,7 +1086,33 @@ els.homeworkNext.addEventListener("click", () => {
   showHomeworkQuestion();
 });
 
+if (els.adminQuestionSelect) {
+  els.adminQuestionSelect.addEventListener("change", () => {
+    if (currentMode !== "admin" || !currentUnit) return;
+    adminCursor = Number(els.adminQuestionSelect.value) || 0;
+    showAdminQuestion();
+  });
+}
+
+if (els.adminPrev) {
+  els.adminPrev.addEventListener("click", () => {
+    if (currentMode !== "admin" || !currentUnit || adminCursor <= 0) return;
+    adminCursor -= 1;
+    showAdminQuestion();
+  });
+}
+
+if (els.adminNext) {
+  els.adminNext.addEventListener("click", () => {
+    if (currentMode !== "admin" || !currentUnit || adminCursor >= currentUnit.questions.length - 1) return;
+    adminCursor += 1;
+    showAdminQuestion();
+  });
+}
+
 async function init() {
+  if (els.btnAdmin) els.btnAdmin.style.display = ENABLE_ADMIN_MODE ? "inline-flex" : "none";
+  if (els.adminPanel) els.adminPanel.hidden = true;
   await loadCatalog();
 }
 

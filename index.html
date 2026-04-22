@@ -54,9 +54,10 @@
         </div>
 
         <p class="unit-title-display" id="unitTitleDisplay">単元名: （未読み込み）</p>
-        <div class="mode-buttons" id="modeButtons" hidden>
+        <div class="mode-buttons" id="modeButtons">
           <button type="button" class="btn btn-primary" id="btnHomework">宿題モード</button>
           <button type="button" class="btn btn-primary" id="btnTest">確認テストモード</button>
+          <button type="button" class="btn btn-primary" id="btnAdmin" style="display: none">管理者確認モード</button>
         </div>
       </section>
 
@@ -81,6 +82,25 @@
             <strong class="completion-title">宿題、おつかれさま！</strong>
             <p class="homework-result-line" id="homeworkScoreSummary"></p>
             <p class="completion-sub" id="homeworkCompleteCheer"></p>
+          </div>
+        </section>
+
+        <section class="panel admin-panel" id="adminPanel" hidden>
+          <h2 class="panel-title" id="adminHeading">管理者確認モード</h2>
+          <div class="study-progress admin-summary" id="adminSummary" aria-live="polite"></div>
+          <div class="admin-toolbar">
+            <button type="button" class="btn btn-secondary admin-nav-btn" id="adminPrev">← 前の問題</button>
+            <label class="admin-question-picker" for="adminQuestionSelect">
+              <span class="inline-label">確認する問題</span>
+              <select class="select admin-select" id="adminQuestionSelect"></select>
+            </label>
+            <button type="button" class="btn btn-secondary admin-nav-btn" id="adminNext">次の問題 →</button>
+          </div>
+          <div class="test-card admin-card" id="adminCard">
+            <div class="admin-meta" id="adminMeta"></div>
+            <div class="question-text" id="adminQuestion"></div>
+            <div class="options cols-2 admin-options" id="adminOptions"></div>
+            <div class="commentary" id="adminCommentary"></div>
           </div>
         </section>
 
