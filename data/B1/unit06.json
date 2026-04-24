@@ -1,4 +1,325 @@
 {
   "unit_title": "Django 発展 3 - 演習と解説",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "Djangoで画像を扱うためにインストールが必要なPythonのライブラリは何ですか？",
+      "options": ["ImageTool", "Pillow", "DjangoPhoto", "StaticImage"],
+      "answer": 1,
+      "commentary": "DjangoのImageFieldを使用するには、画像処理ライブラリである「Pillow」のインストールが必須です。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "画像ファイルを保存する場所をsettings.pyで指定するための設定項目は何ですか？<pre><code>___ = BASE_DIR / \"media\"</code></pre>",
+      "options": ["STATIC_ROOT", "FILE_ROOT", "MEDIA_ROOT", "IMAGE_DIR"],
+      "answer": 2,
+      "commentary": "ユーザーがアップロードしたファイルを保存するディレクトリの絶対パスは「MEDIA_ROOT」で指定します。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "アップロードされた画像を表示するためのURLを定義する際、urls.pyに追加する記述を完成させてください。<pre><code>urlpatterns += static(settings.MEDIA_URL, ___=settings.MEDIA_ROOT)</code></pre>",
+      "options": ["root", "path", "document_root", "file_root"],
+      "answer": 2,
+      "commentary": "static関数を用いて、MEDIA_URLとdocument_root（MEDIA_ROOT）を紐付けます。"
+    },
+    {
+      "id": 4,
+      "type": "文法チェック",
+      "question": "モデルのフィールド定義で、データベースに値がなくても良い（nullを許容する）設定と、フォーム入力時に空でも良い（必須でない）設定の組み合わせはどれですか？",
+      "options": ["null=False, blank=False", "null=True, blank=True", "empty=True, required=False", "none=True, skip=True"],
+      "answer": 1,
+      "commentary": "データベースレベルでの空許可は null=True、フォームレベルでの空許可は blank=True を使用します。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "ファイルを送信するフォームを作成する際、&lt;form&gt;タグに必ず記述しなければならない属性は何ですか？<pre><code>&lt;form method=\"POST\" ___=\"multipart/form-data\"&gt;</code></pre>",
+      "options": ["type", "enctype", "action", "encoding"],
+      "answer": 1,
+      "commentary": "画像やファイルなどのバイナリデータを送信する場合、enctype=\"multipart/form-data\" の指定が必須です。"
+    },
+    {
+      "id": 6,
+      "type": "実行結果予測",
+      "question": "テンプレートで {{ message.image.url }} と記述したとき、出力される内容はどれですか？",
+      "options": ["画像ファイルの中身（データ）", "画像の保存先のパス（URL）", "画像の名前だけ", "エラーメッセージ"],
+      "answer": 1,
+      "commentary": "ImageFieldの .url 属性を使うと、ブラウザからアクセス可能な画像ファイルのパスが取得できます。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "ビューの中で、送信された画像データを取得する正しい記述はどれですか？<pre><code>image = request.___ .get(\"image\")</code></pre>",
+      "options": ["POST", "DATA", "FILES", "IMAGES"],
+      "answer": 2,
+      "commentary": "ファイルデータは request.POST ではなく、request.FILES に格納されます。"
+    },
+    {
+      "id": 8,
+      "type": "文法チェック",
+      "question": "テンプレート内で「画像がある場合だけ表示する」という条件分岐の正しい書き方はどれですか？",
+      "options": ["{% if message.image.exists %}", "{% if message.image %}", "{{ if image }}", "{% for image in message %}"],
+      "answer": 1,
+      "commentary": "{% if フィールド名 %} と書くことで、データが存在するかどうかを判定できます。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "モデルを変更（imageフィールドを追加など）した後、変更を適用するために実行するコマンドの正しい順番はどれですか？",
+      "options": ["migrate → makemigrations", "makemigrations → migrate", "runserver → migrate", "startapp → migrate"],
+      "answer": 1,
+      "commentary": "まず設計図を作る（makemigrations）、次に適用する（migrate）という順序で行います。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "画像のファイル選択ボタン（&lt;input type=\"file\"&gt;）をデザインするために、CSSで元のボタンを消す際に使う指定はどれですか？<pre><code>input[type=\"file\"] {\n  ___: none;\n}</code></pre>",
+      "options": ["visibility", "opacity", "display", "clear"],
+      "answer": 2,
+      "commentary": "display: none; を使うと、要素を画面から消しつつ、機能（ラベルからの呼び出しなど）を維持できます。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "settings.pyの「MEDIA_URL」は何のために設定しますか？",
+      "options": ["画像ファイルの保存先フォルダを決めるため", "ブラウザから画像にアクセスする時のURLの先頭（プレフィックス）を決めるため", "画像を表示する大きさを決めるため", "データベースの名前を決めるため"],
+      "answer": 1,
+      "commentary": "MEDIA_URLは「/media/」のように、URL上のパスを指定するために使います。"
+    },
+    {
+      "id": 12,
+      "type": "コード穴埋め",
+      "question": "Messageモデルに画像フィールドを定義する際、使うべきフィールド型は何ですか？<pre><code>image = models.___(\"画像\", null=True, blank=True)</code></pre>",
+      "options": ["FileField", "ImageField", "PhotoField", "BlobField"],
+      "answer": 1,
+      "commentary": "画像を扱う専用のフィールド型は ImageField です。"
+    },
+    {
+      "id": 13,
+      "type": "実行結果予測",
+      "question": "enctype=\"multipart/form-data\" を書き忘れて画像を投稿した場合、どうなりますか？",
+      "options": ["画像が自動で圧縮されて届く", "テキストは届くが、画像データは一切送信されない", "送信が自動でGETメソッドに切り替わる", "Djangoが自動で修正してくれる"],
+      "answer": 1,
+      "commentary": "この属性がないと、ブラウザはファイルの中身を送信しないため、サーバー側で画像を受け取ることができません。"
+    },
+    {
+      "id": 14,
+      "type": "文法チェック",
+      "question": "テンプレートのimgタグで、画像の高さを200pxに固定して表示する正しい記述はどれですか？",
+      "options": ["<img src=\"...\" size=\"200\">", "<img src=\"...\" height=\"200px\">", "<img src=\"...\" max-y=\"200\">", "<img url=\"...\" height=\"200\">"],
+      "answer": 1,
+      "commentary": "HTMLの属性として height=\"200px\" と指定するか、CSSで設定します。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "問6の演習で、画像選択ボタンの代わりに「ラベル」をボタン風にデザインした理由は？",
+      "options": ["ラベルの方が画像が綺麗になるから", "input[type=\"file\"]は直接CSSでデザインを自由に変えるのが難しいから", "Djangoの命令で決まっているから", "ファイルサイズを小さくするため"],
+      "answer": 1,
+      "commentary": "ファイル選択ボタンはブラウザごとに見た目が固定されているため、非表示にしてラベルで代用するのが一般的なテクニックです。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "投稿者のユーザー名を表示するために、Messageモデルのリレーション（user）を利用する記述を完成させてください。<pre><code>{{ message.___ .username }}</code></pre>",
+      "options": ["account", "user", "profile", "customuser"],
+      "answer": 1,
+      "commentary": "Messageモデルで定義した外部キー名（user）を使って、紐付いたユーザー情報の属性にアクセスします。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "Pillowをインストールした後に実行すべきコマンドはどれですか？",
+      "options": ["pip freeze > requirements.txt", "python manage.py runserver", "django-admin startproject", "pip list --update"],
+      "answer": 0,
+      "commentary": "新しくライブラリを入れたら、後で他の環境でも再現できるように requirements.txt を更新します。"
+    },
+    {
+      "id": 18,
+      "type": "実行結果予測",
+      "question": "Message.objects.create(...) で、image=request.FILES.get(\"image\") とした際、画像が選択されていない場合の値は何になりますか？",
+      "options": ["空の文字列 (\"\")", "エラーが発生する", "None", "デフォルトの画像"],
+      "answer": 2,
+      "commentary": "FILES.get() はキーが存在しない場合に None を返すため、エラーを回避しつつ「画像なし」のデータを保存できます。"
+    },
+    {
+      "id": 19,
+      "type": "文法チェック",
+      "question": "テンプレートのfor文の中で、画像がある場合は class=\"message-data\" を付けないように制御する正しい書き方はどれですか？",
+      "options": ["<tr class=\"{% if message.image %}{% else %}message-data{% endif %}\">", "<tr class=\"{{ message.image ? '' : 'message-data' }}\">", "<tr class=\"message-data\" if=\"!image\">", "<tr class=\"none\">"],
+      "answer": 0,
+      "commentary": "Djangoテンプレートの if タグを使って、class属性の中身を動的に切り替えています。"
+    },
+    {
+      "id": 20,
+      "type": "コード穴埋め",
+      "question": "settings.pyでBASE_DIRを利用してフォルダパスを作成する際に使う記号は何ですか？<pre><code>MEDIA_ROOT = BASE_DIR ___ \"media\"</code></pre>",
+      "options": ["+", ",", "/", "*"],
+      "answer": 2,
+      "commentary": "PythonのPathオブジェクトでは「/」記号を使って直感的にパスを結合できます。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "Djangoにおいて、画像のように「ユーザーがアップロードするファイル」のことを何と呼びますか？",
+      "options": ["静的ファイル（Static）", "メディアファイル（Media）", "テンプレートファイル", "システムファイル"],
+      "answer": 1,
+      "commentary": "開発者が用意するCSSなどは「Static」、ユーザーが投稿する画像などは「Media」と区別されます。"
+    },
+    {
+      "id": 22,
+      "type": "コード穴埋め",
+      "question": "画像投稿時に、ログインしていないユーザーを弾くためにビューに記述した条件文は何ですか？<pre><code>if request.user.___ :</code></pre>",
+      "options": ["is_login", "is_authenticated", "is_user", "has_perm"],
+      "answer": 1,
+      "commentary": "request.user.is_authenticated を使ってログイン状態を確認します。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "テンプレート内で MEDIA_URL の設定を利用するために必要なロード命令はどれですか？",
+      "options": ["{% load media %}", "{% load static %}", "{% load images %}", "{% load files %}"],
+      "answer": 1,
+      "commentary": "画像を表示するための {% static %} や URL 解決の機能は static ライブラリに含まれます（ただし、ImageFieldの.urlを使う場合は特にload不要です）。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "models.py で ImageField を追加した後に migrate を忘れた状態で画像を投稿しようとするとどうなりますか？",
+      "options": ["画像がテキストとして保存される", "自動的にフィールドが作成される", "「no such column」というエラーが出る", "投稿は成功するが表示されない"],
+      "answer": 2,
+      "commentary": "データベースに列（カラム）が存在しないため、保存時にエラーが発生します。"
+    },
+    {
+      "id": 25,
+      "type": "コード穴埋め",
+      "question": "CSSで角を丸めるために使用したプロパティは何ですか？<pre><code>border-radius: ___ ;</code></pre>",
+      "options": ["8px", "5px", "circle", "round"],
+      "answer": 1,
+      "commentary": "演習の要件定義で、ボタンの角の丸め具合は 5px と指定されています。"
+    },
+    {
+      "id": 26,
+      "type": "用語理解",
+      "question": "HTMLで「一行の文字入力」ではなく「ファイル選択」をさせるためのtype属性は何ですか？",
+      "options": ["text", "image", "file", "upload"],
+      "answer": 2,
+      "commentary": "type=\"file\" を使うことで、パソコン内のファイルを選ぶダイアログが表示されます。"
+    },
+    {
+      "id": 27,
+      "type": "コード穴埋め",
+      "question": "掲示板の一覧表示において、画像がある場合のimgタグのsrc属性には何を指定しますか？<pre><code>&lt;img src=\"___\" &gt;</code></pre>",
+      "options": ["{{ message.image }}", "{{ message.image.url }}", "{% static message.image %}", "/media/image.jpg"],
+      "answer": 1,
+      "commentary": "ImageFieldオブジェクトの .url 属性を渡すことで、適切なURLが出力されます。"
+    },
+    {
+      "id": 28,
+      "type": "文法チェック",
+      "question": "投稿成功後に同じトピックの掲示板画面に戻る（リダイレクトする）正しい書き方は？",
+      "options": ["return render('forum')", "return redirect('forum', topic_id=topic.id)", "return move('forum')", "return HttpResponse('success')"],
+      "answer": 1,
+      "commentary": "redirect関数にURL名と必要なIDを渡して遷移させます。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "ImageField の引数に \"画像\" と文字列を入れた場合（models.ImageField(\"画像\", ...)）、これは何に使われますか？",
+      "options": ["画像のファイル名", "管理者画面などで表示される人間用のラベル名", "保存されるフォルダ名", "エラーメッセージ"],
+      "answer": 1,
+      "commentary": "第一引数は「verbose_name」と呼ばれ、管理画面などで表示される日本語名になります。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "ボタンの背景色を水色にするためのCSSプロパティを完成させてください。<pre><code>background-color: ___ ;</code></pre>",
+      "options": ["#fff", "#000", "#66CCFF", "blue"],
+      "answer": 2,
+      "commentary": "演習の要件定義で指定された色は #66CCFF です。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "MEDIA_ROOT と MEDIA_URL の違いは何ですか？",
+      "options": ["ROOTはフォルダの場所、URLはブラウザでの住所", "ROOTはURL、URLはフォルダの場所", "同じ意味なので片方でよい", "ROOTは管理者用、URLはユーザー用"],
+      "answer": 0,
+      "commentary": "ROOTはサーバー内の実際の保存場所（パス）、URLはWeb上のアクセス先を指します。"
+    },
+    {
+      "id": 32,
+      "type": "コード穴埋め",
+      "question": "URL設定で static 関数を使うために必要なインポート文はどれですか？<pre><code>from django.conf.urls.static import ___</code></pre>",
+      "options": ["path", "include", "static", "media"],
+      "answer": 2,
+      "commentary": "django.conf.urls.static モジュールから static 関数を読み込みます。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "Messageモデルの ForeignKey で <code>related_name=\"user_message\"</code> を設定したとき、その意味は何ですか？",
+      "options": ["ユーザー名を投稿内容にするため", "UserモデルからMessage一覧を user.user_message.all() で取得できるようにするため", "投稿を削除するため", "画像を保存するため"],
+      "answer": 1,
+      "commentary": "逆参照（親から子を呼ぶ際）の名前を定義するための設定です。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "テンプレートで {% if message.image %} の中に img タグを書いた場合、画像がない投稿はどう表示されますか？",
+      "options": ["壊れた画像アイコンが出る", "imgタグ自体が出力されず、何も表示されない", "エラーになる", "デフォルト画像が出る"],
+      "answer": 1,
+      "commentary": "if文によって、画像データが存在する場合のみ img タグが生成されるため、安全に表示できます。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "CSSで文字の色を白にする指定を完成させてください。<pre><code>color: ___ ;</code></pre>",
+      "options": ["#000", "#ccc", "#fff", "white"],
+      "answer": 2,
+      "commentary": "#fff（または #ffffff）は白を表す16進数カラーコードです。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "Djangoのビュー関数における <code>request.FILES</code> の正体は何ですか？",
+      "options": ["リスト", "辞書のようなオブジェクト（MultiValueDict）", "テキストファイル", "URL文字列"],
+      "answer": 1,
+      "commentary": "送信された複数のファイルを名前（キー）で管理するための辞書型に近いオブジェクトです。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "urls.py で <code>from . import settings</code> と記述する目的は何ですか？",
+      "options": ["データベースを読み込むため", "MEDIA_ROOT などの設定値を参照するため", "URLを自動生成するため", "言語を日本語にするため"],
+      "answer": 1,
+      "commentary": "settings.py で定義した MEDIA_ROOT などの変数を使うために、設定ファイルをインポートします。"
+    },
+    {
+      "id": 38,
+      "type": "コード穴埋め",
+      "question": "HTMLテーブルで「見出し」を表すタグは何ですか？<pre><code>&lt;tr&gt;&lt;___&gt;投稿者&lt;/___&gt;&lt;/tr&gt;</code></pre>",
+      "options": ["td", "th", "tr", "table"],
+      "answer": 1,
+      "commentary": "見出しセルには &lt;th&gt; (table header) タグを使用します。"
+    },
+    {
+      "id": 39,
+      "type": "実行結果予測",
+      "question": "imgタグで height=\"200px\" width=\"auto\" と指定した場合、画像はどうなりますか？",
+      "options": ["横に引き伸ばされる", "縦横比を維持したまま、高さが200pxになる", "正方形になる", "表示されない"],
+      "answer": 1,
+      "commentary": "片方のサイズを auto にすることで、画像の比率を崩さずにリサイズできます。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "画像投稿機能を実装する際に、最も注意すべき点はどれですか？",
+      "options": ["文字のフォント", "enctype属性の指定とFILESの取得", "マウスの感度", "パソコンの画面の明るさ"],
+      "answer": 1,
+      "commentary": "HTMLの enctype 属性と、Django側の request.FILES 処理の2つが正しく揃っていないと画像は送れません。"
+    }
+  ]
 }

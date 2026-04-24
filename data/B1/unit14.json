@@ -1,4 +1,325 @@
 {
   "unit_title": "Stripe を導入する",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "130種類以上の通貨に対応している、ECサイトでよく使われるオンライン決済プラットフォームの名前は何ですか？",
+      "options": ["PayPal", "Stripe", "Amazon Pay", "PayPay"],
+      "answer": 1,
+      "commentary": "Stripeは、実装が簡潔でグローバル展開にも適した決済プラットフォームです。"
+    },
+    {
+      "id": 2,
+      "type": "用語理解",
+      "question": "Stripeのアカウントを作成した後、アプリとStripeを繋げるために必要な固有の文字列を何と呼びますか？",
+      "options": ["API キー", "IDパスワード", "決済コード", "アクセスURL"],
+      "answer": 0,
+      "commentary": "外部サービスと連携する際には、認証のための「APIキー」を使用します。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "APIキーなどの機密情報を外部に漏らさないために作成する設定ファイルの名前は何ですか？<pre><code>be_en_ec/___ .py</code></pre>",
+      "options": ["global_settings", "local_settings", "private_settings", "secret_key"],
+      "answer": 1,
+      "commentary": "本番環境やGitHubに公開しないための設定を local_settings.py に切り分けて管理します。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "APIキーのうち、「pk」から始まり、ブラウザ（JavaScript）に記述しても良いキーは何ですか？",
+      "options": ["シークレットキー", "公開可能キー", "管理者キー", "ユーザーキー"],
+      "answer": 1,
+      "commentary": "公開可能キー（Publishable key）は、フロントエンドでStripeオブジェクトを作成するために使われます。"
+    },
+    {
+      "id": 5,
+      "type": "用語理解",
+      "question": "APIキーのうち、「sk」から始まり、絶対に外部に漏らしてはいけないサーバー専用のキーは何ですか？",
+      "options": ["シークレットキー", "公開可能キー", "共通キー", "認証キー"],
+      "answer": 0,
+      "commentary": "シークレットキー（Secret key）が漏れると勝手に決済される危険があるため、厳重に管理します。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "settings.pyで <code>local_settings.py</code> を読み込むための記述を完成させてください。<pre><code>try:\n    from .local_settings import *\nexcept ___:\n    pass</code></pre>",
+      "options": ["ValueError", "ImportError", "KeyError", "NameError"],
+      "answer": 1,
+      "commentary": "ファイルが存在しない場合にエラーで止まらないよう、ImportError をキャッチします。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "機密情報をGitHubなどの管理から外すために、ファイル名を記述しておく設定ファイルは何ですか？",
+      "options": [".env", ".gitignore", ".config", ".private"],
+      "answer": 1,
+      "commentary": ".gitignoreに記載されたファイルはGitの管理対象外となり、誤って公開されるのを防げます。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "Stripeのライブラリをインストールするためのコマンドは何ですか？<pre><code>pip install ___</code></pre>",
+      "options": ["django-stripe", "stripe-python", "stripe", "pillow"],
+      "answer": 2,
+      "commentary": "「pip install stripe」でDjangoからStripeを操作するためのライブラリを導入できます。"
+    },
+    {
+      "id": 9,
+      "type": "実行結果予測",
+      "question": "Stripeで一度に決済できる最低金額はいくらですか？",
+      "options": ["1円", "10円", "50円", "100円"],
+      "answer": 2,
+      "commentary": "日本円の場合、Stripeの最低決済金額は50円に制限されています。"
+    },
+    {
+      "id": 10,
+      "type": "文法チェック",
+      "question": "辞書型の値だけをリストのように集めるメソッドは何ですか？<pre><code>num_dict = {'91': 5, '87': 1}\n# [5, 1] を取得したい</code></pre>",
+      "options": ["keys()", "items()", "values()", "list()"],
+      "answer": 2,
+      "commentary": "values()メソッドを使うと、辞書の「値」の部分だけを抽出できます。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "Webページ上でボタンをクリックした時にメニューを出すなどの「動的な操作」を行うプログラミング言語は何ですか？",
+      "options": ["HTML", "CSS", "Python", "JavaScript"],
+      "answer": 3,
+      "commentary": "ブラウザ上で動的な振る舞いを担当するのがJavaScriptです。"
+    },
+    {
+      "id": 12,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で、JavaScriptコードを記述するために使用するタグは何ですか？<pre><code>&lt;___&gt;\n    const stripe = Stripe(...);\n&lt;/___&gt;</code></pre>",
+      "options": ["js", "style", "script", "code"],
+      "answer": 2,
+      "commentary": "JavaScriptは &lt;script&gt; タグの中に記述します。"
+    },
+    {
+      "id": 13,
+      "type": "用語理解",
+      "question": "ページを移動（リロード）せずにサーバーと通信を行い、ページの一部だけを更新する技術を何と呼びますか？",
+      "options": ["同期処理", "非同期処理", "バックアップ処理", "キャッシュ処理"],
+      "answer": 1,
+      "commentary": "非同期処理を使うと、ユーザーの操作感を損なわずに裏側で決済処理などを行えます。"
+    },
+    {
+      "id": 14,
+      "type": "コード穴埋め",
+      "question": "JavaScriptでHTTPリクエスト（通信）を行うために使用するAPIは何ですか？<pre><code>const res = await ___(\"{% url 'create_intent' %}\", { ... });</code></pre>",
+      "options": ["fetch", "get", "request", "post"],
+      "answer": 0,
+      "commentary": "Fetch API（fetch関数）を使うことで、JavaScriptからサーバーへデータを送信できます。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "JavaScriptの書き方を元にした、Pythonの辞書に似たデータ形式の名前は何ですか？",
+      "options": ["XML", "JSON", "CSV", "YAML"],
+      "answer": 1,
+      "commentary": "JSON（JavaScript Object Notation）は、Web通信で最も一般的に使われるデータ形式です。"
+    },
+    {
+      "id": 16,
+      "type": "文法チェック",
+      "question": "JavaScriptの関数で <code>async</code> が付いている場合、その中で非同期処理の完了を待つために使うキーワードは何ですか？",
+      "options": ["wait", "stop", "await", "ready"],
+      "answer": 2,
+      "commentary": "async関数の内部で await を使うことで、通信が終わるまで次の行の実行を待機させます。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "JavaScriptで「フォームが送信された時」のイベントをキャッチするメソッドは何ですか？<pre><code>document.getElementById(\"id\").___(\"submit\", ...);</code></pre>",
+      "options": ["onEvent", "addEventListener", "setSubmit", "listen"],
+      "answer": 1,
+      "commentary": "addEventListener(\"submit\", ...) で、フォームの送信ボタンが押された時の動作を定義できます。"
+    },
+    {
+      "id": 18,
+      "type": "実行結果予測",
+      "question": "JavaScriptの <code>e.preventDefault();</code> を実行するとどうなりますか？",
+      "options": ["エラーを無視する", "ページの読み込みを速くする", "ブラウザの標準動作（ページ遷移など）を停止させる", "サーバーにデータを送る"],
+      "answer": 2,
+      "commentary": "フォーム送信時のページ移動を止め、JavaScriptでの独自の処理を行わせるために使います。"
+    },
+    {
+      "id": 19,
+      "type": "文法チェック",
+      "question": "Djangoのビューで、JavaScript（JSON形式）に対して返答を返す時に使うクラスは何ですか？",
+      "options": ["HttpResponse", "RenderResponse", "JsonResponse", "HTMLResponse"],
+      "answer": 2,
+      "commentary": "辞書データをJSON形式にしてブラウザに返す専用の JsonResponse クラスを使用します。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "Stripeで決済の意図（いくら支払うかなど）を管理するオブジェクトの名前は何ですか？",
+      "options": ["PaymentResult", "PaymentIntent", "OrderHistory", "ChargeObject"],
+      "answer": 1,
+      "commentary": "PaymentIntent APIを使って、決済の開始から完了までを追跡します。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "決済完了ページ（CompleteView）で、カートの中身を削除するために使うPythonの命令は何ですか？<pre><code>___ self.request.session[\"cart\"]</code></pre>",
+      "options": ["remove", "pop", "del", "clear"],
+      "answer": 2,
+      "commentary": "del文を使って、セッションからカートの情報を完全に破棄します。"
+    },
+    {
+      "id": 22,
+      "type": "実行結果予測",
+      "question": "カートが空の状態で決済完了ページにアクセスし、セッションに \"cart\" キーがなかった場合に発生するエラーは何ですか？",
+      "options": ["ValueError", "KeyError", "AttributeError", "ZeroDivisionError"],
+      "answer": 1,
+      "commentary": "辞書やセッションに存在しないキーを指定して取り出そうとすると KeyError が発生します。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "JavaScriptの文字列内で変数を置換するメソッドは何ですか？<pre><code>\"{% url 'error' 'message' %}\".___(\"message\", error_text)</code></pre>",
+      "options": ["change", "replace", "switch", "rename"],
+      "answer": 1,
+      "commentary": "replaceメソッドを使って、URL内のダミー文字列を実際のエラー文に置き換えます。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "Stripeのテスト用番号「4242 4242 4242 4242」を使ったときの結果はどうなりますか？",
+      "options": ["必ずエラーになる", "認証なしで決済が成功する", "3Dセキュア認証が必要になる", "暗証番号を求められる"],
+      "answer": 1,
+      "commentary": "Stripeが提供している、最も標準的な「成功テスト用」のカード番号です。"
+    },
+    {
+      "id": 25,
+      "type": "コード穴埋め",
+      "question": "非同期通信のPOSTリクエストにおいて、Djangoのセキュリティ（CSRF）を通すためにヘッダーにセットする項目は何ですか？<pre><code>headers: {\n  \"___ \": \"{{ csrf_token }}\"\n}</code></pre>",
+      "options": ["CSRF-Token", "X-CSRFToken", "Security-Key", "Django-Auth"],
+      "answer": 1,
+      "commentary": "JavaScriptからのPOST通信では、ヘッダーに X-CSRFToken を含める必要があります。"
+    },
+    {
+      "id": 26,
+      "type": "実行結果予測",
+      "question": "<code>parseInt(\"1000\")</code> というJavaScriptのコードを実行した結果はどうなりますか？",
+      "options": ["文字列 \"1000\"", "整数 1000", "エラー", "浮動小数点 1000.0"],
+      "answer": 1,
+      "commentary": "parseIntは文字列を整数型（Integer）に変換する関数です。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "Djangoの <code>get_context_data</code> 内で <code>sum(num_dict.values())</code> と書いたときの動作は？",
+      "options": ["商品の種類の数を数える", "カートに入っている商品の「総個数」を計算する", "合計金額を計算する", "IDを合計する"],
+      "answer": 1,
+      "commentary": "数量（値）だけを取り出して合計するため、合計点数が算出されます。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "Stripeの決済フォームを自分のページ内の指定した場所に表示させるメソッドは何ですか？",
+      "options": ["insert", "mount", "display", "build"],
+      "answer": 1,
+      "commentary": "paymentElement.mount(\"#id\") と書くことで、HTML要素の中に決済フォームが埋め込まれます。"
+    },
+    {
+      "id": 29,
+      "type": "コード穴埋め",
+      "question": "決済処理が成功した後に、注文履歴を作成するために使うモデルは何ですか？<pre><code>___.objects.create(user=self.request.user, ...)</code></pre>",
+      "options": ["Product", "OrderHistory", "User", "StripeLog"],
+      "answer": 1,
+      "commentary": "購入が確定した後は OrderHistory モデルに記録を残します。"
+    },
+    {
+      "id": 30,
+      "type": "実行結果予測",
+      "question": "JavaScriptで <code>//</code> という記号を書いた後はどう扱われますか？",
+      "options": ["エラーになる", "コメント（プログラムとして実行されない説明文）になる", "割り算の記号になる", "文字が太くなる"],
+      "answer": 1,
+      "commentary": "JavaScriptの一行コメントの書き方です。"
+    },
+    {
+      "id": 31,
+      "type": "文法チェック",
+      "question": "Stripeダッシュボードに表示されるテスト用のカード番号で、決済が「失敗」する番号はどれですか？",
+      "options": ["4242 4242 4242 4242", "4000 0000 0000 9995", "4000 0025 0000 3155", "1234 5678 9012 3456"],
+      "answer": 1,
+      "commentary": "9995で終わる番号は、エラーテスト用に失敗するように設定されています。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "非同期通信中に、ユーザーが他の操作（スクロールなど）を続けられる通信方式を何といいますか？",
+      "options": ["ブロッキング通信", "ノンブロッキング（非同期）通信", "ストップ通信", "シリアル通信"],
+      "answer": 1,
+      "commentary": "通信を待たずに他の処理ができるのが非同期通信（ノンブロッキング）のメリットです。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "テンプレートのJavaScript内で、Djangoの変数（data_keyなど）を表示する正しい記法はどれですか？",
+      "options": ["$data_key", "{{ data_key }}", "{ data_key }", "[[ data_key ]]"],
+      "answer": 1,
+      "commentary": "JavaScriptのコード内であっても、Djangoテンプレートの記法 {{ }} をそのまま使えます。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "settings.pyで <code>DEBUG = True</code> になっている間だけメディアファイルのURLを有効にする設定 <code>if settings.DEBUG:</code> を書く理由は？",
+      "options": ["画像の読み込みを遅くするため", "開発環境でのみDjangoに画像配信をさせるため（本番は専用サーバーを使うため）", "パスワードを守るため", "ネット代を節約するため"],
+      "answer": 1,
+      "commentary": "本番環境ではセキュリティや速度の面から、Django以外のサーバーで画像を配信するのが一般的だからです。"
+    },
+    {
+      "id": 35,
+      "type": "文法チェック",
+      "question": "JavaScriptで <code>window.location.href = \"URL\"</code> を実行するとどうなりますか？",
+      "options": ["画像を表示する", "指定したURLにページを遷移（移動）させる", "ブラウザを閉じる", "文字を書き換える"],
+      "answer": 1,
+      "commentary": "プログラムから他のページへ強制的に移動させたい時に使います。"
+    },
+    {
+      "id": 36,
+      "type": "コード穴埋め",
+      "question": "Stripeの決済確認（confirmPayment）において、完了後に戻るURLを指定する引数はどれですか？<pre><code>confirmParams: {\n  ___: \"https://...\"\n}</code></pre>",
+      "options": ["next_url", "success_url", "return_url", "back_url"],
+      "answer": 2,
+      "commentary": "return_url パラメータで、決済処理が終わった後の移動先を指定します。"
+    },
+    {
+      "id": 37,
+      "type": "用語理解",
+      "question": "通信内容をJSONとして解析（プログラムで扱える形に変換）するために使うJavaScriptのメソッドは何ですか？",
+      "options": ["res.parse()", "res.json()", "res.text()", "res.convert()"],
+      "answer": 1,
+      "commentary": "fetchの結果を「res.json()」とすることで、中身のデータを取り出せます。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "金額が「10,000円」の商品をカートに入れ決済した際、Stripeへ送る <code>currency</code> は何にするべきですか？",
+      "options": ["usd", "jpy", "yen", "eur"],
+      "answer": 1,
+      "commentary": "日本円を指定する国際規格の通貨コードは「jpy」です。"
+    },
+    {
+      "id": 39,
+      "type": "文法チェック",
+      "question": "Djangoのビュー <code>CreateIntentView</code> が <code>View</code> クラスを継承している理由は？",
+      "options": ["HTMLを表示しないから", "GETやPOSTの低レベルな処理を自分で書きたいから", "データベースを全削除するため", "テンプレートが必要だから"],
+      "answer": 1,
+      "commentary": "HTMLを表示せず、純粋にデータ（JSON）のやり取りだけを行う場合に「View」を継承するのが適しています。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "今回のStripe導入によってECサイトが「完成」する最も大きな理由は何ですか？",
+      "options": ["デザインが綺麗になったから", "ユーザーが実際に金銭のやり取り（決済）を行えるようになったから", "検索ができるようになったから", "ログインができるから"],
+      "answer": 1,
+      "commentary": "決済機能はECサイトにとって最も重要で、ビジネスとして成立させるためのキモとなる機能です。"
+    }
+  ]
 }

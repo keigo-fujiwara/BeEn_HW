@@ -1,4 +1,325 @@
 {
   "unit_title": "カート機能を実装する 2",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "Djangoで辞書型のデータ（num_dict）から特定のキー（product.pk）を使って値を取り出すために作成した自作の仕組みを何と呼びますか？",
+      "options": ["カスタムテンプレートフィルタ", "カスタムミドルウェア", "カスタムモデルメソッド", "カスタムフォーム"],
+      "answer": 0,
+      "commentary": "テンプレート内で辞書のキー指定アクセスを可能にするために作成した lookup 関数は「カスタムテンプレートフィルタ」です。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "カスタムフィルタを定義するファイルで、Djangoのテンプレートライブラリに登録するために必要な記述を完成させてください。<pre><code>from django import template\nregister = template.___()</code></pre>",
+      "options": ["Library", "Registry", "FilterSet", "Tags"],
+      "answer": 0,
+      "commentary": "template.Library() をインスタンス化し、register という変数に代入して使用するのがDjangoの決まりです。"
+    },
+    {
+      "id": 3,
+      "type": "文法チェック",
+      "question": "テンプレート内で自作のフィルタ `lookup` を使い、`num_dict` から `product.pk` をキーにして値を取得する正しい書き方はどれですか？",
+      "options": ["{{ num_dict.lookup.product.pk }}", "{{ num_dict|lookup:product.pk }}", "{% lookup num_dict product.pk %}", "{{ lookup(num_dict, product.pk) }}"],
+      "answer": 1,
+      "commentary": "フィルタは「変数|フィルタ名:引数」の形式で記述します。"
+    },
+    {
+      "id": 4,
+      "type": "実行結果予測",
+      "question": "HTMLエンティティ <code>&amp;hellip;</code> をテンプレートに記述した際、ブラウザ上ではどのように表示されますか？",
+      "options": ["問1", "（空欄）", "…（3点リーダー）", "Error"],
+      "answer": 2,
+      "commentary": "&hellip; は水平方向の省略記号（…）を表示するための特殊な記述です。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "ページネーションで「総ページ数から2を引いた数」を計算するために使用したフィルタは何ですか？<pre><code>page_obj.paginator.num_pages|___:\"-2\"</code></pre>",
+      "options": ["sub", "minus", "add", "calculate"],
+      "answer": 2,
+      "commentary": "add フィルタに負の値を渡すことで、引き算（減算）を実現できます。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "カート画面で商品の削除を行う際、ユーザーにIDを見せずにデータを送信するために使用した input タグの type 属性は何ですか？",
+      "options": ["text", "password", "hidden", "submit"],
+      "answer": 2,
+      "commentary": "type=\"hidden\" を使うと、画面上には表示されませんが、フォーム送信時にデータをサーバーへ送ることができます。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で自作のタグライブラリ `be_en_ec` を読み込むための記述を完成させてください。<pre><code>{% ___ static be_en_ec %}</code></pre>",
+      "options": ["import", "include", "load", "use"],
+      "answer": 2,
+      "commentary": "{% load ... %} を使うことで、static や自作のフィルタがそのテンプレート内で使用可能になります。"
+    },
+    {
+      "id": 8,
+      "type": "実行結果予測",
+      "question": "<code>page_obj.number</code> が 3 のとき、<code>{% if page_obj.number &gt;= 3 %}</code> の中の省略記号は表示されますか？",
+      "options": ["表示される", "表示されない", "エラーになる", "条件に関わらず常に表示される"],
+      "answer": 0,
+      "commentary": "numberが3以上（真）となるため、最初のページ(1)との間の省略記号が表示されます。"
+    },
+    {
+      "id": 9,
+      "type": "文法チェック",
+      "question": "CSSで `width: min(70px, max(49px, 7vw));` と記述した場合、幅の決定方法として正しい説明はどれですか？",
+      "options": ["常に70pxになる", "常に49pxになる", "49pxから70pxの間で、画面幅(7vw)に合わせて動的に変わる", "エラーになる"],
+      "answer": 2,
+      "commentary": "minとmaxを組み合わせることで、最小値と最大値の制限を設けたレスポンシブなサイズ指定が可能です。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "ページネーションのデザインで、現在表示しているページを強調するために背景色を変えた要素のクラス名は何ですか？",
+      "options": ["previous", "next", "current", "number"],
+      "answer": 2,
+      "commentary": "「current（現在の）」というクラスを使い、他のページ番号ボタンと色を分けて識別しやすくしています。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "削除フォームの `action` 属性に指定すべき、名前付きURLは何ですか？<pre><code>&lt;form method=\"POST\" action=\"{% url '___' %}\"&gt;</code></pre>",
+      "options": ["index", "delete", "cart", "home"],
+      "answer": 2,
+      "commentary": "カート内の削除処理は cart ビューの POST メソッドで処理するため、URL名は 'cart' を指定します。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "<code>num_pages</code> が 10 のとき、<code>page_obj.paginator.num_pages|add:\"-2\"</code> の結果はいくつになりますか？",
+      "options": ["12", "10", "8", "-2"],
+      "answer": 2,
+      "commentary": "10 + (-2) の計算が行われ、結果は 8 になります。"
+    },
+    {
+      "id": 13,
+      "type": "用語理解",
+      "question": "CSSで `position: absolute; top: 50%; left: 50%; transform: translateY(-50%) translateX(-50%);` と指定する主な目的は何ですか？",
+      "options": ["要素を右下に配置する", "要素を親要素の完全に中央に配置する", "要素を非表示にする", "要素を巨大にする"],
+      "answer": 1,
+      "commentary": "絶対配置と transform を組み合わせることで、要素を上下左右の中央に寄せることができます。"
+    },
+    {
+      "id": 14,
+      "type": "文法チェック",
+      "question": "Djangoのテンプレートフィルタ `add` の引数に文字列の数値（\"-2\"など）を渡すことは可能ですか？",
+      "options": ["不可能（エラーになる）", "可能（Djangoが数値として扱ってくれる）", "引用符なしで書かなければならない", "Pythonのコード内でのみ可能"],
+      "answer": 1,
+      "commentary": "addフィルタは引数を数値として解釈しようとするため、引用符で囲まれた数値も正しく計算されます。"
+    },
+    {
+      "id": 15,
+      "type": "コード穴埋め",
+      "question": "自作のフィルタを登録するためのデコレータを完成させてください。<pre><code>@register.___ \ndef lookup(dic, key):</code></pre>",
+      "options": ["tag", "filter", "simple_tag", "library"],
+      "answer": 1,
+      "commentary": "@register.filter を付けることで、その関数がテンプレートフィルタとして認識されます。"
+    },
+    {
+      "id": 16,
+      "type": "実行結果予測",
+      "question": "カート画面の削除ボタンを押したとき、ビュー側で削除対象を特定するために取得するデータの名前は何ですか？",
+      "options": ["pk", "delete_pk", "product_id", "id"],
+      "answer": 1,
+      "commentary": "inputタグの name 属性で `delete_pk` と指定しているため、サーバーでもその名前で値を受け取ります。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "CSSの `object-fit: contain;` の役割は何ですか？",
+      "options": ["画像を枠いっぱいに引き伸ばす", "画像の比率を維持したまま、枠内に収まるようにリサイズする", "画像の一部を切り抜く", "画像を丸くする"],
+      "answer": 1,
+      "commentary": "contain を指定すると、画像が歪むことなく全体が領域内に表示されます。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "テンプレートの `for` 文で、現在の商品が持つ情報を表示する記述を完成させてください。<pre><code>{% for product in page_obj %}\n  &lt;p&gt;{{ ___.name }}&lt;/p&gt;\n{% endfor %}</code></pre>",
+      "options": ["object", "product", "item", "data"],
+      "answer": 1,
+      "commentary": "for文のループ変数（product）を使って、各レコードの属性（nameなど）にアクセスします。"
+    },
+    {
+      "id": 19,
+      "type": "文法チェック",
+      "question": "自作フィルタ `lookup(dic, key)` の中で、`str(key)` と変換している理由はなぜですか？",
+      "options": ["キーを太字にするため", "セッションに保存された辞書のキーが文字列になっているから", "暗号化するため", "Djangoのルールで決まっているから"],
+      "answer": 1,
+      "commentary": "Djangoのセッション辞書では、保存時に数値のキーも文字列に変換されるため、一致させる必要があります。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "ページネーションのリンク `?page=...&keyword=...` において、`&` はどのような役割をしていますか？",
+      "options": ["URLの終わりを示す", "複数のクエリパラメータを繋ぐ", "エラーを防止する", "文字を太くする"],
+      "answer": 1,
+      "commentary": "URLのクエリパラメータが複数ある場合、それらを区切って繋ぐために `&` が使われます。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "CSSで要素の角を丸くするためのプロパティは何ですか？<pre><code>.number {\n    ___: 2px #87ceeb;\n    border-radius: 5px;\n}</code></pre>",
+      "options": ["border-bottom", "border-top", "border-radius", "margin"],
+      "answer": 0,
+      "commentary": "ここではデザインとして下側に境界線を引く `border-bottom` などが使われています。"
+    },
+    {
+      "id": 22,
+      "type": "実行結果予測",
+      "question": "`page_obj.has_previous` が False の場合、テンプレートの `{% if page_obj.has_previous %}` ブロックはどうなりますか？",
+      "options": ["エラーになる", "中身は無視され、何も表示されない", "「None」と表示される", "「前へ」ボタンがクリックできない状態で表示される"],
+      "answer": 1,
+      "commentary": "条件が偽となるため、そのブロック内のHTMLは一切出力されません。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "CSSの `z-index: 1;` という設定は何を制御しますか？",
+      "options": ["文字の大きさ", "重なりの順序（前面・背面）", "透明度", "アニメーションの速度"],
+      "answer": 1,
+      "commentary": "z-index の数値が大きいほど、他の要素よりも前面に表示されます。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "CSSの `1.2rem` という指定において、`rem` は何を基準にしたサイズですか？",
+      "options": ["親要素のフォントサイズ", "ルート要素（html）のフォントサイズ", "画面の横幅", "固定の12ピクセル"],
+      "answer": 1,
+      "commentary": "rem (root em) は、htmlタグに設定された標準の文字サイズを基準にします。"
+    },
+    {
+      "id": 25,
+      "type": "コード穴埋め",
+      "question": "合計金額を表示するためのテンプレート変数を完成させてください。<pre><code>&lt;span&gt;合計金額: {{ ___ }}円&lt;/span&gt;</code></pre>",
+      "options": ["price", "total", "total_price", "sum"],
+      "answer": 2,
+      "commentary": "ビューの get_context_data で `total_price` という名前で渡されているため、これを使用します。"
+    },
+    {
+      "id": 26,
+      "type": "実行結果予測",
+      "question": "CSSで `display: flex;` を指定した親要素の中にある子要素はどう並びますか？",
+      "options": ["縦一列になる", "横一列になる", "中央に重なる", "表示されなくなる"],
+      "answer": 1,
+      "commentary": "flex を指定すると、子要素はデフォルトで横並び（row）に配置されます。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "Djangoテンプレートで `|` 記号を使ってフィルタを繋ぐことを何と呼びますか？",
+      "options": ["フィルタ・チェイン", "フィルタ・リンク", "フィルタ・ジョイン", "フィルタ・プラス"],
+      "answer": 0,
+      "commentary": "複数のフィルタを順番に適用することをチェイン（繋ぐ）と呼びます。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "カート内の数量を表示する際に使った `num_dict` は、どこに保存されている情報ですか？",
+      "options": ["商品モデル", "settings.py", "セッション (request.session)", "admin ページ"],
+      "answer": 2,
+      "commentary": "前回のレッスンで、カートの数量情報をセッション内に辞書形式で保存するように実装しました。"
+    },
+    {
+      "id": 29,
+      "type": "コード穴埋め",
+      "question": "CSSで「マウスを乗せたときに指の形にする」プロパティは何ですか？",
+      "options": ["mouse: pointer;", "cursor: pointer;", "pointer: hand;", "icon: click;"],
+      "answer": 1,
+      "commentary": "cursor: pointer; を使うことで、クリック可能であることをユーザーに知らせます。"
+    },
+    {
+      "id": 30,
+      "type": "実行結果予測",
+      "question": "ページネーションのリンクで `?page=1` のように指定した場合、DjangoのListViewはどう動きますか？",
+      "options": ["すべてのデータを表示する", "最初のページのデータだけを取得して表示する", "データを削除する", "エラーになる"],
+      "answer": 1,
+      "commentary": "クエリパラメータの page 番号を見て、適切な範囲のデータを抽出します。"
+    },
+    {
+      "id": 31,
+      "type": "文法チェック",
+      "question": "テンプレートの `{% if product.image %}` という判定で、画像がない場合に実行されるブロックを作るタグはどれですか？",
+      "options": ["{% elif %}", "{% other %}", "{% else %}", "{% not %}"],
+      "answer": 2,
+      "commentary": "ifの条件に当てはまらない場合（画像がない場合）の処理は else に記述します。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "CSSで `width: 90vw;` と指定した場合、幅はどうなりますか？",
+      "options": ["親要素の90%", "画面の横幅の90%", "固定の90ピクセル", "文字90個分"],
+      "answer": 1,
+      "commentary": "vw (viewport width) は画面の実際の横幅に対する割合です。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "テンプレート内のURLタグで、現在のページ（cart）を指定する書き方は？<pre><code>{% url '___' %}</code></pre>",
+      "options": ["this", "index", "cart", "here"],
+      "answer": 2,
+      "commentary": "urls.pyで定義した名前（cart）を指定してリンクを生成します。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "CSSで `margin: 0 auto;` と指定したブロック要素はどうなりますか？",
+      "options": ["左に寄る", "中央に配置される", "右に寄る", "余白が完全になくなる"],
+      "answer": 1,
+      "commentary": "左右の余白を auto にすることで、要素を中央寄せにできます。"
+    },
+    {
+      "id": 35,
+      "type": "文法チェック",
+      "question": "カスタムフィルタの関数 `def lookup(dic, key):` において、最初の引数 `dic` に入るものは何ですか？",
+      "options": ["引数として渡した値", "パイプ記号 `|` の左側にある変数の値", "現在時刻", "空の辞書"],
+      "answer": 1,
+      "commentary": "フィルタの第一引数には、フィルタを適用する対象の変数自体が自動的に渡されます。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "HTMLで `<br>` タグを使う目的は何ですか？",
+      "options": ["文字を太くする", "画像を読み込む", "改行する", "リンクを作る"],
+      "answer": 2,
+      "commentary": "テキストを途中で強制的に改行させるためのタグです。"
+    },
+    {
+      "id": 37,
+      "type": "コード穴埋め",
+      "question": "CSSで文字の大きさを「30ピクセル」にする指定はどれですか？",
+      "options": ["font-size: 30px;", "font-weight: 30;", "size: 30px;", "text-size: 30;"],
+      "answer": 0,
+      "commentary": "文字サイズは font-size プロパティで決定します。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "フッターのコメントアウト `{% comment %}` を削除した際、どのような変化が起きますか？",
+      "options": ["アイコンが表示され、クリックするとそのページへ移動できるようになる", "ページが白くなる", "エラーになる", "何も変わらない"],
+      "answer": 0,
+      "commentary": "コメントアウトされていたHTMLが有効になり、ページ遷移が可能になります。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "Djangoのテンプレートで `{{ product.pk }}` と書いたとき、`pk` とは何を指しますか？",
+      "options": ["商品名", "価格", "主キー（ID）", "画像パス"],
+      "answer": 2,
+      "commentary": "Primary Key（主キー）の略で、各データを一意に識別する番号です。"
+    },
+    {
+      "id": 40,
+      "type": "文法チェック",
+      "question": "カスタムテンプレートフィルタを作成する際、必ず作成が必要な空のファイルは何ですか？",
+      "options": ["settings.py", "__init__.py", "main.py", "django.py"],
+      "answer": 1,
+      "commentary": "Pythonのパッケージとして認識させるために、フォルダ内に __init__.py が必須です。"
+    }
+  ]
 }

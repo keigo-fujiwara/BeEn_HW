@@ -1,4 +1,325 @@
 {
   "unit_title": "商品一覧画面の実装",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "商品一覧のように、特定のモデルのデータをまとめて表示するのに最も適したジェネリックビューは何ですか？",
+      "options": ["DetailView", "CreateView", "ListView", "TemplateView"],
+      "answer": 2,
+      "commentary": "同一モデルの複数レコードを扱う場合は、一覧表示に特化した ListView を使用するのが基本です。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "1ページに表示する商品の数を15件に制限するための変数を完成させてください。<pre><code>class ProductList(ListView):\n    ___ = 15</code></pre>",
+      "options": ["page_size", "limit_by", "paginate_by", "count_per_page"],
+      "answer": 2,
+      "commentary": "paginate_by 変数に数値を設定することで、自動的にページ分割（ページネーション）が行われます。"
+    },
+    {
+      "id": 3,
+      "type": "文法チェック",
+      "question": "リクエストの内容（検索ワードなど）に応じて、動的に取得するデータを変えたい場合にオーバーライドするメソッドは何ですか？",
+      "options": ["get_context_data", "get_queryset", "post", "dispatch"],
+      "answer": 1,
+      "commentary": "データベースから取り出すQuerySet（データの集まり）そのものを操作するには get_queryset() を使います。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "ECサイトのホーム画面で、商品を横に並べて端まで行ったら次の行に移動させるレイアウトを作る際、CSSで使う設定は何ですか？",
+      "options": ["display: block;", "flex-wrap: wrap;", "position: fixed;", "list-style: none;"],
+      "answer": 1,
+      "commentary": "Flexbox（display: flex）において、子要素を折り返させるには flex-wrap: wrap; を指定します。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "検索フォームから送られたデータが正しい形式かを確認するメソッドを完成させてください。<pre><code>form = ProductSearchForm(self.request.GET)\nif form.___():\n    keyword = form.cleaned_data.get(\"keyword\")</code></pre>",
+      "options": ["is_ok", "is_valid", "check", "verify"],
+      "answer": 1,
+      "commentary": "Djangoのフォームクラスでは、is_valid() を呼ぶことでバリデーション（入力チェック）を実行します。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "バリデーション済みの安全なフォームデータを取り出すために使う辞書名は何ですか？<pre><code>keyword = form.___ .get(\"keyword\")</code></pre>",
+      "options": ["data", "post_data", "cleaned_data", "safe_data"],
+      "answer": 2,
+      "commentary": "is_valid() を通った後のデータは cleaned_data という名前の辞書に格納されます。"
+    },
+    {
+      "id": 7,
+      "type": "実行結果予測",
+      "question": "<code>products.filter(name__icontains=keyword)</code> を実行したときの動作として正しいものはどれですか？",
+      "options": ["商品名がkeywordと完全に一致するものを探す", "商品名の中にkeywordが含まれているものを、大文字小文字を区別して探す", "商品名の中にkeywordが含まれているものを、大文字小文字を区別せずに探す", "商品名をkeywordに変更する"],
+      "answer": 2,
+      "commentary": "icontains の「i」は「ignore case（大文字小文字無視）」を意味します。"
+    },
+    {
+      "id": 8,
+      "type": "文法チェック",
+      "question": "ListViewを継承している場合、テンプレート側で「現在のページのデータの集まり」を受け取る標準的な変数名は何ですか？",
+      "options": ["all_products", "object_list", "page_obj", "items"],
+      "answer": 2,
+      "commentary": "ページネーションが有効な場合、テンプレートでは page_obj を使ってループを回すのが一般的です（object_listでも可）。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で、商品の詳細ページへpk（ID）を渡して移動するリンクを完成させてください。<pre><code>&lt;a href=\"{% url 'product_detail' ___ %}\"&gt;</code></pre>",
+      "options": ["product.pk", "id=product.pk", "product.id", "どちらも正しい"],
+      "answer": 0,
+      "commentary": "urlタグの後にスペースを空けて、pk（プライマリキー）を渡します。product.pk または product.id が使われます。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "商品画像を表示する際、枠内に画像全体が収まるようにアスペクト比を維持して表示するCSSプロパティは何ですか？",
+      "options": ["image-size: fit;", "object-fit: contain;", "background-size: cover;", "display: inline;"],
+      "answer": 1,
+      "commentary": "object-fit: contain; を使うと、画像の比率を崩さず枠内に綺麗に収めることができます。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "get_context_dataをオーバーライドする際、既存の（親クラスが作った）データを受け取る正しい書き方は？<pre><code>context = ___().get_context_data(**kwargs)</code></pre>",
+      "options": ["this", "parent", "super", "base"],
+      "answer": 2,
+      "commentary": "super() を呼び出すことで、Djangoが自動で用意したページネーション情報などのコンテキストを維持できます。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "<code>Product.objects.order_by(\"-created_at\")</code> と記述した場合、商品の並び順はどうなりますか？",
+      "options": ["名前の順", "古い順", "登録日が新しい順", "価格の安い順"],
+      "answer": 2,
+      "commentary": "フィールド名の先頭に「-」を付けると降順（新しい順）になります。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "検索フォーム（GETメソッド）をHTMLで記述する際、正しい method 属性の指定はどれですか？",
+      "options": ["method=\"POST\"", "method=\"GET\"", "method=\"SEARCH\"", "method=\"query\""],
+      "answer": 1,
+      "commentary": "検索のように、URLにパラメータを含めても良い「取得」の操作には GET メソッドを使います。"
+    },
+    {
+      "id": 14,
+      "type": "用語理解",
+      "question": "Djangoフォームの CharField 定義にある「required=False」は何を意味しますか？",
+      "options": ["検索できないようにする", "入力が空のままでも送信できるようにする", "必ず入力しなければならないようにする", "数字だけを入力できるようにする"],
+      "answer": 1,
+      "commentary": "検索キーワードが空（全件表示）の状態を許容するために、必須入力を解除しています。"
+    },
+    {
+      "id": 15,
+      "type": "コード穴埋め",
+      "question": "CSSで要素の幅を画面幅（ビューポート）の40%に指定するための単位は何ですか？<pre><code>.search-form input {\n    width: 40___;\n}</code></pre>",
+      "options": ["vh", "vw", "rem", "px"],
+      "answer": 1,
+      "commentary": "vw (viewport width) は画面の横幅を基準とした単位です。"
+    },
+    {
+      "id": 16,
+      "type": "実行結果予測",
+      "question": "テンプレートの <code>{% if product.image %}</code> の判定で、画像が設定されていない商品はどうなりますか？",
+      "options": ["エラー画面になる", "何も表示されない", "else以下のデフォルト画像（default-image.png）が表示される", "壊れたアイコンが表示される"],
+      "answer": 2,
+      "commentary": "if文により画像がある場合とない場合（デフォルト画像）を切り分けています。"
+    },
+    {
+      "id": 17,
+      "type": "文法チェック",
+      "question": "ProductListビューで <code>model = Product</code> と書くのと、 <code>queryset = Product.objects.all()</code> と書くことに大きな違いはありますか？",
+      "options": ["大きな違いはない", "modelと書くと自動で詳細ページができる", "querysetと書くと検索ができなくなる", "modelと書くと保存ができなくなる"],
+      "answer": 0,
+      "commentary": "ListViewにおいてはどちらも表示対象のデータを指定するもので、基本動作は同じです。"
+    },
+    {
+      "id": 18,
+      "type": "用語理解",
+      "question": "ListViewを使っているとき、URLの末尾に <code>?page=2</code> が付いた場合、Djangoは何をしてくれますか？",
+      "options": ["エラーを出す", "自動的に2ページ目のデータだけを抽出してテンプレートに渡す", "2回同じデータを表示する", "データベースを削除する"],
+      "answer": 1,
+      "commentary": "DjangoのListViewはクエリパラメータの page を自動的に解釈してページネーションを処理します。"
+    },
+    {
+      "id": 19,
+      "type": "コード穴埋め",
+      "question": "商品検索フォームの入力欄に「商品を検索」というヒント文字を出す属性は何ですか？<pre><code>widget=forms.TextInput(attrs={\"___\": \"商品を検索\"})</code></pre>",
+      "options": ["value", "label", "placeholder", "title"],
+      "answer": 2,
+      "commentary": "placeholder 属性を使うと、未入力時に薄い文字でヒントを表示できます。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "CSSで「max(30vw, 30vh)」という関数を使った場合、高さはどう決まりますか？",
+      "options": ["30vwに固定される", "30vhに固定される", "30vwと30vhのうち、大きい方の値が採用される", "平均値になる"],
+      "answer": 2,
+      "commentary": "max() 関数は引数の中で最も大きな値を選択します。レスポンシブデザインでよく使われます。"
+    },
+    {
+      "id": 21,
+      "type": "文法チェック",
+      "question": "ListViewを継承して、テンプレートのファイル名を指定するクラス変数はどれですか？",
+      "options": ["template", "file_name", "template_name", "view_template"],
+      "answer": 2,
+      "commentary": "template_name 変数に、表示したいHTMLのパスを記述します。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "ECサイトで、商品一覧を表示する機能そのものはどのファイルに記述しますか？",
+      "options": ["models.py", "views.py", "admin.py", "forms.py"],
+      "answer": 1,
+      "commentary": "「どのように商品を表示するか」というロジックは views.py（ビュー）が担当します。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "CSSで要素を中央寄せにする際、左右のマージンを自動計算させる設定は何ですか？<pre><code>margin: 0 ___ ;</code></pre>",
+      "options": ["center", "self", "auto", "fixed"],
+      "answer": 2,
+      "commentary": "margin: 0 auto; は上下を0、左右を均等（中央）にする指定です。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "テンプレートの a タグの中で <code>{% url 'product_detail' product.pk %}</code> と書いた際、生成されるURLの例として正しいものはどれですか？",
+      "options": ["/product_detail/1", "/product_list/1", "/detail/product/1", "/admin/product/1"],
+      "answer": 0,
+      "commentary": "urls.pyで定義したパス構成（product_detail/ID）に従ってURLが作られます。"
+    },
+    {
+      "id": 25,
+      "type": "文法チェック",
+      "question": "Djangoで「商品を検索」ボタンが押されたとき、ブラウザが最後に行うリクエストの形式はどれですか？",
+      "options": ["POST", "GET", "UPDATE", "DELETE"],
+      "answer": 1,
+      "commentary": "検索フォームに method=\"get\" を指定しているため、GET リクエストになります。"
+    },
+    {
+      "id": 26,
+      "type": "用語理解",
+      "question": "CSSのプロパティ「flex-wrap: wrap;」を指定しない場合、商品はどう並びますか？",
+      "options": ["縦一列に並ぶ", "画面からはみ出しても横一列に並び続ける", "何も表示されない", "中央に重なる"],
+      "answer": 1,
+      "commentary": "標準の flexbox は折り返しをしない（nowrap）ため、1行に押し込めようとします。"
+    },
+    {
+      "id": 27,
+      "type": "コード穴埋め",
+      "question": "商品一覧画面に「検索アイコン」を表示するために使われているライブラリのクラスは何ですか？<pre><code>&lt;i class=\"___ fa-search\"&gt;&lt;/i&gt;</code></pre>",
+      "options": ["far", "fas", "fab", "fai"],
+      "answer": 1,
+      "commentary": "Font Awesome の Solid スタイル（塗りつぶしアイコン）を使う際は fas を指定します。"
+    },
+    {
+      "id": 28,
+      "type": "実行結果予測",
+      "question": "ListViewにおいて、DBに商品が1件もない場合、テンプレートの <code>{% for product in page_obj %}</code> はどうなりますか？",
+      "options": ["エラーが表示される", "真っ白な画面になるがエラーは起きない", "自動的に管理者画面に移動する", "パソコンがフリーズする"],
+      "answer": 1,
+      "commentary": "ループの中身が一度も実行されないだけで、システムは正常に動作します。"
+    },
+    {
+      "id": 29,
+      "type": "文法チェック",
+      "question": "ビューからテンプレートに「form」という名前で検索フォームを渡す際、正しい context の書き方は？",
+      "options": ["context[\"form\"] = form", "context = form", "context.add(form)", "context{form: form}"],
+      "answer": 0,
+      "commentary": "コンテキストは辞書型なので、キー（\"form\"）を指定して値（実体）をセットします。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "「paginate_by = 15」と設定した時、全商品が20件あると、全部で何ページになりますか？",
+      "options": ["1ページ", "2ページ", "15ページ", "20ページ"],
+      "answer": 1,
+      "commentary": "15件ずつ分けるので、15件と5件の計2ページになります。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "CSSで画像を上下左右の「ど真ん中」に配置するために使われているプロパティは何ですか？<pre><code>transform: translateY(-50%) ___ (-50%);</code></pre>",
+      "options": ["translateX", "positionX", "moveX", "scrollX"],
+      "answer": 0,
+      "commentary": "translateY(-50%) と translateX(-50%) を組み合わせることで、要素を完全に中央へ移動できます。"
+    },
+    {
+      "id": 32,
+      "type": "実行結果予測",
+      "question": "<code>form = ProductSearchForm(self.request.GET)</code> とした時、検索をせずにページを開いた場合、フォームの状態はどうなりますか？",
+      "options": ["エラーになる", "空の状態で表示される", "「検索」という文字が入力されている", "勝手に最初の商品の名前が入る"],
+      "answer": 1,
+      "commentary": "GETデータがないため、初期状態（空）のフォームが作られます。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "商品モデルの画像にアクセスする際、imgタグのsrcには何を指定しますか？",
+      "options": ["product.image", "product.image.url", "product.image.path", "product.image.file"],
+      "answer": 1,
+      "commentary": "ImageField の .url プロパティを使うことで、MEDIA_URL を含んだ正しいパスが取得できます。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "CSSのプロパティ「object-fit: contain;」の代わりに「cover」を使うとどうなりますか？",
+      "options": ["画像が消える", "画像が枠いっぱいに広がり、はみ出した部分が切り取られる", "画像が細長くなる", "色が反転する"],
+      "answer": 1,
+      "commentary": "containは「全体を収める」、coverは「枠を埋める」という違いがあります。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "CSSで画像の上に要素が重ならないように（背面に配置）するために使うプロパティは何ですか？<pre><code>.products__list-image {\n    ___: 0;\n}</code></pre>",
+      "options": ["index", "layer", "z-index", "stack"],
+      "answer": 2,
+      "commentary": "z-index を使うと重なりの順序を指定できます。"
+    },
+    {
+      "id": 36,
+      "type": "実行結果予測",
+      "question": "検索フォームに keyword=\"ペン\" と入力して検索した場合、URLはどうなりますか？",
+      "options": ["/home/ペン", "/home/?keyword=ペン", "/search/ペン", "/home/keyword/ペン"],
+      "answer": 1,
+      "commentary": "GETメソッドのフォームは、URLの末尾にクエリパラメータ（?キー=値）を付けて送信します。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "ListViewにおいて、検索処理を書く場所として最も適切なのはどれですか？",
+      "options": ["__init__ メソッド", "get_queryset メソッド", "urls.py", "admin.py"],
+      "answer": 1,
+      "commentary": "「どのデータをDBから持ってくるか」を決めるのが get_queryset の役割だからです。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "Djangoフォームにおける「widget（ウィジェット）」の役割は何ですか？",
+      "options": ["データを保存する", "HTML上での入力欄の見た目や種類（1行、複数行など）を決定する", "ログインパスワードを作る", "検索を速くする"],
+      "answer": 1,
+      "commentary": "ウィジェットを使うことで、同じ CharField でも「1行テキスト」や「非表示パスワード」などの見た目を選べます。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "商品一覧画面を作るために、views.pyで最初にインポートすべきジェネリックビューは何ですか？<pre><code>from django.views.generic.list import ___</code></pre>",
+      "options": ["ListView", "ProductView", "AllView", "TableView"],
+      "answer": 0,
+      "commentary": "標準の ListView クラスを読み込んで、それを継承して ProductList クラスを作ります。"
+    },
+    {
+      "id": 40,
+      "type": "実行結果予測",
+      "question": "商品名を表示する <code>&lt;p&gt;￥{{ product.price }}&lt;/p&gt;</code> で、priceが1000の場合、画面にはどう出ますか？",
+      "options": ["￥{{ product.price }}", "1000", "￥1000", "price: 1000"],
+      "answer": 2,
+      "commentary": "テンプレート変数の前に書いた「￥」はそのまま表示され、その後に1000が代入されます。"
+    }
+  ]
 }

@@ -1,4 +1,325 @@
 {
   "unit_title": "商品詳細画面の実装",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "ある特定の1つのデータ（レコード）について、詳細な情報を表示するのに最も適したジェネリックビューは何ですか？",
+      "options": ["ListView", "DetailView", "CreateView", "TemplateView"],
+      "answer": 1,
+      "commentary": "特定の1件のデータを表示する場合は「DetailView」を使用するのが最適です。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "DetailViewで、表示対象となるモデルを指定する際に使う変数はどれですか？<pre><code>class ProductDetail(DetailView):\n    ___ = Product</code></pre>",
+      "options": ["queryset", "object", "model", "target"],
+      "answer": 2,
+      "commentary": "DetailViewでは、model変数に表示したいモデルを指定することで自動的にデータを取得します。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "数量入力フォーム（ProductNumForm）で、最小値を1に制限するための引数はどれですか？<pre><code>num = forms.IntegerField(\n    label=\"数量\",\n    ___ = 1,\n)</code></pre>",
+      "options": ["min_length", "min_num", "min_value", "limit_low"],
+      "answer": 2,
+      "commentary": "数値入力フィールド（IntegerField）の最小値を制限するには「min_value」を使用します。"
+    },
+    {
+      "id": 4,
+      "type": "文法チェック",
+      "question": "DetailViewにおいて、テンプレート側で自動的に取得されたデータを受け取る標準的な変数名は何ですか？",
+      "options": ["item", "data", "object", "record"],
+      "answer": 2,
+      "commentary": "DetailViewでは、取得したデータが「object」という名前でテンプレートに渡されます。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "詳細画面のビューで、数量フォームをテンプレートに渡すためにオーバーライドするメソッドは何ですか？<pre><code>def ___(self, **kwargs):\n    context = super().get_context_data(**kwargs)\n    context[\"form\"] = ProductNumForm()\n    return context</code></pre>",
+      "options": ["get_form_data", "get_context_data", "get_queryset", "post"],
+      "answer": 1,
+      "commentary": "テンプレートに「form」などの追加データを送りたい場合は「get_context_data」を編集します。"
+    },
+    {
+      "id": 6,
+      "type": "実行結果予測",
+      "question": "フォーム定義で <code>initial=1</code> と設定した場合、画面を表示した直後の入力欄には何が表示されますか？",
+      "options": ["空欄", "0", "1", "数量"],
+      "answer": 2,
+      "commentary": "initialは初期値を設定する引数なので、最初から「1」が入力された状態になります。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "DetailViewを使用する際、URL設定（urls.py）で受け取る必要があるパラメータ名は何ですか？",
+      "options": ["id", "pk", "num", "code"],
+      "answer": 1,
+      "commentary": "DetailViewはURLから渡された「pk（プライマリキー）」を元に対象のデータを特定します。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で、商品の説明文を表示するための正しい記述はどれですか？<pre><code>&lt;p&gt;___&lt;/p&gt;</code></pre>",
+      "options": ["{{ object.text }}", "{% object.explanation %}", "{{ object.explanation }}", "{{ object.desc }}"],
+      "answer": 2,
+      "commentary": "DetailViewが渡した「object」の「explanation」フィールドを表示します。"
+    },
+    {
+      "id": 9,
+      "type": "実行結果予測",
+      "question": "CSSで <code>object-fit: contain;</code> を画像に指定した場合、どのような表示になりますか？",
+      "options": ["画像が枠に合わせて引き伸ばされる", "画像の比率を保ったまま、枠内に全体が収まるように表示される", "画像の中央だけが切り取られる", "画像がモノクロになる"],
+      "answer": 1,
+      "commentary": "containは画像の比率を維持して、指定した領域に全体を収める設定です。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "「カートに入れる」ボタンを押した際、現在の商品のIDを送信先URLに含めるための記述を完成させてください。<pre><code>&lt;form method=\"POST\" action=\"{% url 'product_detail' ___ %}\"&gt;</code></pre>",
+      "options": ["object.id", "object.pk", "pk=object.pk", "どれでもよい"],
+      "answer": 1,
+      "commentary": "pk（プライマリキー）を渡すことで、どの商品に対するアクションかをサーバーに伝えます。"
+    },
+    {
+      "id": 11,
+      "type": "文法チェック",
+      "question": "クラスベースビューのメソッド内で、親クラスの機能を呼び出すために使うキーワードは何ですか？",
+      "options": ["parent", "this", "super", "base"],
+      "answer": 2,
+      "commentary": "「super()」を使うことで、親クラスの処理を引き継ぎつつ拡張できます。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "CSSで <code>width: 70vw;</code> と指定した際、70%になるのはどこの長さですか？",
+      "options": ["親要素の幅", "文字の大きさ", "画面（ビューポート）の横幅", "画面の高さ"],
+      "answer": 2,
+      "commentary": "vwはViewport Widthの略で、ブラウザの画面幅に対する割合を指定する単位です。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "詳細画面を作成するために、最初にインポートすべき正しいパスはどれですか？<pre><code>from django.views.generic.detail import ___</code></pre>",
+      "options": ["ListView", "DetailView", "ObjectView", "SingleView"],
+      "answer": 1,
+      "commentary": "DetailViewクラスを使用するために、汎用ビューの詳細用モジュールからインポートします。"
+    },
+    {
+      "id": 14,
+      "type": "実行結果予測",
+      "question": "ProductNumFormで <code>max_value=500</code> と設定しました。ユーザーが1000と入力して送信した場合、Djangoはどう反応しますか？",
+      "options": ["そのまま保存する", "自動的に500に書き換える", "is_valid() が False になり、エラーとして扱われる", "サーバーが停止する"],
+      "answer": 2,
+      "commentary": "バリデーション機能により、最大値を超えた入力はエラーとして弾かれます。"
+    },
+    {
+      "id": 15,
+      "type": "コード穴埋め",
+      "question": "CSSで文字を太字にするための指定を完成させてください。<pre><code>.name {\n    ___: bold;\n}</code></pre>",
+      "options": ["font-style", "text-decoration", "font-weight", "text-bold"],
+      "answer": 2,
+      "commentary": "文字の太さは「font-weight」プロパティで制御します。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "DetailViewにおいて、URLに指定したpkのデータがデータベースに存在しなかった場合、Djangoはどうしますか？",
+      "options": ["空白のページを表示する", "自動的に404エラーページを表示する", "一番最初のデータを表示する", "エラーにはならず、テンプレートを表示する"],
+      "answer": 1,
+      "commentary": "DetailViewは、データが見つからない場合に自動で「Page Not Found (404)」を発生させます。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "テンプレートのimgタグで、画像がない場合にデフォルト画像を表示する条件分岐を完成させてください。<pre><code>{% if object.image %}\n    &lt;img src=\"{{ object.image.url }}\"/&gt;\n{% ___ %}\n    &lt;img src=\"{% static 'main/img/default-image.png' %}\"/&gt;\n{% endif %}</code></pre>",
+      "options": ["elif", "else", "not", "when"],
+      "answer": 1,
+      "commentary": "条件が満たされない場合の処理には「else」を使用します。"
+    },
+    {
+      "id": 18,
+      "type": "文法チェック",
+      "question": "Djangoのフォームで <code>required=True</code> と設定されている項目を空で送信するとどうなりますか？",
+      "options": ["無視される", "送信エラー（入力必須エラー）が発生する", "自動で0が入る", "特に何も起きない"],
+      "answer": 1,
+      "commentary": "required=True は「入力が必須」であることを意味します。"
+    },
+    {
+      "id": 19,
+      "type": "実行結果予測",
+      "question": "CSSで <code>color: #f00;</code> と指定した場合、何色になりますか？",
+      "options": ["青色", "緑色", "赤色", "黒色"],
+      "answer": 2,
+      "commentary": "#f00 は赤(Red)の成分が最大値であることを表すカラーコードです。"
+    },
+    {
+      "id": 20,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で、ビューから渡されたフォームを自動的に表示するための記述はどれですか？<pre><code>&lt;form&gt;\n    ___ \n    &lt;button&gt;送信&lt;/button&gt;\n&lt;/form&gt;</code></pre>",
+      "options": ["{{ object.form }}", "{{ form }}", "{% form %}", "[[ form ]]"],
+      "answer": 1,
+      "commentary": "ビューの get_context_data で context[\"form\"] に入れた値は、テンプレートで {{ form }} として呼び出せます。"
+    },
+    {
+      "id": 21,
+      "type": "用語理解",
+      "question": "Djangoフォーム定義で、項目に付ける「日本語のタイトル（説明）」を指定する引数はどれですか？",
+      "options": ["name", "title", "label", "text"],
+      "answer": 2,
+      "commentary": "label 引数を使うと、画面上に「数量」などの項目名が表示されます。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "DetailViewを継承したクラスで、modelを指定し忘れた場合に発生するエラーは何ですか？",
+      "options": ["SyntaxError", "ImproperlyConfigured", "ZeroDivisionError", "NameError"],
+      "answer": 1,
+      "commentary": "Djangoのジェネリックビューで必要な設定が欠けている場合「不適切な設定」を意味するエラーが出ます。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "フォームを送信するためのボタン（HTMLタグ）は何ですか？<pre><code>&lt;___ type=\"submit\"&gt;カートに入れる&lt;/___&gt;</code></pre>",
+      "options": ["input", "button", "send", "click"],
+      "answer": 1,
+      "commentary": "buttonタグに type=\"submit\" を指定することでフォームが送信されます。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "CSSで <code>margin: 3vw auto 0;</code> と指定した場合、下側の余白はどうなりますか？",
+      "options": ["3vwになる", "自動計算になる", "0になる", "エラーになる"],
+      "answer": 2,
+      "commentary": "3つの値を指定した場合、順に「上」「左右」「下」の余白として適用されます。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "DetailViewで <code>context_object_name = 'product'</code> と設定した場合、テンプレートでの変数名「object」はどうなりますか？",
+      "options": ["使えなくなる", "「product」という名前でも呼び出せるようになる", "そのままの名前でしか使えない", "エラーになる"],
+      "answer": 1,
+      "commentary": "context_object_name を使うと、object 以外の好きな名前を付けられます（objectも引き続き使えます）。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "価格を表示する際に「￥」マークを付ける正しいテンプレートの書き方は？<pre><code>&lt;p&gt;___ {{ object.price }}&lt;/p&gt;</code></pre>",
+      "options": ["$", "\\", "￥", "円"],
+      "answer": 2,
+      "commentary": "テンプレート変数の前に普通の文字として書くことで、金額の前に円記号が付きます。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "DetailViewで取得したモデルインスタンスに、後から独自の処理（計算など）を追加したい場合に適切な場所は？",
+      "options": ["モデルクラスの中", "ビューの get_context_data メソッドの中", "テンプレートの中", "settings.py の中"],
+      "answer": 1,
+      "commentary": "表示に関する独自の計算などはビューのコンテキスト作成時に行うのが適切です。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "CSSで <code>height: 55vh;</code> と指定した際、「vh」とは何の単位ですか？",
+      "options": ["画面の横幅", "画面の高さ（ビューポートの高さ）", "フォントの高さ", "ヘッダーの高さ"],
+      "answer": 1,
+      "commentary": "Viewport Heightの略で、画面の高さに対する1%を1単位としたサイズです。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "テンプレートの a タグの中で <code>{% url 'product_detail' object.pk %}</code> と書いた際、生成されるURLの例として正しいものはどれですか？",
+      "options": ["/detail/product/", "/product_detail/1", "/admin/product/1", "/main/product/"],
+      "answer": 1,
+      "commentary": "名前付きURLとpkの値を組み合わせて、特定の商品のURLが生成されます。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "Djangoフォームで整数のみを受け付けるためのフィールドは何ですか？<pre><code>num = forms.___ (label=\"数量\")</code></pre>",
+      "options": ["CharField", "TextField", "IntegerField", "NumberField"],
+      "answer": 2,
+      "commentary": "数量（整数）を扱うには「IntegerField」を使用します。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "DetailViewにおける「pk」がURLからビューに渡されるまでの交通整理をしているファイルは何ですか？",
+      "options": ["models.py", "views.py", "urls.py", "admin.py"],
+      "answer": 2,
+      "commentary": "URLのパスパターン（&lt;int:pk&gt;など）を定義しているのは urls.py です。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "CSSで特定のクラス名 <code>product-detail</code> の「直下の子要素」である <code>p</code> タグだけを指定するセレクタはどれですか？",
+      "options": [".product-detail p", ".product-detail > p", "p .product-detail", ".product-detail : p"],
+      "answer": 1,
+      "commentary": "「>」記号を使うことで、その要素の直接の子要素だけを絞り込めます。"
+    },
+    {
+      "id": 33,
+      "type": "実行結果予測",
+      "question": "ビューの中で <code>ProductNumForm()</code> を引数なしで呼び出した場合、どの値がセットされますか？",
+      "options": ["最後に入力された値", "initialで指定された初期値（今回の場合は1）", "エラー", "0"],
+      "answer": 1,
+      "commentary": "フォームクラスをそのまま呼び出すと、定義された初期値を持ったフォームが作られます。"
+    },
+    {
+      "id": 34,
+      "type": "コード穴埋め",
+      "question": "CSSで左右の余白をそれぞれ15%にする正しい記述は？<pre><code>p {\n    margin-left: 15%;\n    ___: 15%;\n}</code></pre>",
+      "options": ["margin-right", "padding-right", "margin-width", "space-right"],
+      "answer": 0,
+      "commentary": "右側の外側余白を指定するのは「margin-right」です。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "DjangoのDetailViewにおいて、データベースからのデータ取得処理は自分で書く必要がありますか？",
+      "options": ["自分で all() を書く必要がある", "pkがURLにあれば、Djangoが自動で取得してくれる", "SQLを直接書く必要がある", "取得できない"],
+      "answer": 1,
+      "commentary": "ジェネリックビューの機能により、標準的な取得処理は隠蔽（自動化）されています。"
+    },
+    {
+      "id": 36,
+      "type": "実行結果予測",
+      "question": "テンプレート内の <code>{% csrf_token %}</code> を消して「カートに入れる」を押すとどうなりますか？",
+      "options": ["問題なくカートに入る", "「Forbidden (403)」エラー画面が表示される", "画面が真っ白になる", "データが勝手に削除される"],
+      "answer": 1,
+      "commentary": "セキュリティ保護のため、DjangoはCSRFトークンのないPOSTリクエストを拒否します。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "DetailViewで <code>model = Product</code> と設定した際、裏側で実行されている処理に近いものはどれですか？",
+      "options": ["Product.objects.all()", "Product.objects.get(pk=URLのpk)", "Product.objects.create()", "Product.objects.delete()"],
+      "answer": 1,
+      "commentary": "URLからpkを受け取り、その1件だけを get するのがDetailViewの役割です。"
+    },
+    {
+      "id": 38,
+      "type": "コード穴埋め",
+      "question": "CSSで画像が親要素の幅いっぱいに広がるようにするための指定はどれですか？<pre><code>.product-img img {\n    width: ___;\n}</code></pre>",
+      "options": ["70vw", "auto", "100%", "fill"],
+      "answer": 2,
+      "commentary": "親要素（.product-img）の幅に対して100%のサイズを指定します。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "DetailViewクラスを自作する際、最後に行うべきことはどれですか？",
+      "options": ["データベースを削除する", "urls.py に as_view() を使って登録する", "HTMLファイルを削除する", "ログイン画面を作り直す"],
+      "answer": 1,
+      "commentary": "ビューを作った後は、必ずURLと紐付けないとブラウザから見ることができません。"
+    },
+    {
+      "id": 40,
+      "type": "実行結果予測",
+      "question": "商品詳細画面で、adminページで商品を1件も登録していない状態で、その商品のURLに直接アクセスするとどうなりますか？",
+      "options": ["前のページの商品が出る", "404 Not Found になる", "真っ白な画面が出る", "サインアップ画面が出る"],
+      "answer": 1,
+      "commentary": "該当するpkのデータがDBに存在しないため、ページが見つからないというエラーになります。"
+    }
+  ]
 }

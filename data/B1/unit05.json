@@ -1,4 +1,325 @@
 {
   "unit_title": "カスタムテンプレートタグ",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "Djangoで、テンプレート上の変数を加工（日付の形式変更など）して表示するための仕組みを何と呼びますか？",
+      "options": ["テンプレートタグ", "テンプレートフィルタ", "テンプレートモディファイア", "テンプレートプロセッサ"],
+      "answer": 1,
+      "commentary": "テンプレートフィルタは、{{ talk.time|date:\"m/d\" }} のように「|（パイプ）」を使って変数を加工する仕組みです。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "カスタムタグやフィルタを作成する際、ファイルを配置すべき正しいフォルダ構成を選んでください。<pre><code>main/\n`-- ___/\n    |-- __init__.py\n    `-- chat_app.py</code></pre>",
+      "options": ["tags", "custom_tags", "templatetags", "filters"],
+      "answer": 2,
+      "commentary": "Djangoがカスタムタグを認識するためには、アプリ直下の「templatetags」という名前のフォルダが必要です。"
+    },
+    {
+      "id": 3,
+      "type": "用語理解",
+      "question": "templatetagsフォルダ内に必ず作成しなければならない、中身が空でも必要なPythonファイルは何ですか？",
+      "options": ["main.py", "register.py", "__init__.py", "settings.py"],
+      "answer": 2,
+      "commentary": "Pythonのパッケージとして認識させるために、__init__.py が必須です。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "カスタムタグ・フィルタを登録するために必要なインスタンスを作成するコードを完成させてください。<pre><code>from django import template\n\nregister = template.___()</code></pre>",
+      "options": ["Tags", "Filters", "Library", "Book"],
+      "answer": 2,
+      "commentary": "template.Library() のインスタンスを作成し、それを使ってタグやフィルタを登録します。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "関数を「テンプレートフィルタ」として登録するために付けるデコレータは何ですか？<pre><code>___ .filter\ndef elapsed_time(dt):\n    ...</code></pre>",
+      "options": ["@template", "@library", "@register", "@filter"],
+      "answer": 2,
+      "commentary": "作成した register インスタンスの filter デコレータ（@register.filter）を使用します。"
+    },
+    {
+      "id": 6,
+      "type": "実行結果予測",
+      "question": "経過時間が「今日」であることを判定するために、現在時刻との差分（delta）を何と比較すべきですか？",
+      "options": ["timedelta(hours=1)", "timedelta(days=1)", "timedelta(weeks=1)", "timedelta(minutes=1)"],
+      "answer": 1,
+      "commentary": "1日（days=1）未満であれば「今日」と判定できます。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で、自作した chat_app.py のタグ・フィルタを使えるようにするための宣言はどれですか？<pre><code>___ load chat_app ___</code></pre>",
+      "options": ["{{ }}", "{% %}", "[[ ]]", "{# #}"],
+      "answer": 1,
+      "commentary": "{% load ファイル名 %} タグをテンプレートの先頭付近に記述して読み込みます。"
+    },
+    {
+      "id": 8,
+      "type": "文法チェック",
+      "question": "作成した elapsed_time フィルタをテンプレートで変数 message.created_at に適用する正しい書き方はどれですか？",
+      "options": ["{{ message.created_at(elapsed_time) }}", "{{ message.created_at|elapsed_time }}", "{% elapsed_time message.created_at %}", "{{ elapsed_time message.created_at }}"],
+      "answer": 1,
+      "commentary": "フィルタとして使う場合は、変数名の後にパイプ「|」を付けて記述します。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "値を返却するだけの単純なテンプレートタグを登録する際に最も適したデコレータは何ですか？",
+      "options": ["@register.tag", "@register.simple_tag", "@register.inclusion_tag", "@register.filter"],
+      "answer": 1,
+      "commentary": "引数を受け取って加工後の文字列などを返すだけのタグには simple_tag が適しています。"
+    },
+    {
+      "id": 10,
+      "type": "実行結果予測",
+      "question": "経過時間が3600秒以上、7200秒未満の場合、以下のコードは何を返しますか？<pre><code>f\"{delta.seconds // 3600} 時間前\"</code></pre>",
+      "options": ["0 時間前", "1 時間前", "2 時間前", "3600 時間前"],
+      "answer": 1,
+      "commentary": "3600 // 3600 は 1 となるため、「1 時間前」と表示されます。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "現在時刻を取得するために使用する Django のモジュールは何ですか？<pre><code>from django.utils import ___\n\nnow = ___.now()</code></pre>",
+      "options": ["datetime", "time", "timezone", "clock"],
+      "answer": 2,
+      "commentary": "Djangoではタイムゾーンを考慮した timezone.now() を使うのが一般的です。"
+    },
+    {
+      "id": 12,
+      "type": "文法チェック",
+      "question": "Pythonで「昨日」を表現するために timedelta を使って1日分を指定する正しい書き方はどれですか？",
+      "options": ["timedelta(day=1)", "timedelta(days=1)", "timedelta(1day)", "timedelta(date=1)"],
+      "answer": 1,
+      "commentary": "引数名は複数形の「days」であることに注意しましょう。"
+    },
+    {
+      "id": 13,
+      "type": "用語理解",
+      "question": "カスタムテンプレートタグを作成することで得られるメリットとして「不適切なもの」はどれですか？",
+      "options": ["テンプレートのコードがスッキリして読みやすくなる", "同じ処理を複数のテンプレートで使い回せる", "データベースの検索速度が10倍になる", "複雑な加工処理をPython側で管理できる"],
+      "answer": 2,
+      "commentary": "タグやフィルタは表示の加工を行うもので、データベースの検索速度自体を改善するものではありません。"
+    },
+    {
+      "id": 14,
+      "type": "コード穴埋め",
+      "question": "未来の時刻が渡されたときに、エラーを発生させるキーワードは何ですか？<pre><code>if delta < zero:\n    ___ ValueError(\"未来の時刻です。\")</code></pre>",
+      "options": ["return", "error", "raise", "break"],
+      "answer": 2,
+      "commentary": "例外（エラー）を意図的に発生させるには raise を使用します。"
+    },
+    {
+      "id": 15,
+      "type": "実行結果予測",
+      "question": "elapsed_time 関数がフィルタとしてもタグとしても登録されているとき、タグ形式で呼び出す正しい書き方はどれですか？",
+      "options": ["{{ elapsed_time dt }}", "{% elapsed_time dt %}", "{% load elapsed_time %}", "|elapsed_time(dt)"],
+      "answer": 1,
+      "commentary": "タグとして使う場合は {% タグ名 引数 %} の形式になります。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "delta.seconds（秒）から「分」を計算するために使う、小数点以下を切り捨てる演算子は何ですか？<pre><code>minutes = delta.seconds ___ 60</code></pre>",
+      "options": ["/", "//", "%", "**"],
+      "answer": 1,
+      "commentary": "// 演算子は整数除算（切り捨て）を行います。"
+    },
+    {
+      "id": 17,
+      "type": "文法チェック",
+      "question": "テンプレートの {% load static chat_app %} という記述について正しい説明はどれですか？",
+      "options": ["staticとchat_appという2つのライブラリを一度に読み込んでいる", "chat_appをstaticとして読み込んでいる", "エラーになる書き方である", "staticフォルダの中のchat_appを読み込んでいる"],
+      "answer": 0,
+      "commentary": "スペースで区切ることで、複数のライブラリを1行でロードできます。"
+    },
+    {
+      "id": 18,
+      "type": "用語理解",
+      "question": "引数 dt に値が入っていない場合に処理を中断させるコード if not dt: return None の「None」がテンプレートでどう表示されますか？",
+      "options": ["Noneという文字", "エラー画面", "何も表示されない（空文字）", "00:00"],
+      "answer": 2,
+      "commentary": "Djangoテンプレートは None を受け取ると、何も出力せずに無視します。"
+    },
+    {
+      "id": 19,
+      "type": "コード穴埋め",
+      "question": "日付オブジェクトを「04/01」のような文字列に変換するメソッドは何ですか？<pre><code>dt.___(\"%m/%d\")</code></pre>",
+      "options": ["format", "toString", "strftime", "convert"],
+      "answer": 2,
+      "commentary": "strftime（string from time）メソッドを使って、指定した書式に変換します。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "カスタムタグの定義ファイル名（chat_app.pyなど）は、どのようなルールで付けるべきですか？",
+      "options": ["必ず「tags.py」にする", "プロジェクト名と同じにする", "自由だが、他と重ならない分かりやすい名前にする", "「__」で始める"],
+      "answer": 2,
+      "commentary": "名前は自由ですが、{% load %} で指定する際の名前になるので慎重に決めます。"
+    },
+    {
+      "id": 21,
+      "type": "実行結果予測",
+      "question": "delta = timezone.now() - dt の計算結果が 1.5日分 の場合、delta < one_day (1日分) の判定はどうなりますか？",
+      "options": ["True（真）", "False（偽）", "エラー", "None"],
+      "answer": 1,
+      "commentary": "1.5日は1日より大きいため、この条件は False になり、次の elif（昨日）の判定に進みます。"
+    },
+    {
+      "id": 22,
+      "type": "コード穴埋め",
+      "question": "timedelta をインポートするための正しい記述はどれですか？<pre><code>from ___ import timedelta</code></pre>",
+      "options": ["django.utils", "time", "datetime", "calendar"],
+      "answer": 2,
+      "commentary": "Python標準の datetime モジュールに含まれています。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "フィルタ関数 register.filter(dt) の引数 dt の中身は何ですか？",
+      "options": ["現在時刻", "加工したい元のデータ（変数の値）", "ユーザーの入力文字", "HTMLタグ"],
+      "answer": 1,
+      "commentary": "フィルタの第一引数には、パイプ「|」の左側にある変数の値が自動的に渡されます。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "掲示板アプリの演習で作成した「〜分前」といった表示を、一般的に何と呼びますか？",
+      "options": ["絶対時刻表示", "相対時刻表示", "リアルタイム表示", "動的時刻表示"],
+      "answer": 1,
+      "commentary": "現在時刻から見た差分で表す時間を「相対時刻」と呼びます。"
+    },
+    {
+      "id": 25,
+      "type": "実行結果予測",
+      "question": "delta.days の値が 5 の場合、掲示板演習のコードはどのような文字列を返しますか？",
+      "options": ["5 時間前", "5 日前", "今日", "1 週間以上前"],
+      "answer": 1,
+      "commentary": "1週間（7日）未満の条件に合致し、delta.days が 5 なので「5 日前」となります。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "テンプレートフィルタを複数繋げて使う（チェイン）正しい書き方はどれですか？",
+      "options": ["{{ val|filter1|filter2 }}", "{{ val|filter1,filter2 }}", "{{ val filter1 filter2 }}", "{{ val|filter1;filter2 }}"],
+      "answer": 0,
+      "commentary": "パイプ「|」で繋ぐことで、左から順番にフィルタを適用できます。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "register.Library() の記述をファイル内に忘れると、どうなりますか？",
+      "options": ["自動で補完される", "タグやフィルタの登録に失敗し、テンプレートで読み込めない", "Pythonの基本関数として使える", "何も起きない"],
+      "answer": 1,
+      "commentary": "Djangoのテンプレートシステムに登録するための「台帳」のような役割なので、必須です。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "strftimeの書式「%m/%d」において「%m」は何を表しますか？",
+      "options": ["分", "月", "日", "メートル"],
+      "answer": 1,
+      "commentary": "「month（月）」を2桁の数字で表します。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "経過時間がちょうど7日の場合、delta < one_week (timedelta(days=7)) の判定はどうなりますか？",
+      "options": ["True（真）", "False（偽）", "エラー", "None"],
+      "answer": 1,
+      "commentary": "「<」は「未満」なので、ちょうど7日の場合は False になり、elseの「1 週間以上前」になります。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "秒数を 3600 で割った余り（端数の秒数）を計算する演算子は何ですか？<pre><code>remaining_seconds = delta.seconds ___ 3600</code></pre>",
+      "options": ["/", "//", "%", "**"],
+      "answer": 2,
+      "commentary": "% 演算子を使うと割り算の余りを求めることができます。"
+    },
+    {
+      "id": 31,
+      "type": "文法チェック",
+      "question": "カスタムタグ内で f\"{delta.days} 日前\" と書くときの「f」は何を意味しますか？",
+      "options": ["function（関数）", "formatted string literal（f文字列）", "file（ファイル）", "final（定数）"],
+      "answer": 1,
+      "commentary": "文字列の中に変数の中身を直接埋め込むためのPythonの便利な書き方です。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "timedelta(hours=1) は、何分間の時間差を表していますか？",
+      "options": ["1分", "60分", "100分", "3600分"],
+      "answer": 1,
+      "commentary": "1時間は60分です。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "フィルタを定義する関数内で、引数 dt が日付型かどうかを厳密にチェックせずに使う際、エラーを防ぐために書くべき最初の処理は？",
+      "options": ["print(dt)", "if not dt: return None", "dt = now()", "raise Error"],
+      "answer": 1,
+      "commentary": "空のデータ（None）が渡された際のエラーを回避するために、ガード節（if not dt）を置くのが良い作法です。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "テンプレートの talk.time に「2024/01/01 10:00」が入っており、現在時刻が「2024/01/02 15:00」の場合、elapsed_time フィルタは何を返しますか？",
+      "options": ["今日", "昨日", "01/01", "1 時間前"],
+      "answer": 1,
+      "commentary": "経過時間が約29時間（1日以上、2日未満）なので、「昨日」と判定されます。"
+    },
+    {
+      "id": 35,
+      "type": "文法チェック",
+      "question": "自作の simple_tag に複数の引数を渡す正しい書き方はどれですか？",
+      "options": ["{% my_tag arg1 arg2 %}", "{% my_tag arg1, arg2 %}", "{% my_tag(arg1, arg2) %}", "{% my_tag arg1 | arg2 %}"],
+      "answer": 0,
+      "commentary": "タグ名の後にスペース区切りで引数を並べます。コンマは不要です。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "Djangoで「ビューから渡されたデータをテンプレートで加工する」際に、一番最初に行うべき検討事項は？",
+      "options": ["CSSで頑張る", "JavaScriptで頑張る", "既存のフィルタ（dateなど）で対応できるか確認する", "必ずカスタムタグを作る"],
+      "answer": 2,
+      "commentary": "Djangoには多くの便利な標準フィルタがあるので、まずはそれらが使えないか探すのが効率的です。"
+    },
+    {
+      "id": 37,
+      "type": "コード穴埋め",
+      "question": "elapsed_time 関数内で strftime(\"%m/%d\") と書きましたが、この結果はどのような形式になりますか？",
+      "options": ["04/01", "4/1", "April/01", "2024/04/01"],
+      "answer": 0,
+      "commentary": "%m や %d は「0埋めした2桁の数字」になります。"
+    },
+    {
+      "id": 38,
+      "type": "文法チェック",
+      "question": "カスタムタグ内で print() を使った場合、その出力はどこに表示されますか？",
+      "options": ["ブラウザの画面上", "ブラウザの開発者ツール（コンソール）", "サーバーを動かしているターミナル画面", "表示されない"],
+      "answer": 2,
+      "commentary": "タグやフィルタはサーバー側（Python）で実行されるため、出力はサーバーのログに表示されます。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "templatetags内のファイル名に「.py」を付け忘れると、Djangoはどうなりますか？",
+      "options": ["自動で付けてくれる", "そのファイルを無視し、ロード時にエラーが出る", "テキストファイルとして読み込む", "警告が出るが動く"],
+      "answer": 1,
+      "commentary": "Pythonファイルとして認識されないため、読み込むことができません。"
+    },
+    {
+      "id": 40,
+      "type": "実行結果予測",
+      "question": "カスタムタグを作成した後、サーバーを再起動せずにテンプレートをリロードした場合、新しいタグは反映されますか？",
+      "options": ["即座に反映される", "設定によっては再起動が必要（特に templatetags フォルダを新設した時）", "反映されるがデザインが崩れる", "パソコンの再起動が必要"],
+      "answer": 1,
+      "commentary": "新しいファイルやフォルダを追加した際は、サーバーが自動で検知できないことがあるため、再起動するのが確実です。"
+    }
+  ]
 }

@@ -1,4 +1,325 @@
 {
   "unit_title": "設定とアカウント画面の実装",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "画像ファイルを保存するためのディレクトリを <code>settings.py</code> で指定する変数名は何ですか？",
+      "options": ["STATIC_ROOT", "IMAGE_DIR", "MEDIA_ROOT", "FILE_PATH"],
+      "answer": 2,
+      "commentary": "MEDIA_ROOT はユーザーがアップロードしたメディアファイルをサーバー上のどのフォルダに保存するかを定義します。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "Djangoで画像を扱うために必要なライブラリ <code>Pillow</code> をインストールするコマンドを完成させてください。<pre><code>___ install pillow</code></pre>",
+      "options": ["python", "django", "pip", "get"],
+      "answer": 2,
+      "commentary": "Pythonのパッケージ管理ツールである pip を使用して Pillow をインストールします。"
+    },
+    {
+      "id": 3,
+      "type": "実行結果予測",
+      "question": "<code>MEDIA_URL = \"/media/\"</code> と設定した場合、アップロードした画像へのブラウザからのアクセスURLはどうなりますか？",
+      "options": ["/static/media/画像名", "/media/画像名", "/files/画像名", "/upload/画像名"],
+      "answer": 1,
+      "commentary": "MEDIA_URL はブラウザからメディアファイルにアクセスするためのURLの接頭辞を決定します。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "モデルのフィールドで、画像を保存するために使用するクラスは何ですか？<pre><code>image = models.___ (null=True, blank=True)</code></pre>",
+      "options": ["FileField", "PhotoField", "ImageField", "StaticField"],
+      "answer": 2,
+      "commentary": "画像を保存・管理するための専用フィールドは ImageField です。"
+    },
+    {
+      "id": 5,
+      "type": "文法チェック",
+      "question": "ForeignKeyの引数 <code>on_delete=models.SET_NULL</code> を指定したとき、参照先が削除された場合の挙動はどうなりますか？",
+      "options": ["データも一緒に削除される", "エラーが発生して削除できない", "そのフィールドの値が空（NULL）になる", "削除を無視する"],
+      "answer": 2,
+      "commentary": "SET_NULL を使うと、親のデータが消えても子のデータは消さず、紐付けだけを解除（NULLに設定）します。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "アカウント画面で「購入履歴」を一覧表示するために継承する最も適切なジェネリックビューは何ですか？<pre><code>class AccountView(LoginRequiredMixin, ___):</code></pre>",
+      "options": ["TemplateView", "DetailView", "ListView", "UpdateView"],
+      "answer": 2,
+      "commentary": "複数のデータ（購入履歴のリスト）を表示するため、ListView を継承するのが効率的です。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "ログインしているユーザーだけがページにアクセスできるように制限するために、クラスベースビューで継承（ミックスイン）するクラスは何ですか？",
+      "options": ["AuthMixin", "LoginRequiredMixin", "UserPassesTestMixin", "AccessControl"],
+      "answer": 1,
+      "commentary": "LoginRequiredMixin を継承のリストに加えるだけで、未ログインユーザーを弾くことができます。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "ビューの中で、現在ログインしているユーザーの情報を取得するための記述はどれですか？<pre><code>user = self.___ .user</code></pre>",
+      "options": ["GET", "POST", "request", "context"],
+      "answer": 2,
+      "commentary": "クラスベースビューでは、self.request を通じて現在のリクエスト（ユーザー情報など）にアクセスできます。"
+    },
+    {
+      "id": 9,
+      "type": "文法チェック",
+      "question": "ForeignKeyで <code>related_name=\"has_ordered\"</code> と設定したとき、ユーザー側から注文履歴を呼び出す正しい書き方は？<pre><code># user は Userモデルのインスタンス\nuser.___ .all()</code></pre>",
+      "options": ["orderhistory_set", "has_ordered", "order_list", "get_orders"],
+      "answer": 1,
+      "commentary": "related_name を指定することで、逆参照（親から子を辿る）時の名前をカスタマイズできます。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "データベースへのクエリ回数が増え、パフォーマンスが低下する「N+1問題」を解決するために使うメソッドは何ですか？",
+      "options": ["filter()", "order_by()", "select_related()", "exclude()"],
+      "answer": 2,
+      "commentary": "select_related() を使うと、外部キーで繋がったデータを1回のクエリでまとめて取得できます。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で複数行のコメントアウト（Djangoタグとして無視）をするためのタグは何ですか？<pre><code>___ \n  複数行の内容 \n___</code></pre>",
+      "options": ["{# #}", "", "{% comment %} / {% endcomment %}", "{# comment #}"],
+      "answer": 2,
+      "commentary": "{% comment %} タグを使うと、その間のコードは一切実行・表示されません。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "<code>created_at = models.DateTimeField(auto_now_add=True)</code> と設定したとき、いつ時刻が記録されますか？",
+      "options": ["データを新しく作成した時だけ", "データを更新するたび毎回", "毎日決まった時間に", "手動で入力した時"],
+      "answer": 0,
+      "commentary": "auto_now_add は「最初の作成時のみ」を、auto_now は「更新のたび」を意味します。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "テンプレートで日付を「2024年1月1日」のような形式で表示するためのフィルタは何ですか？<pre><code>{{ history.created_at|___ :\"Y年n月j日\" }}</code></pre>",
+      "options": ["format", "time", "date", "strftime"],
+      "answer": 2,
+      "commentary": "Djangoの date フィルタを使うと、日付や時刻の表示形式を自在に変更できます。"
+    },
+    {
+      "id": 14,
+      "type": "文法チェック",
+      "question": "urls.pyで ProductDetailView を pk（プライマリキー）を使って登録する正しい書き方はどれですか？",
+      "options": ["path('detail/<pk>/', ...)", "path('detail/<int:pk>/', ...)", "path('detail/<id>/', ...)", "path('detail/pk/', ...)"],
+      "answer": 1,
+      "commentary": "DetailView は URL から pk という名前の変数を受け取ってデータを特定します。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "Djangoの <code>admin.site.register(Product)</code> は、何をするための命令ですか？",
+      "options": ["ユーザーに商品を売る", "管理者サイトのメニューにProductモデルを追加する", "データベースを削除する", "CSSを読み込む"],
+      "answer": 1,
+      "commentary": "モデルを register することで、ブラウザ上の管理画面からデータの追加・編集ができるようになります。"
+    },
+    {
+      "id": 16,
+      "type": "実行結果予測",
+      "question": "ListViewを継承した AccountView で <code>paginate_by = 5</code> と設定したとき、テンプレートで使うべきループ対象の変数名は何ですか？",
+      "options": ["object_list", "page_obj", "history_list", "どちらも正しい"],
+      "answer": 3,
+      "commentary": "ListViewでは object_list だけでなく、ページネーション機能を使う際は page_obj もループ対象として使えます。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "CSSで画像が枠内に収まるように自動調整するプロパティは何ですか？<pre><code>.history-item__image {\n    ___: contain;\n}</code></pre>",
+      "options": ["image-fit", "object-fit", "fit-content", "background-size"],
+      "answer": 1,
+      "commentary": "object-fit: contain; を使うと、画像の比率を保ったまま枠内に収まるようにリサイズされます。"
+    },
+    {
+      "id": 18,
+      "type": "用語理解",
+      "question": "OrderHistoryモデルにおける「num」フィールドは通常どのような目的で使われますか？",
+      "options": ["ユーザーの電話番号", "商品の購入個数", "商品の識別番号", "ログイン回数"],
+      "answer": 1,
+      "commentary": "購入履歴なので、一度に何個買ったかを IntegerField で保存します。"
+    },
+    {
+      "id": 19,
+      "type": "文法チェック",
+      "question": "モデルのクラス内で定義する <code>__str__(self)</code> メソッドの役割は何ですか？",
+      "options": ["データベースの削除", "オブジェクトを文字として表示する際の内容を決める", "数字を計算する", "URLを生成する"],
+      "answer": 1,
+      "commentary": "管理サイトやシェルでデータを表示した際、ID番号ではなく「商品名」などを出すために使います。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "開発用サーバーで画像を表示させる設定 <code>if settings.DEBUG:</code> がある理由は何ですか？",
+      "options": ["本番環境ではDjangoが直接画像を配信しない方が良いため", "エラーを隠すため", "速度を上げるため", "画像を暗号化するため"],
+      "answer": 0,
+      "commentary": "Djangoは本来メディア配信が専門ではないため、本番では別の専用サーバー（Nginxなど）を使うのが一般的だからです。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "ListViewの中で、データを「新しい順」に並べ替えて取得する正しい引数はどれですか？<pre><code>queryset.order_by(\"___\")</code></pre>",
+      "options": ["created_at", "newest", "-created_at", "top"],
+      "answer": 2,
+      "commentary": "並べ替えのフィールド名の先頭に「-」を付けると、降順（新しい順や大きい順）になります。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "ECサイトにおける「商品の外部キー（ForeignKey）」を注文履歴に持たせる理由は何ですか？",
+      "options": ["商品名を毎回手動で入力するため", "どの商品を購入したかを正確に関連付けるため", "商品の価格を固定するため", "セキュリティを高めるため"],
+      "answer": 1,
+      "commentary": "ForeignKey を使うことで、ProductテーブルとOrderHistoryテーブルを紐付ける（リレーションを作る）ことができます。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "Djangoテンプレートで、aタグを使ってJavaScriptの関数を実行させる記述 <code>href=\"javascript:...\"</code> を使うのはどのような場面ですか？",
+      "options": ["画像を読み込む時", "リンクを装飾する時", "ボタンの代わりにリンクからフォームを送信させたい時", "ログイン画面を作る時"],
+      "answer": 2,
+      "commentary": "ログアウトなどのPOST処理を、リンク（aタグ）のクリックで実行させる際によく使われます。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "<code>models.TextField(max_length=300)</code> を使った場合、管理画面ではどのような入力欄になりますか？",
+      "options": ["1行の短い入力欄", "数行から数十行の広いテキスト入力エリア", "数字専用の入力欄", "画像選択ボタン"],
+      "answer": 1,
+      "commentary": "CharFieldは1行、TextFieldは複数行の長い文章（説明文など）に使われます。"
+    },
+    {
+      "id": 25,
+      "type": "コード穴埋め",
+      "question": "settings.pyで <code>BASE_DIR</code> と文字列を繋いでパスを作る際に使う記号は何ですか？<pre><code>MEDIA_ROOT = BASE_DIR ___ \"media\"</code></pre>",
+      "options": ["+", ",", "/", "*"],
+      "answer": 2,
+      "commentary": "PythonのPathオブジェクトでは「/」記号を使って直感的にディレクトリを繋ぐことができます。"
+    },
+    {
+      "id": 26,
+      "type": "用語理解",
+      "question": "「paginate_by = 5」と設定した時、全データが12件あると、全部で何ページになりますか？",
+      "options": ["2ページ", "3ページ", "5ページ", "12ページ"],
+      "answer": 1,
+      "commentary": "5件、5件、2件の計3ページに分割されます。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "テンプレートの <code>{% load static %}</code> は何をしている命令ですか？",
+      "options": ["CSSファイルをダウンロードする", "画像を表示する", "staticという名前のタグやフィルタを使えるように準備する", "JavaScriptを実行する"],
+      "answer": 2,
+      "commentary": "Djangoの組み込みライブラリである「static」をテンプレートに読み込み、{% static '...' %} を使えるようにします。"
+    },
+    {
+      "id": 28,
+      "type": "実行結果予測",
+      "question": "<code>ImageField(null=True, blank=True)</code> で保存された画像データに対し、テンプレートで <code>if history.product.image</code> を使わずに <code>history.product.image.url</code> を呼んだ場合、画像がないデータではどうなりますか？",
+      "options": ["真っ白な画像が出る", "エラー（ValueError）が発生する", "何も表示されない", "勝手にデフォルト画像が出る"],
+      "answer": 1,
+      "commentary": "データがないのにURL（住所）を教えろと命令することになるため、エラーになってしまいます。事前の if チェックが重要です。"
+    },
+    {
+      "id": 29,
+      "type": "コード穴埋め",
+      "question": "CSSで要素の余白を「上:64px, 左右:0, 下:96px」にするショートハンドの書き方はどれですか？",
+      "options": ["padding: 64px 0 96px;", "padding: 64px 96px 0;", "padding: 0 64px 96px;", "padding: 64px 96px;"],
+      "answer": 0,
+      "commentary": "3つの値を指定した場合、順に「上」「左右」「下」の順で適用されます。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "クラスベースビューの <code>get_queryset</code> メソッドを上書きして、最後に必ず戻り値（return）として返すべきものは何ですか？",
+      "options": ["リスト", "辞書", "QuerySet", "文字列"],
+      "answer": 2,
+      "commentary": "データベースから取り出したデータのまとまりである QuerySet を返す必要があります。"
+    },
+    {
+      "id": 31,
+      "type": "文法チェック",
+      "question": "<code>reverse_lazy</code> 関数をインポートすべき場所はどこですか？",
+      "options": ["django.shortcuts", "django.urls", "django.http", "django.views"],
+      "answer": 1,
+      "commentary": "URLの逆引き（名前からパスを得る）に関する機能は django.urls に含まれています。"
+    },
+    {
+      "id": 32,
+      "type": "実行結果予測",
+      "question": "Productモデルの created_at に <code>auto_now=True</code> を設定しました。このフィールドは何に便利ですか？",
+      "options": ["作成日の記録", "「最終更新日時」の自動記録", "未来の予約", "時刻の非表示"],
+      "answer": 1,
+      "commentary": "auto_now は保存（save）されるたびに現在の時刻に書き換わるため、更新日時の管理に使われます。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "CSSでフレックスボックスを使い、要素を横並びにする指定は何ですか？<pre><code>.history-item {\n    display: ___;\n}</code></pre>",
+      "options": ["block", "inline", "flex", "grid"],
+      "answer": 2,
+      "commentary": "display: flex; を使うと、子要素（画像と詳細など）を簡単に横に並べることができます。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "OrderHistory（注文履歴）モデルに商品の外部キーを持たせる際、商品の価格（price）を履歴側にも重複して持たせる理由はなぜですか？",
+      "options": ["プログラムのミス", "後から商品の価格が変わっても、購入当時の価格を記録しておくため", "データベースの容量を埋めるため", "計算を速くするため"],
+      "answer": 1,
+      "commentary": "参照先（Product）の価格は将来変わる可能性があるため、購入した瞬間の価格を「証拠」として履歴に保存します。"
+    },
+    {
+      "id": 35,
+      "type": "文法チェック",
+      "question": "HTMLタグ <code>&lt;form&gt;</code> 内の <code>{% csrf_token %}</code> を書き忘れると、どのメソッドの送信が失敗しますか？",
+      "options": ["GET", "POST", "両方", "どちらも失敗しない"],
+      "answer": 1,
+      "commentary": "セキュリティ上の理由から、DjangoではPOSTリクエスト送信時にこのトークンが必須となっています。"
+    },
+    {
+      "id": 36,
+      "type": "実行結果予測",
+      "question": "ビューの中で <code>super().get_queryset()</code> を呼び出す目的は何ですか？",
+      "options": ["データベースを全削除するため", "親クラス（ListViewなど）が持っている標準の全件取得処理を利用するため", "エラーを表示するため", "別のビューを読み込むため"],
+      "answer": 1,
+      "commentary": "一度標準の取得処理を super() で呼び出し、その後に filter() などで加工するのが一般的な流れです。"
+    },
+    {
+      "id": 37,
+      "type": "コード穴埋め",
+      "question": "テンプレートの <code>&lt;img src=\"{% static '...' %}\"&gt;</code> で、デフォルト画像を表示するために指定した正しいパスはどれですか？",
+      "options": ["main/img/default-image.png", "img/default.png", "static/default.png", "media/default.png"],
+      "answer": 0,
+      "commentary": "staticディレクトリ内の構成（アプリ名/img/...）に合わせて指定します。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "「2つ以上のジェネリックビューを1つのビューで同時に継承できない」というDjangoの制約への対策はどれですか？",
+      "options": ["Djangoをアップグレードする", "1つを継承し、もう1つの機能は Mixin や自前実装で補う", "Pythonのクラスを使わない", "HTMLを2枚に分ける"],
+      "answer": 1,
+      "commentary": "多重継承によるトラブルを避けるため、Djangoのジェネリックビューは基本1つ選び、補助機能は Mixin で足します。"
+    },
+    {
+      "id": 39,
+      "type": "文法チェック",
+      "question": "ListViewにおいて、取得した全データをテンプレートに渡すための内部的な処理を自動で行ってくれるメリットは何ですか？",
+      "options": ["CSSが不要になる", "render関数の第3引数（context）を自分で細かく書く手間が省ける", "サーバーが不要になる", "JavaScriptが速くなる"],
+      "answer": 1,
+      "commentary": "ListView は `model = XXX` と書くだけで、自動的にデータを集めてテンプレートに送ってくれるため、コードが非常に短くなります。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "今回のレッスンの最終目標である「ECサイト」の根幹機能に含まれていないものはどれですか？",
+      "options": ["商品の一覧表示", "カート機能", "クレジットカード決済", "ドローンによる自動配送"],
+      "answer": 3,
+      "commentary": "一覧表示、検索、カート、決済などが根幹機能として挙げられています。"
+    }
+  ]
 }

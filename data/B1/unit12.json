@@ -1,4 +1,325 @@
 {
   "unit_title": "カート機能を実装する 1",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "ログイン状態を維持している間、ページを移動しても特定の情報を保持し続けるDjangoの機能を何と呼びますか？",
+      "options": ["クッキー", "セッション", "キャッシュ", "データベース"],
+      "answer": 1,
+      "commentary": "セッション（session）を使うことで、ユーザーごとの一時的なデータ（カートの中身など）をページをまたいで管理できます。"
+    },
+    {
+      "id": 2,
+      "type": "用語理解",
+      "question": "Djangoのセッションデータは、デフォルトでデータベースのどのテーブルに保存されますか？",
+      "options": ["auth_user", "django_session", "main_cart", "django_admin_log"],
+      "answer": 1,
+      "commentary": "セッションデータは、Djangoが自動生成する django_session テーブルに格納されます。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "ビューの中でセッションに値を保存するために使う、辞書のように扱える変数はどれですか？<pre><code>request.___[\"hoge\"] = 1</code></pre>",
+      "options": ["GET", "POST", "session", "user"],
+      "answer": 2,
+      "commentary": "request.session という変数を通じて、データの保存や取得を行います。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "セッションのように、特定の「キー」に対して「値」を保存する形式を何と呼びますか？",
+      "options": ["リスト型", "辞書型 (key-value型)", "タプル型", "セット型"],
+      "answer": 1,
+      "commentary": "キー（名前）と値（中身）をペアにする保存形式は、Pythonの辞書型と同様のkey-value型です。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "リスト <code>cart = [1, 2, 3]</code> に対して <code>cart.append(4)</code> を実行した後のリストの状態はどうなりますか？",
+      "options": ["[4, 1, 2, 3]", "[1, 4, 3]", "[1, 2, 3, 4]", "[1, 2, 4]"],
+      "answer": 2,
+      "commentary": "append() メソッドは、リストの「末尾」に新しい要素を追加します。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "辞書から特定のキーとその値を削除するために使うメソッドは何ですか？<pre><code>num_dict.___(\"1\")</code></pre>",
+      "options": ["remove", "delete", "pop", "clear"],
+      "answer": 2,
+      "commentary": "辞書の pop() メソッドを使うと、指定したキーのデータを削除し、その値を取り出せます。"
+    },
+    {
+      "id": 7,
+      "type": "実行結果予測",
+      "question": "セッションの仕組みにおいて、ブラウザ側に保存される「鍵（識別子）」の情報は何と呼ばれますか？",
+      "options": ["session key", "session data", "password", "user ID"],
+      "answer": 0,
+      "commentary": "ブラウザには鍵となる「session key」だけがクッキーとして保存され、データ本体はサーバーにあります。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "リスト内に複数のIDが含まれるレコードを一度に取得するフィールドルックアップは何ですか？<pre><code>Product.objects.filter(pk___=[1, 2, 3])</code></pre>",
+      "options": ["__exact", "__contains", "__in", "__has"],
+      "answer": 2,
+      "commentary": "pk__in ルックアップを使うと、リストに含まれるいずれかの値に一致するデータを取得できます。"
+    },
+    {
+      "id": 9,
+      "type": "文法チェック",
+      "question": "セッションに保存されたデータをキーごと削除する正しいPythonの命令はどれですか？",
+      "options": ["remove request.session[\"hoge\"]", "del request.session[\"hoge\"]", "request.session.delete(\"hoge\")", "drop request.session[\"hoge\"]"],
+      "answer": 1,
+      "commentary": "Pythonの `del` 文を使って、辞書やセッションの特定のキーを削除できます。"
+    },
+    {
+      "id": 10,
+      "type": "実行結果予測",
+      "question": "カート機能の実装で、ID（pk）を辞書のキーにする際 <code>str(pk)</code> としている理由は？",
+      "options": ["IDが数字だから", "JSONやセッションでは辞書のキーは文字列にする必要があるから", "暗号化するため", "表示を綺麗にするため"],
+      "answer": 1,
+      "commentary": "セッションの内部処理やJSON形式への変換を考慮し、数値のキーは文字列に変換して扱うのが安全です。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "セッションに「cart」という名前のキーが存在するか確認する正しい書き方は？<pre><code>if \"cart\" ___ self.request.session:</code></pre>",
+      "options": ["is", "has", "in", "contains"],
+      "answer": 2,
+      "commentary": "辞書やセッション内にキーがあるか調べるには `in` 演算子を使います。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "商品をカートに入れた後、ブラウザのリロード（再読み込み）による二重追加を防ぐための処理は何ですか？",
+      "options": ["レンダリング", "リダイレクト", "マイグレーション", "フィルタリング"],
+      "answer": 1,
+      "commentary": "保存処理の後に redirect() を行うことで、最後のリクエストをGETに変え、二重送信を防止します。"
+    },
+    {
+      "id": 13,
+      "type": "実行結果予測",
+      "question": "<code>num_dict = {\"1\": 2}</code> に対して <code>num_dict[\"1\"] += 3</code> を実行した後の <code>num_dict[\"1\"]</code> はいくつですか？",
+      "options": ["2", "3", "5", "1"],
+      "answer": 2,
+      "commentary": "既存の値2に3を加算して上書きするため、5になります。"
+    },
+    {
+      "id": 14,
+      "type": "コード穴埋め",
+      "question": "ListViewで、データベースから「何も取得しない（空）」状態を返すメソッドは何ですか？<pre><code>return Product.objects.___()</code></pre>",
+      "options": ["empty", "null", "none", "zero"],
+      "answer": 2,
+      "commentary": "none() メソッドは、モデルの型は維持したまま空のクエリセットを返します。"
+    },
+    {
+      "id": 15,
+      "type": "文法チェック",
+      "question": "セッションの中にあるリストを更新する正しい手順はどれですか？",
+      "options": ["session[\"cart\"].append(1) と直接書く", "一度変数に取り出して append し、再度 session に代入する", "リストを全部消してから追加する", "セッションにリストは保存できない"],
+      "answer": 1,
+      "commentary": "Djangoのセッションでは、リストの内部変更を自動検知できない場合があるため、再代入するのが確実な方法です。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "Djangoの管理画面でセッションの中身を確認できるようにするために、admin.pyに登録すべきモデルは何ですか？",
+      "options": ["session", "Session", "SessionData", "django_session"],
+      "answer": 1,
+      "commentary": "django.contrib.sessions.models.Session モデルを登録することで管理画面に現れます。"
+    },
+    {
+      "id": 17,
+      "type": "実行結果予測",
+      "question": "セッションデータが「Base64エンコード」されているとき、そのデータはどのような状態ですか？",
+      "options": ["日本語で読みやすくなっている", "文字が複雑に置き換えられ、直接読むことができない状態", "画像データに変換されている", "削除されている"],
+      "answer": 1,
+      "commentary": "Base64はデータを特定の文字列セットに変換する仕組みで、そのままでは内容を判読できません。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "カート内の商品の合計金額を計算するPythonの組み込み関数は何ですか？<pre><code>total_price = ___(price_list)</code></pre>",
+      "options": ["count", "total", "sum", "add"],
+      "answer": 2,
+      "commentary": "sum() 関数を使うと、リストやジェネレータ内の数値の合計を算出できます。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "ユーザーがカートに入れた情報をブラウザを閉じても（一定期間）保持できるのは、どの仕組みのおかげですか？",
+      "options": ["HTML", "CSS", "クッキーとセッションの連携", "Wi-Fi"],
+      "answer": 2,
+      "commentary": "ブラウザのクッキーに保存された session key が、サーバー上のデータと紐付いているためです。"
+    },
+    {
+      "id": 20,
+      "type": "コード穴埋め",
+      "question": "セッション機能を使うために settings.py の MIDDLEWARE に登録されている必要がある記述は？<pre><code>'django.contrib.sessions.middleware.___Middleware'</code></pre>",
+      "options": ["Auth", "Session", "Common", "Security"],
+      "answer": 1,
+      "commentary": "SessionMiddleware が、リクエストごとにセッションの読み書きを担当しています。"
+    },
+    {
+      "id": 21,
+      "type": "文法チェック",
+      "question": "詳細画面から個数（num）を受け取る際、POSTデータから安全に値を取得するメソッドはどれですか？",
+      "options": ["request.POST.take(\"num\")", "request.POST.get(\"num\")", "request.POST.fetch(\"num\")", "request.POST.value(\"num\")"],
+      "answer": 1,
+      "commentary": "get() メソッドを使うと、値がない場合でもエラーにならず None を返します。"
+    },
+    {
+      "id": 22,
+      "type": "実行結果予測",
+      "question": "<code>int(\"5\") * 10</code> の計算結果はどうなりますか？",
+      "options": ["\"5555555555\"", "50", "エラー", "510"],
+      "answer": 1,
+      "commentary": "文字列を int() で数値に変換してから計算するため、50 になります。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "ListViewを継承して、セッションの状態に応じたクエリセットを生成するために上書きするメソッドは何ですか？",
+      "options": ["get_data", "get_queryset", "get_context_data", "post"],
+      "answer": 1,
+      "commentary": "取得するデータ（商品のリスト）を動的に決めるには get_queryset を使います。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "セッションに保存した情報の「有効期限」が切れると、そのデータはどうなりますか？",
+      "options": ["自動的に削除される", "パスワードが変更される", "管理者サイトに移動する", "ずっと残り続ける"],
+      "answer": 0,
+      "commentary": "セッションには有効期限があり、期限を過ぎるとDjangoによって自動で破棄されます。"
+    },
+    {
+      "id": 25,
+      "type": "コード穴埋め",
+      "question": "テンプレートの a タグの href で、JavaScript を呼び出してフォームを送信する記述を完成させてください。<pre><code>href=\"___ :logout_form.submit()\"</code></pre>",
+      "options": ["js", "call", "javascript", "script"],
+      "answer": 2,
+      "commentary": "javascript: という接頭辞を使うと、リンククリック時にJSを実行できます。"
+    },
+    {
+      "id": 26,
+      "type": "実行結果予測",
+      "question": "ListViewにおいて <code>paginate_by = 5</code> と設定したとき、全データが2件しかない場合の表示はどうなりますか？",
+      "options": ["エラーになる", "2件すべてが表示される", "5件表示されるまで空白が出る", "何も表示されない"],
+      "answer": 1,
+      "commentary": "データの総数がページの上限より少ない場合は、全件が1ページ目に表示されます。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "ListView内で <code>self.products</code> のように変数にクエリセットを保存する理由として、最も適切なものはどれですか？",
+      "options": ["Djangoのルールだから", "同じビュー内の他のメソッド（get_context_dataなど）で再利用するため", "データベースを削除するため", "表示速度が速くなるから"],
+      "answer": 1,
+      "commentary": "一度 get_queryset で取得したデータを self に持たせておけば、合計金額の計算時などに再度DBへアクセスせずに済みます。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "セッションデータを確認した際に見える「Base64」とは、一般的に何進数のデータを扱う仕組みですか？",
+      "options": ["2進数", "10進数", "16進数", "64進数"],
+      "answer": 3,
+      "commentary": "64種類の文字（A-Z, a-z, 0-9, +, /）を使用してデータを表現する方式です。"
+    },
+    {
+      "id": 29,
+      "type": "コード穴埋め",
+      "question": "ListViewでテンプレートへ送る追加データ（合計金額など）を設定するメソッドは何ですか？",
+      "options": ["get_queryset", "get_context_data", "get_form", "post"],
+      "answer": 1,
+      "commentary": "辞書形式でテンプレートに自由な値を送るには get_context_data を使います。"
+    },
+    {
+      "id": 30,
+      "type": "実行結果予測",
+      "question": "<code>num_dict = {\"1\": 10}</code> に対して <code>num_dict.pop(\"1\")</code> を実行すると、返り値（結果）は何になりますか？",
+      "options": ["{\"1\": 10}", "10", "None", "エラー"],
+      "answer": 1,
+      "commentary": "pop() は削除したキーに対応する「値」を返します。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "セッションから情報を取得する際、キーが存在しないときのエラーを避ける辞書のメソッドは何ですか？<pre><code>request.session.___(\"cart\", [])</code></pre>",
+      "options": ["get", "take", "find", "fetch"],
+      "answer": 0,
+      "commentary": "辞書の get(キー, デフォルト値) を使うと、キーがない場合でも安全です。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "セッションのデータ保存先をデータベース以外（例えばファイルなど）に変更することは可能ですか？",
+      "options": ["不可能", "可能（settings.pyで設定変更できる）", "Djangoではできない", "ブラウザの設定による"],
+      "answer": 1,
+      "commentary": "Djangoの SESSION_ENGINE 設定を変えることで、キャッシュやファイルに変更可能です。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "カート機能で pk（プライマリキー）を整数型、辞書のキーを文字列型に分けている主な理由は？",
+      "options": ["プログラミングが短くなるから", "リスト操作とセッション保存の特性に合わせるため", "メモリを節約するため", "意味はない"],
+      "answer": 1,
+      "commentary": "データベースのpkは数値ですが、セッション（JSON等）のキーは文字列である必要があるための工夫です。"
+    },
+    {
+      "id": 34,
+      "type": "コード穴埋め",
+      "question": "テンプレートの img タグで、画像がない場合に表示するファイルのパスを完成させてください。<pre><code>{% static 'main/img/___ .png' %}</code></pre>",
+      "options": ["no-image", "error", "default-image", "blank"],
+      "answer": 2,
+      "commentary": "教科書の演習では default-image.png を用意して使用しています。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "セッション機能において、サーバーが「どのユーザーのデータか」を判別するために使う小さなデータの名前は何ですか？",
+      "options": ["パスワード", "クッキー (Cookie)", "HTML", "IPアドレス"],
+      "answer": 1,
+      "commentary": "ブラウザに保存されるクッキー内の session ID を見て、サーバーは誰のセッションかを判断します。"
+    },
+    {
+      "id": 36,
+      "type": "実行結果予測",
+      "question": "<code>cart = [10, 20, 30]</code> に対して <code>cart.remove(20)</code> を行った後の <code>cart</code> は？",
+      "options": ["[10, 30]", "[10, 20]", "[20, 30]", "[10, 20, 30]"],
+      "answer": 0,
+      "commentary": "remove() はリスト内の指定された「値」を探して削除します。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "テンプレート内で <code>{% comment %}</code> を使うメリットは何ですか？",
+      "options": ["表示を速くするため", "複数行のコードをまとめて非表示にできるため", "デザインを綺麗にするため", "ログインを確認するため"],
+      "answer": 1,
+      "commentary": "Django独自のタグで、囲まれた部分を完全にコメントアウトできます。"
+    },
+    {
+      "id": 38,
+      "type": "コード穴埋め",
+      "question": "商品の単価と個数を掛けて「小計」を出す関数の戻り値を完成させてください。<pre><code>return product.price * int(num_dict[___(product.pk)])</code></pre>",
+      "options": ["int", "str", "float", "list"],
+      "answer": 1,
+      "commentary": "セッション内の辞書のキーは文字列になっているため、str() で変換してアクセスします。"
+    },
+    {
+      "id": 39,
+      "type": "実行結果予測",
+      "question": "「カートを見る」ページにアクセスした際、セッションに何も入っていなかった場合、合計金額はどうなりますか？",
+      "options": ["エラーになる", "0と表示される", "「なし」と表示される", "前のユーザーの金額が出る"],
+      "answer": 1,
+      "commentary": "if文でセッションに \"cart\" がない場合の処理（context[\"total_price\"] = 0）を書いているためです。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "今回のセッションを使ったカート実装において、最後に <code>return redirect(\"cart\")</code> をする目的は？",
+      "options": ["カート画面を更新（再描画）し、削除結果を反映させるため", "データベースを保存するため", "ログアウトするため", "ホームに戻るため"],
+      "answer": 0,
+      "commentary": "削除処理（POST）が終わった後に、最新の状態でカート画面を表示させるためにリダイレクトします。"
+    }
+  ]
 }

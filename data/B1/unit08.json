@@ -1,4 +1,325 @@
 {
   "unit_title": "EC サイトの概要",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "Web上で決済を行って商品を購入できるサイトのことを何と呼びますか？",
+      "options": ["SNSサイト", "ECサイト", "ポータルサイト", "コーポレートサイト"],
+      "answer": 1,
+      "commentary": "Electronic Commerce（電子商取引）の略で、ネットショップのことをECサイトと呼びます。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "Djangoプロジェクトを開始する際、現在のディレクトリに展開するためのコマンドを完成させてください。<pre><code>django-admin startproject be_en_ec ___</code></pre>",
+      "options": ["now", "/all", ".", "here"],
+      "answer": 2,
+      "commentary": "末尾にピリオド（.）を付けることで、現在のディレクトリをプロジェクトのルートとして設定できます。"
+    },
+    {
+      "id": 3,
+      "type": "用語理解",
+      "question": "今回のECサイト開発で、ログイン、サインアップ、ホーム画面などを一括で管理するために作成したアプリケーション名は何ですか？",
+      "options": ["shop", "core", "main", "ec_app"],
+      "answer": 2,
+      "commentary": "教科書では `python manage.py startapp main` として main アプリを作成しています。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "プロジェクトの <code>settings.py</code> で、使用するカスタムユーザーモデルを指定する正しい記述はどれですか？<pre><code>___ = \"main.user\"</code></pre>",
+      "options": ["USER_MODEL_PATH", "AUTH_USER_MODEL", "CUSTOM_USER_CLASS", "LOGIN_USER_MODEL"],
+      "answer": 1,
+      "commentary": "AUTH_USER_MODEL を設定することで、Django標準のユーザーモデルではなく自作のモデルを使用できます。"
+    },
+    {
+      "id": 5,
+      "type": "文法チェック",
+      "question": "プロジェクトディレクトリの urls.py から、各アプリケーションの urls.py を読み込むために使う関数は何ですか？",
+      "options": ["path", "load", "include", "import"],
+      "answer": 2,
+      "commentary": "include() 関数を使うことで、URL設定をアプリケーションごとに分割管理できます。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "全てのテンプレートの共通部分（ヘッダー・フッターなど）を記述するベースファイル名として、一般的に使われるものはどれですか？<pre><code>{% extends 'main/___.html' %}</code></pre>",
+      "options": ["main", "root", "layout", "base"],
+      "answer": 3,
+      "commentary": "慣習として、共通の骨組みとなるファイルは base.html と名付けられます。"
+    },
+    {
+      "id": 7,
+      "type": "用語理解",
+      "question": "ベースとなるHTML内で、子テンプレートが中身を上書きするために用意する「枠組み」のことを何といいますか？",
+      "options": ["content", "block", "section", "part"],
+      "answer": 1,
+      "commentary": "{% block 名前 %}{% endblock %} の形式で記述します。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "カスタムユーザーモデルを作成する際、Django標準のユーザー機能を継承するためのクラスは何ですか？<pre><code>from django.contrib.auth.models import ___\n\nclass User(___):</code></pre>",
+      "options": ["BaseUser", "DjangoUser", "AbstractUser", "DefaultUser"],
+      "answer": 2,
+      "commentary": "AbstractUser を継承することで、usernameやemailなどの基本機能を維持したまま拡張できます。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "サインアップ画面などで、ユーザー登録（データ作成）を担うのに最も適したジェネリックビューはどれですか？",
+      "options": ["ListView", "DetailView", "CreateView", "TemplateView"],
+      "answer": 2,
+      "commentary": "データの新規作成には CreateView が適しています。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "ログイン専用のビューを定義する際、Djangoが用意しているクラスを継承します。空欄を埋めてください。<pre><code>from django.contrib.auth.views import ___\n\nclass Login(___):</code></pre>",
+      "options": ["UserLoginView", "LoginView", "SigninView", "AuthLoginView"],
+      "answer": 1,
+      "commentary": "Django標準の LoginView を継承することで、ログイン処理を簡潔に実装できます。"
+    },
+    {
+      "id": 11,
+      "type": "実行結果予測",
+      "question": "<code>LOGOUT_REDIRECT_URL = \"login\"</code> と設定されている場合、ログアウトボタンを押すとどうなりますか？",
+      "options": ["ホーム画面に戻る", "エラー画面が表示される", "ログイン画面に移動する", "ブラウザが閉じる"],
+      "answer": 2,
+      "commentary": "設定したURL名（ここではlogin）に自動的にリダイレクトされます。"
+    },
+    {
+      "id": 12,
+      "type": "文法チェック",
+      "question": "テンプレート内で静的ファイル（CSSなど）を読み込むためのタグ <code>{% static '...' %}</code> を使うために、ファイルの先頭に必要な記述はどれですか？",
+      "options": ["{% static %}", "{% load static %}", "{% import static %}", "{% include static %}"],
+      "answer": 1,
+      "commentary": "{% load static %} を書かないと、staticタグはエラーになります。"
+    },
+    {
+      "id": 13,
+      "type": "用語理解",
+      "question": "サインアップ成功後などに、移動先のURLを名前で解決するために使う関数は何ですか？",
+      "options": ["redirect", "reverse_lazy", "url_for", "get_path"],
+      "answer": 1,
+      "commentary": "クラス変数の定義時など、URLの解決を遅らせる必要がある場合には reverse_lazy を使います。"
+    },
+    {
+      "id": 14,
+      "type": "コード穴埋め",
+      "question": "ログインフォームで使用する、Django標準の認証フォームクラスは何ですか？<pre><code>from django.contrib.auth.forms import ___\n\nclass LoginForm(___):</code></pre>",
+      "options": ["UserLoginForm", "SigninForm", "AuthenticationForm", "AuthForm"],
+      "answer": 2,
+      "commentary": "認証（Authentication）を行うための専用フォームクラスです。"
+    },
+    {
+      "id": 15,
+      "type": "実行結果予測",
+      "question": "CSSで <code>position: fixed; bottom: 0;</code> と指定されたフッター要素はどこに表示されますか？",
+      "options": ["ページの一番上", "画面の右端", "画面の最下部に固定される", "文字の後ろ"],
+      "answer": 2,
+      "commentary": "fixedは固定、bottom: 0は下端を意味します。"
+    },
+    {
+      "id": 16,
+      "type": "用語理解",
+      "question": "会員登録フォーム（SignUpForm）で、パスワードの確認入力などを自動で行ってくれる便利なベースフォームは何ですか？",
+      "options": ["UserForm", "RegisterForm", "UserCreationForm", "MemberForm"],
+      "answer": 2,
+      "commentary": "UserCreationForm はサインアップに必要なパスワード2回入力などの機能を備えています。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "ビューの中で、フォームの入力内容が正しい場合に自動でログインさせるメソッド内での記述はどれですか？<pre><code>def form_valid(self, form):\n    response = super().form_valid(form)\n    ___(self.request, self.object)\n    return response</code></pre>",
+      "options": ["signin", "auth", "login", "set_user"],
+      "answer": 2,
+      "commentary": "login() 関数を呼び出すことで、セッションを確立してログイン状態にします。"
+    },
+    {
+      "id": 18,
+      "type": "文法チェック",
+      "question": "HTMLのフォームタグ <code>&lt;form&gt;</code> 内で、CSRF攻撃を防ぐためにDjangoで必須の記述はどれですか？",
+      "options": ["{{ token }}", "{% csrf_token %}", "{% protect %}", "[csrf]"],
+      "answer": 1,
+      "commentary": "POSTリクエストを送るフォームには必ずこのタグが必要です。"
+    },
+    {
+      "id": 19,
+      "type": "実行結果予測",
+      "question": "<code>LANGUAGE_CODE = 'ja'</code> と設定した場合の主な変化はどれですか？",
+      "options": ["プログラムが日本語で書ける", "管理者サイトなどの標準の文言が日本語になる", "検索が日本語限定になる", "速度が速くなる"],
+      "answer": 1,
+      "commentary": "Djangoシステムの多言語化設定です。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "教科書の「home」ページの説明で、商品一覧に付けるとされている「ページを分ける機能」のことを何と呼びますか？",
+      "options": ["ページング", "ページネーション", "データスライス", "リスト分割"],
+      "answer": 1,
+      "commentary": "大量のデータを複数ページに分けて表示する仕組みをページネーションと呼びます。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "urls.pyでクラスベースビューを呼び出す際に、必ず末尾に付ける必要がある記述は何ですか？<pre><code>path(\"login/\", views.Login.___, name=\"login\")</code></pre>",
+      "options": ["as_view()", "run()", "start()", "view()"],
+      "answer": 0,
+      "commentary": "クラスベースビューをURLに登録する際の必須の呼び出しです。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "CSSで <code>width: 100vw;</code> と指定したとき、幅はどうなりますか？",
+      "options": ["100ピクセル", "親要素と同じ", "画面の横幅いっぱい", "100%"],
+      "answer": 2,
+      "commentary": "vwは viewport width の略で、画面幅に対する割合を指定します。"
+    },
+    {
+      "id": 23,
+      "type": "実行結果予測",
+      "question": "<code>SignUpView</code> で <code>success_url = reverse_lazy(\"home\")</code> と設定した場合、登録完了後はどこに移動しますか？",
+      "options": ["ログイン画面", "ホーム画面", "管理者画面", "登録情報の確認画面"],
+      "answer": 1,
+      "commentary": "homeという名前で定義されたURLに移動します。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "テンプレートの共通化において、子テンプレートが親テンプレート（base.html）を読み込むために冒頭に書くタグは何ですか？",
+      "options": ["{% include %}", "{% load %}", "{% extends %}", "{% base %}"],
+      "answer": 2,
+      "commentary": "extends（継承）タグを使って、ベースの骨組みを読み込みます。"
+    },
+    {
+      "id": 25,
+      "type": "コード穴埋め",
+      "question": "<code>settings.py</code> 内で、プロジェクトが動作する「時間帯」を設定する項目は何ですか？<pre><code>___ = 'Asia/Tokyo'</code></pre>",
+      "options": ["TIME_CLOCK", "LOCAL_TIME", "TIME_ZONE", "JST_MODE"],
+      "answer": 2,
+      "commentary": "TIME_ZONE を設定することで、日本時間などに基づいた処理ができます。"
+    },
+    {
+      "id": 26,
+      "type": "文法チェック",
+      "question": "HTMLで送信ボタンとして機能させるために、aタグのhref属性に記述した特殊なJavaScriptのコードは何ですか？",
+      "options": ["javascript:submit()", "javascript:login_form.submit()", "onclick:submit()", "go:submit()"],
+      "answer": 1,
+      "commentary": "リンクのデザインを維持しつつ、フォーム（名前指定が必要）を送信させる手法です。"
+    },
+    {
+      "id": 27,
+      "type": "実行結果予測",
+      "question": "<code>TemplateView</code> を継承して <code>template_name</code> だけを指定したビューにアクセスするとどうなりますか？",
+      "options": ["エラーになる", "何も表示されない", "指定したHTMLが表示される", "ログインを求められる"],
+      "answer": 2,
+      "commentary": "TemplateViewは、中身のない静的なページを表示するのに最適です。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "ECサイトの構成ページで、決済が成功した時に表示されるのはどのページですか？",
+      "options": ["home", "cart", "complete", "account"],
+      "answer": 2,
+      "commentary": "教科書では、完了画面を complete ページとして説明しています。"
+    },
+    {
+      "id": 29,
+      "type": "コード穴埋め",
+      "question": "アイコンフォント「Font Awesome」を読み込むためのlinkタグは、HTMLのどの部分に書きますか？<pre><code>&lt;head&gt;\n  ___\n&lt;/head&gt;</code></pre>",
+      "options": ["<header>", "<body>", "<head>", "<footer>"],
+      "answer": 2,
+      "commentary": "外部リソースの読み込みは &lt;head&gt; 内で行います。"
+    },
+    {
+      "id": 30,
+      "type": "文法チェック",
+      "question": "settings.pyの <code>INSTALLED_APPS</code> にアプリを追加し忘れた場合、どうなりますか？",
+      "options": ["自動で追加される", "作成したテンプレートやURLがDjangoに認識されない", "PCが再起動する", "データベースが消える"],
+      "answer": 1,
+      "commentary": "Djangoはそのアプリをプロジェクトの一部として扱ってくれません。"
+    },
+    {
+      "id": 31,
+      "type": "実行結果予測",
+      "question": "<code>SignUpForm</code> の <code>fields = (\"username\", \"email\")</code> とした場合、パスワードの入力欄はどうなりますか？",
+      "options": ["表示されない", "UserCreationFormを継承しているので、自動でパスワード用フィールドも含まれる", "別途追加が必要", "emailとして扱われる"],
+      "answer": 1,
+      "commentary": "UserCreationFormは内部でパスワード入力を管理しているため、Metaクラスで指定しなくても含まれます。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "ECサイトで、決済が失敗したときに表示する「error」ページから、ユーザーはどの画面に戻るリンクがあるべきとされていますか？",
+      "options": ["ホーム", "会員登録", "カート", "ログアウト"],
+      "answer": 2,
+      "commentary": "内容を修正して再決済できるよう、カート画面に戻すのが一般的です。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "フォームで発生したエラー（パスワード不一致など）をテンプレートで表示するために使う変数は何ですか？<pre><code>{% if ___.errors %}</code></pre>",
+      "options": ["input", "form", "data", "valid"],
+      "answer": 1,
+      "commentary": "formオブジェクトの errors 属性に内容が格納されています。"
+    },
+    {
+      "id": 34,
+      "type": "文法チェック",
+      "question": "CSSファイル内で <code>margin: 0 auto;</code> を指定するのはどのような場合ですか？",
+      "options": ["背景を黒くしたい時", "要素を左右中央に配置したい時", "文字を太くしたい時", "余白をなくしたい時"],
+      "answer": 1,
+      "commentary": "上下の余白を0、左右を自動計算にすることで中央寄せになります。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "「BASE_DIR」とは何を指す変数ですか？",
+      "options": ["データベースの名前", "プロジェクトのルート（起点）となるフォルダのパス", "ユーザーのホームディレクトリ", "インターネットのURL"],
+      "answer": 1,
+      "commentary": "settings.pyで定義されており、ファイルの保存場所などを指定する基準になります。"
+    },
+    {
+      "id": 36,
+      "type": "実行結果予測",
+      "question": "<code>django-admin startproject be_en_ec .</code> を実行した後に、さらに <code>startapp main</code> を行った際、フォルダ構成はどうなりますか？",
+      "options": ["mainの中にbe_en_ecができる", "be_en_ecと同じ階層にmainができる", "be_en_ecの中にmainができる", "何も変わらない"],
+      "answer": 1,
+      "commentary": "プロジェクト設定フォルダと同じ階層にアプリケーションフォルダが作成されます。"
+    },
+    {
+      "id": 37,
+      "type": "コード穴埋め",
+      "question": "ログアウト処理を担うクラスベースビューは何ですか？<pre><code>class Logout(___):\n    pass</code></pre>",
+      "options": ["UserLogoutView", "LogoutView", "SignoutView", "ExitView"],
+      "answer": 1,
+      "commentary": "Djangoが用意している LogoutView を使います。"
+    },
+    {
+      "id": 38,
+      "type": "文法チェック",
+      "question": "CSSで <code>a { text-decoration: none; }</code> と指定する目的は何ですか？",
+      "options": ["リンクを太字にする", "リンクの下線を消す", "リンクをクリックできないようにする", "リンクの色を青にする"],
+      "answer": 1,
+      "commentary": "ブラウザ標準のアンダーラインを非表示にする指定です。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "「signup」ページと「login」ページのテンプレートで、最後に実行すべきデータベース反映のコマンドは何ですか？",
+      "options": ["makemigrations", "migrate", "python start", "pip install"],
+      "answer": 1,
+      "commentary": "モデルを定義したり変更したりした後は、migrateでデータベースに適用します。"
+    },
+    {
+      "id": 40,
+      "type": "実行結果予測",
+      "question": "教科書において、チャットアプリとECサイトの「ベースファイル作成」の違いとして述べられていることは？",
+      "options": ["全く違う手法を使う", "チャットアプリと同じように、共通部分をベースファイルにまとめる", "ベースファイルは使わない", "Pythonを直接書く"],
+      "answer": 1,
+      "commentary": "再利用性を高めるため、同様にbase.htmlなどを作成することが推奨されています。"
+    }
+  ]
 }

@@ -1,4 +1,325 @@
 {
   "unit_title": "ユーザー検索機能の追加",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "大量のデータから特定の情報を素早く見つけるために、友達一覧画面に追加する機能は何ですか？",
+      "options": ["並び替え機能", "検索機能", "削除機能", "自動更新機能"],
+      "answer": 1,
+      "commentary": "ユーザー数が多い場合、特定の友達を探しやすくするために検索機能は必須です。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "モデルと連動しない自由なフォームを作成する際、継承すべきベースクラスは何ですか？<pre><code>class FriendsSearchForm(forms.___):</code></pre>",
+      "options": ["ModelForm", "Form", "SearchForm", "BaseForm"],
+      "answer": 1,
+      "commentary": "今回は検索キーワードを受け取るだけなので、特定のモデルに依存しない forms.Form を使用します。"
+    },
+    {
+      "id": 3,
+      "type": "用語理解",
+      "question": "フォームの項目を「空欄でも送信可能」にするために設定するオプションは何ですか？",
+      "options": ["empty=True", "required=False", "null=True", "blank=True"],
+      "answer": 1,
+      "commentary": "required=False を指定することで、検索ワードを入れずに検索（全件表示）することが可能になります。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "検索フォームを表示する際、テキスト入力欄の見た目（プレースホルダーなど）を細かく指定するための部品は何ですか？<pre><code>widget=forms.___ (attrs=...)</code></pre>",
+      "options": ["TextInput", "CharField", "Textarea", "InputBox"],
+      "answer": 0,
+      "commentary": "入力欄の外見や属性をカスタマイズするには widget（TextInputなど）を使用します。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "クラスベースビューからテンプレートに検索フォームを渡す際、どのメソッドをオーバーライドしますか？<pre><code>def ___(self, **kwargs):\n    context = super().get_context_data(**kwargs)\n    ...</code></pre>",
+      "options": ["get_queryset", "get_context_data", "post", "get_form"],
+      "answer": 1,
+      "commentary": "テンプレートへ変数を追加するには get_context_data メソッドを使用します。"
+    },
+    {
+      "id": 6,
+      "type": "実行結果予測",
+      "question": "<code>FriendsSearchForm(self.request.GET)</code> と記述してフォームを初期化するメリットは何ですか？",
+      "options": ["表示が速くなる", "検索ボタンを押した後も、入力した文字がフォームに残り続ける", "パスワードが自動入力される", "エラーを防ぐ"],
+      "answer": 1,
+      "commentary": "request.GETを渡すことで、送信された値がフォームの初期値として再セットされます。"
+    },
+    {
+      "id": 7,
+      "type": "文法チェック",
+      "question": "検索フォームのように、データを取得するためのフォームで推奨される「method」は何ですか？",
+      "options": ["post", "get", "push", "put"],
+      "answer": 1,
+      "commentary": "検索などはURLにパラメータを残す GET メソッドで行うのが Web の標準的なルールです。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "GETメソッドで送信した際、URLの末尾に付く「?keyword=鈴木」のような情報を何と呼びますか？",
+      "options": ["パスパラメータ", "クエリパラメータ", "ボディデータ", "ヘッダー情報"],
+      "answer": 1,
+      "commentary": "URLの「?」以降に続くキーと値のペアをクエリパラメータと呼びます。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "ビューの中で、GETリクエストに含まれるキーワードを「安全に（エラーを避けて）」取得する書き方はどれですか？<pre><code>keyword = self.request.GET.___ (\"keyword\")</code></pre>",
+      "options": ["fetch", "take", "get", "extract"],
+      "answer": 2,
+      "commentary": "辞書の get() メソッドを使うと、値がない場合にエラーにならず None を返してくれます。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "名前に特定の文字が含まれるユーザーを検索する際、filterメソッドに渡す条件の書き方は？<pre><code>queryset = queryset.filter(username___=keyword)</code></pre>",
+      "options": ["__contains", "__icontains", "__is", "__match"],
+      "answer": 1,
+      "commentary": "icontains（大文字小文字を区別せず、含む）を使用します。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "「鈴木」で検索したときに、「鈴木太郎」や「鈴木花子」がヒットするような検索方法を何といいますか？",
+      "options": ["後方一致", "部分一致", "前方一致", "完全一致"],
+      "answer": 2,
+      "commentary": "指定した文字から始まるものを探すことを「前方一致（startswith）」といいます。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "<code>keyword = self.request.GET.get(\"keyword\") or \"\"</code> と書いたとき、キーワードが送られてこなかった場合の keyword の中身はどうなりますか？",
+      "options": ["None", "空の文字列 (\"\")", "False", "エラーになる"],
+      "answer": 1,
+      "commentary": "Noneが「偽」と判定されるため、or 以降の空文字列が代入されます。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "検索結果が複数ページあるとき、2ページ目へ移動しても検索条件が消えないようにするために必要なことは？",
+      "options": ["データベースの設定を変える", "ページネーションのリンク（URL）に検索キーワードを含める", "ブラウザのキャッシュを使う", "常に1ページにする"],
+      "answer": 1,
+      "commentary": "URLに ?keyword=... という情報を付け加えないと、Djangoは2ページ目では「全件表示」に戻ってしまいます。"
+    },
+    {
+      "id": 14,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で、検索ワードを維持したまま2ページ目へ飛ぶ正しい書き方はどれですか？<pre><code>&lt;a href=\"{% url 'friends' %}?___={{ keyword }}&page=2\"&gt;次へ&lt;/a&gt;</code></pre>",
+      "options": ["word", "search", "keyword", "input"],
+      "answer": 2,
+      "commentary": "ビューで受け取る名前と同じ「keyword」というパラメータ名を使います。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "「icontains」の「i」は何を意味していますか？",
+      "options": ["important（重要）", "ignore case（大文字小文字を無視する）", "index（目次）", "input（入力）"],
+      "answer": 1,
+      "commentary": "大文字と小文字を区別せずに検索することを意味します。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "検索語が対象とすべて一致している（全く同じ）場合にだけヒットさせる検索方法はどれですか？<pre><code>user.filter(username___=\"鈴木\")</code></pre>",
+      "options": ["__all", "__exact", "__only", "__same"],
+      "answer": 1,
+      "commentary": "exact（正確に一致）を指定すると、部分一致ではなく完全一致検索になります。"
+    },
+    {
+      "id": 17,
+      "type": "文法チェック",
+      "question": "検索用の input タグを <code>{{ form.keyword }}</code> で出力したとき、HTML上ではどのようなタグに変換されますか？",
+      "options": ["&lt;search&gt;", "&lt;input type=\"text\"&gt;", "&lt;textarea&gt;", "&lt;form&gt;"],
+      "answer": 1,
+      "commentary": "Djangoのフォームクラスの定義（CharField）に基づいて標準的な input タグが生成されます。"
+    },
+    {
+      "id": 18,
+      "type": "実行結果予測",
+      "question": "queryset.filter(...) を実行した後、その変数を上書きせずに <code>return User.objects.all()</code> を返すとどうなりますか？",
+      "options": ["検索結果が表示される", "常に全ユーザーが表示される（検索が効かない）", "エラーになる", "何も表示されない"],
+      "answer": 1,
+      "commentary": "絞り込んだ結果（queryset）を返さなければ、検索機能は動作しません。"
+    },
+    {
+      "id": 19,
+      "type": "コード穴埋め",
+      "question": "ユーザー名で検索するためのフォームをテンプレート内で表示する際、忘れずに書かなければならないタグは何ですか？<pre><code>&lt;___ method=\"get\"&gt;\n    {{ form.keyword }}\n    &lt;button type=\"submit\"&gt;検索&lt;/button&gt;\n&lt;/___&gt;</code></pre>",
+      "options": ["div", "form", "section", "label"],
+      "answer": 1,
+      "commentary": "入力を送信可能にするためには必ず form タグで囲む必要があります。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "検索ワードの最後が「様」で終わるものを探したい。適切な方法はどれですか？",
+      "options": ["startswith", "contains", "endswith", "iexact"],
+      "answer": 2,
+      "commentary": "「語尾」をチェックするには endswith を使用します。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "get_querysetの中で自分以外のユーザーを取得するコードを完成させてください。<pre><code>User.objects.___ (id=self.request.user.id)</code></pre>",
+      "options": ["filter", "exclude", "remove", "get"],
+      "answer": 1,
+      "commentary": "exclude（除外）を使うことで、自分以外の友達候補だけを取得できます。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "検索機能を POST ではなく GET で実装する主なメリットは？",
+      "options": ["セキュリティが非常に強くなるから", "検索結果のURLをコピーしたりブックマークしたりできるから", "画像の検索ができるようになるから", "プログラムが自動的に終わるから"],
+      "answer": 1,
+      "commentary": "GETはパラメータがURLに残るため、特定の検索結果ページを共有しやすくなります。"
+    },
+    {
+      "id": 23,
+      "type": "実行結果予測",
+      "question": "「佐藤」で検索し、URLが ?keyword=佐藤 になりました。このページでリロード（再読み込み）するとどうなりますか？",
+      "options": ["検索が解除され全件表示になる", "「佐藤」の検索結果が再度表示される", "エラーになる", "「検索ボタンを再度押してください」と出る"],
+      "answer": 1,
+      "commentary": "URLに検索条件が含まれているため、ページを更新しても同じ結果が見られます。"
+    },
+    {
+      "id": 24,
+      "type": "コード穴埋め",
+      "question": "検索フォームの横にアイコンを表示するために使われている、ライブラリ名は何ですか？<pre><code>&lt;i class=\"fas fa-search\"&gt;&lt;/i&gt;</code></pre>",
+      "options": ["Google Fonts", "Bootstrap", "Font Awesome", "Django Icons"],
+      "answer": 2,
+      "commentary": "fa-search などのクラスは Font Awesome のアイコンフォントでよく使われます。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "検索用フォーム作成時に使った attrs={\"placeholder\": \"...\"} の「placeholder」とは何ですか？",
+      "options": ["入力欄に最初から入力されている動かせない文字", "入力欄が空のときに、うっすら表示される説明の文字", "ユーザーの名前", "送信ボタンの文字"],
+      "answer": 1,
+      "commentary": "「ここに何を入力するか」をヒントとして表示する灰色のテキストのことです。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "QuerySet型から特定の条件でデータを「さらに絞り込む」際に使うメソッドは何ですか？",
+      "options": ["all()", "filter()", "get()", "add()"],
+      "answer": 1,
+      "commentary": "filter() を重ねて呼ぶことで、どんどん条件を絞っていくことができます。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "テンプレートの href 内で <code>&</code> 記号を使って URL を繋ぐ際、正しい形式はどれですか？",
+      "options": ["?page=1&keyword=A", "?page=1?keyword=A", "&page=1&keyword=A", "/page=1/keyword=A"],
+      "answer": 0,
+      "commentary": "クエリパラメータの最初は「?」、2つ目以降は「&」で繋ぎます。"
+    },
+    {
+      "id": 28,
+      "type": "実行結果予測",
+      "question": "検索結果が0件だった場合、ListViewの画面はどうなりますか？",
+      "options": ["エラー画面になる", "全データが表示される", "何も表示されない（空のリストになる）", "ログイン画面に戻る"],
+      "answer": 2,
+      "commentary": "フィルターの結果が0件なら、その結果に従って空の画面が表示されます。"
+    },
+    {
+      "id": 29,
+      "type": "コード穴埋め",
+      "question": "ビューの中で、GETリクエストの内容にアクセスするためのオブジェクトはどれですか？",
+      "options": ["self.request.POST", "self.request.GET", "self.GET", "self.input"],
+      "answer": 1,
+      "commentary": "self.request.GET を通じて、URLのパラメータ（キーワードなど）を取得します。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "「istartswith」の機能として正しいものはどれですか？",
+      "options": ["大文字小文字を区別せず、前方一致検索をする", "文字の長さをカウントする", "検索を途中で止める", "検索結果を並べ替える"],
+      "answer": 0,
+      "commentary": "i（ignore case）と startswith を組み合わせた機能です。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "get_context_dataメソッドの最初で行う、親クラスのデータを取得する正しい書き方は？",
+      "options": ["super().get_context_data(**kwargs)", "super().context", "parent().context()", "base().get_data()"],
+      "answer": 0,
+      "commentary": "super() を呼ぶことで、既存のデータ（object_listなど）を引き継げます。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "検索キーワードの変数名「keyword」を、ビューとテンプレート、フォームのすべてで統一しなければならない理由は？",
+      "options": ["プログラミングが短くなるから", "名前が違うとデータが正しく受け渡しできないから", "Djangoのバグを防ぐため", "特に統一する必要はない"],
+      "answer": 1,
+      "commentary": "「どの名前（キー）」でデータを送るかを一致させないと、取得に失敗します。"
+    },
+    {
+      "id": 33,
+      "type": "実行結果予測",
+      "question": "検索ワード「A」で検索し、1ページあたり5件設定で、該当データが3件だった場合、ページネーションの「次へ」ボタンはどうなりますか？",
+      "options": ["2ページ目が表示される", "「次へ」ボタンが表示されない（または機能しない）", "全てのデータの2ページ目が表示される", "エラーになる"],
+      "answer": 1,
+      "commentary": "検索結果が1ページに収まっているため、次ページへのナビゲーションは不要になります。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "forms.py で label=\"検索\" と設定したとき、これはどこに使われますか？",
+      "options": ["入力欄の中の文字", "フォームの項目の隣に表示される名前", "送信ボタンの文字", "エラーメッセージ"],
+      "answer": 1,
+      "commentary": "項目の見出し（ラベル）として画面に表示されます。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "検索結果をフィルタリングするために get_queryset() の最後で返す必要があるものは何ですか？",
+      "options": ["context", "form", "queryset", "self"],
+      "answer": 2,
+      "commentary": "最終的に絞り込みが完了した QuerySet を返すことで画面に反映されます。"
+    },
+    {
+      "id": 36,
+      "type": "文法チェック",
+      "question": "キーワードが空（None）のときにエラーを出すことなく処理を分岐させるPythonの文法は？",
+      "options": ["while keyword:", "if keyword:", "for keyword:", "switch keyword:"],
+      "answer": 1,
+      "commentary": "if keyword: と書くと、値がある（空でない）時だけフィルタリング処理を実行できます。"
+    },
+    {
+      "id": 37,
+      "type": "実行結果予測",
+      "question": "friends.css で「.search-form { padding: 8px; }」と設定した結果、検索バーはどうなりますか？",
+      "options": ["検索バーが8ピクセル左に動く", "検索バーの内側に8ピクセルの余白ができる", "検索バーの文字が太くなる", "検索バーが消える"],
+      "answer": 1,
+      "commentary": "padding プロパティにより、フォームの境界線と中身の間に余白が生まれます。"
+    },
+    {
+      "id": 38,
+      "type": "用語理解",
+      "question": "ユーザー検索機能を導入することで改善される指標は何ですか？",
+      "options": ["UX（ユーザー体験）", "SEO（検索エンジン最適化）", "通信容量", "パソコンのバッテリー"],
+      "answer": 0,
+      "commentary": "ユーザーが目的のデータにたどり着くまでの手間を減らすことで、利便性が高まります。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "ページネーションのリンクを「&laquo; 先頭へ」と書いた時の「&laquo;」とは何を表示するための記号ですか？",
+      "options": ["数字の1", "二重の左矢印（≪）", "クエスチョンマーク", "下線"],
+      "answer": 1,
+      "commentary": "HTML特殊文字（エンティティ）で、デザイン上の記号を表示するために使われます。"
+    },
+    {
+      "id": 40,
+      "type": "文法チェック",
+      "question": "Djangoのビューから渡された変数 keyword の中身が空の場合、テンプレートの {{ keyword }} はどうなりますか？",
+      "options": ["Noneと表示される", "エラーで画面が止まる", "何も表示されない（空欄になる）", "undefinedと表示される"],
+      "answer": 2,
+      "commentary": "テンプレートエンジンは変数が空の場合、何も出力せずに無視します。"
+    }
+  ]
 }

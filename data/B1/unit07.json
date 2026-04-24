@@ -1,4 +1,325 @@
 {
   "unit_title": "Django 発展 4 - 演習と解説",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "コード穴埋め",
+      "question": "ListViewを継承したクラスで、1ページに表示する件数を5件に設定するにはどの変数を記述しますか？<pre><code>class ForumView(ListView):\n    template_name = \"main/forum.html\"\n    ___ = 5</code></pre>",
+      "options": ["page_size", "paginate_by", "limit_per_page", "display_count"],
+      "answer": 1,
+      "commentary": "paginate_by 変数に数値を設定することで、Djangoの標準機能によるページ分割が有効になります。"
+    },
+    {
+      "id": 2,
+      "type": "文法チェック",
+      "question": "検索フォームを作成する際、特定のモデルに基づかない自由な入力欄を作るために継承するクラスは何ですか？",
+      "options": ["forms.ModelForm", "forms.Form", "forms.BaseForm", "forms.SearchForm"],
+      "answer": 1,
+      "commentary": "モデルのフィールドと直接連動させない検索キーワードなどの入力には、forms.Form を使用します。"
+    },
+    {
+      "id": 3,
+      "type": "用語理解",
+      "question": "ページネーションにおいて、テンプレート側で現在のページ数や前後のページの有無を管理しているオブジェクト名は何ですか？",
+      "options": ["pagination", "page_info", "page_obj", "paginator"],
+      "answer": 2,
+      "commentary": "ListViewなどのジェネリックビューは、ページ情報を「page_obj」という名前でテンプレートに渡します。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "検索キーワードを受け取る際、値が空でもエラーにならないように取得する正しい書き方はどれですか？<pre><code>keyword = self.request.GET.___(\"keyword\")</code></pre>",
+      "options": ["fetch", "take", "get", "query"],
+      "answer": 2,
+      "commentary": "辞書型の .get() メソッドを使うと、指定したキーが存在しない場合にエラーを出さず None を返してくれます。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "以下のコードを実行したとき、どのような絞り込みが行われますか？<pre><code>queryset = queryset.filter(content__icontains=keyword)</code></pre>",
+      "options": ["内容がkeywordと完全に一致するものを探す", "内容にkeywordが含まれているものを大文字小文字を区別して探す", "内容にkeywordが含まれているものを大文字小文字を区別せず探す", "内容がkeywordで始まるものを探す"],
+      "answer": 2,
+      "commentary": "icontains の「i」は ignore case（無視する）、「contains」は「含む」を意味します。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "検索結果を維持したまま2ページ目に遷移するためのリンクを作成してください。<pre><code>&lt;a href=\"{% url 'forum' topic.id %}?___={{ keyword }}&page=2\"&gt;次へ&lt;/a&gt;</code></pre>",
+      "options": ["word", "search", "keyword", "input"],
+      "answer": 2,
+      "commentary": "URLのクエリパラメータ名（keyword）を、ビューで取得する際の名前と一致させる必要があります。"
+    },
+    {
+      "id": 7,
+      "type": "文法チェック",
+      "question": "CSSで「border-radius: 5px;」を指定したとき、要素の見た目はどう変わりますか？",
+      "options": ["枠線が太くなる", "枠線の色が薄くなる", "枠線の角が丸くなる", "枠線が点線になる"],
+      "answer": 2,
+      "commentary": "border-radius は要素の角に丸みを付けるためのプロパティです。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "検索フォームのHTMLにおいて、URLにパラメータを表示させるために指定するメソッドは何ですか？<pre><code>&lt;form method=\"___\" class=\"search-form\"&gt;</code></pre>",
+      "options": ["POST", "GET", "SEND", "SEARCH"],
+      "answer": 1,
+      "commentary": "検索などのデータを取得する操作は、URLに情報を載せる GET メソッドで行うのが一般的です。"
+    },
+    {
+      "id": 9,
+      "type": "用語理解",
+      "question": "CSSで「padding: 4px 8px;」と指定した際、左右の内側余白は何ピクセルになりますか？",
+      "options": ["4px", "8px", "12px", "32px"],
+      "answer": 1,
+      "commentary": "2つの値を指定した場合、1つ目が上下、2つ目が左右の余白を指します。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で「前のページがある場合のみ」リンクを表示する判定コードを完成させてください。<pre><code>{% if page_obj.___ %}</code></pre>",
+      "options": ["has_prev", "can_back", "has_previous", "exists_previous"],
+      "answer": 2,
+      "commentary": "page_obj.has_previous プロパティを使用して、前のページの有無を判定します。"
+    },
+    {
+      "id": 11,
+      "type": "実行結果予測",
+      "question": "<code>keyword = self.request.GET.get(\"keyword\") or \"\"</code> と書く理由は何ですか？",
+      "options": ["検索速度を上げるため", "Noneが返ってきた場合に、空文字列を代入してテンプレートでのエラーを防ぐため", "キーワードを大文字にするため", "データベースをリセットするため"],
+      "answer": 1,
+      "commentary": "Pythonの `or` 演算子を使い、None（偽）の場合に空文字をデフォルト値としてセットしています。"
+    },
+    {
+      "id": 12,
+      "type": "コード穴埋め",
+      "question": "フォーム内のテキスト入力欄を1行の文字入力用にするウィジェットの指定はどれですか？<pre><code>widget=forms.___ (attrs=...)</code></pre>",
+      "options": ["Textarea", "Input", "TextInput", "LineInput"],
+      "answer": 2,
+      "commentary": "一行入力には TextInput、複数行入力には Textarea を使用します。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "検索ボタン（buttonタグ）のtype属性に設定すべき正しい値は何ですか？",
+      "options": ["button", "search", "submit", "send"],
+      "answer": 2,
+      "commentary": "フォームの内容を送信するには type=\"submit\" を指定する必要があります。"
+    },
+    {
+      "id": 14,
+      "type": "コード穴埋め",
+      "question": "CSSで背景色を水色（#66CCFF）に設定するプロパティは何ですか？<pre><code>.btn-submit-search {\n    ___: #66CCFF;\n}</code></pre>",
+      "options": ["color", "bg-color", "background-color", "paint"],
+      "answer": 2,
+      "commentary": "background-color プロパティを使って要素の背景の色を指定します。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "CSSの単位「rem」とは何を基準にしたサイズですか？",
+      "options": ["画面の横幅", "親要素のフォントサイズ", "ルート（html）要素のフォントサイズ", "ブラウザの高さ"],
+      "answer": 2,
+      "commentary": "rem は root em の略で、html要素に設定された基本サイズに対する相対的な大きさを表します。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "テンプレートのページネーション部分で、総ページ数を表示するための書き方はどれですか？<pre><code>{{ page_obj.paginator.___ }}</code></pre>",
+      "options": ["all_pages", "total_count", "num_pages", "page_count"],
+      "answer": 2,
+      "commentary": "paginator.num_pages プロパティで、全体のページ数を取得できます。"
+    },
+    {
+      "id": 17,
+      "type": "文法チェック",
+      "question": "Djangoのビューで、親クラスの get_context_data を呼び出す正しい書き方はどれですか？",
+      "options": ["context = super.get_context_data(**kwargs)", "context = self.super().get_context_data(**kwargs)", "context = super().get_context_data(**kwargs)", "context = parent().get_context_data(**kwargs)"],
+      "answer": 2,
+      "commentary": "super() 関数を使って、継承元のクラスのメソッドを実行します。"
+    },
+    {
+      "id": 18,
+      "type": "コード穴埋め",
+      "question": "入力欄にうっすらと表示されるヒントの文字（「投稿を検索」など）を設定する属性は何ですか？<pre><code>attrs={\"___ \": \"投稿を検索\"}</code></pre>",
+      "options": ["hint", "placeholder", "label", "title"],
+      "answer": 1,
+      "commentary": "placeholder 属性は、入力が空の時に表示される説明文です。"
+    },
+    {
+      "id": 19,
+      "type": "用語理解",
+      "question": "CSSで「margin-bottom: 20px;」を指定したとき、どこに余白ができますか？",
+      "options": ["内側の下側", "内側の全体", "外側の下側", "外側の左側"],
+      "answer": 2,
+      "commentary": "margin は要素の外側の余白を指し、bottom は下方向を意味します。"
+    },
+    {
+      "id": 20,
+      "type": "実行結果予測",
+      "question": "paginate_by を設定した場合、テンプレートで使用できる <code>page_obj.number</code> は何を表示しますか？",
+      "options": ["全件数", "現在のページ番号", "1ページあたりの件数", "総ページ数"],
+      "answer": 1,
+      "commentary": "page_obj.number は「今、何ページ目か」という数字を表示します。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "CSSでテキストを中央揃えにする設定を完成させてください。<pre><code>.pagination {\n    ___: center;\n}</code></pre>",
+      "options": ["align", "center-align", "text-align", "justify-content"],
+      "answer": 2,
+      "commentary": "ブロック要素内のインライン要素やテキストを中央に寄せるには text-align: center; を使います。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "URLの末尾に「?page=1&keyword=テスト」のように付く情報を何と呼びますか？",
+      "options": ["パスパラメータ", "クエリパラメータ", "クエリ文字列", "ボディデータ"],
+      "answer": 1,
+      "commentary": "URLの「?」以降に記述されるキーと値のペアをクエリパラメータと呼びます。"
+    },
+    {
+      "id": 23,
+      "type": "文法チェック",
+      "question": "Djangoフォームで必須入力ではない項目にするために設定する引数はどれですか？",
+      "options": ["required=True", "required=False", "blank=True", "null=True"],
+      "answer": 1,
+      "commentary": "required=False とすることで、入力を空のまま送信してもエラーにならないように設定できます。"
+    },
+    {
+      "id": 24,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で「最後のページ」へのリンクを生成する正しい記述はどれですか？<pre><code>href=\"{% url 'forum' topic.id %}?page={{ page_obj.paginator.___ }}\"</code></pre>",
+      "options": ["last_page", "num_pages", "total_pages", "max_page"],
+      "answer": 1,
+      "commentary": "総ページ数（num_pages）をpageパラメータに渡すことで、最後のページへのリンクになります。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "CSSで「border: 1px solid #666;」の「solid」は何を意味しますか？",
+      "options": ["点線", "実線", "二重線", "枠線なし"],
+      "answer": 1,
+      "commentary": "solid は「切れ目のない一本の線（実線）」を指すスタイル指定です。"
+    },
+    {
+      "id": 26,
+      "type": "実行結果予測",
+      "question": "検索フォームに keyword=\"こんにちは\" と入力して検索した際、ビューで取得される <code>request.GET['keyword']</code> の値は何ですか？",
+      "options": ["keyword", "こんにちは", "投稿を検索", "None"],
+      "answer": 1,
+      "commentary": "入力された文字列「こんにちは」が、指定したキー名（keyword）の値として渡されます。"
+    },
+    {
+      "id": 27,
+      "type": "コード穴埋め",
+      "question": "テンプレートで検索フォームを <code>{{ search_form.keyword }}</code> で表示したとき、HTML上ではどのようなタグになりますか？",
+      "options": ["&lt;search&gt;", "&lt;textarea&gt;", "&lt;input type=\"text\"&gt;", "&lt;form&gt;"],
+      "answer": 2,
+      "commentary": "Djangoの CharField と TextInput ウィジェットの組み合わせにより、標準的な input タグが生成されます。"
+    },
+    {
+      "id": 28,
+      "type": "文法チェック",
+      "question": "CSSのプロパティを複数書くとき、区切りに使用する記号は何ですか？",
+      "options": [", (コンマ)", ": (コロン)", "; (セミコロン)", ". (ドット)"],
+      "answer": 2,
+      "commentary": "CSSの各宣言の最後にはセミコロン（;）を付ける必要があります。"
+    },
+    {
+      "id": 29,
+      "type": "コード穴埋め",
+      "question": "検索語「鈴木」で始まり、その後に何かの文字が続くデータを絞り込む検索条件（ルックアップ）は何ですか？<pre><code>queryset.filter(username___=\"鈴木\")</code></pre>",
+      "options": ["__contains", "__startswith", "__exact", "__match"],
+      "answer": 1,
+      "commentary": "「〜で始まる」という前方一致検索には startswith を使用します。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "ページネーションのリンクを「&laquo; 先頭へ」と記述した際、「&laquo;」はどう表示されますか？",
+      "options": ["数字の1", "二重の左矢印（≪）", "疑問符", "エラー文字"],
+      "answer": 1,
+      "commentary": "これはHTML特殊文字で、デザイン上の矢印記号などを表示するために使われます。"
+    },
+    {
+      "id": 31,
+      "type": "実行結果予測",
+      "question": "「paginate_by = 5」で全データが3件の場合、ページネーションのリンクはどうなりますか？",
+      "options": ["1ページ目と2ページ目のリンクが出る", "「次へ」ボタンだけが出る", "リンク部分は表示されるがクリックできない", "1ページに収まるため「前へ」「次へ」のif判定がFalseになり表示されない"],
+      "answer": 3,
+      "commentary": "データが1ページの上限より少ない場合、前後のページが存在しないため、ifタグ内のリンクは表示されません。"
+    },
+    {
+      "id": 32,
+      "type": "コード穴埋め",
+      "question": "CSSで文字の色を白（#fff）にする設定はどれですか？<pre><code>.btn-submit-search {\n    ___: #fff;\n}</code></pre>",
+      "options": ["font-color", "text-color", "color", "paint"],
+      "answer": 2,
+      "commentary": "文字そのものの色を指定するプロパティは color です。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "テンプレートのURLタグ {% url 'forum' topic.id %} の後に続く「topic.id」は何を意味していますか？",
+      "options": ["リンクに付ける名前", "URLのパスに含まれるID（引数）", "表示される文字", "データベースを削除する命令"],
+      "answer": 1,
+      "commentary": "URLパターンの `<int:topic_id>` 部分に渡すための具体的な数字データを指定しています。"
+    },
+    {
+      "id": 34,
+      "type": "コード穴埋め",
+      "question": "フォームを送信するためのボタン（HTMLタグ）は何ですか？<pre><code>&lt;___ type=\"submit\"&gt;検索&lt;/___&gt;</code></pre>",
+      "options": ["input", "button", "send", "click"],
+      "answer": 1,
+      "commentary": "buttonタグに type=\"submit\" を付けることで、フォームデータを送信する役割を持たせることができます。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "CSSで「width: 250px;」を指定したとき、何が250ピクセルになりますか？",
+      "options": ["要素の高さ", "要素の横幅", "文字の大きさ", "外側の余白"],
+      "answer": 1,
+      "commentary": "width プロパティは要素の水平方向の長さ（横幅）を決定します。"
+    },
+    {
+      "id": 36,
+      "type": "実行結果予測",
+      "question": "検索フォームに何も入力せずに「検索」を押した場合、ビューの <code>if keyword:</code> 以降の処理はどうなりますか？",
+      "options": ["エラーが起きて止まる", "全データに対して絞り込みを行わずに進む（スキップされる）", "全てのデータが削除される", "「空」という文字で検索される"],
+      "answer": 1,
+      "commentary": "空文字はPythonで「偽」と判定されるため、filterの処理は実行されず、全件取得の状態が維持されます。"
+    },
+    {
+      "id": 37,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で「次のページの番号」を取得するための変数はどれですか？<pre><code>?page={{ page_obj.___ }}</code></pre>",
+      "options": ["next", "next_page", "next_page_number", "number_next"],
+      "answer": 2,
+      "commentary": "page_obj.next_page_number を使うことで、現在のページに1を足した数字が取得できます。"
+    },
+    {
+      "id": 38,
+      "type": "文法チェック",
+      "question": "ListViewを継承して get_queryset を上書きした際、最後に行うべきことは何ですか？",
+      "options": ["新しいHTMLを作る", "モデルを削除する", "絞り込んだ後の QuerySet を return（返却）する", "サーバーを止める"],
+      "answer": 2,
+      "commentary": "メソッドの最後でデータを返さないと、表示するものが何もない状態になってしまいます。"
+    },
+    {
+      "id": 39,
+      "type": "コード穴埋め",
+      "question": "CSSで枠線を無しにするために指定する値は何ですか？<pre><code>border: ___ ;</code></pre>",
+      "options": ["0", "hidden", "none", "no"],
+      "answer": 2,
+      "commentary": "border: none; と設定することで、デフォルトの境界線を消去できます。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "「掲示板のメッセージにページネーションが必要な理由」として最も適切なものはどれですか？",
+      "options": ["文字数を増やすため", "大量の投稿を読み込む時間を短縮し、見やすくするため", "パスワードを守るため", "検索を禁止するため"],
+      "answer": 1,
+      "commentary": "投稿が何千件もある場合に1ページで表示すると重くなるため、小分けにして表示速度と利便性を向上させます。"
+    }
+  ]
 }
