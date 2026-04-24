@@ -1,4 +1,325 @@
 {
   "unit_title": "Django 発展 1 - 演習と解説",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "Django標準の認証機能を拡張し、サインアップやログイン機能を簡単に実装できるライブラリは何ですか？",
+      "options": ["django-auth-plus", "django-allauth", "django-user-manager", "django-login-tool"],
+      "answer": 1,
+      "commentary": "django-allauthは、ユーザー登録やログイン、ソーシャルログインなどを手軽に実装できる非常に有名なライブラリです。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "インストールしたライブラリを <code>requirements.txt</code> に書き出すコマンドを完成させてください。<pre><code>pip ___ > requirements.txt</code></pre>",
+      "options": ["list", "show", "freeze", "save"],
+      "answer": 2,
+      "commentary": "pip freezeコマンドを使うと、現在インストールされているライブラリとそのバージョンを一覧で出力できます。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "認証バックエンドの設定で、django-allauthを使用することを伝える記述はどれですか？<pre><code>AUTHENTICATION_BACKENDS = [\n    'django.contrib.auth.backends.ModelBackend',\n    '___',\n]</code></pre>",
+      "options": ["allauth.account.auth_backends.AuthenticationBackend", "django.allauth.backends.AuthBackend", "accounts.models.CustomUser", "allauth.urls"],
+      "answer": 0,
+      "commentary": "AUTHENTICATION_BACKENDSにallauthのパスを指定することで、Djangoがallauthを使って認証を行うようになります。"
+    },
+    {
+      "id": 4,
+      "type": "文法チェック",
+      "question": "settings.pyで <code>AUTH_USER_MODEL = 'accounts.CustomUser'</code> と設定する目的は何ですか？",
+      "options": ["管理者サイトの名前を変えるため", "Django標準のUserモデルではなく、自分で作ったCustomUserモデルを使うため", "ユーザーのパスワードを暗号化するため", "メールアドレスを登録できるようにするため"],
+      "answer": 1,
+      "commentary": "独自のフィールド（ユーザー名以外など）を後から追加しやすくするために、カスタムユーザーモデルの使用を指定します。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "独自のユーザーモデルを作成する際、継承すべきベースクラスは何ですか？<pre><code>from django.contrib.auth.models import ___\n\nclass CustomUser(___):</code></pre>",
+      "options": ["BaseUser", "CustomUser", "AbstractUser", "DefaultUser"],
+      "answer": 2,
+      "commentary": "AbstractUserを継承することで、Django標準のユーザー機能を持ちつつ、拡張可能なユーザーモデルを作ることができます。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "ログインに成功した後のリダイレクト先を指定する設定項目は何ですか？<pre><code>___ = 'index'</code></pre>",
+      "options": ["LOGIN_URL", "LOGIN_REDIRECT_URL", "ACCOUNT_LOGIN_URL", "REDIRECT_AFTER_LOGIN"],
+      "answer": 1,
+      "commentary": "LOGIN_REDIRECT_URLにURL名（'index'など）を指定すると、ログイン直後にそのページが表示されます。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で、現在アクセスしているユーザーがログイン済みかどうかを判定する記述はどれですか？<pre><code>{% if ___ %}</code></pre>",
+      "options": ["user.login", "request.user.is_authenticated", "request.user.is_login", "user.is_staff"],
+      "answer": 1,
+      "commentary": "request.user.is_authenticatedを使うことで、ログイン中か未ログインかを判定し、表示を切り替えることができます。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "ビューの中で、現在ログインしているユーザー自身をメッセージの投稿者として保存する正しい書き方はどれですか？<pre><code>Message.objects.create(\n    content=message,\n    user=___,\n)</code></pre>",
+      "options": ["request.user", "user.name", "CustomUser.objects.all()", "admin"],
+      "answer": 0,
+      "commentary": "request.userには現在ログインしているユーザーのオブジェクトが格納されています。これをモデルの外部キー（user）に渡します。"
+    },
+    {
+      "id": 9,
+      "type": "実行結果予測",
+      "question": "Messageモデルのuserフィールドが空欄を許可していない（null=False）場合、ログインせずに投稿しようとするとどのようなエラーが出ますか？",
+      "options": ["404 Not Found", "IntegrityError (NOT NULL constraint failed)", "TemplateDoesNotExist", "TypeError"],
+      "answer": 1,
+      "commentary": "データベースの制約により、「値が空っぽ（NULL）ではいけない」というIntegrityError（整合性エラー）が発生します。"
+    },
+    {
+      "id": 10,
+      "type": "用語理解",
+      "question": "会員登録後に確認メールを送信しないようにする設定 <code>ACCOUNT_EMAIL_VERIFICATION = 'none'</code> は、開発中にどのようなメリットがありますか？",
+      "options": ["セキュリティが非常に高くなる", "メールサーバーの設定なしに、すぐに会員登録機能を試せる", "パスワードが不要になる", "サイトの動作が速くなる"],
+      "answer": 1,
+      "commentary": "メール認証を'none'にすることで、メール送信の仕組みを作らなくても登録した瞬間からログインが可能になります。"
+    },
+    {
+      "id": 11,
+      "type": "実行結果予測",
+      "question": "django-allauthにおけるログインページの標準のURL名（{% url %}で使う名前）は何ですか？",
+      "options": ["login", "allauth_login", "account_login", "signin"],
+      "answer": 2,
+      "commentary": "allauthでは、認証に関するURLは「account_◯◯」という名前で定義されています。"
+    },
+    {
+      "id": 12,
+      "type": "コード穴埋め",
+      "question": "ログアウトした瞬間に確認画面を出さず、すぐにログアウトさせる設定は何ですか？<pre><code>ACCOUNT_LOGOUT_ON_GET = ___</code></pre>",
+      "options": ["True", "False", "None", "'yes'"],
+      "answer": 0,
+      "commentary": "この項目をTrueに設定すると、ログアウトリンクをクリックしただけですぐにログアウトが実行されます。"
+    },
+    {
+      "id": 13,
+      "type": "実行結果予測",
+      "question": "settings.pyで <code>LANGUAGE_CODE = 'ja'</code> と設定すると、何が変化しますか？",
+      "options": ["プログラムが日本語で書けるようになる", "Djangoの管理画面やallauthの標準画面が日本語で表示されるようになる", "サイトの速度が速くなる", "日本語の画像しかアップロードできなくなる"],
+      "answer": 1,
+      "commentary": "LANGUAGE_CODEは表示言語を切り替える設定で、'ja'を指定すると日本語になります。"
+    },
+    {
+      "id": 14,
+      "type": "コード穴埋め",
+      "question": "プロジェクトのURL設定（urls.py）で、allauthの全機能を有効にするための記述を完成させてください。<pre><code>path('accounts/', ___('allauth.urls')),</code></pre>",
+      "options": ["import", "include", "load", "add"],
+      "answer": 1,
+      "commentary": "他のアプリのURL設定を読み込むにはinclude関数を使用します。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "掲示板アプリを「main」アプリと「accounts」アプリに分割して開発する理由はなぜですか？",
+      "options": ["Djangoが1つのアプリしか読み込めないから", "機能ごとに分割して整理することで、管理や再利用をしやすくするため", "アプリを増やすとパソコンの性能が上がるから", "プログラムを長く見せるため"],
+      "answer": 1,
+      "commentary": "「関心の分離」と呼ばれ、掲示板機能（main）と認証機能（accounts）を分けるのがDjangoの推奨される設計方法です。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "データベースを一度リセットする際、削除すべきデータベースファイル名は何ですか？",
+      "options": ["database.db", "db.sqlite3", "django.db", "data.json"],
+      "answer": 1,
+      "commentary": "Djangoのデフォルトのデータベースは「db.sqlite3」というファイル名で保存されています。"
+    },
+    {
+      "id": 17,
+      "type": "実行結果予測",
+      "question": "会員登録ページ（signup）にアクセスした際、まだ自分でHTMLを作っていない場合はどうなりますか？",
+      "options": ["エラー（404 Not Found）になる", "django-allauthが用意している標準のテンプレートが表示される", "真っ白な画面になる", "Googleのページが表示される"],
+      "answer": 1,
+      "commentary": "django-allauthは標準のテンプレートを持っているため、設定を済ませるだけですぐに画面が表示されます。"
+    },
+    {
+      "id": 18,
+      "type": "用語理解",
+      "question": "管理者サイト（/admin）にログインするためのユーザーを作るコマンドは何ですか？",
+      "options": ["python manage.py makeadmin", "python manage.py createsuperuser", "python manage.py newuser", "python manage.py addadmin"],
+      "answer": 1,
+      "commentary": "createsuperuserコマンドで、全ての権限を持つ管理用ユーザーを作成できます。"
+    },
+    {
+      "id": 19,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で、ログインしている場合のみリンクを表示したい。正しい構造はどれですか？<pre><code>{% if request.user.is_authenticated %}\n  &lt;a href=\"...\"&gt;ログアウト&lt;/a&gt;\n{% ___ %}\n  &lt;a href=\"...\"&gt;ログイン&lt;/a&gt;\n{% endif %}</code></pre>",
+      "options": ["elif", "else", "then", "not"],
+      "answer": 1,
+      "commentary": "「もしログイン中ならA、そうでなければB」という条件分岐を作るにはelseタグを使います。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "Messageモデルの user フィールドを ForeignKey で設定する際、どのモデルを指定しますか？",
+      "options": ["User", "CustomUser", "AbstractUser", "Member"],
+      "answer": 1,
+      "commentary": "accountsアプリで作成した「CustomUser」を指定して、メッセージと投稿したユーザーを紐付けます。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "会員登録画面を表示するためのURLパスとして、allauthの標準設定ではどれが正しいですか？",
+      "options": ["/register/", "/accounts/signup/", "/new-user/", "/auth/join/"],
+      "answer": 1,
+      "commentary": "path('accounts/', include('allauth.urls')) と設定した場合、サインアップは /accounts/signup/ となります。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "ビューの中で <code>request.method == \"POST\"</code> をチェックする主な目的は何ですか？",
+      "options": ["ページの読み込みを速くするため", "「投稿ボタン」が押されたときだけの処理（保存など）を区別するため", "ユーザーの名前を確認するため", "データベースを削除するため"],
+      "answer": 1,
+      "commentary": "ページを「表示するだけ（GET）」のときと「データを送る（POST）」ときで処理を分けるために使います。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "作成した「accounts」アプリをDjangoに認識させるために、設定する項目は何ですか？<pre><code>INSTALLED_APPS = [\n    # ...\n    '___',\n]</code></pre>",
+      "options": ["django.auth", "accounts", "allauth", "CustomUser"],
+      "answer": 1,
+      "commentary": "新しく作成した自作アプリも、必ずINSTALLED_APPSに追加する必要があります。"
+    },
+    {
+      "id": 24,
+      "type": "実行結果予測",
+      "question": "マイグレーションファイル（0001_initial.pyなど）を削除した後に、再度マイグレーションを作成するコマンドは何ですか？",
+      "options": ["python manage.py migrate", "python manage.py makemigrations", "python manage.py startapp", "python manage.py runserver"],
+      "answer": 1,
+      "commentary": "makemigrationsコマンドを実行することで、モデルの内容から再度設計図（マイグレーション）を作り直します。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "TIME_ZONE = 'Asia/Tokyo' と設定しない場合、時刻はどう表示されることが多いですか？",
+      "options": ["日本時間より9時間遅れる", "日本時間より9時間早くなる", "時刻が表示されない", "ランダムな時刻になる"],
+      "answer": 0,
+      "commentary": "デフォルトは世界標準時(UTC)のため、日本時間(JST)より9時間遅れて表示されます。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "CustomUserモデルの中で、管理者画面での表示名を設定する記述はどれですか？<pre><code>class Meta:\n    ___ = 'CustomUser'</code></pre>",
+      "options": ["name", "verbose_name", "label", "title"],
+      "answer": 1,
+      "commentary": "verbose_nameを設定することで、管理画面などでモデルの名前を分かりやすく表示できます。"
+    },
+    {
+      "id": 27,
+      "type": "文法チェック",
+      "question": "ビューの中で <code>if request.user.is_authenticated:</code> と書いた後の字下げ（インデント）された処理はどうなりますか？",
+      "options": ["ログインしている時だけ実行される", "ログインしていない時だけ実行される", "いつでも実行される", "エラーになる"],
+      "answer": 0,
+      "commentary": "Pythonではインデントによって条件分岐の範囲が決まります。ログイン中のみ実行したい処理をここに書きます。"
+    },
+    {
+      "id": 28,
+      "type": "コード穴埋め",
+      "question": "ForeignKeyの引数 <code>on_delete=models.CASCADE</code> は、何が起きた時にデータを削除しますか？",
+      "options": ["アプリを削除したとき", "紐づいている親（ユーザー）が削除されたとき", "インターネットが切れたとき", "毎日夜12時になったとき"],
+      "answer": 1,
+      "commentary": "CASCADE（連鎖）設定により、ユーザーが退会するとそのユーザーの投稿も自動で削除されます。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "createsuperuserコマンドでパスワードを入力する際、画面に文字が表示されないのはなぜですか？",
+      "options": ["パソコンがフリーズしたから", "セキュリティのため、打った内容を見えないようにしているから", "キーボードが反応していないから", "入力しなくてよいから"],
+      "answer": 1,
+      "commentary": "ターミナル（黒い画面）でのパスワード入力は、覗き見防止のために文字が表示されないのが一般的です。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "「django-allauth」を使い始めた後、ログイン後のURLを変えたい場合、どのファイルを編集しますか？",
+      "options": ["views.py", "urls.py", "settings.py", "models.py"],
+      "answer": 2,
+      "commentary": "LOGIN_REDIRECT_URLなどの認証に関する動作設定は、すべてsettings.pyに記述します。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "ミドルウェアの設定に <code>'allauth.account.middleware.AccountMiddleware'</code> を追加する場所はどこですか？",
+      "options": ["INSTALLED_APPS", "MIDDLEWARE", "DATABASES", "TEMPLATES"],
+      "answer": 1,
+      "commentary": "ミドルウェアは、リクエストとレスポンスの間で動作する仕組みを管理するMIDDLEWAREリストに追加します。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "ForeignKeyで <code>related_name=\"user_message\"</code> を設定したとき、ユーザー側から自分の投稿一覧を取得する名前はどうなりますか？",
+      "options": ["user.user_message.all()", "user.message_set.all()", "request.message", "user.post"],
+      "answer": 0,
+      "commentary": "related_nameを指定すると、親（ユーザー）から子（メッセージ）を呼び出すときの名前を指定できます。"
+    },
+    {
+      "id": 33,
+      "type": "実行結果予測",
+      "question": "<code>ACCOUNT_LOGOUT_ON_GET = False</code>（デフォルト）の場合、ログアウトボタンを押すとどうなりますか？",
+      "options": ["すぐにログアウトしてトップページに戻る", "「本当にログアウトしますか？」という確認画面が表示される", "エラーになる", "何も起きない"],
+      "answer": 1,
+      "commentary": "標準設定では、誤操作防止のために確認用のページが一度挟まれます。"
+    },
+    {
+      "id": 34,
+      "type": "コード穴埋め",
+      "question": "現在のすべてのライブラリ設定を requirements.txt に上書き保存するための記号は何ですか？<pre><code>pip freeze ___ requirements.txt</code></pre>",
+      "options": ["<", ">", "|", "&"],
+      "answer": 1,
+      "commentary": "「>」記号（リダイレクト）を使って、コマンドの出力をファイルに書き込みます。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "Messageモデルの作成日時に <code>auto_now_add=True</code> を設定するメリットは？",
+      "options": ["投稿した瞬間の時刻が自動で記録され、自分で値を入れなくて済む", "時刻が毎日自動で更新される", "時刻がランダムになる", "時刻が非表示になる"],
+      "answer": 0,
+      "commentary": "これを設定すると、作成された時の日時をDjangoが勝手に入れてくれるので便利です。"
+    },
+    {
+      "id": 36,
+      "type": "実行結果予測",
+      "question": "マイグレーションを実行せずにサーバーを起動し、新しく追加したフィールドを使おうとするとどうなりますか？",
+      "options": ["自動でマイグレーションされる", "「no such column（列がありません）」といったデータベースエラーが出る", "サイトが綺麗に表示される", "特に何も起きない"],
+      "answer": 1,
+      "commentary": "Python上のモデル(設計図)と実際のデータベース(実体)がズレているため、エラーが発生します。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "テンプレートの a タグの href に <code>{% url 'account_logout' %}</code> を設定する目的は？",
+      "options": ["ログアウト画面へ移動するリンクを作るため", "ログアウトボタンを赤色にするため", "ログイン画面へ移動するため", "ユーザーの名前を表示するため"],
+      "answer": 0,
+      "commentary": "urlタグを使って、allauthが用意したログアウト用のURLを呼び出しています。"
+    },
+    {
+      "id": 38,
+      "type": "コード穴埋め",
+      "question": "CustomUserモデルで <code>AbstractUser</code> をインポートする正しいパスは？<pre><code>from django.contrib.___ .models import AbstractUser</code></pre>",
+      "options": ["db", "auth", "admin", "apps"],
+      "answer": 1,
+      "commentary": "認証（authentication）に関する機能は django.contrib.auth に含まれています。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "「django-allauth」が利用している <code>SITE_ID = 1</code> という設定の「SITE」とは何を指しますか？",
+      "options": ["自分のパソコンの番号", "Djangoが管理するサイトの枠組みのID", "ログインした回数", "インターネットの速さ"],
+      "answer": 1,
+      "commentary": "DjangoのSitesフレームワーク機能で、どのサイト設定を使うかを指定するためのIDです。"
+    },
+    {
+      "id": 40,
+      "type": "実行結果予測",
+      "question": "掲示板（forumビュー）で、ログインしていない時に投稿しようとした場合の処理 <code>if request.user.is_authenticated:</code> があると、未ログイン者はどうなりますか？",
+      "options": ["エラー画面になる", "投稿処理がスキップされ、何も保存されない", "自動的にログイン画面に飛ばされる", "名前が「Anonymous」として保存される"],
+      "answer": 1,
+      "commentary": "if文の条件（ログイン中）に当てはまらないため、投稿保存のコードが実行されず、何事もなくページが再表示されます。"
+    }
+  ]
 }

@@ -1,4 +1,325 @@
 {
   "unit_title": "クラスベースビュー",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "Pythonのクラスを使用して作成するビューのことを何と呼びますか？",
+      "options": ["関数ビュー", "クラスベースビュー", "テンプレートビュー", "ジェネリックビュー"],
+      "answer": 1,
+      "commentary": "Pythonのクラス（class）を使ってビューを定義する仕組みをクラスベースビュー（CBV）と呼びます。"
+    },
+    {
+      "id": 2,
+      "type": "用語理解",
+      "question": "Djangoが標準で提供している、よく使われる機能をまとめたビュークラスの総称は何ですか？",
+      "options": ["スタンダードビュー", "メインビュー", "ジェネリックビュー（汎用ビュー）", "ミックスイン"],
+      "answer": 2,
+      "commentary": "表示や作成、削除などの共通の処理を簡単に実装できるようDjangoが用意しているのがジェネリックビューです。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "HTMLテンプレートを表示するだけの最も基本的なジェネリックビューはどれですか？<pre><code>from django.views.generic.base import ___</code></pre>",
+      "options": ["ListView", "CreateView", "TemplateView", "DetailView"],
+      "answer": 2,
+      "commentary": "単にテンプレートファイルを表示したい場合は TemplateView を使用します。"
+    },
+    {
+      "id": 4,
+      "type": "コード穴埋め",
+      "question": "クラスベースビューにおいて、テンプレートファイルを指定するために使う変数名は何ですか？<pre><code>class MyView(TemplateView):\n    ___ = \"my_site.html\"</code></pre>",
+      "options": ["html_file", "template_name", "file_path", "view_name"],
+      "answer": 1,
+      "commentary": "template_name という変数にHTMLファイルのパスを指定します。"
+    },
+    {
+      "id": 5,
+      "type": "実行結果予測",
+      "question": "ListViewを継承し model = Product と設定した場合、テンプレート内でデータ一覧を受け取るデフォルトの変数名は何ですか？",
+      "options": ["products", "model_list", "object_list", "data"],
+      "answer": 2,
+      "commentary": "ListViewでは標準で「object_list」という名前でデータが渡されます。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "1つのデータの詳細情報を表示するために使うジェネリックビューはどれですか？",
+      "options": ["ListView", "DetailView", "UpdateView", "SingleView"],
+      "answer": 1,
+      "commentary": "特定の1件を表示するには DetailView を使用します。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "新規データを作成するためのビューはどれですか？<pre><code>class ProductCreateView(___):</code></pre>",
+      "options": ["NewView", "AddView", "CreateView", "PostView"],
+      "answer": 2,
+      "commentary": "データの新規作成には CreateView を使用します。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "既存データを更新するためのビューはどれですか？<pre><code>class ProductUpdateView(___):</code></pre>",
+      "options": ["EditView", "UpdateView", "ChangeView", "ModifyView"],
+      "answer": 1,
+      "commentary": "データの更新（編集）には UpdateView を使用します。"
+    },
+    {
+      "id": 9,
+      "type": "コード穴埋め",
+      "question": "データを削除するためのビューはどれですか？<pre><code>class ProductDeleteView(___):</code></pre>",
+      "options": ["RemoveView", "DeleteView", "ClearView", "TrashView"],
+      "answer": 1,
+      "commentary": "データの削除には DeleteView を使用します。"
+    },
+    {
+      "id": 10,
+      "type": "文法チェック",
+      "question": "urls.pyでクラスベースビューを指定する際、クラス名の後ろに必ず付けなければならないメソッドは何ですか？",
+      "options": [".run()", ".start()", ".as_view()", ".as_function()"],
+      "answer": 2,
+      "commentary": "urls.pyは関数を期待するため、.as_view()を呼び出して関数として動作させる必要があります。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "補助的な機能をクラスに追加するために「継承」して使うクラスのことを何と呼びますか？",
+      "options": ["プラグイン", "アドオン", "ミックスイン", "サブクラス"],
+      "answer": 2,
+      "commentary": "単体では使わず、機能を混ぜ合わせるためのクラスをミックスインと呼びます。"
+    },
+    {
+      "id": 12,
+      "type": "コード穴埋め",
+      "question": "ログインしているユーザーだけがアクセスできるように制限するミックスインはどれですか？<pre><code>class MyView(___ , ListView):</code></pre>",
+      "options": ["AuthMixin", "LoginRequiredMixin", "UserMixin", "CheckLoginMixin"],
+      "answer": 1,
+      "commentary": "LoginRequiredMixin を継承の先頭に書くことでアクセス制限ができます。"
+    },
+    {
+      "id": 13,
+      "type": "用語理解",
+      "question": "大量のデータを数件ずつに分けて表示し、ページを切り替えられるようにする機能を何といいますか？",
+      "options": ["ページング", "ページネーション", "分割表示", "データスクロール"],
+      "answer": 1,
+      "commentary": "長いリストを複数ページに分ける仕組みをページネーションと呼びます。"
+    },
+    {
+      "id": 14,
+      "type": "コード穴埋め",
+      "question": "ListViewで1ページに表示する件数を指定する変数名は何ですか？<pre><code>class FriendsView(ListView):\n    ___ = 7</code></pre>",
+      "options": ["page_size", "count_by", "paginate_by", "limit"],
+      "answer": 2,
+      "commentary": "paginate_by 変数に数値を設定するだけでページ分割が有効になります。"
+    },
+    {
+      "id": 15,
+      "type": "実行結果予測",
+      "question": "ListViewを継承したビューで paginate_by を設定した際、テンプレートに自動で渡されるページ情報を持つオブジェクト名は何ですか？",
+      "options": ["pagination", "page_info", "page_obj", "current_page"],
+      "answer": 2,
+      "commentary": "テンプレート内では「page_obj」を使ってページ移動などの情報を取得できます。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "テンプレートに渡す辞書データをカスタマイズ（追加）したい時にオーバーライドするメソッドは何ですか？<pre><code>def ___(self, **kwargs):\n    context = super().get_context_data(**kwargs)</code></pre>",
+      "options": ["get_data", "get_context_data", "set_context", "context_dict"],
+      "answer": 1,
+      "commentary": "get_context_dataをオーバーライドすることで、任意の値をテンプレートに送れます。"
+    },
+    {
+      "id": 17,
+      "type": "コード穴埋め",
+      "question": "ListViewなどで取得するクエリセット（データの集まり）をカスタマイズしたい時に使うメソッドは何ですか？<pre><code>def ___(self):\n    return User.objects.exclude(id=self.request.user.id)</code></pre>",
+      "options": ["get_query", "get_queryset", "fetch_data", "filter_queryset"],
+      "answer": 1,
+      "commentary": "get_querysetを書き換えることで、表示するデータを絞り込んだり並び替えたりできます。"
+    },
+    {
+      "id": 18,
+      "type": "用語理解",
+      "question": "CreateViewやUpdateViewで、完了後に移動するURLを指定する変数名は何ですか？",
+      "options": ["next_url", "redirect_to", "success_url", "finish_path"],
+      "answer": 2,
+      "commentary": "処理が「成功（success）」した後のURLを指定するため success_url と呼びます。"
+    },
+    {
+      "id": 19,
+      "type": "コード穴埋め",
+      "question": "success_urlに「名前付きURL」を指定する際に、クラス変数として使うべき関数はどれですか？<pre><code>success_url = ___(\"friends\")</code></pre>",
+      "options": ["reverse", "redirect", "reverse_lazy", "url"],
+      "answer": 2,
+      "commentary": "クラスの定義段階ではURL設定が読み込まれていないため、遅延評価される reverse_lazy を使います。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "特定の条件（例：スタッフかどうか）を満たすユーザーのみアクセスを許可するために使うミックスインは何ですか？",
+      "options": ["StaffOnlyMixin", "UserPassesTestMixin", "ConditionMixin", "PermissionMixin"],
+      "answer": 1,
+      "commentary": "UserPassesTestMixin を使い、test_funcメソッドで条件を記述します。"
+    },
+    {
+      "id": 21,
+      "type": "文法チェック",
+      "question": "LoginRequiredMixinとListViewの両方を継承する場合、記述する順番として正しいものはどれですか？",
+      "options": ["(ListView, LoginRequiredMixin)", "(LoginRequiredMixin, ListView)", "順番はどちらでもよい", "1つしか継承できない"],
+      "answer": 1,
+      "commentary": "Pythonの多重継承のルールにより、ミックスイン（LoginRequiredMixin）を先に記述する必要があります。"
+    },
+    {
+      "id": 22,
+      "type": "コード穴埋め",
+      "question": "DetailViewにおいて、どのデータを表示するかを判断するためにURLに含めるべきパラメータは何ですか？<pre><code>path(\"product/&lt;int:___&gt;/\", ...)</code></pre>",
+      "options": ["id", "pk", "key", "num"],
+      "answer": 1,
+      "commentary": "DetailViewはURLから渡された「pk（プライマリキー）」を使ってデータを特定します。"
+    },
+    {
+      "id": 23,
+      "type": "実行結果予測",
+      "question": "CreateViewを使い model = Product とした場合、デフォルトで使用されるテンプレートファイル名はどれですか？",
+      "options": ["product_create.html", "product_form.html", "product_add.html", "product_new.html"],
+      "answer": 1,
+      "commentary": "CreateViewとUpdateViewのデフォルト名は「モデル名_form.html」です。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "HTTPの「GETリクエスト」があった時に呼ばれるクラスベースビュー内のメソッドは何ですか？",
+      "options": ["get()", "receive()", "dispatch()", "load()"],
+      "answer": 0,
+      "commentary": "リクエストの種類（メソッド）に合わせて、クラス内の get() や post() が呼ばれます。"
+    },
+    {
+      "id": 25,
+      "type": "用語理解",
+      "question": "すべてのリクエストで最初に実行され、GETかPOSTかを判断して適切なメソッドに振り分ける役割を持つメソッドは何ですか？",
+      "options": ["start()", "dispatch()", "router()", "handle()"],
+      "answer": 1,
+      "commentary": "dispatch()が全体の交通整理を行うため、共通の前処理などを書くのに適しています。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "テンプレート内で「前のページがあるか」を判定するために使うプロパティは何ですか？<pre><code>{% if page_obj.___ %}</code></pre>",
+      "options": ["has_prev", "has_previous", "is_first", "can_back"],
+      "answer": 1,
+      "commentary": "page_obj.has_previous で、前のページが存在するかどうかをbool値で返します。"
+    },
+    {
+      "id": 27,
+      "type": "実行結果予測",
+      "question": "テンプレートで {{ page_obj.number }} と書いたとき、何が表示されますか？",
+      "options": ["全ページ数", "1ページあたりの件数", "現在のページ番号", "データの総件数"],
+      "answer": 2,
+      "commentary": "page_obj.number は現在のページ（例：2ページ目なら 2）を表示します。"
+    },
+    {
+      "id": 28,
+      "type": "コード穴埋め",
+      "question": "CreateViewで、入力フォームに表示したい項目を制限するために使う変数名は何ですか？<pre><code>class ProductCreateView(CreateView):\n    model = Product\n    ___ = [\"name\", \"price\"]</code></pre>",
+      "options": ["columns", "inputs", "fields", "forms"],
+      "answer": 2,
+      "commentary": "fields リストにモデルのフィールド名を指定します。"
+    },
+    {
+      "id": 29,
+      "type": "文法チェック",
+      "question": "DetailViewで、URLに指定したpkのデータが存在しなかった場合、Djangoはどう反応しますか？",
+      "options": ["空白のページを表示する", "404 Not Found エラーを返す", "最初のデータを表示する", "エラーにならずにテンプレートを表示する"],
+      "answer": 1,
+      "commentary": "自動的に「ページが見つかりません（404）」を返してくれます。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "DeleteViewのデフォルトで使用されるテンプレートファイル名の形式はどれですか？",
+      "options": ["モデル名_delete.html", "モデル名_confirm_delete.html", "モデル名_remove.html", "モデル名_check.html"],
+      "answer": 1,
+      "commentary": "「本当に削除しますか？」という確認画面を想定しているため、_confirm_delete という名前になります。"
+    },
+    {
+      "id": 31,
+      "type": "コード穴埋め",
+      "question": "テンプレートで「次のページの番号」を取得するために使うプロパティは何ですか？<pre><code>?page={{ page_obj.___ }}</code></pre>",
+      "options": ["next_page", "next_page_number", "after_number", "page_plus"],
+      "answer": 1,
+      "commentary": "page_obj.next_page_number で、次のページへ行くための数値をリンクに使えます。"
+    },
+    {
+      "id": 32,
+      "type": "実行結果予測",
+      "question": "TemplateViewの中で get_context_data をオーバーライドする際、super().get_context_data() を呼ぶ理由は？",
+      "options": ["親クラスが用意した初期データの辞書を受け取るため", "Pythonの決まりだから", "エラーを防止するため", "画面をクリアするため"],
+      "answer": 0,
+      "commentary": "これを呼ばないと、Djangoが本来用意している重要なデータが消えてしまいます。"
+    },
+    {
+      "id": 33,
+      "type": "文法チェック",
+      "question": "クラスベースビューで self.request.user を使うと何が取得できますか？",
+      "options": ["すべてのユーザーのリスト", "現在アクセスしているユーザーのオブジェクト", "管理者ユーザーのみ", "ユーザーのID（数字）"],
+      "answer": 1,
+      "commentary": "ビューのメソッド内では、self.request を通じて現在のユーザーにアクセスできます。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "ListViewにおいて、テンプレートに渡す変数名を object_list 以外に変えたい時に使う変数はどれですか？",
+      "options": ["context_object_name", "variable_name", "list_name", "template_object"],
+      "answer": 0,
+      "commentary": "context_object_name = 'friends' のように設定すると、テンプレートで friends として使えます。"
+    },
+    {
+      "id": 35,
+      "type": "コード穴埋め",
+      "question": "ページネーションのリンクを「最後へ」飛ばしたい時、総ページ数を知るための書き方はどれですか？<pre><code>{{ page_obj.paginator.___ }}</code></pre>",
+      "options": ["total_pages", "all_pages", "num_pages", "max_page"],
+      "answer": 2,
+      "commentary": "page_obj.paginator.num_pages で総ページ数を取得できます。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "クラスベースビューと関数ビュー、どちらが「コードの記述量を減らせる」可能性がありますか？",
+      "options": ["関数ビュー", "クラスベースビュー", "どちらも同じ", "HTML"],
+      "answer": 1,
+      "commentary": "標準的な機能（一覧、詳細、作成など）であれば、クラスベースビューの方が圧倒的に短く書けます。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "ListViewで、特定の条件でデータを並び替えたい場合、どこに記述するのが適切ですか？",
+      "options": ["get_context_data()", "get_queryset()", "dispatch()", "as_view()"],
+      "answer": 1,
+      "commentary": "データベースから取り出すデータ自体を操作するのは get_queryset() の役割です。"
+    },
+    {
+      "id": 38,
+      "type": "コード穴埋め",
+      "question": "ページ切り替えボタンを中央に配置するCSSの設定は何ですか？<pre><code>.pagination {\n    ___: center;\n}</code></pre>",
+      "options": ["align", "margin", "text-align", "justify"],
+      "answer": 2,
+      "commentary": "テキストやリンクを中央に寄せるには text-align: center; を使用します。"
+    },
+    {
+      "id": 39,
+      "type": "実行結果予測",
+      "question": "LoginRequiredMixinを使っていて未ログインでアクセスした場合、どのURLに飛ばされますか？",
+      "options": ["トップページ", "login_url で指定したURL", "管理者サイト", "エラー画面"],
+      "answer": 1,
+      "commentary": "クラス内の login_url 変数で指定した場所にリダイレクトされます。"
+    },
+    {
+      "id": 40,
+      "type": "用語理解",
+      "question": "クラスベースビューを学ぶ大きなメリットは？",
+      "options": ["Pythonを使わなくて済む", "よくある機能（ページ分割や作成フォームなど）を楽に、綺麗に実装できる", "サイトがカラフルになる", "文字入力が不要になる"],
+      "answer": 1,
+      "commentary": "Djangoの強力な機能を最大限に活用し、効率的に開発ができるようになります。"
+    }
+  ]
 }

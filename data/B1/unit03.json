@@ -1,4 +1,325 @@
 {
   "unit_title": "Django 発展 2 - 演習と解説",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "「すべてのトピックを取得して表示させる」という機能を実現するために、最も適したジェネリックビューはどれですか？",
+      "options": ["DetailView", "ListView", "CreateView", "DeleteView"],
+      "answer": 1,
+      "commentary": "ListViewは複数のレコードを一覧表示するために最適化されたビューです。"
+    },
+    {
+      "id": 2,
+      "type": "コード穴埋め",
+      "question": "ListViewを継承して、使用するモデルを指定する正しい記述はどれですか？<pre><code>class IndexView(ListView):\n    template_name = \"main/index.html\"\n    ___ = Topic</code></pre>",
+      "options": ["db_model", "target_model", "model", "object"],
+      "answer": 2,
+      "commentary": "model変数に使用するモデルクラスを指定することで、自動的に全件取得が行われます。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "テンプレートに渡すデータの名前（変数名）を指定するクラス変数はどれですか？<pre><code>class IndexView(ListView):\n    model = Topic\n    ___ = \"topics\"</code></pre>",
+      "options": ["object_name", "context_object_name", "template_var", "context_name"],
+      "answer": 1,
+      "commentary": "context_object_nameを使うと、テンプレート側で好きな名前（例：topics）でデータを扱えます。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "掲示板のように「特定のトピックに紐づくメッセージだけを表示する」といった、絞り込みが必要な場合にオーバーライドするメソッドは何ですか？",
+      "options": ["get_context_data", "get_queryset", "post", "dispatch"],
+      "answer": 1,
+      "commentary": "get_querysetはデータベースから取り出すQuerySet（データの集まり）を動的に変更したいときに使います。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "URLに含まれるパラメータ（topic_idなど）をクラスベースビューの中で取得するための記述はどれですか？<pre><code>topic = Topic.objects.get(id=self.___[\"topic_id\"])</code></pre>",
+      "options": ["args", "url_params", "kwargs", "request"],
+      "answer": 2,
+      "commentary": "URLのパスパラメータは self.kwargs という辞書の中に格納されています。"
+    },
+    {
+      "id": 6,
+      "type": "文法チェック",
+      "question": "get_context_dataをオーバーライドする際、最初に親クラスのデータを取得する正しい書き方はどれですか？",
+      "options": ["context = get_context_data(**kwargs)", "context = self.get_context_data(**kwargs)", "context = super().get_context_data(**kwargs)", "context = parent.get_context_data(**kwargs)"],
+      "answer": 2,
+      "commentary": "super()を使うことで、Django標準のListViewなどが用意した基本データ（object_listなど）を維持したまま独自のデータを追加できます。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "掲示板で新しいメッセージを投稿（保存）する処理を書くのに適したメソッドは何ですか？<pre><code>class ForumView(ListView):\n    def ___(self, request, *args, **kwargs):\n        # メッセージ作成処理</code></pre>",
+      "options": ["get", "create", "post", "save"],
+      "answer": 2,
+      "commentary": "フォームからのデータ送信（POSTメソッド）を処理するには、post()メソッドを記述します。"
+    },
+    {
+      "id": 8,
+      "type": "実行結果予測",
+      "question": "post()メソッドの最後に <code>return redirect(...)</code> を行わずに <code>render()</code> で返した場合、どのようなリスクがありますか？",
+      "options": ["ページが表示されない", "ブラウザのリロードボタンを押すと、同じメッセージが二重に投稿される可能性がある", "デザインが崩れる", "ログアウトしてしまう"],
+      "answer": 1,
+      "commentary": "これを「二重送信」と呼び、保存処理の後はリダイレクトを行うのがWeb開発の鉄則です。"
+    },
+    {
+      "id": 9,
+      "type": "文法チェック",
+      "question": "複数のメソッドで共通して行う処理（例：topicの取得）を、独自のメソッド <code>get_topic()</code> として切り出すメリットは何ですか？",
+      "options": ["コードの記述量を増やせる", "修正が必要になったとき、1箇所の書き換えで済む（効率化）", "表示速度が10倍になる", "HTMLが不要になる"],
+      "answer": 1,
+      "commentary": "共通化することで保守性（メンテナンスのしやすさ）が高まります。"
+    },
+    {
+      "id": 10,
+      "type": "コード穴埋め",
+      "question": "urls.pyでクラスベースビューを登録する際、忘れずに付けなければならない記述を完成させてください。<pre><code>path('', views.IndexView.___, name='index'),</code></pre>",
+      "options": ["run()", "start()", "as_view()", "view()"],
+      "answer": 2,
+      "commentary": "クラスベースビューを呼び出すときは必ず as_view() を付ける必要があります。"
+    },
+    {
+      "id": 11,
+      "type": "用語理解",
+      "question": "掲示板のメッセージを表示する際、作成日時が「古い順（投稿された順）」になるように並べ替えるメソッドの引数はどれですか？",
+      "options": ["order_by(\"-created_at\")", "order_by(\"created_at\")", "sort(\"oldest\")", "filter(\"all\")"],
+      "answer": 1,
+      "commentary": "昇順（古い順）にする場合はマイナスを付けず、降順（新しい順）にする場合は \"-created_at\" とします。"
+    },
+    {
+      "id": 12,
+      "type": "実行結果予測",
+      "question": "ForumView内の <code>post()</code> メソッドで <code>request.user.is_authenticated</code> をチェックしている理由は何ですか？",
+      "options": ["ユーザー名を画面に出すため", "ログインしていないユーザーが投稿を保存できないようにするため", "パスワードを確認するため", "データベースを整理するため"],
+      "answer": 1,
+      "commentary": "認証チェックを挟むことで、不正な投稿や未ログイン者の操作を防ぐことができます。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "Messageモデルのレコードを新規作成するために使うメソッドは何ですか？<pre><code>Message.objects.___(\n    topic=topic,\n    content=message,\n    user=request.user,\n)</code></pre>",
+      "options": ["add", "new", "save", "create"],
+      "answer": 3,
+      "commentary": "create()メソッドを使うと、データの生成と保存を一度に行うことができます。"
+    },
+    {
+      "id": 14,
+      "type": "文法チェック",
+      "question": "クラスベースビューのメソッド内から、ブラウザで送信されたPOSTデータの中身（メッセージ内容）を取得する正しい書き方はどれですか？",
+      "options": ["self.POST[\"message\"]", "request.POST[\"message\"]", "kwargs[\"message\"]", "request.data.message"],
+      "answer": 1,
+      "commentary": "postメソッドの引数として渡される request オブジェクトの POST 辞書から取得します。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "ジェネリックビュー（ListView等）を継承することで得られる「恩恵」として正しいものはどれですか？",
+      "options": ["Pythonの知識が全く不要になる", "ページネーションやデータ取得などの共通処理を、少ないコードで実装できる", "自動的にかっこいいロゴが作成される", "サーバーが勝手に動き出す"],
+      "answer": 1,
+      "commentary": "標準的な機能（ボイラープレートコード）をDjango側が肩代わりしてくれるため、効率が上がります。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "QuerySet型と辞書型（Context）の違いについて、テンプレートに表示する「さまざまな値（タイトルなど）」を格納するのに適しているのはどちらですか？",
+      "options": ["QuerySet型", "辞書型", "リスト型", "文字列型"],
+      "answer": 1,
+      "commentary": "辞書型（context）はキーと値のペアで、データベース以外の自由な値を詰め込むことができます。"
+    },
+    {
+      "id": 17,
+      "type": "実行結果予測",
+      "question": "ListViewで <code>template_name</code> を指定し忘れた場合、どうなりますか？",
+      "options": ["Djangoが自動で真っ白な画面を作る", "エラー（ImproperlyConfigured）が発生する", "Googleが表示される", "前のページのテンプレートが使い回される"],
+      "answer": 1,
+      "commentary": "どのHTMLを表示すべきか設定されていないため、構成エラーになります。"
+    },
+    {
+      "id": 18,
+      "type": "用語理解",
+      "question": "「View」や「TemplateView」といったジェネリックビューが「抽象化されている」とはどういう意味ですか？",
+      "options": ["とても詳しく書かれている", "機能が非常に限定的（シンプル）で、一から自分で書く部分が多い", "画像がたくさん使われている", "日本語に翻訳されている"],
+      "answer": 1,
+      "commentary": "抽象的なクラスほど決まった動作が少ないため、ListViewのような特化型クラスよりも自分でコードを書く量が増えます。"
+    },
+    {
+      "id": 19,
+      "type": "文法チェック",
+      "question": "クラスベースビューにおいて、現在のリクエストに含まれるユーザー情報を取得する正しい記述はどれですか？",
+      "options": ["self.request.user", "user.self", "request.user.self", "self.user"],
+      "answer": 0,
+      "commentary": "クラスのインスタンス（self）が持つ request オブジェクトの中にユーザー情報が入っています。"
+    },
+    {
+      "id": 20,
+      "type": "コード穴埋め",
+      "question": "URLパスの書き換えで、整数型のパラメータを受け取る指定方法を完成させてください。<pre><code>path('&lt;___:topic_id&gt;/', views.ForumView.as_view(), name='forum'),</code></pre>",
+      "options": ["str", "num", "int", "id"],
+      "answer": 2,
+      "commentary": "intを指定することで、URLのその部分を数値として認識し、topic_idという変数名でビューに渡します。"
+    },
+    {
+      "id": 21,
+      "type": "実行結果予測",
+      "question": "<code>Message.objects.filter(topic=topic)</code> はどのようなデータを取得しますか？",
+      "options": ["すべてのトピック", "すべてのメッセージ", "指定したトピック（topic）に紐付いているメッセージだけ", "最新の1件のメッセージ"],
+      "answer": 2,
+      "commentary": "filter()は条件に一致するレコードだけを絞り込んで取得します。"
+    },
+    {
+      "id": 22,
+      "type": "用語理解",
+      "question": "クラスベースビューで「オーバーライド（上書き）」が必要になるのはどのような時ですか？",
+      "options": ["標準の動作をそのまま使いたい時", "標準の動作を自分のアプリに合わせて変更したり追加したりしたい時", "エラーをすべて消したい時", "ファイルを削除したい時"],
+      "answer": 1,
+      "commentary": "元からあるメソッド（get_querysetなど）を自分で定義し直すことで、動きをカスタマイズします。"
+    },
+    {
+      "id": 23,
+      "type": "コード穴埋め",
+      "question": "リダイレクト先のURLを名前（name='forum'）で指定するための関数を完成させてください。<pre><code>return ___(\"forum\", topic_id=topic.id)</code></pre>",
+      "options": ["render", "redirect", "reverse", "go_to"],
+      "answer": 1,
+      "commentary": "redirect関数にURL名と必要なパラメータを渡すと、ブラウザがそのページへ移動します。"
+    },
+    {
+      "id": 24,
+      "type": "文法チェック",
+      "question": "クラスベースビューのメソッド <code>post(self, request, *args, **kwargs)</code> の引数にある <code>*args</code> や <code>**kwargs</code> は何のためにありますか？",
+      "options": ["計算をするため", "任意の数や種類の引数を柔軟に受け取れるようにするため", "プログラムを長く見せるため", "パスワードを隠すため"],
+      "answer": 1,
+      "commentary": "Djangoの内部システムが渡す様々な情報を、漏らさず受け取るためのPythonの書き方です。"
+    },
+    {
+      "id": 25,
+      "type": "実行結果予測",
+      "question": "<code>from django.views import generic</code> とインポートした場合、ListViewを継承するにはどう書きますか？",
+      "options": ["class MyView(ListView):", "class MyView(generic.ListView):", "class MyView(django.ListView):", "class MyView(generic_list.ListView):"],
+      "answer": 1,
+      "commentary": "genericという名前でインポートした場合は、ドットで繋いでクラスを指定します。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "独自のメソッド <code>get_topic(self)</code> を定義した後、同じクラスの他の場所から呼び出す正しい書き方はどれですか？",
+      "options": ["get_topic()", "self.get_topic()", "View.get_topic()", "this.get_topic()"],
+      "answer": 1,
+      "commentary": "クラス内のメソッドを呼び出す際は <code>self.</code> を付ける必要があります。"
+    },
+    {
+      "id": 27,
+      "type": "用語理解",
+      "question": "関数ベースビューからクラスベースビューへの書き換え（移行）を推奨する一般的な理由はどれですか？",
+      "options": ["デザインが自動で改善されるから", "コードの再利用性が高まり、整理しやすくなるから", "Pythonのバージョンが上がるから", "インターネットが不要になるから"],
+      "answer": 1,
+      "commentary": "共通化や継承ができるクラスの特性を活かすことで、大規模な開発でも管理がしやすくなります。"
+    },
+    {
+      "id": 28,
+      "type": "文法チェック",
+      "question": "get_queryset(self, **kwargs) の戻り値（return）としてふさわしくないものはどれですか？",
+      "options": ["Topic.objects.all()", "Message.objects.filter(id=1)", "[\"データ1\", \"データ2\"]", "Message.objects.order_by(\"created_at\")"],
+      "answer": 2,
+      "commentary": "get_querysetは、通常のリストではなくデータベースの「QuerySet」を返す必要があります。"
+    },
+    {
+      "id": 29,
+      "type": "実行結果予測",
+      "question": "ForumViewで <code>context_object_name = \"messages\"</code> と設定した場合、テンプレートの <code>{% for m in ... %}</code> に入る変数はどれですか？",
+      "options": ["object_list", "topics", "messages", "data"],
+      "answer": 2,
+      "commentary": "設定した名前に基づいてテンプレートにデータが届けられます。"
+    },
+    {
+      "id": 30,
+      "type": "コード穴埋め",
+      "question": "モデルのデータを「取得する」際に使うメソッドは何ですか？<pre><code>topic = Topic.objects.___ (id=self.kwargs[\"topic_id\"])</code></pre>",
+      "options": ["all", "get", "create", "filter"],
+      "answer": 1,
+      "commentary": "特定の条件に合うデータを1件だけ取り出すときは get() メソッドを使います。"
+    },
+    {
+      "id": 31,
+      "type": "用語理解",
+      "question": "掲示板アプリにおいて、トピック一覧を表示する IndexView の親クラス（継承元）に ListView を選ぶのはなぜですか？",
+      "options": ["画像を表示したいから", "トピックが複数（リスト）存在するから", "文字を入力させたいから", "パスワードを守りたいから"],
+      "answer": 1,
+      "commentary": "「一覧を表示する」という目的が ListView の役割と完全に一致しているためです。"
+    },
+    {
+      "id": 32,
+      "type": "文法チェック",
+      "question": "クラスベースビューの定義 <code>class ForumView(ListView):</code> におけるカッコ内の「ListView」は何を意味していますか？",
+      "options": ["ListViewという名前を付ける", "ListViewの機能をすべて引き継ぐ（継承する）", "ListViewというファイルを読み込む", "エラーをチェックする"],
+      "answer": 1,
+      "commentary": "Djangoが用意した ListView クラスを「親」としてその能力を引き継いでいます。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "テンプレート内の <code>{{ topic.title }}</code> という表示を動かすために、ビューでデータを追加するメソッドはどれですか？",
+      "options": ["get_queryset", "get_context_data", "post", "as_view"],
+      "answer": 1,
+      "commentary": "QuerySet以外の「個別データ（topicなど）」をテンプレートに渡すには get_context_data を使います。"
+    },
+    {
+      "id": 34,
+      "type": "実行結果予測",
+      "question": "ListViewを継承して <code>queryset = Topic.objects.all()</code> を追加し、メソッドを1つも書かなかった場合、どうなりますか？",
+      "options": ["何も表示されない", "全トピックが一覧表示される（標準動作が動く）", "エラーになる", "画面が真っ暗になる"],
+      "answer": 1,
+      "commentary": "ジェネリックビューは最小限の設定だけで動くように設計されています。"
+    },
+    {
+      "id": 35,
+      "type": "用語理解",
+      "question": "掲示板アプリの forum ビューを ListView で実装する際、本来の目的（一覧表示）に加えて何ができるように改造しましたか？",
+      "options": ["画像を加工する機能", "新規メッセージを投稿して保存する機能", "文字の色を変える機能", "ページを自動で閉じる機能"],
+      "answer": 1,
+      "commentary": "post()メソッドを追加することで、一覧表示のページに「投稿機能」を合体させました。"
+    },
+    {
+      "id": 36,
+      "type": "コード穴埋め",
+      "question": "モデルのレコードを「並び替えて取得する」時に使うメソッドは何ですか？<pre><code>Message.objects.all().___(\"created_at\")</code></pre>",
+      "options": ["sort", "align", "order_by", "filter"],
+      "answer": 2,
+      "commentary": "order_by は、指定したフィールド（created_at など）でデータを並べ替えます。"
+    },
+    {
+      "id": 37,
+      "type": "文法チェック",
+      "question": "<code>redirect(\"forum\", topic_id=topic.id)</code> の引数にある <code>topic_id</code> は、どこで使われる名前ですか？",
+      "options": ["データベースのテーブル名", "urls.py で定義したパスの変数名", "HTMLのクラス名", "ユーザーのパスワード"],
+      "answer": 1,
+      "commentary": "URLパターンの &lt;int:topic_id&gt; と名前を一致させることで、正しいURLが作成されます。"
+    },
+    {
+      "id": 38,
+      "type": "実行結果予測",
+      "question": "<code>get_queryset</code> の中で <code>self.kwargs[\"topic_id\"]</code> を使っています。このデータはどこから来ますか？",
+      "options": ["設定ファイル", "データベース", "ブラウザがアクセスしたURLのパス", "入力フォーム"],
+      "answer": 2,
+      "commentary": "ユーザーがアクセスしたURL（例：/polls/5/）の数字部分がここに格納されます。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "Djangoのジェネリックビューにおいて、標準動作だけで不十分な時に自分で機能を「足す・変える」ための仕組みを何といいますか？",
+      "options": ["デリート", "オーバーライド（上書き）", "コピー", "パスワード"],
+      "answer": 1,
+      "commentary": "既存のメソッド（get_querysetなど）を定義し直すことで、動きを制御します。"
+    },
+    {
+      "id": 40,
+      "type": "コード穴埋め",
+      "question": "クラスベースビューを導入する際、最初にインポートすべき正しいパスはどれですか？",
+      "options": ["from django.shortcuts import render", "from django.views.generic import ListView", "from django.urls import path", "from django.db import models"],
+      "answer": 1,
+      "commentary": "ListViewなどのジェネリックビューを使うためには、django.views.generic からインポートが必要です。"
+    }
+  ]
 }
