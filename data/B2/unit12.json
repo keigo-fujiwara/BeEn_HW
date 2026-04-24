@@ -1,4 +1,125 @@
 {
   "unit_title": "SNS アプリ - フォーム",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "複数の入力項目をまとめて、フォーム全体の土台を作る動的ウィジェットは何ですか？",
+      "options": ["Column", "Form", "SizedBox", "TextFormField"],
+      "answer": 1,
+      "commentary": "Formウィジェットは、複数の入力項目（TextFormFieldなど）をグループ化し、一括でバリデーションや保存を行うための土台となります。"
+    },
+    {
+      "id": 2,
+      "type": "用語理解",
+      "question": "実際にテキスト入力欄を表示し、ユーザーが文字を入力できるようにするウィジェットは何ですか？",
+      "options": ["InputDecoration", "TextFormField", "ElevatedButton", "GlobalKey"],
+      "answer": 1,
+      "commentary": "TextFormFieldは、テキスト入力のためのインターフェースを提供し、Formウィジェットと連携して動作します。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "Formウィジェットの状態にアクセスし、バリデーションや保存を実行するために必要なキーを指定してください。<pre><code>final _formKey = ___&lt;FormState&gt;();\n// ...\nForm(\n  key: _formKey,\n  child: ...\n)</code></pre>",
+      "options": ["LocalKey", "UniqueKey", "GlobalKey", "StateKey"],
+      "answer": 2,
+      "commentary": "GlobalKeyを使うことで、ウィジェットツリーの離れた場所からFormState（フォームの状態）を操作できるようになります。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "TextFormFieldにおいて、入力欄のラベルや枠線の見た目をカスタマイズするために使うプロパティは何ですか？",
+      "options": ["style", "decoration", "validator", "onSaved"],
+      "answer": 1,
+      "commentary": "decorationプロパティにInputDecorationウィジェットを設定することで、ラベル、ヒント、枠線などの外見を変更できます。"
+    },
+    {
+      "id": 5,
+      "type": "用語理解",
+      "question": "「空欄ではないか？」といった入力内容の検証（バリデーション）を行うために設定するプロパティは何ですか？",
+      "options": ["onChanged", "onSaved", "validator", "decoration"],
+      "answer": 2,
+      "commentary": "validatorプロパティに関数を設定することで、入力値が条件を満たしているかをチェックし、エラーがあればメッセージを表示できます。"
+    },
+    {
+      "id": 6,
+      "type": "コード穴埋め",
+      "question": "フォームの内容が正しく入力されているか検証を実行するコードを完成させてください。<pre><code>if (_formKey.currentState!. ___ ()) {\n  // 成功時の処理\n}</code></pre>",
+      "options": ["save", "validate", "reset", "check"],
+      "answer": 1,
+      "commentary": "currentState!.validate()を実行すると、配下のすべてのTextFormFieldのvalidatorが呼び出されます。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "バリデーション成功後、入力内容を保存するために実行するメソッドは何ですか？<pre><code>if (_formKey.currentState!.validate()) {\n  _formKey.currentState!. ___ ();\n}</code></pre>",
+      "options": ["update", "refresh", "save", "commit"],
+      "answer": 2,
+      "commentary": "save()メソッドを実行すると、配下のすべてのTextFormFieldのonSavedプロパティに設定した関数が呼び出されます。"
+    },
+    {
+      "id": 8,
+      "type": "用語理解",
+      "question": "フォームの保存時に呼び出され、入力された値を変数に格納するために使うプロパティは何ですか？",
+      "options": ["validator", "onSaved", "initialValue", "controller"],
+      "answer": 1,
+      "commentary": "onSavedプロパティに関数を定義することで、フォーム確定時に入力値をプログラム内の変数へ渡すことができます。"
+    },
+    {
+      "id": 9,
+      "type": "実行結果予測",
+      "question": "validatorで '内容を入力してください。' という文字列を返した場合、画面上ではどうなりますか？",
+      "options": ["何も起きない", "入力欄が赤くなり、その文字列がエラーメッセージとして表示される", "アプリが強制終了する", "入力欄の文字が消える"],
+      "answer": 1,
+      "commentary": "validatorがnull以外の文字列を返すと、Flutterはそれをエラーメッセージとみなし、警告表示を行います。"
+    },
+    {
+      "id": 10,
+      "type": "文法チェック",
+      "question": "時刻の表示形式を整えるために追加したパッケージの名前は何ですか？",
+      "options": ["time_format", "intl", "date_picker", "flutter_datetime"],
+      "answer": 1,
+      "commentary": "intlパッケージは、日付のフォーマット（DateFormat）や多言語対応に使用される標準的なライブラリです。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "新しい投稿をリストの「一番最初（先頭）」に追加するためのメソッドは何ですか？<pre><code>postList. ___ (0, newPost);</code></pre>",
+      "options": ["add", "push", "insert", "append"],
+      "answer": 2,
+      "commentary": "insert(インデックス, 要素)を使うことで、リストの任意の場所に要素を追加できます。0を指定すると先頭になります。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "現在表示されている画面をスタックから取り除き、前の画面に戻るためのコードはどれですか？",
+      "options": ["Navigator.of(context).pushNamed('/')", "Navigator.of(context).pop()", "Navigator.of(context).back()", "setState(() {})"],
+      "answer": 1,
+      "commentary": "pop()を呼び出すことで、現在の画面（投稿作成ページ）を閉じ、遷移元の画面（投稿一覧ページ）に戻ります。"
+    },
+    {
+      "id": 13,
+      "type": "文法チェック",
+      "question": "投稿内容を保存する際、値が空だった場合に備えて空文字を代入する記述はどれですか？",
+      "options": ["_content = value || '';", "_content = value ?? '';", "_content = value if null '';", "_content = value == '';"],
+      "answer": 1,
+      "commentary": "??（null合体演算子）は、左辺がnullの場合に右辺の値を返します。"
+    },
+    {
+      "id": 14,
+      "type": "実行結果予測",
+      "question": "DateFormat('MM/dd HH:mm').format(DateTime.now()) を実行したときの結果として正しい形式はどれですか？",
+      "options": ["2026年4月1日", "04/25 01:00", "01:00", "Saturday, April 25"],
+      "answer": 1,
+      "commentary": "MMは月、ddは日、HHは24時間制の時、mmは分を表します。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "投稿作成ページから投稿一覧ページのリストにデータを追加できない問題を解決するために取った手法はどれですか？",
+      "options": ["データベースを新しく作る", "投稿一覧ページで作った関数（addPost）を画面遷移時に渡す", "すべての変数をグローバル変数にする", "スマホのメモリを増やす"],
+      "answer": 1,
+      "commentary": "親（一覧ページ）の状態を更新する関数を、引数として子（作成ページ）に渡すことで連携を実現しています。"
+    }
+  ]
 }

@@ -1,4 +1,325 @@
 {
   "unit_title": "SNS アプリ - 画面遷移",
-  "questions": []
+  "questions": [
+    {
+      "id": 1,
+      "type": "用語理解",
+      "question": "一度画面に表示されたら、その後内容が変わることがない「静的ウィジェット」が継承するクラスは何ですか？",
+      "options": ["StatefulWidget", "StatelessWidget", "Navigator", "Route"],
+      "answer": 1,
+      "commentary": "内容が変わらない静的なウィジェットは StatelessWidget を継承します。"
+    },
+    {
+      "id": 2,
+      "type": "用語理解",
+      "question": "状態（State）を持ち、表示を動的に更新できる「動的ウィジェット」が継承するクラスは何ですか？",
+      "options": ["StatelessWidget", "StatefulWidget", "Navigator", "MaterialApp"],
+      "answer": 1,
+      "commentary": "状態の変化に応じて表示を更新できるウィジェットは StatefulWidget を継承します。"
+    },
+    {
+      "id": 3,
+      "type": "コード穴埋め",
+      "question": "IconButtonが押されたときの処理を指定するプロパティは何ですか？<pre><code>IconButton(\n  ___: () {\n    debugPrint('押されました');\n  },\n  icon: Icon(Icons.add)\n)</code></pre>",
+      "options": ["onTap", "onClick", "onPressed", "onChanged"],
+      "answer": 2,
+      "commentary": "IconButton や多くのボタンウィジェットでは、押下時の処理を onPressed プロパティに記述します。"
+    },
+    {
+      "id": 4,
+      "type": "用語理解",
+      "question": "Flutterにおいて、状態が変わったことを通知し、画面を再描画（buildの再実行）させるために呼ぶ関数は何ですか？",
+      "options": ["reload()", "refresh()", "setState()", "update()"],
+      "answer": 2,
+      "commentary": "setState() を呼び出すことで、Flutterに状態の変化を伝え、表示を更新させることができます。"
+    },
+    {
+      "id": 5,
+      "type": "コード穴埋め",
+      "question": "通知の数を1減らす処理を完成させてください。<pre><code>setState(() {\n  if (notificationCount > 0) {\n    ___ ;\n  }\n});</code></pre>",
+      "options": ["notificationCount++", "notificationCount--", "notificationCount = 0", "notificationCount = 5"],
+      "answer": 1,
+      "commentary": "「--」演算子を使うことで、変数の値を1減らすことができます。"
+    },
+    {
+      "id": 6,
+      "type": "用語理解",
+      "question": "Flutterで画面遷移を管理し、複数の画面を「stack（積み上げ）」形式で保持するウィジェットは何ですか？",
+      "options": ["Navigator", "AppBar", "Scaffold", "MaterialApp"],
+      "answer": 0,
+      "commentary": "Navigator は画面遷移を管理する重要なウィジェットです。"
+    },
+    {
+      "id": 7,
+      "type": "コード穴埋め",
+      "question": "Navigatorの管理形式（stack）において、新しい画面を追加することを何と呼びますか？<pre><code>Navigator.of(context). ___ ( ... );</code></pre>",
+      "options": ["add", "push", "pop", "insert"],
+      "answer": 1,
+      "commentary": "新しい画面へ遷移し、スタックに積み上げる操作を push といいます。"
+    },
+    {
+      "id": 8,
+      "type": "コード穴埋め",
+      "question": "Navigatorで現在の画面をスタックから取り除き、前の画面に戻る操作を何と呼びますか？<pre><code>Navigator.of(context). ___ ();</code></pre>",
+      "options": ["remove", "back", "pop", "delete"],
+      "answer": 2,
+      "commentary": "スタックの一番上のデータを取り出し、前の画面に戻る操作を pop といいます。"
+    },
+    {
+      "id": 9,
+      "type": "実行結果予測",
+      "question": "名前付きルートの設定において、アプリ起動時に最初に表示される画面（パス）を指定するプロパティは何ですか？<pre><code>MaterialApp(\n  ___: '/',\n  routes: {\n    '/': (context) => const MyHomePage(),\n  },\n);</code></pre>",
+      "options": ["home", "initialRoute", "mainPage", "startRoute"],
+      "answer": 1,
+      "commentary": "名前付きルートを使用する場合、initialRoute プロパティで開始時のパスを指定します。"
+    },
+    {
+      "id": 10,
+      "type": "文法チェック",
+      "question": "MaterialAppのroutesプロパティにパス「/sample」を登録する正しい書き方はどれですか？",
+      "options": ["'/sample': SamplePage()", "'/sample': (context) => const SamplePage()", "path('/sample'): const SamplePage()", "['/sample']: const SamplePage()"],
+      "answer": 1,
+      "commentary": "パスをキーとし、ウィジェットを生成する関数を値とするマップ形式で記述します。"
+    },
+    {
+      "id": 11,
+      "type": "コード穴埋め",
+      "question": "名前付きルート「/sample」へ遷移させるためのコードを完成させてください。<pre><code>Navigator.of(context). ___ ('/sample');</code></pre>",
+      "options": ["push", "pushNamed", "goNamed", "moveNamed"],
+      "answer": 1,
+      "commentary": "MaterialApp で登録したパス名を使って遷移するには pushNamed() を使います。"
+    },
+    {
+      "id": 12,
+      "type": "用語理解",
+      "question": "pushNamed()で遷移する際、遷移先の画面にデータを渡すために使うパラメータは何ですか？",
+      "options": ["data", "params", "arguments", "values"],
+      "answer": 2,
+      "commentary": "arguments パラメータにデータを渡すことで、遷移先でその情報を利用できます。"
+    },
+    {
+      "id": 13,
+      "type": "コード穴埋め",
+      "question": "pushNamed()で渡されたデータ（Object?型）を、String型として扱うために型を変換（キャスト）するキーワードは何ですか？<pre><code>final data = ModalRoute.of(context)!.settings.arguments ___ String;</code></pre>",
+      "options": ["is", "to", "as", "into"],
+      "answer": 2,
+      "commentary": " Dart では `as` キーワードを使って型キャストを行います。"
+    },
+    {
+      "id": 14,
+      "type": "文法チェック",
+      "question": "MaterialPageRoute を使った画面遷移で、正しい書き方はどれですか？",
+      "options": ["Navigator.of(context).push(MaterialPageRoute(builder: (context) => const SamplePage()));", "Navigator.of(context).pushNamed(MaterialPageRoute(builder: (context) => const SamplePage()));", "Navigator.push(context, '/sample');", "MaterialPageRoute.push(context, const SamplePage());"],
+      "answer": 0,
+      "commentary": "直接ウィジェットを指定して遷移する場合は Navigator.of(context).push() と MaterialPageRoute を組み合わせます。"
+    },
+    {
+      "id": 15,
+      "type": "用語理解",
+      "question": "Navigatorにおける「stack（スタック）」形式の特徴を正しく説明しているものはどれですか？",
+      "options": ["最初に入れたものが最初に出てくる", "最後に入れたものが最初に出てくる（後入れ先出し）", "順番に関係なく取り出せる", "古いデータは自動的に削除される"],
+      "answer": 1,
+      "commentary": "後に入れたものが上に来て、最初に取り出される構造をスタックといいます。"
+    },
+    {
+      "id": 16,
+      "type": "コード穴埋め",
+      "question": "MaterialPageRouteを使用する際、遷移先のウィジェットを返す関数を設定するプロパティは何ですか？<pre><code>MaterialPageRoute(\n  ___: (context) => const SamplePage(),\n)</code></pre>",
+      "options": ["home", "child", "builder", "view"],
+      "answer": 2,
+      "commentary": "builder プロパティに、遷移先ウィジェットを生成する関数を渡します。"
+    },
+    {
+      "id": 17,
+      "type": "用語理解",
+      "question": "AppBar の左側にウィジェットを表示するために使うプロパティは何ですか？",
+      "options": ["actions", "leading", "title", "bottom"],
+      "answer": 1,
+      "commentary": "leading プロパティを使うと、アプリバーの左端にボタンなどを設置できます。"
+    },
+    {
+      "id": 18,
+      "type": "用語理解",
+      "question": "AppBar の右側にウィジェットのリストを表示するために使うプロパティは何ですか？",
+      "options": ["leading", "actions", "list", "rightItems"],
+      "answer": 1,
+      "commentary": "actions プロパティは、アプリバーの右側に表示するウィジェットのリストを受け取ります。"
+    },
+    {
+      "id": 19,
+      "type": "実行結果予測",
+      "question": "次のコードを実行したとき、ターミナルには何が表示されますか？<pre><code>IconButton(\n  onPressed: () {\n    debugPrint('Hello');\n  },\n  icon: Icon(Icons.abc)\n)</code></pre>",
+      "options": ["画面にHelloと表示される", "通知が1増える", "ターミナル（コンソール）にHelloと表示される", "エラーになる"],
+      "answer": 2,
+      "commentary": "debugPrint() はデバッグ用の情報をコンソールに出力する命令です。"
+    },
+    {
+      "id": 20,
+      "type": "用語理解",
+      "question": "画面遷移した際、AppBarに自動で「＜」などの戻るアイコンが表示されるのはなぜですか？",
+      "options": ["leadingプロパティに何も指定せず、遷移の履歴が存在するから", "MaterialAppが自動で戻るボタンを作るから", "Scaffoldが画面遷移を検知してボタンを描画するから", "Navigatorにそういう設定があるから"],
+      "answer": 0,
+      "commentary": "leading が未設定かつスタックに前の画面がある場合、Flutter が親切に自動で戻るボタンを置いてくれます。"
+    },
+    {
+      "id": 21,
+      "type": "コード穴埋め",
+      "question": "文字列の中に変数の値を埋め込む（文字列補完）ための記号は何ですか？<pre><code>Text('通知 ( ___ notificationCount )')</code></pre>",
+      "options": ["#", "&", "$", "@"],
+      "answer": 2,
+      "commentary": "Dart では $ 記号を使って、文字列の中に変数の値を直接記述できます。"
+    },
+    {
+      "id": 22,
+      "type": "文法チェック",
+      "question": "StatefulWidget において、実際の UI（見た目）を構築する build メソッドが記述されているのはどのクラスですか？",
+      "options": ["StatefulWidgetを継承したクラス", "Stateを継承したクラス", "MyAppクラス", "StatelessWidgetクラス"],
+      "answer": 1,
+      "commentary": "動的ウィジェットでは、ウィジェット本体のクラスと、UI構築や状態管理を行う State クラスのペアで作られます。"
+    },
+    {
+      "id": 23,
+      "type": "実行結果予測",
+      "question": "setState() を使わずに変数の値だけを書き換えた場合、画面はどうなりますか？",
+      "options": ["即座に更新される", "画面上の表示は変わらない", "アプリが強制終了する", "自動で1秒後に更新される"],
+      "answer": 1,
+      "commentary": "setState() を呼ばないと、Flutter は画面を再描画（リビルド）すべきタイミングを知ることができません。"
+    },
+    {
+      "id": 24,
+      "type": "用語理解",
+      "question": "画面遷移の文脈で「 Route（ルート）」とは何を指しますか？",
+      "options": ["インターネットの経路", "スタックに積まれる画面の情報", "アプリの保存場所", "ボタンの形"],
+      "answer": 1,
+      "commentary": "Flutter での Route クラスは、一つの画面やページに対応する情報を保持します。"
+    },
+    {
+      "id": 25,
+      "type": "文法チェック",
+      "question": "MaterialPageRoute の builder プロパティに渡す関数の引数は、通常何という変数名にしますか？",
+      "options": ["state", "route", "context", "data"],
+      "answer": 2,
+      "commentary": "位置情報やテーマ情報を持つ BuildContext（context）が渡されます。"
+    },
+    {
+      "id": 26,
+      "type": "コード穴埋め",
+      "question": "MaterialPageRoute を使い、遷移先のコンストラクタで直接データを渡す際、遷移先クラス（SamplePage）の定義で必要なキーワードは何ですか？<pre><code>class SamplePage extends StatelessWidget {\n  const SamplePage({\n    super.key,\n    ___ this.headline,\n  });\n  final String headline;\n}</code></pre>",
+      "options": ["final", "required", "static", "optional"],
+      "answer": 1,
+      "commentary": "データを必須にする場合はコンストラクタで required を付けます。"
+    },
+    {
+      "id": 27,
+      "type": "実行結果予測",
+      "question": "スタックに A -> B -> C の順で画面が積まれているとき、pop() を2回呼ぶとどの画面が表示されますか？",
+      "options": ["C", "B", "A", "真っ白な画面"],
+      "answer": 2,
+      "commentary": "C を pop すると B になり、B を pop すると A が残ります。"
+    },
+    {
+      "id": 28,
+      "type": "用語理解",
+      "question": "FloatingActionButton を Scaffold のどのプロパティに設定すると、画面右下にボタンが表示されますか？",
+      "options": ["body", "appBar", "floatingActionButton", "bottomNavigationBar"],
+      "answer": 2,
+      "commentary": "Scaffold の floatingActionButton プロパティを使うと、画面に浮いているようなボタンを簡単に配置できます。"
+    },
+    {
+      "id": 29,
+      "type": "コード穴埋め",
+      "question": "アイコンウィジェットを表示する際の正しい記述はどれですか？<pre><code>icon: ___ (Icons.arrow_forward)</code></pre>",
+      "options": ["IconButton", "Image", "Icon", "Asset"],
+      "answer": 2,
+      "commentary": "標準のアイコンを表示するには Icon ウィジェットを使います。"
+    },
+    {
+      "id": 30,
+      "type": "用語理解",
+      "question": "「後入れ先出し法（LIFO）」という言葉が使われるデータ構造は何ですか？",
+      "options": ["リスト", "スタック", "マップ", "キュー"],
+      "answer": 1,
+      "commentary": "最後に入れたものが最初に出てくる（Last-In First-Out）のがスタックの仕組みです。"
+    },
+    {
+      "id": 31,
+      "type": "実行結果予測",
+      "question": "initialRoute を設定し、かつ home プロパティも設定したままの場合、エラーになる可能性があります。推奨される対応はどれですか？",
+      "options": ["homeプロパティをコメントアウトする", "パスを空文字にする", "画面を1つだけにする", "両方そのままにする"],
+      "answer": 0,
+      "commentary": "名前付きルートを使う場合は、home ではなく initialRoute を使用するのが一般的です。"
+    },
+    {
+      "id": 32,
+      "type": "用語理解",
+      "question": "IconButton ウィジェットで、表示するアイコンを指定するプロパティは何ですか？",
+      "options": ["image", "child", "icon", "content"],
+      "answer": 2,
+      "commentary": "IconButton は icon プロパティに Icon ウィジェットなどを指定します。"
+    },
+    {
+      "id": 33,
+      "type": "コード穴埋め",
+      "question": "デバッグ用のメッセージを表示する関数の名前は何ですか？<pre><code> ___ ('表示したい文字');</code></pre>",
+      "options": ["printDebug", "logPrint", "debugPrint", "trace"],
+      "answer": 2,
+      "commentary": "Flutter/Dart でのデバッグ出力には debugPrint() がよく使われます。"
+    },
+    {
+      "id": 34,
+      "type": "用語理解",
+      "question": "StatefulWidget において、実際の「状態」を保持するクラスはどれですか？",
+      "options": ["ウィジェットクラス", "状態クラス（Stateを継承したクラス）", "Scaffoldクラス", "Navigatorクラス"],
+      "answer": 1,
+      "commentary": "データや変数の値を保持するのは State クラスの役割です。"
+    },
+    {
+      "id": 35,
+      "type": "文法チェック",
+      "question": "MaterialPageRoute の builder に記述する関数の引数が不要な場合でも省略はできません。正しい書き方はどれですか？",
+      "options": ["builder: () => const Page()", "builder: (context) => const Page()", "builder: (Page())", "builder: const Page()"],
+      "answer": 1,
+      "commentary": "builder プロパティは (BuildContext) を引数に取る関数を期待します。"
+    },
+    {
+      "id": 36,
+      "type": "用語理解",
+      "question": "Navigator.of(context) における context は何のために必要ですか？",
+      "options": ["画面の背景色を決めるため", "ウィジェットツリー内での位置を特定し、Navigatorを探すため", "ユーザーの名前を保存するため", "インターネットに接続するため"],
+      "answer": 1,
+      "commentary": "BuildContext (context) は、Navigator ウィジェットがアプリのどこにあるかを探すための地図のような役割をします。"
+    },
+    {
+      "id": 37,
+      "type": "実行結果予測",
+      "question": "notificationCount が 1 のとき、setState 内で notificationCount-- を実行すると、画面上の Text('通知 ($notificationCount)') はどうなりますか？",
+      "options": ["通知 (1)", "通知 (0)", "通知 (-1)", "通知 (5)"],
+      "answer": 1,
+      "commentary": "1 から 1 減って 0 になり、再描画によって画面も 0 に更新されます。"
+    },
+    {
+      "id": 38,
+      "type": "コード穴埋め",
+      "question": "Scaffold の中で、画面の中央に配置するためのウィジェットは何ですか？<pre><code>body: ___ ( \n  child: Text('Hello'),\n)</code></pre>",
+      "options": ["Middle", "Center", "Column", "Stack"],
+      "answer": 1,
+      "commentary": "子ウィジェットを上下左右の中央に置くには Center ウィジェットを使います。"
+    },
+    {
+      "id": 39,
+      "type": "用語理解",
+      "question": "Flutterアプリ開発において、ウィジェットのファイルを「screens」などのフォルダに分ける主な目的は何ですか？",
+      "options": ["アプリの動作速度を上げるため", "コードの可読性や管理しやすさを向上させるため", "画像を表示できるようにするため", "メモリを節約するため"],
+      "answer": 1,
+      "commentary": "一つのファイルが長くなりすぎるのを防ぎ、機能ごとに整理して管理するためです。"
+    },
+    {
+      "id": 40,
+      "type": "文法チェック",
+      "question": "コンストラクタ引数で `super.key` を渡す正しい構文はどれですか？",
+      "options": ["const MyWidget(this.key);", "const MyWidget({super.key});", "const MyWidget({required key});", "const MyWidget(key);"],
+      "answer": 1,
+      "commentary": "最近の Flutter では `const MyWidget({super.key});` という簡潔な記述が推奨されています。"
+    }
+  ]
 }
