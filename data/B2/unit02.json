@@ -108,7 +108,7 @@
     {
       "id": 14,
       "type": "コード穴埋め",
-      "question": "名前付き引数を使用する場合、関数の定義で引数を囲む記号は何ですか？<pre><code>void func({___ int age}) { ... }</code></pre>",
+      "question": "名前付き引数を使用する場合、関数の定義で引数を囲む記号は何ですか？<pre><code>void func( ___ int age ___ ) { ... }</code></pre>",
       "options": ["( )", "[ ]", "{ }", "< >"],
       "answer": 2,
       "commentary": "名前付き引数は波かっこ { } で囲んで定義します。"
